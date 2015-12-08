@@ -1,0 +1,48 @@
+input[type='radio']:focus, input[type='checkbox']:focus{
+    outline: none !important;
+    border: none !important;
+}
+
+#survey_container input[type='checkbox'], #sf_survey_body input[type='radio'] {        
+    background: none;
+    margin: 0 auto;
+}
+
+#survey_container .likert_scale_table input[type='checkbox'], #sf_survey_body .likert_scale_table input[type='radio'],       
+#survey_container .importance_table input[type='checkbox'], #sf_survey_body .importance_table input[type='radio'] {      
+    float: none;
+    display: block;
+    height: auto !important;
+    width: auto !important;
+}
+
+#survey_container .pick_one_table .po_answer_cell{
+    width: auto;
+}
+
+#survey_container .pick_one_table input{
+    display: inline;
+}
+
+#survey_container .pick_one_table label{
+    display: inline;
+}
+
+#sf_survey_body .pick_many_table input[type='radio'], #sf_survey_body .pick_many_table input[type='checkbox'], #sf_survey_body  .pick_one_table input[type='radio'], #sf_survey_body .pick_one_table input[type='checkbox']{
+    padding-top: 6px;
+} 
+
+#sf_survey_body  .pick_one_table input[type='radio']+label, #sf_survey_body .pick_one_table input[type='checkbox']+label{
+    background: none;
+} 
+
+#sf_survey_body input[type='radio']+label, #sf_survey_body input[type='checkbox']+label {
+    background: none;         
+}
+
+#sf_survey_body  .likert_scale_table input[type='radio']+label, #sf_survey_body .likert_scale_table input[type='checkbox']+label,
+#sf_survey_body  .importance_table input[type='radio']+label, #sf_survey_body .importance_table input[type='checkbox']+label{
+    background: none; 
+    width: 0;
+    display: none;
+}

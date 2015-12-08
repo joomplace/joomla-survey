@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field name="package_file" type="file" class="input-xlarge" size="30"
+			label="COM_SURVEYFORCE_PACKAGE_FILE"
+			required="true" labelclass="control-label" accept="application/zip" />
+	</fieldset>
+</form>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+         <fieldset>
+                 <field name="id" type="hidden"/>
+                 <field name="email_subject" type="text" class="input-xlarge" size="30"
+                         label="COM_SURVEYFORCE_SUBJECT"
+                        required="true" labelclass="control-label" />
+
+                <field name="email_reply" type="text" class="input-xlarge" size="30"
+                         label="COM_SURVEYFORCE_REPLY_TO"
+                         required="false" labelclass="control-label" />
+
+                <field name="email_body" type="editor" buttons="true" hide="pagebreak,readmore,testimonial"
+                        class="inputbox"
+                        filter="safehtml"
+                        label="COM_SURVEYFORCE_BODY" required="true" />
+        </fieldset>
+ </form>

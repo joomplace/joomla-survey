@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field name="id" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+			readonly="true" class="readonly" />
+
+		<field name="sf_catname" type="text" class="input-xlarge" size="30"
+			label="COM_SURVEYFORCE_CATEGORY_CAPTION"
+			required="true" labelclass="control-label" />
+
+		<field name="t_author" type="text" class="input-xlarge" size="30"
+			label="COM_SURVEYFORCE_CATEGORY_AUTHOR"
+			required="true" labelclass="control-label" />
+		
+		<field name="user_id_t" type="user" class="input-medium"
+			label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_Desc" />
+
+		<field name="category" type="editor" buttons="true" hide="pagebreak,readmore,testimonial"
+			class="inputbox"
+			filter="safehtml"
+			label="COM_SURVEYFORCE_CATEGORY_CATEGORY" required="true" />		
+
+		<field
+			name="date_added"
+			type="calendar"
+			label="COM_SURVEYFORCE_FORM_PUBLISH_DATE"
+			description=""
+			format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc"
+			class="input-medium"
+			/>
+			
+		<field
+			name="published"
+			type="radio"
+			label="JGLOBAL_STATE"
+			description="COM_SURVEYFORCE_CATEGORY_PUBLISH_DESC"
+			class="btn-group"
+			default="1">
+			<option	value="1">JPUBLISHED</option>
+			<option	value="0">JUNPUBLISHED</option>
+		</field>
+
+		
+		
+		<field name="rules" type="rules" label="JFIELD_RULES_LABEL"
+			translate_label="false" class="inputbox" filter="rules"
+			component="com_surveyforce" section="topics" validate="rules"
+		/>	
+	</fieldset>
+
+
+</form>

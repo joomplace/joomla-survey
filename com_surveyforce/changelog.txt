@@ -1,0 +1,318 @@
+﻿//================================================================================\\
+||      ---------------- 3.1.0 Released -- [17-Dec-2013] ------------------       ||
+\\================================================================================//
++ Added Joomla! 3.0 compatibility
+
+
+//================================================================================\\
+||      ---------------- 3.0.8 Released -- [18-Jan-2013] ------------------       ||
+\\================================================================================//
++ Added two new modern templates
+* Fixed several minor bugs
+
+
+//================================================================================\\
+||      ---------------- 3.0.7 Released -- [17-Dec-2012] ------------------       ||
+\\================================================================================//
+Added auto-upgrade notification
+Added the ability to show custom message together with results on the Final page
+Added the ability to build troubleshooter based on the component
+Added the ability to disable Prev button during survey
+Added the redirection option after the survey
+
+
+//================================================================================\\
+||      ---------------- 3.0.6 Released -- [22-Aug-2012] ------------------       ||
+\\================================================================================//
+Added Community Builder Plug-in
+
+
+//================================================================================\\
+||      ---------------- 3.0.5 Released -- [10-July-2012] ------------------      ||
+\\================================================================================//
+Added the integration with AlphaUserPoints with Joomla 1.5 - 2.5
+
+
+//================================================================================\\
+||      ---------------- 3.0.4 Released -- [30-April-2012] ------------------     ||
+\\================================================================================//
+Added the ability to translate Back-end of the component to the needed language
+
+
+//================================================================================\\
+||      ---------------- 3.0.3 Released -- [27-March-2012] ------------------     ||
+\\================================================================================//
+Joomla! 2.5 compatible release
+
+
+//================================================================================\\
+||      ---------------- 3.0.2 Released -- [17-Nov-2011] ------------------       ||
+\\================================================================================//
+#Added: Compulsory button in questions list
+
+
+//================================================================================\\
+||      ---------------- 3.0.1 Released -- [17-August-2011] ------------------    ||
+\\================================================================================//
+Joomla 1.7 compatible version
+
+
+//================================================================================\\
+||      ---------------- 2.2.6 Released -- [21-October-2010] ------------------   ||
+\\================================================================================//
+^ Changed : Menu management is redone to support standard way in Joomla 1.5
+(it's possible to create a menu item for a survey or category).
+
+
+//================================================================================\\
+||      ---------------- 2.2.5 Released -- [12-October-2010] ------------------   ||
+\\================================================================================//
+^ Added : New plugin for editor allows easily to insert a survey in article.
+
+
+//================================================================================\\
+||      ---------------- 2.2.4 Released -- [16-August-2010] ------------------    ||
+\\================================================================================//
+^ Added : Brazilian portuguese language file (pt-BR.com_surveyforce.ini).
+
+
+//================================================================================\\
+||      ---------------- 2.2.3 Released -- [5-August-2010] ------------------     ||
+\\================================================================================//
+^ Changed : SurveyForce language system to Joomla! default language sustem
+  (with ini-files).
+
+
+//================================================================================\\
+||      ---------------- 2.2.2 Released -- [14-July-2010] ------------------      ||
+\\================================================================================//
+# Added : Integration with JomSocial (with special plugin).
+^ Changed : Improved graphical view of user results (pie/bar charts).
+# Fixed : Some bugs.
+
+
+//================================================================================\\
+||      ---------------- 2.2.1 Released -- [9-March-2010] ------------------      ||
+\\================================================================================//
+# Added : Content plugin for Surveys.
+# Added : Support for content plugins.
+# Fixed : Some bugs.
+
+
+//================================================================================\\
+||      ---------------- 2.2.0 Released -- [9-March-2009] ------------------      ||
+\\================================================================================//
+# Added : Survey templates.
+# Added : Preview survey option for administrator and authors.
+# Added : Option for email notifications.
+# Added : IP address and/or cookies control for unregistered users.
+^ Changed : Last page's button name from Next to Submit.
+# Fixed : Some bugs.
+
+
+//================================================================================\\
+||      ---------------- 2.1.1 Released -- [18-December-2008] ------------------  ||
+\\================================================================================//
+# Added : Ability to set maximum of checked options for `Pick Many` question.
+# Fixed : Some bugs.
+
+
+//================================================================================\\
+||      ---------------- 2.1.0 Released -- [19-September-2008] ------------------ ||
+\\================================================================================//
+# Added : Joomla 1.5.x native.
+# Added : Ability to invite users to authors.
+# Added : Ability to take own surveys to authors.
+^ Changed : Licensing system.
+
+
+//================================================================================\\
+|| 	    ---------------- 2.0.15 Released -- [21-August-2008] ------------------   ||
+\\================================================================================//
+# Added : Ability to select voting options for invited and registered users
+  (See chapter "1.2 Surveys" in the Help).
+
+
+//================================================================================\\
+||      ---------------- 2.0.14 Released -- [18-August-2008] ------------------   ||
+\\================================================================================//
+^ Changed : New PDF generator.
+^ Fixed : Problems with unicode characters.
+
+
+//================================================================================\\
+||      ---------------- 2.0.13 Released -- [17-July-2008] ------------------     ||
+\\================================================================================//
+^ Fixed : Removed ability to copy questions in not own surveys for authors.
+^ Fixed : Problems with some WYSIWYG-editors.
+
+
+//================================================================================\\
+||      ---------------- 2.0.12 Released -- [03-July-2008] ------------------     ||
+\\================================================================================//
+^ Changed : Improved tables structure.
+
+
+//================================================================================\\
+||      ---------------- 2.0.11 Released -- [22-May-2008] ------------------      ||
+\\================================================================================//
+# Added : Ability to generate csv-file with invitations links.
+# Added : New type of report - PDF(sum).
+# Added : New type of report - PDF(sum %).
+# Added : New improvements in FE part.
+# Fixed : Problems with char encoding in PDF reports.
+# Fixed : Problem with Drag'n'Drop question.
+
+
+//================================================================================\\
+||      ---------------- 2.0.10 Released -- [28-March-2008] ------------------    ||
+\\================================================================================//
+# Added : New type of question rules ("do not show question if...").
+^ Changed : Front-end CSS file: added new classes for elements.
+# Fixed : Problem with question's ordering when question copied.
+
+
+//================================================================================\\
+||      ---------------- 2.0.9 Released -- [29-Feb-2008] ------------------       ||
+\\================================================================================//
+# Added : Joomla! 1.5.1 compatibility (legacy mode).
+# Added : Drop-down style for Pick One question type.
+# Added : Ability to include additional info to Advanced CSV report.
+# Added : Ability to use additional unconditional rule (see help for more
+  information).
+
+
+//================================================================================\\
+||      ---------------- 2.0.8 Released -- [19-Feb-2008] ------------------       ||
+\\================================================================================//
+# Fixed : Some problems with Safari browser.
+
+
+//================================================================================\\
+||      ---------------- 2.0.7 Released -- [28-Jan-2008] ------------------       ||
+\\================================================================================//
+# Added : Mambo 4.6.3 compatibility.
+# Added : Left JoomPlace menu.
+
+
+//================================================================================\\
+||      ---------------- 2.0.6 Released -- [12-Jan-2008] ------------------       ||
+\\================================================================================//
+# Added : Ability to use CSS for questions elements.
+
+
+//================================================================================\\
+||      ---------------- 2.0.5 Released -- [13-Dec-2007] ------------------       ||
+\\================================================================================//
+# Added : Ability to use HTML into emails.
+# Fixed : Problem with MySQL 5 syntax features.
+
+
+//================================================================================\\
+||      ---------------- 2.0.4 Released -- [21-Nov-2007] ------------------       ||
+\\================================================================================//
+# Added : Ability to publish/unpublish questions.
+
+
+//================================================================================\\
+||      ---------------- 2.0.3 Released -- [17-Nov-2007] ------------------       ||
+\\================================================================================//
+# Fixed : Problem with question ordering save.
+# Fixed : Problem with question's rules save.
+
+
+//================================================================================\\
+||      ---------------- 2.0.2 Released -- [07-Nov-2007] ------------------       ||
+\\================================================================================//
+# Fixed : Problem with result show.
+# Fixed : Problem with selecting questions in question's rules.
++ Added : Option in Section of questions allowing adding Section's name to
+  question' text.
+
+
+//================================================================================\\
+||      ---------------- 2.0.1 Released -- [04-Jul-2007] ------------------       ||
+\\================================================================================//
++ Added : New question type - Ranking.
++ Added : For questions PickOne, PickMany and Ranking option 'Other' with inputbox.
++ Added : Progress Bar.
++ Added : For Likert Scale question - Factor Name.
++ Added : Short Answer question - ability to insert many inputboxes to question text
+
+
+//================================================================================\\
+||      ---------------- 2.0.0 Released -- [29-Jun-2007] ------------------       ||
+\\================================================================================//
+Brand new version released with a lot of new functions:
+New F.E. user-usability features:
+- Prev/Next question navigation.
+- Ability to put some questions on the page.
+- BoilerPlate (explanations) question type is added.
+- Compulsory/optional questions.
+- Returning of the user to the latest not answered question after exiting from
+  survey (or closing a browser).
+
+New Survey Engine features:
+- WYSISWYG editor to create your own question text layout.
+- Customizable 'Finish page', with ability to show summary user results in
+  graphical view (with pie/bar charts)
+- FIX: Ability to edit survey questions without old problems with losing users
+  results
+- New tool for sending invitations with pauses between mail sends.
+- New survey reports: CrossTab report, new CSV reports. Ability to view overall
+  results for the survey with pie/bar charts.
+- New user role: Survey authors. Ability for selected users to create/edit surveys
+  from the F.E. interface.
+- JoomlaLMS integration. Ability for JoomlaLMS teacher to create their own suveys.
+- Administrator/Author can set default answers for questions.
+- Improved rules/branching functions.
+- Added Survey expiration date for automation.
+And many other bug fixes & interface improvements.
+
+
+//================================================================================\\
+||      ---------------- [06-Mar-2007] ------------------------------------       ||
+\\================================================================================//
+ F.A.Q. updated
+
+ 
+//================================================================================\\
+||      ---------------- 1.0.6 Released -- [02-Feb-2007] ------------------       ||
+\\================================================================================//
+ # Fixed : Problem with embedded quotas and commas in CSV reports.
+ # Fixed : Problem when adding slashes to quotes in question options and rules.
+ ^ Changed : Survey component layout.
+
+ 
+//================================================================================\\
+||      ---------------- 1.0.5 Released -- [10-Jan-2007] ------------------       ||
+\\================================================================================//
+ + Added : New CSV report.
+
+ 
+//================================================================================\\
+||      ---------------- 1.0.4 Released -- [13-Nov-2006] ------------------       ||
+\\================================================================================//
+ # Fixed : Problem with the server request occurs solved.
+ # Fixed : Problem with the survey availability for invited users.
+ ^ Changed : Survey component layout.
+ ^ Changed : LikertScale question layout.
+
+ 
+//================================================================================\\
+||      ---------------- 1.0.3 Released -- [18-Sep-2006] ------------------       ||
+\\================================================================================//
+ + Added : The Question rules are copying  too, while copying the survey(question).
+ 
+ 
+//================================================================================\\
+||      ---------------- 1.0.2 Released -- [09-Sep-2006] ------------------       ||
+\\================================================================================//
+ # Fixed : Ajax permission error.
+ ^ Changed : CSV-format report.
+
+ 
+//================================================================================\\
+||      ---------------- 1.0.1 Released -- [07-Sep-2006] ------------------       ||
+\\================================================================================//
+ # Fixed : OpenSEF ready.

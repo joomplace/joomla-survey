@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field name="sf_name" type="text" class="input-xlarge" size="30"
+			label="COM_SURVEYFORCE_SECTION_NAME"
+			required="true" labelclass="control-label" />
+
+    <field
+            name="addname"
+            type="radio"
+            class="btn-group"
+            label="COM_SURVEYFORCE_ADDNAME"
+            labelclass="control-label"
+            default="0">
+            <option value="0">COM_SURVEYFORCE_NO</option>
+            <option value="1">COM_SURVEYFORCE_YES</option>
+        </field>
+
+      <field name="sf_survey_id" type="sql" query="SELECT DISTINCT(id) AS value, sf_name AS text FROM #__survey_force_survs" multiple="single" key_field="value" value_field="text" class="inputbox" labelclass="control-label" label="COM_SURVEYFORCE_SURVEY" required="false" />
+
+
+	</fieldset>
+</form>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="community" method="upgrade">
+	<name>SurveyForce JomSocial</name>
+	<author>JoomPlace Team</author>
+	<creationDate>Januar 2014</creationDate>
+	<copyright>(C) JoomPlace, www.joomplace.com</copyright>
+	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
+	<authorEmail>support@joomplace.com</authorEmail>
+	<authorUrl>www.joomplace.com</authorUrl>
+	<version>2.0</version>
+	<isapplication>true</isapplication>
+	<description>
+		Plugin allows user to create surveys using component SurveyForce Deluxe.
+	</description>
+	<languages>
+	    <language tag="en-GB">en-GB.plg_surveyforce.ini</language>
+	</languages>
+	<files>
+		<file plugin="surveyforce">surveyforce.php</file>
+		<folder>surveyforce</folder>
+	</files>	
+	<menuitem>
+		<menu label="Inbox" position="toolbar">
+			<link label="Inbox">task=inbox</link>
+			<link label="Compose">task=compose</link>
+		</menu>
+	</menuitem>	
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="coreapp" type="list" default="0" label="Core Application" description="Causes this application to not appear in the users applications list but it will allow this application to appear in the user profile automatically if selected.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+	<params>
+		<param name="coreapp" type="list" default="0" label="Core Application" description="Causes this application to not appearin the users applications list but it will allow this application to appear in the user profile automatically if selected.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this plugin">
+			<option value="1">Use Global</option>
+			<option value="0">No</option>
+		</param>
+	</params>
+</extension>

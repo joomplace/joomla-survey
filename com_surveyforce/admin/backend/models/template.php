@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Survey Force Deluxe component for Joomla 3 3.0
+ * @package Survey Force Deluxe
+ * @author JoomPlace Team
+ * @Copyright Copyright (C) JoomPlace, www.joomplace.com
+ * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+ */
+defined('_JEXEC') or die('Restricted access');
+
+jimport('joomla.application.component.modeladmin');
+
+class SurveyforceModelTemplate extends JModelAdmin {
+
+    protected $context = 'com_surveyforce';
+
+	public function getTable($type = 'Template', $prefix = 'SurveyforceTable', $config = array()) {
+		return JTable::getInstance($type, $prefix, $config);
+	}
+
+	public function getForm($data = array(), $loadData = true) {
+		$form = $this->loadForm('com_surveyforce.template', 'template', array('control' => 'jform', 'load_data' => false));
+		if (empty($form)) {
+			return false;
+		}
+
+		$item = $this->getItem();
+		$form->bind($item);
+
+		return $form;
+	}
+
+	public function getItem( $id = null ) {
+		jimport('joomla.filesystem.file');
+		if ( $item = parent::getItem( $id ) ) {
+			//surveyforce.css
+			if ( file_exists(JPATH_COMPONENT_SITE.'/templates/'.$item->sf_name.'/css/surveyforce.css') )
+				$item->filepath = JPATH_COMPONENT_SITE.'/templates/'.$item->sf_name.'/css/surveyforce.css';
+			else
+				$item->filepath = JPATH_COMPONENT_SITE.'/templates/'.$item->sf_name.'/surveyforce.css';
+
+			$item->sf_csscode = JFile::read($item->filepath);
+		}
+		return $item;
+	}
+
+}

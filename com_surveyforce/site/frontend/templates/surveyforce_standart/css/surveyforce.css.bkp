@@ -1,0 +1,275 @@
+div.contentpane.surveyforcse tr, td {
+    border: 1px solid #000000;
+}
+div.contentpane.surveyforce table {
+    border-collapse: separate;
+}
+div.contentpane.surveyforce a:hover, div.contentpane.surveyforce a:focus {
+    background:none !important;
+    color: #000000 !important;
+}
+div.contentpane.surveyforce td.sectiontableheader {
+    background: none repeat scroll 0 0 #EFEFEF;
+    border-right: 1px solid #FFFFFF;
+    color: #333333;
+    font-weight: bold;
+    padding: 4px;
+}
+
+div.contentpane.surveyforce tr.sectiontableentry0 td, tr.sectiontableentry1 td, tr.sectiontableentry2 td {
+    padding: 4px;
+}
+
+div.contentpane.surveyforce td.sectiontableentry0, td.sectiontableentry1, td.sectiontableentry2 {
+    padding: 3px;
+}
+
+
+
+div#survey_container {
+    width:100%;
+    min-height:235px; 
+    height:auto !important;
+}
+
+div#start_div {
+    padding-left: 20px;
+    padding-right: 4x;
+}
+
+td#sf_error_message {
+    text-align: center;
+}
+
+td#td_survey_task {
+    text-align: center;
+}
+
+/*LIKERT SCALE*/
+div.likert_scale_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.likert_scale_table {
+    width: auto;
+    border:1px solid !important;	
+}
+table.likert_scale_table td {
+    padding: 2px;
+}
+table.likert_scale_table td.ls_factor_name {
+    width: auto;
+    padding-left: 10px;
+
+}
+table.likert_scale_table td.ls_scale_field {
+    width: 10%;
+    text-align:center;
+    border-left:1px solid !important;
+    padding-left: 3px;
+    padding-right: 3px;
+
+}
+table.likert_scale_table td.ls_quest_field {
+    text-align:left;
+    border-top:1px solid !important;
+    padding-left: 5px;
+
+}
+table.likert_scale_table td.ls_answer_cell {
+    text-align:center;
+    border-top:1px solid !important;
+    border-left:1px solid !important;
+    cursor:pointer;
+}
+input.ls_radio {
+    cursor:pointer;
+}
+div.ls_not_selected {
+    color:#FF0000;
+}
+
+/*PICK ONE*/
+div.pick_one_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.pick_one_table {
+    width: 95%;
+}
+td.po_answer_cell {
+    width: 20px;
+    text-align:left;
+}
+td.po_quest_cell {
+    text-align:left;
+}
+input.po_radio {
+    cursor:pointer;
+}
+input.po_other {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+select.po_select {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+/*PICK MANY*/
+div.pick_many_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.pick_many_table {
+    width: 95%;
+}
+td.pm_answer_cell {
+    width: 20px;
+    text-align:left;
+}
+td.pm_quest_cell {
+    text-align:left;
+}
+input.pm_checkbox {
+    cursor:pointer;
+}
+input.pm_other {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+/*SHORT ANSWER*/
+div.short_ans_div {
+    padding-left:5px;
+    text-align:left;
+}
+textarea.short_ans_textarea {
+    width:75%;
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+input.sa_input_text {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+/*RANKING DROP-DOWN*/
+div.dp_n_dn_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.drop_down_table {
+    width: 95%;
+}
+td.dd_left_cell {
+    width: 40%;
+    text-align:left;
+}
+td.dd_right_cell {
+    text-align:left;
+}
+select.dd_select {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+option.dd_option {
+    /*nothing*/
+}
+
+/*RANKING DRAG-AND-DROP*/
+div.drag_drop_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.drag_drop_table {
+    /*nothing*/
+}
+
+/*RANKING*/
+div.ranking_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.ranking_table {
+    width: 95%;
+}
+td.r_left_cell {
+    width: 40%;
+    text-align:left;
+}
+td.r_right_cell {
+    text-align:left;
+}
+select.r_select {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+option.r_option {
+    /*nothing*/
+}
+input.r_other {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+/*IMPORTANCE SCALE*/
+div.importance_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.importance_table {
+    width: 95%;
+    border:1px solid !important;
+    border-left: none;
+}
+table.importance_table td {
+    padding: 2px;
+}
+table.importance_table td.i_quest {
+    width: auto;
+    text-align:left;
+    border-bottom: 1px solid !important;
+    border-left: 1px solid !important;
+    padding-left:5px;
+    background:#EEEEEE;
+}
+table.importance_table td.i_text_cell {
+    text-align:center;
+    border-bottom: 1px solid !important;
+    border-left: 1px solid !important;
+    cursor: pointer;
+}
+table.importance_table td.i_ans_cell {
+    text-align:center;
+    border-left: 1px solid !important;
+    cursor: pointer;
+}
+input.i_radio {
+    cursor: pointer;
+}
+
+td#sf_progressbar {
+    padding-left:5px;
+    padding-right:5px;
+}
+
+div#progress {
+    width: 100%;
+}
+
+div#progress_bar_txt {
+    text-align:center;
+}
+
+label {
+    cursor:pointer;
+}

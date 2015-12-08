@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset>
+        <field name="id" type="hidden"/>
+
+		<field name="sf_author" type="user" label="Author" filter="unset" />
+        <field name="sf_name" type="text" class="input-xlarge" size="30" label="COM_SURVEYFORCE_NAME_FIELD" required="true" labelclass="control-label"/>
+        <field name="sf_redirect_url" type="text" class="input-xlarge" size="30" label="COM_SURVEYFORCE_REDIRECT_TO_THIS_URL" labelclass="control-label"/>
+        <field name="sf_redirect_delay" type="text" size="10" label="COM_SURVEYFORCE_DELAY_BEFORE_REDIRECTION" labelclass="control-label"/>
+        <field name="sf_descr" type="editor" buttons="true" hide="pagebreak,readmore,testimonial" class="inputbox" filter="raw" label="COM_SURVEYFORCE_SURVEY_DESCRIPTION"/>
+        <field name="surv_short_descr" type="editor" buttons="true" hide="pagebreak,readmore" class="inputbox" filter="safehtml" label="COM_SURVEYFORCE_SHORT_DESCRIPTION"/>
+        <field name="sf_fpage_text" type="editor" buttons="true" hide="pagebreak,readmore" class="inputbox" filter="safehtml" label="COM_SURVEYFORCE_FINAL_PAGE_TEXT" required="false" default="End of the survey - Thank you for your time."/>
+        <field name="sf_enable_descr" type="radio" label="COM_SURVEYFORCE_ENABLE_WELCOME" labelclass="control-label" class="btn-group" default="1">
+            <option value="1">COM_SURVEYFORCE_YES</option>
+            <option value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_image" type="media" class="input-xlarge" size="30" label="COM_SURVEYFORCE_IMAGE" labelclass="control-label"/>
+        <field name="sf_progressbar" type="radio" class="btn-group" label="COM_SURVEYFORCE_SHOW_PROGRESS" labelclass="control-label" default="1">
+            <option value="1">COM_SURVEYFORCE_YES</option>
+            <option value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_progressbar_type" type="list" label="COM_SURVEYFORCE_TYPE" labelclass="control-label" default="1">
+            <option value="1">COM_SURVEYFORCE_COUNT_BY_QUESTIONS</option>
+            <option value="0">COM_SURVEYFORCE_COUNT_BY_PAGES</option>
+        </field>
+        <field name="sf_public" type="radio" class="btn-group" label="COM_SF_PUBLIC" labelclass="control-label" default="1" description="COM_SURVEYFORCE_PUBLIC_DESCRIPTION">
+            <option value="1">COM_SURVEYFORCE_YES</option>
+            <option value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_auto_pb" type="radio" class="btn-group" label="COM_SURVEYFORCE_AUTO_INSERT_PAGE_BREAK" labelclass="control-label" default="1">
+            <option value="1">COM_SURVEYFORCE_YES</option>
+            <option value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_anonymous" type="radio" class="btn-group" label="COM_SURVEYFORCE_DO_NOT_STORE_PERSONAL" labelclass="control-label" default="1">
+            <option value="1">COM_SURVEYFORCE_YES</option>
+            <option value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_prev_enable" type="radio" class="btn-group" label="COM_SURVEYFORCE_ENABLE_PREV" labelclass="control-label" default="1">
+            <option value="1">COM_SURVEYFORCE_YES</option>
+            <option value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_invite" type="radio" class="btn-group" label="COM_SF_FOR_INVITED" labelclass="control-label" default="0">
+            <option value="1">COM_SURVEYFORCE_YES</option>
+            <option value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_reg" type="radio" class="btn-group" label="COM_SURVEYFORCE_FOR_REGISTERED" labelclass="control-label" default="0">
+            <option value="1">COM_SURVEYFORCE_YES</option>
+            <option value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_friend" type="radio" class="btn-group" label="COM_SURVEYFORCE_FOR_FRIENDS" labelclass="control-label" default="1">
+            <option value="1">COM_SURVEYFORCE_YES</option>
+            <option value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+        <field 
+			name="sf_special" 
+			type="sql" 
+			query="SELECT DISTINCT(id) AS value, listname AS text FROM #__survey_force_listusers UNION SELECT 0 AS value, 'None' AS listname ORDER BY VALUE" 
+			multiple="single" 
+			key_field="value" 
+			value_field="text" 
+			class="inputbox" 
+			labelclass="control-label" 
+			label="COM_SF_USERLISTS" 
+			required="false"
+		/>
+        <field name="sf_redirect_enable" type="radio" class="btn-group" label="COM_SURVEYFORCE_REDIRECT" labelclass="control-label" default="0">
+            <option value="1">COM_SURVEYFORCE_YES</option>
+            <option value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_template" type="template" class="inputbox" labelclass="control-label" label="COM_SURVEYFORCE_TEMPLATE"/>
+		<field name="sf_date_started" type="calendar" label="COM_SURVEYFORCE_STARTED_ON" description="" format="%Y-%m-%d %H:%M:%S" filter="user_utc" class="input-medium" labelclass="control-label"/>
+        <field name="sf_date_expired" type="calendar" label="COM_SURVEYFORCE_EXPIRED_ON" description="" format="%Y-%m-%d %H:%M:%S" filter="user_utc" class="input-medium" labelclass="control-label"/>
+        <field name="sf_cat" type="categorys" label="COM_SF_PUBLIC" labelclass="control-label"/>
+        <field name="sf_random" type="list" label="COM_SURVEYFORCE_RANDOMIZE_QUESTIONS" labelclass="control-label" default="0">
+            <option value="0">COM_SURVEYFORCE_NO</option>
+            <option value="1">COM_SURVEYFORCE_RANDOMIZE_PAGES</option>
+            <option value="2">COM_SURVEYFORCE_RANDOMIZE_QUESTIONS</option>
+            <option value="3">COM_SURVEYFORCE_RANDOMIZE_PAGES_AND_QUESTIONS</option>
+        </field>
+        <field name="sf_pub_voting" type="list" labelclass="control-label" label="COM_SURVEYFORCE_VOITING" default="0">
+            <option value="0">COM_SURVEYFORCE_MULTIPLE_VOTING</option>
+            <option value="1">COM_SURVEYFORCE_SINGLE_VOTING</option>
+            <option value="2">COM_SURVEYFORCE_SINGLE_VOTING_REPLACE_ANSWERS</option>
+            <option value="3">COM_SURVEYFORCE_SINGLE_VOTING_EDIT_ANSWERS</option>
+        </field>
+        <field name="sf_reg_voting" type="list" label="COM_SURVEYFORCE_VOITING" labelclass="control-label" default="0">
+            <option value="0">COM_SURVEYFORCE_MULTIPLE_VOTING</option>
+            <option value="1">COM_SURVEYFORCE_SINGLE_VOTING</option>
+            <option value="2">COM_SURVEYFORCE_SINGLE_VOTING_REPLACE_ANSWERS</option>
+            <option value="3">COM_SURVEYFORCE_SINGLE_VOTING_EDIT_ANSWERS</option>
+        </field>
+        <field name="sf_friend_voting" type="list" labelclass="control-label" label="COM_SURVEYFORCE_VOITING" default="0">
+            <option value="0">COM_SURVEYFORCE_MULTIPLE_VOTING</option>
+            <option value="1">COM_SURVEYFORCE_SINGLE_VOTING</option>
+            <option value="2">COM_SURVEYFORCE_SINGLE_VOTING_REPLACE_ANSWERS</option>
+            <option value="3">COM_SURVEYFORCE_SINGLE_VOTING_EDIT_ANSWERS</option>
+        </field>
+        <field name="sf_inv_voting" type="list" labelclass="control-label" label="COM_SURVEYFORCE_VOITING" default="0">
+            <option value="0">COM_SURVEYFORCE_MULTIPLE_VOTING</option>
+            <option value="1">COM_SURVEYFORCE_SINGLE_VOTING</option>
+            <option value="2">COM_SURVEYFORCE_SINGLE_VOTING_REPLACE_ANSWERS</option>
+            <option value="3">COM_SURVEYFORCE_SINGLE_VOTING_EDIT_ANSWERS</option>
+        </field>
+        <field name="sf_pub_control" type="list" labelclass="control-label" label="COM_SURVEYFORCE_CONTROL_TYPE" default="0">
+            <option value="0">COM_SURVEYFORCE_NONE</option>
+            <option value="1">COM_SURVEYFORCE_BY_IP_ADDRESS</option>
+            <option value="2">COM_SURVEYFORCE_BY_COOKIE</option>
+            <option value="3">COM_SURVEYFORCE_BOTH_COOKIE_AND_IP</option>
+        </field>
+        <field name="sf_after_start" type="list" labelclass="control-label" label="COM_SURVEYFORCE_IF_SURVEY_PASSED" default="0">
+            <option value="0">COM_SURVEYFORCE_SHOW_WARNING</option>
+            <option value="1">COM_SURVEYFORCE_SHOW_MESSAGE_AND_SURVEY</option>
+        </field>
+        <field name="sf_fpage_type" type="list" labelclass="control-label" label="COM_SURVEYFORCE_FINAL_PAGE" default="1">
+            <option value="1">COM_SURVEYFORCE_SHOW_RESULTS</option>
+            <option value="0">COM_SURVEYFORCE_SHOW_TEXT</option>
+            <option value="2">COM_SURVEYFORCE_SHOW_MESSAGE_AND_SURVEY</option>
+        </field>
+        <field name="asset_id" type="hidden" filter="unset"/>
+        <field name="rules" type="rules" label="COM_SURVEYFORCE_SURVEY_RULES" translate_label="false" class="inputbox" filter="rules" component="com_surveyforce" section="survey" validate="rules"/>
+    </fieldset>
+</form>

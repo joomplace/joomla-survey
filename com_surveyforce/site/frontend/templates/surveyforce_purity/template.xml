@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<surveyforce_install type="template" version="1.0.0">
+    <name>surveyforce_purity</name>
+    <author>JoomPlace Team</author>
+    <creationDate>October 2007</creationDate>
+    <copyright>(C) JoomPlace, www.joomplace.com</copyright>
+    <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
+    <authorEmail>support@joomplace.com</authorEmail>
+    <authorUrl>www.joomplace.com</authorUrl>
+    <version>2.0</version>
+    <description>Additional template for SurveyForce component.</description>
+    <files>
+        <filename>index.html</filename>
+        <filename>surveyforce.css</filename>
+        <filename>choosen.css</filename>
+        <filename>ie.css</filename>
+        <filename>choosen.js</filename>
+        <filename>template.php</filename>
+        <filename>template.xml</filename>
+    </files>
+    <images>
+        <!--you can add some images if need-->
+        <filename>images/index.html</filename>
+        <filename>images/check_off.png</filename>
+        <filename>images/check_on.png</filename>
+        <filename>images/custom_select.png</filename>
+        <filename>images/radio_off.png</filename>
+        <filename>images/radio_on.png</filename>
+    </images>
+</surveyforce_install>

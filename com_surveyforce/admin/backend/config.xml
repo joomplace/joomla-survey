@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<field name="asset_id" type="hidden" filter="unset" />
+	<fieldset name="settings" label="COM_SURVEYFORCE_SETTINGS_GLOBAL">
+
+
+        <field name="sf_image" type="media" class="input-xlarge" size="30"
+               label="COM_SURVEYFORCE_IMAGE"
+               labelclass="control-label" />
+
+        <field name="sf_progressbar"
+               type="radio"
+               class="btn-group"
+               label="COM_SURVEYFORCE_SHOW_PROGRESS"
+               labelclass="control-label"
+               default="1">
+            <option	value="1">COM_SURVEYFORCE_YES</option>
+            <option	value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+
+        <field name="sf_progressbar_type"
+               type="list"
+               label="COM_SURVEYFORCE_TYPE"
+               labelclass="control-label"
+               default="1">
+            <option	value="1">COM_SURVEYFORCE_COUNT_BY_QUESTIONS</option>
+            <option	value="0">COM_SURVEYFORCE_COUNT_BY_PAGES</option>
+        </field>
+
+        <field name="sf_template" type="sql" query="SELECT * FROM #__survey_force_templates" multiple="single" key_field="id" value_field="sf_name" class="inputbox"
+               labelclass="control-label" label="COM_SURVEYFORCE_TEMPLATE" required="false" />
+
+        <field name="sf_random"
+               type="list"
+               label="COM_SURVEYFORCE_RANDOMIZE_QUESTIONS"
+               labelclass="control-label"
+               default="0">
+            <option	value="0">COM_SURVEYFORCE_NO</option>
+            <option	value="1">COM_SURVEYFORCE_RANDOMIZE_PAGES</option>
+            <option	value="2">COM_SURVEYFORCE_RANDOMIZE_QUESTIONS</option>
+            <option	value="3">COM_SURVEYFORCE_RANDOMIZE_PAGES_AND_QUESTIONS</option>
+        </field>
+
+
+        <field name="sf_auto_pb"
+               type="radio"
+               class="btn-group"
+               label="COM_SURVEYFORCE_AUTO_INSERT_PAGE_BREAK"
+               labelclass="control-label"
+               default="1">
+            <option	value="1">COM_SURVEYFORCE_YES</option>
+            <option	value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+
+
+        <field name="sf_public_voting"
+               type="list"
+               labelclass="control-label"
+               label="COM_SURVEYFORCE_VOITING"
+               default="0">
+            <option	value="0">COM_SURVEYFORCE_MULTIPLE_VOTING</option>
+            <option	value="1">COM_SURVEYFORCE_SINGLE_VOTING</option>
+            <option	value="2">COM_SURVEYFORCE_SINGLE_VOTING_REPLACE_ANSWERS</option>
+            <option	value="3">COM_SURVEYFORCE_SINGLE_VOTING_EDIT_ANSWERS</option>
+        </field>
+
+        <field name="sf_pub_control"
+               type="list"
+               labelclass="control-label"
+               label="COM_SURVEYFORCE_CONTROL_TYPE"
+               default="0">
+            <option	value="0">COM_SURVEYFORCE_NONE</option>
+            <option	value="1">COM_SURVEYFORCE_BY_IP_ADDRESS</option>
+            <option	value="2">COM_SURVEYFORCE_BY_COOKIE</option>
+            <option	value="3">COM_SURVEYFORCE_BOTH_COOKIE_AND_IP</option>
+        </field>
+
+
+        <field name="sf_prev_enable"
+               type="radio"
+               class="btn-group"
+               label="COM_SURVEYFORCE_ENABLE_PREV"
+               labelclass="control-label"
+               default="1">
+            <option	value="1">COM_SURVEYFORCE_YES</option>
+            <option	value="0">COM_SURVEYFORCE_NO</option>
+        </field>
+
+        <field name="userlists" type="sql" query="SELECT DISTINCT(id) AS value, listname AS text FROM #__survey_force_listusers" multiple="single" key_field="value" value_field="text" class="inputbox" labelclass="control-label" label="COM_SURVEYFORCE_USERLISTS" required="false" />
+
+
+
+
+
+
+    </fieldset>
+	
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL">
+		<field name="rules" type="rules"
+			component="com_surveyforce"
+			filter="rules"
+			validate="rules"
+			label="JCONFIG_PERMISSIONS_LABEL"
+			section="component" />
+	</fieldset>
+</config>

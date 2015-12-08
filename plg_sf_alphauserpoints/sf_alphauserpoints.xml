@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="system" method="upgrade">
+	<name>System - SurveyForce Alpha User Points</name>
+	<author>Joomplace.com</author>
+	<creationDate>June 2012</creationDate>
+	<copyright>(C) JoomPlace, www.joomplace.com</copyright>
+	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
+ 	<authorEmail>support@joomplace.com</authorEmail> 
+	<authorUrl>www.joomplace.com</authorUrl> 
+	<version>3.0.4</version>
+	<description>JOOMLASURVEYFORCE ALPHA USER POINTS PLUGIN</description>
+	<files>
+		<filename plugin="sf_alphauserpoints">sf_alphauserpoints.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_sf_alphauserpoints.ini</language>
+	</languages>
+	<config>
+        <fields name="params">
+            <fieldset name="basic">
+		<field name="comment" type="text" default="Completed '{survey_title}' survey" size="60" label="SF_PARAM_COMMENT_LABEL" description="SF_PARAM_COMMENT_DESCR" />
+		<field name="points_rule" type="list" default="always" label="SF_PARAM_POINTSRULE_LABEL" description="SF_PARAM_POINTSRULE_DESCR">
+			<option value="always">SF_PARAM_POINTSRULE_OPT_ALWAYS</option>
+			<option value="onsuccess">SF_PARAM_POINTSRULE_OPT_ONSUCCESS</option>
+		</field>
+		<field name="fixed_points" type="hidden" default="1" label="SF_PARAM_FIXEDPOINTS_LABEL" description="SF_PARAM_FIXEDPOINTS_DESCR">
+      		<option value="0">SF_NO</option>
+      		<option value="1">SF_YES</option>
+    	</field>
+    	<field name="add_points_once" type="radio" default="0" label="SF_PARAM_POINTSONETIME_LABEL" description="SF_PARAM_POINTSONETIME_DESCR">
+      		<option value="0">SF_NO</option>
+      		<option value="1">SF_YES</option>
+    	</field>
+		<field name="points" type="text" size="5" default="1" label="SF_PARAM_POINTS_LABEL" description="SF_PARAM_POINTS_DESCR" />
+	 </fieldset>
+    </fields>
+    </config>
+	
+</extension>

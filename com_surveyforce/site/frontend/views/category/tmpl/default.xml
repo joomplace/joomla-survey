@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_SURVEYFORCE_SURVEY_CATEGORY_LAYOUT">
+        <message>
+			<![CDATA[COM_SURVEYFORCE_SURVEY_CATEGORY_LAYOUT_DESCRIPTION]]>
+        </message>
+    </layout>
+    <state>
+        <name>COM_SURVEYFORCE_SURVEY_CATEGORY_LAYOUT</name>
+        <description>COM_SURVEYFORCE_SURVEY_CATEGORY_LAYOUT_DESCRIPTION</description>
+    </state>
+	
+    <fields name="params" >
+        <fieldset name="basic" label="SurveyForce Parameters" addfieldpath="/administrator/components/com_surveyforce/models/fields">
+            <field name="cat_id" type="survey_category" default="0" label="Select survey category" description=""></field>
+        </fieldset>
+    </fields>
+</metadata>

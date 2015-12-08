@@ -1,0 +1,441 @@
+
+/***********************************************************************************
+
+It’s a default template css file.
+It will be used only if templates in `media` folder are deleted
+
+Normally you shouldn't edit it, instead, edit templates in `media` folder
+
+************************************************************************************/
+div.contentpane.surveyforce div.current {
+	max-width: 10000px !important;
+}
+
+div.contentpane.surveyforce dl.tabs {
+	margin-top: 10px !important;
+}
+
+.jq_fe_toolbar{ margin: auto !important;}
+
+.jq_fe_toolbar a{ padding: 2px;}
+
+div.contentpane.surveyforce a:hover, div.contentpane.surveyforce a:focus {
+	background:none !important;
+	color: #000000 !important;
+}
+
+div.contentpane.surveyforce table {
+	border-collapse: separate;
+}
+
+div.contentpane.surveyforce tr, td {
+	border: none !important; 	
+}
+
+div.contentpane.surveyforce td.sectiontableheader {
+    background: none repeat scroll 0 0 #EFEFEF;
+    border-right: 1px solid #FFFFFF;
+    color: #333333;
+    font-weight: bold;
+    padding: 4px;
+}
+
+div.contentpane.surveyforce tr.sectiontableentry0 td, tr.sectiontableentry1 td, tr.sectiontableentry2 td {
+    padding: 4px;
+}
+
+div.contentpane.surveyforce td.sectiontableentry0, td.sectiontableentry1, td.sectiontableentry2 {
+    padding: 3px;
+}
+
+div.contentpane.surveyforce table.contentpaneopen, table.contentpane {
+    margin: 0;
+    padding: 0;
+    width: auto;
+}
+
+div.contentpane.surveyforce table.contentpaneopen fieldset {
+    border-color: #DDDDDD -moz-use-text-color -moz-use-text-color;
+    border-right: 0 none;
+    border-style: solid none none;
+    border-width: 1px 0 0;
+}
+
+div.contentpane.surveyforce table.contentpaneopen h3 {
+    margin-top: 25px;
+}
+div.contentpane.surveyforce table.contentpaneopen h4 {
+    color: #333333;
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+/** overlib **/
+
+.ol-foreground {
+	background-color: #f6f6f6;
+}
+
+.ol-background {
+	background-color: #666;
+}
+
+.ol-textfont {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+.ol-captionfont {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #f6f6f6;
+	font-weight: bold;
+}
+.ol-captionfont a {
+	color: #0B55C4;
+	text-decoration: none;
+	font-size: 12px;
+}
+
+.ol-closefont {}
+
+.icon-32-forward  {
+	background-image:url("images/icon-32-forward.png");
+}
+
+.icon-32-cancel {
+	background-image:url("images/icon-32-cancel.png");
+}
+
+div.toolbar  {
+	float:right;
+	padding:0;
+	text-align:right;
+}
+
+table.toolbar {
+	border-collapse:collapse;
+	margin:0;
+	padding:0;
+}
+
+table.toolbar td {
+	color:#666666;
+	height:48px;
+	padding:1px 1px 1px 4px;
+	text-align:center;
+}
+
+table.toolbar td.spacer {
+	width:10px;
+}
+
+table.toolbar td.divider {
+	border-right:1px solid #EEEEEE;
+	width:5px;
+}
+
+table.toolbar span {
+	display:block;
+	float:none;
+	height:32px;
+	margin:0 auto;
+	width:32px;
+}
+
+table.toolbar a {
+	border:1px solid #FBFBFB;
+	cursor:pointer;
+	display:block;
+	float:left;
+	padding:1px 5px;
+	white-space:nowrap;
+}
+
+table.toolbar a:hover {
+	border-color:#EEEEEE #CCCCCC #CCCCCC #EEEEEE;
+	border-left:1px solid #EEEEEE;
+	border-style:solid;
+	border-width:1px;
+	color:#0B55C4;
+	text-decoration:none;
+}
+
+dl.tabs {
+	float:left;
+	margin:10px 0 -1px;
+	z-index:50;
+}
+
+dl.tabs dt {
+	background:none repeat scroll 0 0 #F0F0F0;
+	border-left:1px solid #CCCCCC;
+	border-right:1px solid #CCCCCC;
+	border-top:1px solid #CCCCCC;
+	color:#666666;
+	float:left;
+	margin-left:3px;
+	padding:4px 10px;
+}
+
+dl.tabs dt.open {
+	background:none repeat scroll 0 0 #F9F9F9;
+	border-bottom:1px solid #F9F9F9;
+	color:#000000;
+	z-index:100;
+}
+
+div.current {
+	border:1px solid #CCCCCC;
+	clear:both;
+	padding:10px;
+}
+
+div.current dd {
+	margin:0;
+	padding:0;
+}
+
+div#survey_container {
+	width:100%;
+	min-height:235px; 
+	height:auto !important;
+}
+
+div#start_div {
+	padding-left: 20px;
+	padding-right: 4x;
+}
+
+td#sf_error_message {
+	text-align: center;
+}
+
+td#td_survey_task {
+	text-align: center;
+}
+
+/*LIKERT SCALE*/
+div.likert_scale_div {
+	padding-left:5px;
+	text-align:left;
+}
+table.likert_scale_table {
+	width: auto;
+	border:1px solid;	
+}
+table.likert_scale_table td {
+	padding: 2px;
+}
+table.likert_scale_table td.ls_factor_name {
+	width: auto;
+	padding-left: 10px;
+	
+}
+table.likert_scale_table td.ls_scale_field {
+	width: 10%;
+	text-align:center;
+	border-left:1px solid;
+	padding-left: 3px;
+	padding-right: 3px;
+
+}
+table.likert_scale_table td.ls_quest_field {
+	text-align:left;
+	border-top:1px solid;
+	padding-left: 5px;
+
+}
+table.likert_scale_table td.ls_answer_cell {
+	text-align:center;
+	border-top:1px solid;
+	border-left:1px solid;
+	cursor:pointer;
+}
+input.ls_radio {
+	cursor:pointer;
+}
+
+/*PICK ONE*/
+div.pick_one_div {
+	padding-left:5px;
+	text-align:left;
+}
+table.pick_one_table {
+	width: 95%;
+}
+td.po_answer_cell {
+	width: 20px;
+	text-align:left;
+}
+td.po_quest_cell {
+	text-align:left;
+}
+input.po_radio {
+	cursor:pointer;
+}
+input.po_other {
+	padding: 2px;
+	border:solid 1px #cccccc;
+	background-color: #ffffff;
+}
+select.po_select {
+	padding: 2px;
+	border:solid 1px #cccccc;
+	background-color: #ffffff;
+}
+
+/*PICK MANY*/
+div.pick_many_div {
+	padding-left:5px;
+	text-align:left;
+}
+table.pick_many_table {
+	width: 95%;
+}
+td.pm_answer_cell {
+	width: 20px;
+	text-align:left;
+}
+td.pm_quest_cell {
+	text-align:left;
+}
+input.pm_checkbox {
+	cursor:pointer;
+}
+input.pm_other {
+	padding: 2px;
+	border:solid 1px #cccccc;
+	background-color: #ffffff;
+}
+
+/*SHORT ANSWER*/
+div.short_ans_div {
+	padding-left:5px;
+	text-align:left;
+}
+textarea.short_ans_textarea {
+	width:75%;
+	padding: 2px;
+	border:solid 1px #cccccc;
+	background-color: #ffffff;
+}
+input.sa_input_text {
+	padding: 2px;
+	border:solid 1px #cccccc;
+	background-color: #ffffff;
+}
+
+/*RANKING DROP-DOWN*/
+div.dp_n_dn_div {
+	padding-left:5px;
+	text-align:left;
+}
+table.drop_down_table {
+	width: 95%;
+}
+td.dd_left_cell {
+	width: 40%;
+	text-align:left;
+}
+td.dd_right_cell {
+	text-align:left;
+}
+select.dd_select {
+	padding: 2px;
+	border:solid 1px #cccccc;
+	background-color: #ffffff;
+}
+option.dd_option {
+	/*nothing*/
+}
+
+/*RANKING DRAG-AND-DROP*/
+div.drag_drop_div {
+	padding-left:5px;
+	text-align:left;
+}
+table.drag_drop_table {
+	/*nothing*/
+}
+
+/*RANKING*/
+div.ranking_div {
+	padding-left:5px;
+	text-align:left;
+}
+table.ranking_table {
+	width: 95%;
+}
+td.r_left_cell {
+	width: 40%;
+	text-align:left;
+}
+td.r_right_cell {
+	text-align:left;
+}
+select.r_select {
+	padding: 2px;
+	border:solid 1px #cccccc;
+	background-color: #ffffff;
+}
+option.r_option {
+	/*nothing*/
+}
+input.r_other {
+	padding: 2px;
+	border:solid 1px #cccccc;
+	background-color: #ffffff;
+}
+
+/*IMPORTANCE SCALE*/
+div.importance_div {
+	padding-left:5px;
+	text-align:left;
+}
+table.importance_table {
+	width: 95%;
+	border:1px solid;
+	border-left: none;
+}
+table.importance_table td {
+	padding: 2px;
+}
+table.importance_table td.i_quest {
+	width: auto;
+	text-align:left;
+	border-bottom: 1px solid;
+	border-left: 1px solid;
+	padding-left:5px;
+	background:#EEEEEE;
+}
+table.importance_table td.i_text_cell {
+	text-align:center;
+	border-bottom: 1px solid;
+	border-left: 1px solid;
+	cursor: pointer;
+}
+table.importance_table td.i_ans_cell {
+	text-align:center;
+	border-left: 1px solid;
+	cursor: pointer;
+}
+input.i_radio {
+	cursor: pointer;
+}
+
+td#sf_progressbar {
+	padding-left:5px;
+	padding-right:5px;
+}
+
+div#progress {
+	width: 100%;
+}
+
+div#progress_bar_txt {
+	text-align:center;
+}
+
+label {
+	cursor:pointer;
+}

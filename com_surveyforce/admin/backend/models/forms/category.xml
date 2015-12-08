@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field name="id" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+			readonly="true" class="readonly" />
+
+		<field name="sf_catname" type="text" class="input-xlarge" size="30"
+			label="COM_SURVEYFORCE_CATEGORY_CAPTION"
+			required="true" labelclass="control-label" />
+
+		<field name="sf_catdescr" type="editor" buttons="true" class="input-xlarge" size="30"
+			label="COM_SURVEYFORCE_DESCRIPTION"
+			labelclass="control-label" />
+		
+		<field name="ordering" type="Ordering" class="input-medium"
+			label="COM_SURVEYFORCE_CATEGORY_ORDER" description="COM_SURVEYFORCE_CATEGORY_ORDER" />
+
+		<field
+			name="published"
+			type="radio"
+			label="COM_SURVEYFORCE_PUBLIC"
+			description="COM_SURVEYFORCE_PUBLIC"
+			class="btn-group"
+			default="1">
+			<option	value="1">JPUBLISHED</option>
+			<option	value="0">JUNPUBLISHED</option>
+		</field>	
+			
+	</fieldset>
+
+
+</form>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_SURVEYFORCE_SURVEY_AUTHORING_LAYOUT">
+        <message>
+			<![CDATA[COM_SURVEYFORCE_SURVEY_AUTHORING_LAYOUT_DESCRIPTION]]>
+        </message>
+    </layout>
+    <state>
+        <name>COM_SURVEYFORCE_SURVEY_AUTHORING_LAYOUT</name>
+        <description>COM_SURVEYFORCE_SURVEY_AUTHORING_LAYOUT_DESCRIPTION</description>
+    </state>
+</metadata>

@@ -1,0 +1,1017 @@
+/*--------------global-------------- */
+
+#survey_container a:focus,
+#survey_container button:focus,
+#survey_container textarea:focus, 
+#survey_container input[type='text']:focus, 
+#survey_container input[type='password']:focus{
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+/*--------------global end----------------------- */
+
+/*--------------header----------------------- */
+#surveyforce .componentheading{
+    background: #76b3ed; /* Old browsers */
+    -webkit-box-shadow: inset 0px -16px 25px -8px #558bbe;
+    -moz-box-shadow: inset 0px -16px 25px -8px #558bbe;
+    box-shadow:inset 0px -16px 25px -8px #558bbe;
+    border-top-right-radius:10px;/* ie 9 only */
+    border-top-left-radius:10px;/* ie 9 only */
+    margin:0px !important;
+    height:auto;
+}
+#surveyforce .jb_survey_container_title{
+    font-size:18px;
+    font-weight:normal;
+    padding:6px 20px;
+    margin:0;    
+    color:#fff;
+}
+/*---------------header end----------------------*/
+
+/*---------------content----------------------*/
+.dp_n_dn_div, .pick_one_div, .ranking_div, .pick_many_div, .likert_scale_div {
+    text-align: center;
+}
+
+#survey_container_tbl{
+    min-height:250px;
+    height:auto; 
+    width:100%;
+}
+
+#sf_survey_body{
+    vertical-align: top;
+    padding-right:10px;
+	padding-left: 10px;
+}
+
+#survey_container .jb_survey_top{
+    padding-left:10px;
+    text-align:left;
+}
+
+#survey_container .sf_section_name{
+    font-size: 13px;
+    color: #666;
+}
+
+#survey_container .jb_survey_question_caption{
+    text-align: left;
+    margin:20px 0;
+    font-size: 21px;
+}
+
+#quest_div90 .likert_scale_div{
+    text-align: left;
+}
+
+#survey_container td.r_left_cell, #survey_container .dd_left_cell{
+    width: 30%;
+}
+
+/*---------------drag and drop blocks---------------------*/
+.jb_survey_dragdrop_right, .jb_survey_dragdrop_left{    
+    line-height: 30px !important;
+    color: #fff !important;
+    border-radius:3px !important; 
+    border: 1px solid #1E5799 !important;
+}
+
+.jb_survey_dragdrop_left{ 
+    background-color: #558BBE !important;
+}
+
+.jb_survey_dragdrop_right, .js_dragdrop_highlight{   
+    background-color: #7FC1E8 !important;
+}
+/*---------------drag and drop blocks end---------------------*/
+
+/*---------------progress-bar---------------------*/
+@-webkit-keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+@-moz-keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+@-ms-keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+@-o-keyframes progress-bar-stripes {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 40px 0;
+    }
+}
+
+@keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+.progress {
+    height: 20px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background-color: #f7f7f7;
+    background-image: -moz-linear-gradient(top, #f5f5f5, #f9f9f9);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#f9f9f9));
+    background-image: -webkit-linear-gradient(top, #f5f5f5, #f9f9f9);
+    background-image: -o-linear-gradient(top, #f5f5f5, #f9f9f9);
+    background-image: linear-gradient(to bottom, #f5f5f5, #f9f9f9);
+    background-repeat: repeat-x;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#fff9f9f9', GradientType=0);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.progress .bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #0e90d2;
+    background-image: -moz-linear-gradient(top, #149bdf, #0480be);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#149bdf), to(#0480be));
+    background-image: -webkit-linear-gradient(top, #149bdf, #0480be);
+    background-image: -o-linear-gradient(top, #149bdf, #0480be);
+    background-image: linear-gradient(to bottom, #149bdf, #0480be);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf', endColorstr='#ff0480be', GradientType=0);
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: width 0.6s ease;
+    -moz-transition: width 0.6s ease;
+    -o-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+}
+
+.progress .bar + .bar {
+    -webkit-box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.progress-striped .bar {
+    background-color: #149bdf;
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    -webkit-background-size: 40px 40px;
+    -moz-background-size: 40px 40px;
+    -o-background-size: 40px 40px;
+    background-size: 40px 40px;
+}
+
+.progress.active .bar {
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+    -moz-animation: progress-bar-stripes 2s linear infinite;
+    -ms-animation: progress-bar-stripes 2s linear infinite;
+    -o-animation: progress-bar-stripes 2s linear infinite;
+    animation: progress-bar-stripes 2s linear infinite;
+}
+
+.progress-danger .bar,
+.progress .bar-danger {
+    background-color: #dd514c;
+    background-image: -moz-linear-gradient(top, #ee5f5b, #c43c35);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#c43c35));
+    background-image: -webkit-linear-gradient(top, #ee5f5b, #c43c35);
+    background-image: -o-linear-gradient(top, #ee5f5b, #c43c35);
+    background-image: linear-gradient(to bottom, #ee5f5b, #c43c35);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffc43c35', GradientType=0);
+}
+
+.progress-danger.progress-striped .bar,
+.progress-striped .bar-danger {
+    background-color: #ee5f5b;
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-success .bar,
+.progress .bar-success {
+    background-color: #5eb95e;
+    background-image: -moz-linear-gradient(top, #62c462, #57a957);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#57a957));
+    background-image: -webkit-linear-gradient(top, #62c462, #57a957);
+    background-image: -o-linear-gradient(top, #62c462, #57a957);
+    background-image: linear-gradient(to bottom, #62c462, #57a957);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff57a957', GradientType=0);
+}
+
+.progress-success.progress-striped .bar,
+.progress-striped .bar-success {
+    background-color: #62c462;
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-info .bar,
+.progress .bar-info {
+    background-color: #4bb1cf;
+    background-image: -moz-linear-gradient(top, #5bc0de, #339bb9);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#339bb9));
+    background-image: -webkit-linear-gradient(top, #5bc0de, #339bb9);
+    background-image: -o-linear-gradient(top, #5bc0de, #339bb9);
+    background-image: linear-gradient(to bottom, #5bc0de, #339bb9);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff339bb9', GradientType=0);
+}
+
+.progress-info.progress-striped .bar,
+.progress-striped .bar-info {
+    background-color: #5bc0de;
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-warning .bar,
+.progress .bar-warning {
+    background-color: #faa732;
+    background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+    background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+    background-image: -o-linear-gradient(top, #fbb450, #f89406);
+    background-image: linear-gradient(to bottom, #fbb450, #f89406);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
+}
+
+.progress-warning.progress-striped .bar,
+.progress-striped .bar-warning {
+    background-color: #fbb450;
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+/*---------------progress-bar end---------------------*/
+
+/*--------------- tables ---------------------- */
+#survey_container_tbl #survey_container table,
+#survey_container_tbl #survey_container table thead,
+#survey_container_tbl #survey_container table tbody,
+#survey_container_tbl #survey_container table tr,
+#survey_container_tbl #survey_container table td{    
+    border-color: #B8D5EF !important;
+}
+
+#survey_container .importance_div{
+    text-align: left;
+}
+
+#sf_survey_body #survey_container .importance_table{
+    border-top: 1px solid;
+    border-left: none !important;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+}
+
+#sf_survey_body #survey_container .importance_table tr:first-child td{
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+}
+
+#sf_survey_body #survey_container .likert_scale_table td, #sf_survey_body #survey_container .importance_table td{
+    padding: 5px 8px 5px 8px;
+    width: auto;
+}
+
+#sf_survey_body #survey_container .likert_scale_table tr:first-child td, #sf_survey_body #survey_container .importance_table tr:first-child td{
+    border-bottom: none !important;
+    background: #7fb3e0; /* Old browsers */
+    background: -moz-linear-gradient(top,  #7fb3e0 2%, #c7dbed 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#7fb3e0), color-stop(100%,#c7dbed)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #7fb3e0 2%,#c7dbed 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #7fb3e0 2%,#c7dbed 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #7fb3e0 2%,#c7dbed 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #7fb3e0 2%,#c7dbed 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7fb3e0', endColorstr='#c7dbed',GradientType=0 ); /* IE6-9 */
+}
+/*--------------- tables end ---------------------- */
+
+/*--------------- radio, checkbox buttons, inputs ---------------------- */
+#survey_container input {
+    margin:0;
+}
+
+#survey_container input[type='checkbox'], #sf_survey_body input[type='radio'] {
+    opacity: 0; 
+    float: left;
+    width: 18px;
+    background: url('./images/radio_on.png');
+    padding: 0 !important;
+}
+
+#sf_survey_body input[type='radio']+label, #sf_survey_body input[type='checkbox']+label {
+    margin: 0 auto;
+    clear: none;
+    display:block;
+    padding: 4px 0 4px 24px;
+    cursor: pointer;
+    line-height:14px;
+}
+
+.likert_scale_table label, .importance_table .i_ans_cell label{
+    height: 0;
+    width: 0;
+    color: transparent;
+    overflow: hidden;
+}
+.likert_scale_table input, .importance_table .i_ans_cell input{
+    height: 0px !important;
+    display:none;
+}
+
+#quest_table td{
+    padding-left: 7px;
+}
+
+#sf_survey_body input[type='checkbox']+label {
+    margin: 0 auto;
+    clear: none;
+    display:block;
+    padding: 4px 0 4px 24px;
+    cursor: pointer;
+    line-height:14px;
+    width: auto;        
+}
+
+#sf_survey_body input[type='radio']+label {
+    background: url('./images/radio_on.png') 50% 4px no-repeat; 
+}
+
+#sf_survey_body input[type='radio']:checked +label {
+    background-image: url('./images/radio_off.png');
+}
+
+#sf_survey_body .pick_one_div input[type='radio']+label {
+    background: url('./images/radio_on.png') left 4px no-repeat; 
+}
+
+#sf_survey_body .pick_one_div input[type='radio']:checked +label {
+    background-image: url('./images/radio_off.png');
+}
+
+#sf_survey_body input[type='checkbox']+label {
+    background: url('./images/check_on.png') left 4px no-repeat;
+}
+
+#sf_survey_body input[type='checkbox']:checked +label {
+    background-image: url('./images/check_off.png');
+}
+
+#survey_container input[type='text'], #survey_container input[type='password']{
+    border:1px solid #dcdcdc;
+    display: inline-block;
+}
+/*--------------- radio, checkbox buttons, inputs end---------------------- */
+
+/*---------------content end---------------------- */
+
+/*---------------buttons--------------------- */
+#td_survey_task{
+    text-align: center;
+}
+
+#td_survey_task input.button{
+    background:#70b0ef;
+    -webkit-box-shadow:inset 0px -16px 25px -8px #558bbe;
+    -moz-box-shadow:inset 0px -16px 25px -8px #558bbe;
+    box-shadow:inset 0px -16px 25px -8px #558bbe;
+    border-radius:3px;
+    border:1px solid #0086c9;
+    line-height:normal;
+    text-decoration:none;
+    font-size:15px;
+    color:#fff;
+    padding:3px 15px;
+    margin:8px 0 8px 4px;
+}
+
+#td_survey_task input.button:hover{
+    color:#69a5e2;
+    background:#fff;
+    -webkit-box-shadow: inset -1px -1px 17px 0px #BECBD6;
+    -moz-box-shadow: inset -1px -1px 17px 0px #BECBD6;
+    box-shadow: inset -1px -1px 17px 0px #BECBD6;
+}
+
+#sf_prev_button{
+    padding-left: 7px;
+    margin-right: 15px;
+}
+
+#sf_next_button{
+    padding-right: 7px;
+}
+/*---------------buttons end --------------------- */
+
+/*---------------error massage --------------------- */
+#sf_error_message, #sf_error_message2{
+    padding: 10px 0;
+    text-align: center;
+}
+
+#error_messagebox, #error_messagebox2{
+    visibility: hidden; 
+    color: #C80000;
+}
+/*---------------error massage end --------------------- */
+
+.jb_survey_label
+{
+    padding: 18px 0 4px 24px !important;
+}
+
+div.contentpane.surveyforce tr, td {
+    border: none !important; 	
+}
+div.contentpane.surveyforce table {
+    border-collapse: separate;
+}
+div.contentpane.surveyforce a:hover, div.contentpane.surveyforce a:focus {
+    background:none !important;
+    color: #000000 !important;
+}
+div.contentpane.surveyforce td.sectiontableheader {
+    background: none repeat scroll 0 0 #EFEFEF;
+    border-right: 1px solid #FFFFFF;
+    color: #333333;
+    font-weight: bold;
+    padding: 4px;
+}
+
+div.contentpane.surveyforce tr.sectiontableentry0 td, tr.sectiontableentry1 td, tr.sectiontableentry2 td {
+    padding: 4px;
+}
+
+div.contentpane.surveyforce td.sectiontableentry0, td.sectiontableentry1, td.sectiontableentry2 {
+    padding: 3px;
+}
+
+#survey_container_tbl tr,td
+{
+    border:none !important;
+}
+
+
+div#survey_container {
+    width:100%;
+    min-height:235px; 
+    height:auto !important;
+}
+
+div#start_div {
+    padding-left: 20px;
+    padding-right: 4x;
+}
+
+td#sf_error_message {
+    text-align: center;
+}
+
+td#td_survey_task {
+    text-align: center;
+	padding: 10px;
+}
+
+/*LIKERT SCALE*/
+div.likert_scale_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.likert_scale_table {
+    width: auto;
+    border:1px solid !important;	
+}
+table.likert_scale_table td {
+    padding: 2px;
+}
+table.likert_scale_table td.ls_factor_name {
+    width: auto;
+    padding-left: 10px;
+
+}
+table.likert_scale_table td.ls_scale_field {
+    width: 10%;
+    text-align:center;
+    border-left:1px solid !important;
+    padding-left: 3px;
+    padding-right: 3px;
+
+}
+table.likert_scale_table td.ls_quest_field {
+    text-align:left;
+    border-top:1px solid !important;
+    padding-left: 5px;
+
+}
+table.likert_scale_table td.ls_answer_cell {
+    text-align:center;
+    border-top:1px solid !important;
+    border-left:1px solid !important;
+    cursor:pointer;
+}
+input.ls_radio {
+    cursor:pointer;
+}
+div.ls_not_selected {
+    color:#FF0000;
+}
+
+/*PICK ONE*/
+div.pick_one_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.pick_one_table {
+    width: 95%;
+}
+td.po_answer_cell {
+    width: 20px;
+    text-align:left;
+}
+td.po_quest_cell {
+    text-align:left;
+}
+input.po_radio {
+    cursor:pointer;
+}
+input.po_other {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+select.po_select {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+/*PICK MANY*/
+div.pick_many_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.pick_many_table {
+    width: 95%;
+}
+td.pm_answer_cell {
+    width: 20px;
+    text-align:left;
+}
+td.pm_quest_cell {
+    text-align:left;
+}
+input.pm_checkbox {
+    cursor:pointer;
+}
+input.pm_other {
+    /*padding: 2px;*/
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+/*SHORT ANSWER*/
+div.short_ans_div {
+    padding-left:5px;
+    text-align:left;
+}
+textarea.short_ans_textarea {
+    width:75%;
+	height: 100px;
+    padding: 5px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+input.sa_input_text {
+    padding: 5px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+/*RANKING DROP-DOWN*/
+div.dp_n_dn_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.drop_down_table {
+    width: 95%;
+}
+td.dd_left_cell {
+    width: 40%;
+    text-align:left;
+}
+td.dd_right_cell {
+    text-align:left;
+}
+select.dd_select {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+option.dd_option {
+    /*nothing*/
+}
+
+/*RANKING DRAG-AND-DROP*/
+div.drag_drop_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.drag_drop_table {
+    /*nothing*/
+}
+
+/*RANKING*/
+div.ranking_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.ranking_table {
+    width: 95%;
+}
+td.r_left_cell {
+    width: 40%;
+    text-align:left;
+}
+td.r_right_cell {
+    text-align:left;
+}
+select.r_select {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+option.r_option {
+    /*nothing*/
+}
+input.r_other {
+    padding: 2px;
+    border:solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+/*IMPORTANCE SCALE*/
+div.importance_div {
+    padding-left:5px;
+    text-align:left;
+}
+table.importance_table {
+    width: 95%;
+    border:1px solid !important;
+    border-left: none;
+}
+table.importance_table td {
+    padding: 2px;
+}
+table.importance_table td.i_quest {
+    width: auto;
+    text-align:left;
+    border-bottom: 1px solid !important;
+    border-left: 1px solid !important;
+    padding-left:5px;
+    background:#EEEEEE;
+}
+table.importance_table td.i_text_cell {
+    text-align:center;
+    border-bottom: 1px solid !important;
+    border-left: 1px solid !important;
+    cursor: pointer;
+}
+table.importance_table td.i_ans_cell {
+    text-align:center;
+    border-left: 1px solid !important;
+    cursor: pointer;
+}
+input.i_radio {
+    cursor: pointer;
+}
+
+td#sf_progressbar {
+    padding-left:5px;
+    padding-right:5px;
+}
+
+div#progress {
+    width: 100%;
+	margin-top: 15px;
+}
+
+div#progress_bar_txt {
+    text-align:center;
+	position: absolute;
+	left: 45%;
+}
+
+label {
+    cursor:pointer;
+}
+
+.sf_graph_container
+{
+    padding:15px;
+}
+
+#survey_container:first-child p strong
+{
+    font-size:18px;
+}
+.chzn-container{
+    margin: 6px 0;
+}
+
+/*FOR MOBILE*/
+
+/*COMPACT VIEW*/
+body{
+    /*width: 480px;
+    /*max-width: 768px;*/
+}
+#surveyforce.compact{
+    min-width: 261px;
+}
+/*-----------importance_table-------------*/
+.compact #sf_survey_body #survey_container .importance_table{
+    width: 100%;
+    border-left: 1px solid #B8D5EF !important;
+}
+.compact #sf_survey_body #survey_container .importance_table tr:first-child{
+    display: block;
+    width: 40%;
+    float: left;
+}
+.compact #sf_survey_body #survey_container .importance_table .i_quest{
+    display: block;    
+    padding: 0;
+    background: none !important;
+    border: none !important;
+    text-align: left;
+    font-weight: bold;
+}
+.compact #sf_survey_body #survey_container .importance_table .sectiontableentry1{
+    display: none !important;
+}
+.compact #sf_survey_body #survey_container .importance_table tr{
+    display: block;
+}
+.compact #sf_survey_body #survey_container .importance_table td.i_ans_cell{
+    display: block !important;
+    margin-left: 40%;
+    text-align: left;
+}
+
+.compact #sf_survey_body #survey_container .importance_table td.i_ans_cell label{
+    margin: 0 0 auto !important;
+    color: inherit !important;
+    width: auto !important;
+    height: auto !important;
+    text-align: left !important;
+    background-position: 0 4px !important;
+    padding: 4px 0 4px 24px !important;
+}
+/*-----------importance_table end-------------*/
+
+/*-----------likert_scale_table-------------*/
+.compact #survey_container_tbl #survey_container .likert_scale_table{
+    border-left: 1px solid #B8D5EF !important;
+    border-top: none !important;
+    width: 100%;
+}
+.compact #survey_container_tbl #survey_container .likert_scale_table tr{
+    display: block;
+    width: 100%;
+    clear: both; 
+    border-top: 1px solid #B8D5EF !important;
+}
+.compact #survey_container_tbl #survey_container .likert_scale_table tr:first-child{
+    display: none;
+}
+.compact #sf_survey_body #survey_container .likert_scale_table td.ls_quest_field{
+    display: block;
+    width: 40%;
+    float: left;
+    padding: 0 !important;
+    font-weight: bold;
+    border: none !important;
+}
+.compact #sf_survey_body #survey_container .likert_scale_table td.ls_answer_cell{
+    display: block;
+    margin-left: 40%;
+    background: #fff;
+    border: none !important;
+    border-left: 1px solid #B8D5EF !important;
+}
+.compact #sf_survey_body #survey_container .likert_scale_table td.ls_answer_cell label{
+    margin: 0 0 auto !important;
+    color: inherit !important;
+    width: auto !important;
+    height: auto;
+    min-height: 14px !important;
+    text-align: left !important;
+    background-position: 0 4px !important;
+    padding: 4px 0 4px 24px !important;
+}
+/*-----------likert_scale_table end-------------*/
+
+/*-------------drag_drop_table--------------*/
+.compact .jb_survey_dragdrop_right, .compact .jb_survey_dragdrop_left{
+    width: 175px !important;
+    margin: 3px !important;
+}
+/*-------------drag_drop_table end--------------*/
+
+/*-------------ranking table selects---------------------*/
+.compact .ranking_table>tr, .compact .drop_down_table>tr{
+    display: block;
+    clear: both;
+}
+.compact #survey_container .ranking_table td.r_left_cell, .compact #survey_container .drop_down_table td.dd_left_cell{
+    display: block;
+    width: 80%;
+}
+.compact .ranking_table td.r_right_cell, .compact #survey_container .drop_down_table td.dd_right_cell{
+    display: inline-block;
+    float: left;
+}
+/*-------------ranking table selects end---------------------*/
+
+/*COMPACT VIEW END*/
+
+/*NARROW VIEW*/
+#surveyforce.narrow{
+    min-width: 261px;
+}
+
+/*-----------importance_table-------------*/
+.narrow #sf_survey_body #survey_container .importance_table .i_quest{
+    text-align: left !important;
+    display: block;
+    padding: 10px 2px;
+}
+.narrow #sf_survey_body #survey_container .importance_table .sectiontableentry1{
+    display: none !important;
+}
+.narrow #sf_survey_body #survey_container .importance_table td.i_ans_cell{
+    display: block !important;
+}
+.narrow #sf_survey_body #survey_container .importance_table td.i_ans_cell label{
+    margin: 0 0 auto !important;
+    color: inherit !important;
+    width: auto !important;
+    height: auto !important;
+    text-align: left !important;
+    background-position: 0 4px !important;
+    padding: 4px 0 4px 24px !important;
+}
+.narrow table.importance_table {
+    width: auto;
+}
+/*-----------importance_table end-------------*/
+
+/*-----------likert_scale_table-------------*/
+.narrow #survey_container_tbl #survey_container .likert_scale_table tr:first-child{
+    display: none;
+}
+.narrow #sf_survey_body #survey_container .likert_scale_table td.ls_quest_field,
+.narrow #sf_survey_body #survey_container .likert_scale_table td.ls_answer_cell{
+    display: block;
+    border-left: none !important;
+}
+.narrow #sf_survey_body #survey_container .likert_scale_table td.ls_quest_field{
+    background: #7fb3e0; /* Old browsers */
+    background: -moz-linear-gradient(top,  #7fb3e0 2%, #c7dbed 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#7fb3e0), color-stop(100%,#c7dbed)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #7fb3e0 2%,#c7dbed 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #7fb3e0 2%,#c7dbed 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #7fb3e0 2%,#c7dbed 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #7fb3e0 2%,#c7dbed 100%); /* W3C */
+    border-top: none !important;
+}
+.narrow #survey_container_tbl #survey_container .likert_scale_table td.ls_answer_cell label{
+    margin: 0 0 auto !important;
+    color: inherit !important;
+    width: auto !important;
+    height: auto !important;
+    text-align: left !important;
+    background-position: 0 4px !important;
+    padding: 4px 0 4px 24px !important;
+}
+/*-------------likert_scale_table end--------------*/
+
+/*-------------drag_drop_table--------------*/
+.narrow .jb_survey_dragdrop_right, .narrow .jb_survey_dragdrop_left{
+    width: 100px !important;
+    margin: 3px !important;
+}
+/*-------------drag_drop_table end--------------*/
+
+/*-------------ranking table selects---------------------*/
+.narrow .ranking_table>tr, .narrow .drop_down_table>tr{
+    display: block;
+    clear: both;
+}
+.narrow #survey_container .ranking_table td.r_left_cell, .narrow #survey_container .drop_down_table td.dd_left_cell{
+    display: block;
+    width: 80%;
+}
+.narrow .ranking_table td.r_right_cell, .narrow #survey_container .drop_down_table td.dd_right_cell{
+    display: inline-block;
+    float: left;
+}
+.narrow img
+{
+    max-width:100%;
+}
+
+.sf_graph_container img
+{
+    max-width:100%;
+}
+
+table.contentpane {table-layout: fixed;}
+/*-------------ranking table selects end---------------------*/
+
+/*NARROW VIEW END*/
+
+/*FOR MOBILE END*/
+
+.likert_scale_table input, .importance_table .i_ans_cell input{
+    width: 0 !important;
+    padding: 0 !important;
+}
+#sf_survey_body input[type='radio']+label, #sf_survey_body input[type='checkbox']+label {
+    margin: 0 auto;
+    clear: none;
+    display:block;
+    padding: 4px 0 4px 24px;
+    cursor: pointer;
+    line-height:14px;
+}
+.likert_scale_table label, .importance_table .i_ans_cell label{
+    height: 0;
+    width: 0;
+    color: transparent;
+    overflow: hidden;
+}
+
+.jb_survey_label, .iscale_label
+{
+    padding: 18px 0 4px 24px !important;
+}

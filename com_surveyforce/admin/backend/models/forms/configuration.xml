@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset>
+        <field name="b_aqua_color1" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="b_aqua_color2" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="b_aqua_color3" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="b_aqua_color4" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="b_axis_color1" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="b_axis_color2" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="b_bar_color1" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="b_bar_color2" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="b_bar_color3" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="b_bar_color4" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="b_height" type="text" default="0" label="COM_SURVEYFORCE_HEIGHT_ONE_CHART"
+               readonly="false"  />
+        <field name="b_width" type="text" default="0" label="COM_SURVEYFORCE_WIDTH_ONE_CHART"
+               readonly="false"  />
+
+        <field name="color_cont" type="color" default="#666666" label="COM_SURVEYFORCE_LEFT_PANEL_COLOR"
+               readonly="false"  />
+
+        <field name="color_drag" type="color" default="#CCCCCC" label="COM_SURVEYFORCE_RIGHT_PANEL_COLOR"
+               readonly="false"  />
+
+        <field name="color_highlight" type="color" default="#EEEEEE" label="COM_SURVEYFORCE_HIGHLIGHTED_COLOR"
+               readonly="false"  />
+
+        <field name="p_aqua_color1" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="p_aqua_color2" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="p_aqua_color3" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="p_aqua_color4" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="p_axis_color1" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="p_axis_color2" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" 
+               readonly="false"  />
+        <field name="p_height" type="text" default="0" label="COM_SURVEYFORCE_HEIGHT_ONE_CHART"
+               readonly="false"  />
+        <field name="p_width" type="text" default="0" label="COM_SURVEYFORCE_WIDTH_ONE_CHART"
+               readonly="false"  />
+        <field name="sf_enable_lms_integration" type="radio" default="0" label="COM_SURVEYFORCE_JOOMLALMS_INTEGRATION" 
+               readonly="false"  class="btn-group">
+            <option value='1'>COM_SURVEYFORCE_YES</option>
+            <option value='0'>COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_enable_jomsocial_integration" type="radio" default="0" label="COM_SURVEYFORCE_JOMSOCIAL_INTEGRATION" 
+               readonly="false"  class="btn-group">
+            <option value='1'>COM_SURVEYFORCE_YES</option>
+            <option value='0'>COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_force_ssl" type="radio" default="0" label="COM_SURVEYFORCE_FORCE_SSL_SURVEYFORCE_FRONT_END"
+               readonly="false"  class="btn-group">
+            <option value='1'>COM_SURVEYFORCE_YES</option>
+            <option value='0'>COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_result_type" type="radio" default="Bar" label="COM_SURVEYFORCE_TYPE_RESULT" onclick="onResultsTypeClick(this, event);"
+               readonly="false"  class="btn-group">
+            <option value='Bar'>COM_SURVEYFORCE_SHOW_RESULTS_IN_BARCHART</option>
+            <option value='Pie'>COM_SURVEYFORCE_SHOW_RESULTS_IN_PIECHART</option>
+        </field>
+        <field name="sf_an_mail" type="radio" default="0" label="COM_SURVEYFORCE_SEND_EMAIL_TO_AUTHOR" 
+               readonly="false"  class="btn-group">
+            <option value='1'>COM_SURVEYFORCE_YES</option>
+            <option value='0'>COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_an_mail_others" type="radio" default="0" label="COM_SURVEYFORCE_SEND_EMAIL_WHEN_USER"
+               readonly="false"  class="btn-group">
+            <option value='1'>COM_SURVEYFORCE_YES</option>
+            <option value='0'>COM_SURVEYFORCE_NO</option>
+        </field>
+        <field name="sf_an_mail_other_emails" type="text" default="" label="COM_SURVEYFORCE_SEND_EMAIL_WHEN_USER"
+               readonly="false"  />
+        <field name="sf_an_mail_subject" type="text" default="" label="COM_SURVEYFORCE_SUBJECT" readonly="false"  />
+        <field name="sf_an_mail_text" type="textarea" default="" label="COM_SURVEYFORCE_TEXT_BEFORE_USER_RESULTS" readonly="false"  />
+
+        <field name="fe_lang" type="text" default="0" label="COM_SURVEYFORCE_FE_LANG" 
+               readonly="false"  />
+
+
+        <field name="color_border" type="color" default="#000000" label="COM_SURVEYFORCE_BORDER_COLOR"
+               readonly="false"  />
+
+        <field name="color_text" type="color" default="#333333" label="COM_SURVEYFORCE_TEXT_COLOR"
+               readonly="false"  />
+
+        <field name="color_completed" type="color" default="#CCCCCC" label="COM_SURVEYFORCE_COMPLETED_COLOR"
+               readonly="false"  />
+
+        <field name="color_uncompleted" type="color" default="#FFFFFF" label="COM_SURVEYFORCE_UNCOMPLETED_COLOR"
+               readonly="false"  />
+
+
+        <field name="sf_mail_pause" type="text" default="0" label="COM_SURVEYFORCE_DO_PAUSE" 
+               readonly="false"  />
+        <field name="sf_mail_count" type="text" default="0" label="COM_SURVEYFORCE_MAIL_COUNT" 
+               readonly="false"  />
+        <field name="sf_mail_maximum" type="text" default="0" label="COM_SURVEYFORCE_MAXIMAL_COUNT_OF_MAILS"
+               readonly="false"  />
+		<field name="sf_an_mail_pattern" type="text" default="*@mail.test" label="Mail pattern"
+               readonly="false"  />
+			   
+        <field name="sf_show_dev_info" type="radio" default="1" label="Show information about component developer"
+               readonly="false"  class="btn-group">
+            <option value='1'>COM_SURVEYFORCE_YES</option>
+            <option value='0'>COM_SURVEYFORCE_NO</option>
+        </field>
+    </fieldset>
+</form>

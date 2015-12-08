@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * SurveyForce Delux Component for Joomla 3
+ * @package   Surveyforce
+ * @author    JoomPlace Team
+ * @copyright Copyright (C) JoomPlace, www.joomplace.com
+ * @license   GNU/GPL http://www.gnu.org/copyleft/gpl.html
+ */
+defined('_JEXEC') or die('Restricted access');
+
+/**
+ * Surveyforce Component Controller
+ */
+class SurveyforceController extends JControllerLegacy
+{
+	public function display($cachable = false, $urlparams = array())
+	{
+		$view = JFactory::getApplication()->input->get('view');
+		$task = JFactory::getApplication()->input->get('task');
+
+		$input = JFactory::getApplication()->input;
+		if ($view == 'authoring' && !isset($_SESSION['view']))
+		{
+			$_SESSION['view'] = 'authoring';
+		}
+		elseif ($view != 'authoring' && (isset($_SESSION['view']) && $_SESSION['view'] != 'authoring'))
+		{
+			unset($_SESSION['view']);
+		}
+
+		if (isset($_SESSION['view']) && $_SESSION['view'] == 'authoring' && $view != 'survey' && $view != 'category')
+		{
+			$input->set('view', 'authoring');
+		}
+		else
+		{
+			if ($view != 'category' && $view != 'insert_survey') $input->set('view', 'survey');
+		}
+
+		if ($task == 'start_invited')
+		{
+			$input->set('view', 'survey');
+		}
+
+		parent::display($cachable);
+	}
+}

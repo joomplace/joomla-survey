@@ -1,0 +1,11 @@
+The installation package for Survey Force Deluxe includes the following archives:
+►	com_surveyforce.zip  - the main archive with Survey Force component.
+►	plg_content_surveyforce.zip - an archive with content plug-in, used to insert surveys into articles.
+►	plg_sf_alphauserpoints.zip - an archive with Survey Force  plug-in, used to insert alpha user points into articles.
+►	plgup_surveyforcepoints.zip - an archive with the plugin to ensure the correct performance of the Alpha User Points plugin.
+►	survey_editor_button.zip - an archive with Joomla plug-in for easy insertion of survey tag into the article.
+►   UNZIP_ME_FIRST_js_cb_plugins (GNU).zip - an archive with JomSocial and Community Builder plugins.
+
+plg_sf_alphauserpoints.zip is uploaded through Joomla Extension Manager (Extensions)
+
+plgup_surveyforcepoints.zip is installed in AlphaUserPoints extension - Plugins - Install

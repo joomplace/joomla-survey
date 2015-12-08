@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addfieldpath="/administrator/components/com_surveyforce/models/fields">
+    <fieldset name="question"
+                  label="COM_SURVEYFORCE_SETTINGS_GLOBAL"
+                  description="COM_SURVEYFORCE_QUESTION_GLOBAL_DESC"
+    >
+		
+        <field name="id" type="hidden"/>
+        <field name="sf_qtype" type="hidden" default="0"/>
+		
+        <field name="sf_qtext" type="editor" buttons="true" hide="pagebreak,readmore,testimonial"
+                       class="inputbox"
+                       filter="safehtml"
+                       label="COM_SURVEYFORCE_QUESTION_TEXT2" required="true" />
+		
+		
+        <field
+            name="published"
+            type="radio"
+            class="btn-group"
+            label="COM_SURVEYFORCE_PUBLISHED2"
+            labelclass="control-label"
+            default="1">
+            <option value="0">COM_SURVEYFORCE_NO</option>
+            <option value="1">COM_SURVEYFORCE_YES</option>
+        </field>
+        <field
+            name="sf_compulsory"
+            type="radio"
+            class="btn-group"
+            label="COM_SURVEYFORCE_COMPULSORY_QUESTION2"
+            labelclass="control-label"
+            default="0">
+            <option value="0">COM_SURVEYFORCE_NO</option>
+            <option value="1">COM_SURVEYFORCE_YES</option>
+        </field>
+        <field
+            name="sf_default_hided"
+            type="radio"
+            class="btn-group"
+            label="COM_SURVEYFORCE_HIDDEN_BY_DEFAULT"
+            labelclass="control-label"
+            default="0">
+            <option value="0">COM_SURVEYFORCE_NO</option>
+            <option value="1">COM_SURVEYFORCE_YES</option>
+        </field>
+        <field
+            name="insert_pb"
+            type="radio"
+            class="btn-group"
+            label="COM_SURVEYFORCE_INSERT_PAGE_BREAK_AFTER_QUESTION"
+            labelclass="control-label"
+            default="1">
+            <option value="0">COM_SURVEYFORCE_NO</option>
+            <option value="1">COM_SURVEYFORCE_YES</option>
+        </field>
+        
+        <field name="is_final_question" type="radio" class="btn-group" default="0" label="COM_SURVEYFORCE_IS_FINAL_QUESTION2" labelclass="control-label" >
+        <option value="0">COM_SURVEYFORCE_NO</option>
+        <option value="1">COM_SURVEYFORCE_YES</option>
+    </field>			
+		
+
+    <field name="sf_survey" type="survey" label="COM_SURVEYFORCE_SURVEY2"  required="true"/>
+    <field name="sf_impscale" type="iscale" label="COM_SURVEYFORCE_IMPORTANCE_SCALE2"  required="false"/>
+		
+
+    <field name="ordering" type="ordering" label="COM_SURVEYFORCE_ORDERING"  labelclass="control-label" required="false"/>
+    </fieldset>
+	
+    <fieldset name="question_options">
+	
+    </fieldset>	
+</form>

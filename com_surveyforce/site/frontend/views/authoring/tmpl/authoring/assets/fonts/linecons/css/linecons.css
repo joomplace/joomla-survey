@@ -1,0 +1,100 @@
+@font-face {
+  font-family: 'linecons';
+  src: url('../font/linecons.eot?22524849');
+  src: url('../font/linecons.eot?22524849#iefix') format('embedded-opentype'),
+       url('../font/linecons.woff?22524849') format('woff'),
+       url('../font/linecons.ttf?22524849') format('truetype'),
+       url('../font/linecons.svg?22524849#linecons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'linecons';
+    src: url('../font/linecons.svg?22524849#linecons') format('svg');
+  }
+}
+*/
+ 
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "linecons";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-music:before { content: '\e800'; } /* 'юаА' */
+.icon-wallet:before { content: '\e82f'; } /* 'юап' */
+.icon-mail:before { content: '\e802'; } /* 'юаВ' */
+.icon-heart:before { content: '\e803'; } /* 'юаГ' */
+.icon-star:before { content: '\e804'; } /* 'юаД' */
+.icon-user:before { content: '\e805'; } /* 'юаЕ' */
+.icon-videocam:before { content: '\e806'; } /* 'юаЖ' */
+.icon-camera:before { content: '\e807'; } /* 'юаЗ' */
+.icon-photo:before { content: '\e808'; } /* 'юаИ' */
+.icon-attach:before { content: '\e809'; } /* 'юаЙ' */
+.icon-lock:before { content: '\e80a'; } /* 'юаК' */
+.icon-eye:before { content: '\e80b'; } /* 'юаЛ' */
+.icon-tag:before { content: '\e80c'; } /* 'юаМ' */
+.icon-thumbs-up:before { content: '\e80d'; } /* 'юаН' */
+.icon-pencil:before { content: '\e80e'; } /* 'юаО' */
+.icon-comment:before { content: '\e80f'; } /* 'юаП' */
+.icon-location:before { content: '\e810'; } /* 'юаР' */
+.icon-cup:before { content: '\e811'; } /* 'юаС' */
+.icon-trash:before { content: '\e812'; } /* 'юаТ' */
+.icon-doc:before { content: '\e813'; } /* 'юаУ' */
+.icon-note:before { content: '\e827'; } /* 'юаз' */
+.icon-cog:before { content: '\e826'; } /* 'юаж' */
+.icon-params:before { content: '\e825'; } /* 'юае' */
+.icon-calendar:before { content: '\e824'; } /* 'юад' */
+.icon-search:before { content: '\e801'; } /* 'юаБ' */
+.icon-clock:before { content: '\e822'; } /* 'юав' */
+.icon-lightbulb:before { content: '\e821'; } /* 'юаб' */
+.icon-tv:before { content: '\e820'; } /* 'юаа' */
+.icon-desktop:before { content: '\e81f'; } /* 'юаЯ' */
+.icon-mobile:before { content: '\e81e'; } /* 'юаЮ' */
+.icon-cd:before { content: '\e81d'; } /* 'юаЭ' */
+.icon-inbox:before { content: '\e81c'; } /* 'юаЬ' */
+.icon-globe:before { content: '\e81b'; } /* 'юаЫ' */
+.icon-cloud:before { content: '\e81a'; } /* 'юаЪ' */
+.icon-paper-plane:before { content: '\e819'; } /* 'юаЩ' */
+.icon-fire:before { content: '\e818'; } /* 'юаШ' */
+.icon-graduation-cap:before { content: '\e817'; } /* 'юаЧ' */
+.icon-megaphone:before { content: '\e816'; } /* 'юаЦ' */
+.icon-database:before { content: '\e815'; } /* 'юаХ' */
+.icon-key:before { content: '\e814'; } /* 'юаФ' */
+.icon-beaker:before { content: '\e828'; } /* 'юаи' */
+.icon-truck:before { content: '\e829'; } /* 'юай' */
+.icon-money:before { content: '\e82a'; } /* 'юак' */
+.icon-food:before { content: '\e82c'; } /* 'юам' */
+.icon-shop:before { content: '\e82b'; } /* 'юал' */
+.icon-diamond:before { content: '\e82d'; } /* 'юан' */
+.icon-t-shirt:before { content: '\e82e'; } /* 'юао' */
+.icon-sound:before { content: '\e823'; } /* 'юаг' */
