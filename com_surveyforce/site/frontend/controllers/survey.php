@@ -48,7 +48,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 			}
 		}
 
-		$return_str_json = '';
+		$return_str_json = '{}';
 		if(count($sort_questions)) ksort($sort_questions);
 
 		if(count($sort_questions)){
@@ -479,7 +479,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 				}
 			}
 
-			$return_str_json = (count($return_json)) ? json_encode($return_json) : '';
+			$return_str_json = (count($return_json)) ? json_encode($return_json) : '{}';
 		} else {
 			$database->setQuery("SELECT `id` FROM `#__survey_force_quests` WHERE `sf_survey` = '".$surv_id."'");
 			$del_ids = $database->loadColumn();
