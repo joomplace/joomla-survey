@@ -267,7 +267,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 							}
 
 						break;
-						case 'ranking-dropdown':
+						case 'ranking':
 						case 'ranking-dragdrop':
 							$new_ids = array();
 							for($n = 0; $n < count($answer); $n++){
@@ -290,7 +290,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 									$database->execute();
 								}
 							}
-
+							
 							for($n = 0; $n < count($answer); $n++){
 								if(isset($answer[$n]['leftid']) && $answer[$n]['leftid'] != ''){
 									$leftans = new stdClass;
@@ -339,7 +339,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 							}
 
 						break;
-						case 'ranking':
+						case 'ranking-dropdown':
 						case 'likert-scale':
 
 							$new_oids = array();
@@ -357,7 +357,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								$database->execute();
 							}
 
-							if($question['sf_qtype'] == 'ranking') {
+							if($question['sf_qtype'] == 'ranking-dropdown') {
 								$new_ids = array();
 								if(isset($answer['rid']) && count($answer['rid']))
 									for($n = 0; $n < count($answer['rid']); $n++){
@@ -417,7 +417,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								$return_json['answers'][$question['system_id']]['oid'][] = $opt_id;
 							}
 
-							if($question['sf_qtype'] == 'ranking'){
+							if($question['sf_qtype'] == 'ranking-dropdown'){
 
 								if(isset($answer['rid']) && count($answer['rid']))
 								for($n = 0; $n < count($answer['rid']); $n++){
@@ -555,7 +555,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								}
 
 							break;
-							case 'ranking-dropdown':
+							case 'ranking':
 							case 'ranking-dragdrop':
 
 								if(isset($return_json['questions'][$question['hides'][$n]['question']]) && isset($return_json['answers'][$question['hides'][$n]['question']]['leftid'][$question['hides'][$n]['answer'] - 1])){
@@ -572,7 +572,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								}
 
 							break;
-							case 'ranking':
+							case 'ranking-dropdown':
 							case 'likert-scale':
 								if(isset($return_json['questions'][$question['hides'][$n]['question']]) && isset($return_json['answers'][$question['hides'][$n]['question']]['oid'][$question['hides'][$n]['answer'] - 1])){
 

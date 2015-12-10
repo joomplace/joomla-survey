@@ -113,7 +113,7 @@
 			
 			<?php break;
 
-			case 'ranking-dropdown':
+			case 'ranking':
 			case 'ranking-dragdrop':
 			?>
 
@@ -142,11 +142,11 @@
 
 			<?php break;
 
-			case 'ranking':
+			case 'ranking-dropdown':
 			case 'likert-scale':
 			?>
 
-			<?php if($types[$question->sf_qtype] == 'ranking'){?>
+			<?php if($types[$question->sf_qtype] == 'ranking-dropdown'){?>
 			<?php $t = 'ranks';?>
 
 			questionsStack[newID].answers = {options: [], ranks: [], oid: [], rid: []};
@@ -171,7 +171,7 @@
 
 			<?php foreach ($question->answers[$t] as $value) {?>
 			<?php
-				if($types[$question->sf_qtype] == 'ranking'){
+				if($types[$question->sf_qtype] == 'ranking-dropdown'){
 					$vtext = str_replace('"', '\"', $value->ftext);
 					$ans_id_prop = 'rid';
 					$ans_id = $value->id;
