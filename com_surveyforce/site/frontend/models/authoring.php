@@ -173,7 +173,7 @@ class SurveyforceModelAuthoring extends JModelItem
 						$db->setQuery("SELECT * FROM `#__survey_force_fields` WHERE `quest_id` = '".$question->id."' AND `is_main` = 0");
 						$question->answers[0]->sf_other = $db->loadObject();
 					break;
-					case '5':
+					case '9':
 					case '6':
 						$question->answers = array();
 						$db->setQuery("SELECT * FROM `#__survey_force_fields` WHERE `quest_id` = '".$question->id."' AND `is_main` = 1 ORDER BY `ordering`");
@@ -190,14 +190,14 @@ class SurveyforceModelAuthoring extends JModelItem
 						}
 					break;
 					case '1':
-					case '9':
+					case '5':
 						$question->answers = array();
 						$db->setQuery("SELECT * FROM `#__survey_force_fields` WHERE `quest_id` = '".$question->id."' AND `is_main` = 1 ORDER BY `ordering`");
 						$question->answers['options'] = $db->loadObjectList();
 
 						$db->setQuery("SELECT * FROM `#__survey_force_fields` WHERE `quest_id` = '".$question->id."' AND `is_main` = 0 ORDER BY `ordering`");
 
-						if($question->sf_qtype == 9){
+						if($question->sf_qtype == 5){
 							$question->answers['ranks'] = $db->loadObjectList();
 						} else {
 

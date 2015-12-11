@@ -1723,11 +1723,11 @@ var sfPublishSurvey = function(a, b) {
                         b = sfReplaceShortAnswer(b);
                         b = b.replace("{ANSWERS}", "");
                         break;
-                    case "ranking-dropdown":
+                    case "ranking":
                     case "ranking-dragdrop":
                         c = sfGenerateID();
                         if (questionsStack[a].answers.length) {
-                            if ("ranking-dropdown" == questionsStack[a].sf_qtype) {
+                            if ("ranking" == questionsStack[a].sf_qtype) {
                                 for (var g = '<ul class="choices" data-id="' + c + '">', f = "<select>", d = 0; d < questionsStack[a].answers.length; d++) f += '<option value="' + questionsStack[a].answers[d].right + '">' + questionsStack[a].answers[d].right + "</option>";
                                 f += "</select>";
                                 for (d = 0; d < questionsStack[a].answers.length; d++) g += '<li class="ranking-left">' + questionsStack[a].answers[d].left + '</li><li class="ranking-right">' + f + '</li><li class="ranking-break">';
@@ -1744,10 +1744,10 @@ var sfPublishSurvey = function(a, b) {
                     case "boilerplate":
                         b = b.replace("{ANSWERS}", "");
                         break;
-                    case "ranking":
+                    case "ranking-dropdown":
                     case "likert-scale":
                         c = sfGenerateID();
-                        if ("ranking" == questionsStack[a].sf_qtype) {
+                        if ("ranking-dropdown" == questionsStack[a].sf_qtype) {
                             g = '<ul class="choices" data-id="' + c + '">';
                             f = "<select>";
                             if (questionsStack[a].answers.ranks.length)
@@ -1808,7 +1808,7 @@ var sfPublishSurvey = function(a, b) {
                                                 }
                                         break;
                                     case "ranking-dragdrop":
-                                    case "ranking-dropdown":
+                                    case "ranking":
                                         if (questionsStack[k].answers.length)
                                             for (d = 0; d < questionsStack[k].answers.length; d++)
                                                 if (questionsStack[k].answers[d].leftid == c) {
@@ -1816,7 +1816,7 @@ var sfPublishSurvey = function(a, b) {
                                                     break
                                                 }
                                         break;
-                                    case "ranking":
+                                    case "ranking-dropdown":
                                     case "likert-scale":
                                         if (questionsStack[k].answers.oid.length)
                                             for (d = 0; d < questionsStack[k].answers.oid.length; d++)
@@ -1844,7 +1844,7 @@ var sfPublishSurvey = function(a, b) {
                                         }
                                 break;
                             case "ranking-dragdrop":
-                            case "ranking-dropdown":
+                            case "ranking":
                                 if (questionsStack[a].answers.length) {
                                     for (d = 0; d < questionsStack[a].answers.length; d++)
                                         if (questionsStack[a].answers[d].rightid == c) {
@@ -1858,7 +1858,7 @@ var sfPublishSurvey = function(a, b) {
                                         }
                                 }
                                 break;
-                            case "ranking":
+                            case "ranking-dropdown":
                             case "likert-scale":
                                 if (questionsStack[a].answers.oid.length) {
                                     for (d = 0; d < questionsStack[a].answers.oid.length; d++)
@@ -1867,7 +1867,7 @@ var sfPublishSurvey = function(a, b) {
                                             break
                                         }
                                     for (d = 0; d < questionsStack[a].answers.oid.length; d++)
-                                        if ("ranking" == questionsStack[a].sf_qtype) {
+                                        if ("ranking-dropdown" == questionsStack[a].sf_qtype) {
                                             if (questionsStack[a].answers.rid[d] == c) {
                                                 questionsStack[a].rules[b].answer = d + 1;
                                                 break
@@ -2380,9 +2380,9 @@ var sfPublishSurvey = function(a, b) {
                 c = sfGenerateID();
                 c = '<li class="field" name="pick-many" style="" id="' + b + '"><i class="fa fa-times remove" onclick="javascript:sfRemoveQuestion(this);"></i><span class="status"></span><span class="name" title="Identifier"></span><span class="nclass" title="Extra Classes"></span><h3 class="title">Question Text</h3><div class="description"></div><ul class="choices" data-id="' + c + '"><li class="choice"><label><label class="clean-input-wrap"><input type="checkbox" name="' + c + '"><span class="clean-input"></span></label> <span class="choice-value">Choice 1</span></label></li><li class="choice"><label><label class="clean-input-wrap"><input type="checkbox" name="' + c + '"><span class="clean-input"></span></label><span class="choice-value">Choice 2</span></label></li></ul></li>';
                 break;
-            case "ranking-dropdown":
+            case "ranking":
                 c = sfGenerateID();
-                c = '<li class="field" name="ranking-dropdown" style="" id="' + b + '"><i class="fa fa-times remove" onclick="javascript:sfRemoveQuestion(this);"></i><span class="status"></span><span class="name" title="Identifier"></span><span class="nclass" title="Extra Classes"></span><h3 class="title">Question Text</h3><div class="description"></div><ul class="choices" data-id="' + c + '"><li class="ranking-left">Option 1</li><li class="ranking-right"><select><option value="Rank 1">Rank 1</option><option value="Rank 2">Rank 2</option></select></li><li class="ranking-break"></li><li class="ranking-left">Option 2</li><li class="ranking-right"><select><option value="Rank 1">Rank 1</option><option value="Rank 2">Rank 2</option></select></li><li class="ranking-break"></li></ul></li>';
+                c = '<li class="field" name="ranking" style="" id="' + b + '"><i class="fa fa-times remove" onclick="javascript:sfRemoveQuestion(this);"></i><span class="status"></span><span class="name" title="Identifier"></span><span class="nclass" title="Extra Classes"></span><h3 class="title">Question Text</h3><div class="description"></div><ul class="choices" data-id="' + c + '"><li class="ranking-left">Option 1</li><li class="ranking-right"><select><option value="Rank 1">Rank 1</option><option value="Rank 2">Rank 2</option></select></li><li class="ranking-break"></li><li class="ranking-left">Option 2</li><li class="ranking-right"><select><option value="Rank 1">Rank 1</option><option value="Rank 2">Rank 2</option></select></li><li class="ranking-break"></li></ul></li>';
                 break;
             case "short-answer":
                 c = sfReplaceShortAnswer('<li class="field" name="short-answer" id="' + b + '"><i class="fa fa-times remove" onclick="javascript:sfRemoveQuestion(this);"></i><span class="status"></span><span class="name" title="Identifier"></span><span class="nclass" title="Extra Classes"></span><h3 class="title">Every {x} in question text will be replaced by input box. If the number of {x} is more than zero no large text area will be displayed. To place text area with input box in question text use {y} tag.</h3><div class="description"></div></li>');
@@ -2392,13 +2392,13 @@ var sfPublishSurvey = function(a, b) {
                 c = '<li class="field" name="ranking-dragdrop" style="" id="' + b + '"><i class="fa fa-times remove" onclick="javascript:sfRemoveQuestion(this);"></i><span class="status"></span><span class="name" title="Identifier"></span><span class="nclass" title="Extra Classes"></span><h3 class="title">Question Text</h3><div class="description"></div><ul class="choices" data-id="' + c + '"><li class="ranking-left fixed">Option 1</li><li class="ranking-right ui-widget-header dragable">Rank 1</li><li class="ranking-break"></li><li class="ranking-left fixed">Option 2</li><li class="ranking-right ui-widget-header dragable">Rank 2</li><li class="ranking-break"></li></ul></li>';
                 break;
             case "boilerplate":
-                c = '<li class="field" name="section-separator" id="' + b + '"><i class="fa fa-times remove" onclick="javascript:sfRemoveQuestion(this);"></i><span class="status"></span><span class="name" title="Identifier"></span><span class="nclass" title="Extra Classes"></span><h3 class="title">Boilerplate</h3><div class="description"></div></li>';
+                c = '<li class="field" name="boilerplate" id="' + b + '"><i class="fa fa-times remove" onclick="javascript:sfRemoveQuestion(this);"></i><span class="status"></span><span class="name" title="Identifier"></span><span class="nclass" title="Extra Classes"></span><h3 class="title">Boilerplate</h3><div class="description"></div></li>';
                 break;
             case "page-break":
                 return sfAddPage(!0), !0;
-            case "ranking":
+            case "ranking-dropdown":
                 c = sfGenerateID();
-                c = '<li class="field" name="ranking" style="" id="' + b + '"><i class="fa fa-times remove" onclick="javascript:sfRemoveQuestion(this);"></i><span class="status"></span><span class="name" title="Identifier"></span><span class="nclass" title="Extra Classes"></span><h3 class="title">Question Text</h3><div class="description"></div><ul class="choices" data-id="' + c + '"><li class="ranking-left">Option 1</li><li class="ranking-right"><select><option value="1">1</option><option value="2">2</option></select></li><li class="ranking-break"></li><li class="ranking-left">Option 2</li><li class="ranking-right"><select><option value="1">1</option><option value="2">2</option></select></li><li class="ranking-break"></li></ul></li>';
+                c = '<li class="field" name="ranking-dropdown" style="" id="' + b + '"><i class="fa fa-times remove" onclick="javascript:sfRemoveQuestion(this);"></i><span class="status"></span><span class="name" title="Identifier"></span><span class="nclass" title="Extra Classes"></span><h3 class="title">Question Text</h3><div class="description"></div><ul class="choices" data-id="' + c + '"><li class="ranking-left">Option 1</li><li class="ranking-right"><select><option value="1">1</option><option value="2">2</option></select></li><li class="ranking-break"></li><li class="ranking-left">Option 2</li><li class="ranking-right"><select><option value="1">1</option><option value="2">2</option></select></li><li class="ranking-break"></li></ul></li>';
                 break;
             case "likert-scale":
                 var c = sfGenerateID(),
@@ -2561,7 +2561,7 @@ var sfPublishSurvey = function(a, b) {
         questionsStack[c].answers.oid.splice(e, 1);
         $(a).parent().parent().fadeOut(300, function() {
             $(this).remove();
-            if ("ranking" == b) {
+            if ("ranking-dropdown" == b) {
                 var a = $(currQuestion).find(".choices .ranking-left").get(e),
                     c = $(currQuestion).find(".choices .ranking-right").get(e),
                     d = $(currQuestion).find(".choices .ranking-break").get(e);
@@ -2708,7 +2708,7 @@ var sfPublishSurvey = function(a, b) {
     },
     sfAddRank = function(a) {
         var b = $(currQuestion).attr("id");
-        if ("ranking" == a) {
+        if ("ranking-dropdown" == a) {
             questionsStack[b].answers.ranks.push("New rank");
             questionsStack[b].answers.rid.push("");
             b = '<li><div class="rank"><i class="fa fa-arrows rank-order"></i><input type="text" value=" New rank" class="rank-text"><a href="#" class="remove rank-remove"><i class="fa fa-times"></i></a></div></li>';
@@ -2738,7 +2738,7 @@ var sfPublishSurvey = function(a, b) {
         var b = $(currQuestion).attr("id");
         questionsStack[b].answers.options.push("New option");
         questionsStack[b].answers.oid.push("");
-        if ("ranking" == a) {
+        if ("ranking-dropdown" == a) {
             $("#option-list-ranking").append('<li><div class="options"><i class="fa fa-arrows option-order"></i><input type="text" value="New option" class="option-text"><a href="#" class="remove option-remove"><i class="fa fa-times"></i></a></div></li>');
             a = questionsStack[b].answers.ranks;
             if (a.length) {
@@ -2782,7 +2782,7 @@ var sfPublishSurvey = function(a, b) {
             leftid: "",
             rightid: ""
         });
-        "ranking-dropdown" == c && (d = $(currQuestion).find(".choices li.ranking-right").get(0), d = $(d).html(), null == d && (d = "<select></select>"), d = '<li class="ranking-left ui-selectee">' + a + '</li><li class="ranking-right ui-selectee">' + d + '</li><li class="ranking-break ui-selectee"></li>', $(currQuestion).find(".choices").append(d), d = '<option value="' + b + '">' + b + "</option>", $(currQuestion).find(".choices .ranking-right select").append(d));
+        "ranking" == c && (d = $(currQuestion).find(".choices li.ranking-right").get(0), d = $(d).html(), null == d && (d = "<select></select>"), d = '<li class="ranking-left ui-selectee">' + a + '</li><li class="ranking-right ui-selectee">' + d + '</li><li class="ranking-break ui-selectee"></li>', $(currQuestion).find(".choices").append(d), d = '<option value="' + b + '">' + b + "</option>", $(currQuestion).find(".choices .ranking-right select").append(d));
         "ranking-dragdrop" == c && (d = '<li class="ranking-left fixed ui-selectee">' + a + '</li><li class="ranking-right dragable ui-selectee ui-widget-header">' + b + '</li><li class="ranking-break ui-selectee"></li>', $(currQuestion).find(".choices").append(d), $(".dragable").draggable({
             containment: $(currQuestion),
             scroll: !1
@@ -2852,10 +2852,10 @@ var sfPublishSurvey = function(a, b) {
                 e = sfGetChoices(a, "pick-many");
                 d = d.replace("{PANEL_BODY}", e);
                 break;
-            case "ranking-dropdown":
-                $("#question-type").html("Ranking dropdown");
+            case "ranking":
+                $("#question-type").html("Ranking");
                 d = sfGetChoicesPanel();
-                e = sfGetRanking(a, "ranking-dropdown");
+                e = sfGetRanking(a, "ranking");
                 d = d.replace("{PANEL_BODY}", e);
                 break;
             case "ranking-dragdrop":
@@ -2864,9 +2864,9 @@ var sfPublishSurvey = function(a, b) {
                 e = sfGetRanking(a, "ranking-dragdrop");
                 d = d.replace("{PANEL_BODY}", e);
                 break;
-            case "ranking":
+            case "ranking-dropdown":
             case "likert-scale":
-                d = sfGetChoicesPanel(), "ranking" == b ? ($("#question-type").html("Ranking"), e = sfGetRanking(a, "ranking")) : "likert-scale" == b && ($("#question-type").html("Likert scale"), e = sfGetRanking(a, "likert-scale")), d = d.replace("{PANEL_BODY}", e)
+                d = sfGetChoicesPanel(), "ranking-dropdown" == b ? ($("#question-type").html("Ranking-dropdown"), e = sfGetRanking(a, "ranking-dropdown")) : "likert-scale" == b && ($("#question-type").html("Likert scale"), e = sfGetRanking(a, "likert-scale")), d = d.replace("{PANEL_BODY}", e)
         } else switch (questionsStack[a].exists = 1, questionsStack[a].sf_qdescription = "", questionsStack[a].sf_iscale = "", questionsStack[a].published = 1, questionsStack[a].sf_compulsory = 0, questionsStack[a].sf_default_hided = 0, questionsStack[a].is_final_question = 0, b) {
             case "section-separator":
                 $("#question-type").html("Section separator");
@@ -2923,9 +2923,9 @@ var sfPublishSurvey = function(a, b) {
                 questionsStack[a].sf_qtitle = "Every {x} in question text will be replaced by input box. If the number of {x} is more than zero no large text area will be displayed. To place text area with input box in question text use {y} tag.";
                 d = "";
                 break;
-            case "ranking-dropdown":
-                $("#question-type").html("Ranking dropdown");
-                questionsStack[a].sf_qtype = "ranking-dropdown";
+            case "ranking":
+                $("#question-type").html("Ranking");
+                questionsStack[a].sf_qtype = "ranking";
                 questionsStack[a].sf_qtitle = "Question Text";
                 questionsStack[a].answers = [];
                 questionsStack[a].answers.push({
@@ -2941,7 +2941,7 @@ var sfPublishSurvey = function(a, b) {
                     rightid: ""
                 });
                 d = sfGetChoicesPanel();
-                e = '<ul class="text-list" id="ranking-list"><li><div class="rank-left"><i class="fa fa-arrows rank-order"></i><input type="text" class="ranking-text" value="Option 1" /></div><div class="rank-right"><input type="text" class="ranking-text" value="Rank 1" /><a class="remove rank-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="rank-left"><i class="fa fa-arrows rank-order"></i><input type="text" class="ranking-text" value="Option 2" /></div><div class="rank-right"><input type="text" class="ranking-text" value="Rank 2" /><a class="remove rank-remove" href="#"><i class="fa fa-times"></i></a></div></li></ul>' + sfGetRankingTools(a, "ranking-dropdown");
+                e = '<ul class="text-list" id="ranking-list"><li><div class="rank-left"><i class="fa fa-arrows rank-order"></i><input type="text" class="ranking-text" value="Option 1" /></div><div class="rank-right"><input type="text" class="ranking-text" value="Rank 1" /><a class="remove rank-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="rank-left"><i class="fa fa-arrows rank-order"></i><input type="text" class="ranking-text" value="Option 2" /></div><div class="rank-right"><input type="text" class="ranking-text" value="Rank 2" /><a class="remove rank-remove" href="#"><i class="fa fa-times"></i></a></div></li></ul>' + sfGetRankingTools(a, "ranking");
                 d = d.replace("{PANEL_BODY}", e);
                 break;
             case "ranking-dragdrop":
@@ -2971,9 +2971,9 @@ var sfPublishSurvey = function(a, b) {
                 questionsStack[a].sf_qtitle = "Boilerplate";
                 d = "";
                 break;
-            case "ranking":
+            case "ranking-dropdown":
             case "likert-scale":
-                "ranking" == b ? ($("#question-type").html("Ranking"), questionsStack[a].sf_qtype = "ranking", questionsStack[a].sf_qtitle = "Question Text", questionsStack[a].answers = {
+                "ranking-dropdown" == b ? ($("#question-type").html("Ranking-dropdown"), questionsStack[a].sf_qtype = "ranking-dropdown", questionsStack[a].sf_qtitle = "Question Text", questionsStack[a].answers = {
                     ranks: ["1", "2"],
                     options: ["Option 1", "Option 2"],
                     oid: ["", ""],
@@ -2983,7 +2983,7 @@ var sfPublishSurvey = function(a, b) {
                     options: ["Option 1", "Option 2"],
                     oid: ["", ""],
                     sid: ["", "", "", ""]
-                }), d = sfGetChoicesPanel(), "ranking" == b ? e = '<ul class="text-list" id="rank-list"><li class="rank-title">Ranks</li><li><div class="rank"><i class="fa fa-arrows rank-order"></i><input type="text" class="rank-text" value="1" /><a class="remove rank-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="rank"><i class="fa fa-arrows rank-order"></i><input type="text" class="rank-text" value="2" /><a class="remove rank-remove" href="#"><i class="fa fa-times"></i></a></div></li></ul>' + sfGetRankTools("rank", "ranking") : "likert-scale" == b && (e = '<ul class="text-list" id="scale-list"><li class="scale-title">Scales</li><li><div class="scale"><i class="fa fa-arrows scale-order"></i><input type="text" class="scale-text" value="Scale 1" /><a class="remove scale-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="scale"><i class="fa fa-arrows scale-order"></i><input type="text" class="scale-text" value="Scale 2" /><a class="remove scale-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="scale"><i class="fa fa-arrows scale-order"></i><input type="text" class="scale-text" value="Scale 3" /><a class="remove scale-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="scale"><i class="fa fa-arrows scale-order"></i><input type="text" class="scale-text" value="Scale 4" /><a class="remove scale-remove" href="#"><i class="fa fa-times"></i></a></div></li></ul>' + sfGetRankTools("rank", "likert-scale")), e += '<hr/><ul class="text-list" id="' + ("ranking" == b ? "option-list-ranking" : "option-list-likert") + '"><li class="option-title">Answer Options</li><li><div class="options"><i class="fa fa-arrows option-order"></i><input type="text" class="option-text" value="Option 1" /><a class="remove option-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="options"><i class="fa fa-arrows option-order"></i><input type="text" class="option-text" value="Option 2" /><a class="remove option-remove" href="#"><i class="fa fa-times"></i></a></div></li></ul>', "ranking" == b ? e += sfGetRankTools("option", "ranking") : "likert-scale" == b && (e += sfGetRankTools("option", "likert-scale")), d = d.replace("{PANEL_BODY}", e)
+                }), d = sfGetChoicesPanel(), "ranking-dropdown" == b ? e = '<ul class="text-list" id="rank-list"><li class="rank-title">Ranks</li><li><div class="rank"><i class="fa fa-arrows rank-order"></i><input type="text" class="rank-text" value="1" /><a class="remove rank-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="rank"><i class="fa fa-arrows rank-order"></i><input type="text" class="rank-text" value="2" /><a class="remove rank-remove" href="#"><i class="fa fa-times"></i></a></div></li></ul>' + sfGetRankTools("rank", "ranking-dropdown") : "likert-scale" == b && (e = '<ul class="text-list" id="scale-list"><li class="scale-title">Scales</li><li><div class="scale"><i class="fa fa-arrows scale-order"></i><input type="text" class="scale-text" value="Scale 1" /><a class="remove scale-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="scale"><i class="fa fa-arrows scale-order"></i><input type="text" class="scale-text" value="Scale 2" /><a class="remove scale-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="scale"><i class="fa fa-arrows scale-order"></i><input type="text" class="scale-text" value="Scale 3" /><a class="remove scale-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="scale"><i class="fa fa-arrows scale-order"></i><input type="text" class="scale-text" value="Scale 4" /><a class="remove scale-remove" href="#"><i class="fa fa-times"></i></a></div></li></ul>' + sfGetRankTools("rank", "likert-scale")), e += '<hr/><ul class="text-list" id="' + ("ranking-dropdown" == b ? "option-list-ranking" : "option-list-likert") + '"><li class="option-title">Answer Options</li><li><div class="options"><i class="fa fa-arrows option-order"></i><input type="text" class="option-text" value="Option 1" /><a class="remove option-remove" href="#"><i class="fa fa-times"></i></a></div></li><li><div class="options"><i class="fa fa-arrows option-order"></i><input type="text" class="option-text" value="Option 2" /><a class="remove option-remove" href="#"><i class="fa fa-times"></i></a></div></li></ul>', "ranking-dropdown" == b ? e += sfGetRankTools("option", "ranking-dropdown") : "likert-scale" == b && (e += sfGetRankTools("option", "likert-scale")), d = d.replace("{PANEL_BODY}", e)
         }
         $("#collapseProperties").hasClass("in") || $("#collapseProperties").addClass("in");
         sfCollapseNewQuestion();
@@ -3040,7 +3040,7 @@ var sfPublishSurvey = function(a, b) {
             e = $(a).parent().parent().index();
         e--;
         questionsStack[c].answers.options[e] = d;
-        "ranking" == b ? (c = $(currQuestion).find(".choices .ranking-left"), e = $(c).get(e), $(e).html(d)) : "likert-scale" == b && (e = $(currQuestion).find(".likert-scale tr").get(e + 1), $(e).find("td:first").html(d));
+        "ranking-dropdown" == b ? (c = $(currQuestion).find(".choices .ranking-left"), e = $(c).get(e), $(e).html(d)) : "likert-scale" == b && (e = $(currQuestion).find(".likert-scale tr").get(e + 1), $(e).find("td:first").html(d));
         refreshAnswersList();
         return !0
     },
@@ -3056,8 +3056,8 @@ var sfPublishSurvey = function(a, b) {
     },
     sfGetRankingTools = function(a, b) {
         switch (b) {
-            case "ranking-dropdown":
-                addFunc = "javascript:sfAddRanking('Option Text', 'Rank Text', 'ranking-dropdown');";
+            case "ranking":
+				addFunc = "javascript:sfAddRanking('Option Text', 'Rank Text', 'ranking');";
                 break;
             case "ranking-dragdrop":
                 addFunc = "javascript:sfAddRanking('Option Text', 'Rank Text', 'ranking-dragdrop');"
@@ -3114,7 +3114,7 @@ var sfPublishSurvey = function(a, b) {
         return !0
     },
     sfGetRanking = function(a, b) {
-        if ("ranking" == b) {
+        if ("ranking-dropdown" == b) {
             var c = '<ul class="text-list" id="rank-list"><li class="rank-title">Ranks</li>',
                 d = questionsStack[a].answers.ranks;
             if (d.length)
@@ -3222,7 +3222,7 @@ var sfPublishSurvey = function(a, b) {
         a--;
         b--;
         c--;
-        if ("ranking" == d) {
+        if ("ranking-dropdown" == d) {
             var f = $(currQuestion).find(".choices .ranking-left"),
                 g = $(currQuestion).find(".choices .ranking-right"),
                 h = $(currQuestion).find(".choices .ranking-break");
@@ -3384,7 +3384,7 @@ var refreshAnswersList = function() {
                         for (var f = 0; f < questionsStack[b].answers.length; f++) var g = 30 < questionsStack[b].answers[f].title.length ? questionsStack[b].answers[f].title.substr(0, 30) + "..." : questionsStack[b].answers[f].title,
                             c = c + ('<option value="' + (f + 1) + '">' + g + "</option>");
                     break;
-                case "ranking-dropdown":
+                case "ranking":
                 case "ranking-dragdrop":
                     a = !0;
                     option = '<option value="0">- Select option -</option>';
@@ -3396,7 +3396,7 @@ var refreshAnswersList = function() {
                             option += '<option value="' + (f + 1) + '">' + h + "</option>"
                         }
                     break;
-                case "ranking":
+                case "ranking-dropdown":
                     a = !0;
                     option = '<option value="0">- Select option -</option>';
                     if (questionsStack[b].answers.ranks.length)
@@ -3435,7 +3435,7 @@ var refreshAnswersList = function() {
                     if (questionsStack[a].answers.length)
                         for (var e = 0; e < questionsStack[a].answers.length; e++) d = 30 < questionsStack[a].answers[e].title.length ? questionsStack[a].answers[e].title.substr(0, 30) + "..." : questionsStack[a].answers[e].title, c += '<option value="' + (e + 1) + '">' + d + "</option>";
                     break;
-                case "ranking-dropdown":
+                case "ranking":
                 case "ranking-dragdrop":
                     var f = '<div class="control-group form-inline" id="hide_for_option"><label class="control-label">And for option:</label><div class="controls"><select id="sf_field_data_m" name="sf_field_data_m" style="width:250px;"></select></div></div><div style="clear:both"><br/></div>',
                         g = '<option value="0">- Select option -</option>';
@@ -3447,7 +3447,7 @@ var refreshAnswersList = function() {
                     if (questionsStack[a].answers.length)
                         for (e = 0; e < questionsStack[a].answers.length; e++) d = 30 < questionsStack[a].answers[e].right.length ? questionsStack[a].answers[e].right.substr(0, 30) + "..." : questionsStack[a].answers[e].right, c += '<option value="' + (e + 1) + '">' + d + "</option>";
                     break;
-                case "ranking":
+                case "ranking-dropdown":
                 case "likert-scale":
                     f = '<div class="control-group form-inline" id="hide_for_option"><label class="control-label">And for option:</label><div class="controls"><select id="sf_field_data_m" name="sf_field_data_m" style="width:250px;"></select></div></div><div style="clear:both"><br/></div>';
                     g = '<option value="0">- Select option -</option>';
@@ -3455,7 +3455,7 @@ var refreshAnswersList = function() {
                         for (e = 0; e < questionsStack[a].answers.options.length; e++) h = 30 < questionsStack[a].answers.options[e].length ? questionsStack[a].answers.options[e].substr(0, 30) + "..." : questionsStack[a].answers.options[e], g += '<option value="' + (e + 1) + '">' + h + "</option>";
                     $(f).insertAfter($("#hide_for_question"));
                     $("#sf_field_data_m").html(g);
-                    if ("ranking" == d) {
+                    if ("ranking-dropdown" == d) {
                         if (questionsStack[a].answers.ranks.length)
                             for (e = 0; e < questionsStack[a].answers.ranks.length; e++) d = 30 < questionsStack[a].answers.ranks[e].length ? questionsStack[a].answers.ranks[e].substr(0, 30) + "..." : questionsStack[a].answers.ranks[e], c += '<option value="' + (e + 1) + '">' + d + "</option>"
                     } else if ("likert-scale" == d && questionsStack[a].answers.scales.length)
@@ -3474,7 +3474,7 @@ var refreshAnswersList = function() {
             e = $("#f_scale_data").val();
         if ("0" == c || "0" == e) return alert("Select question and answer!"), !1;
         var f = questionsStack[b].sf_qtype;
-        if (("ranking-dragdrop" == f || "ranking-dropdown" == f || "ranking" == f || "likert-scale" == f) && "0" == d) return alert("Select option please!"), !1;
+        if (("ranking-dragdrop" == f || "ranking" == f || "ranking-dropdown" == f || "likert-scale" == f) && "0" == d) return alert("Select option please!"), !1;
         var g = $("#sf_quest_list3 option:selected").text(),
             h = $("#sf_field_data_m option:selected").text(),
             k = $("#f_scale_data option:selected").text(),
@@ -3507,12 +3507,12 @@ var refreshAnswersList = function() {
                                 scale_data = questionsStack[c[e].question].answers[g].title;
                                 d = d + '<tr><td class="hide_' + c[e].question + '">' + f + '</td><td>&nbsp;</td><td class="answ_' + c[e].question + "_" + g + '">' + scale_data + '</td><td><a class="remove hide-remove" href="#" onclick="removeHide(this);"><i class="fa fa-times"></i></a></td></tr>';
                                 break;
-                            case "ranking-dropdown":
+                            case "ranking":
                             case "ranking-dragdrop":
                                 g = c[e].answer - 1;
                                 d = d + '<tr><td class="hide_' + c[e].question + '">' + f + "</td><td>" + questionsStack[c[e].question].answers[g].left + '</td><td class="answ_' + c[e].question + "_" + g + '">' + questionsStack[c[e].question].answers[g].right + '</td><td><a class="remove hide-remove" href="#" onclick="removeHide(this);"><i class="fa fa-times"></i></a></td></tr>';
                                 break;
-                            case "ranking":
+                            case "ranking-dropdown":
                                 var g = c[e].answer - 1,
                                     h = questionsStack[c[e].question].answers.options[g],
                                     d = d + '<tr><td class="hide_' + c[e].question + '">' + f + "</td><td>" + h + '</td><td class="answ_' + c[e].question + "_" + g + '">' + questionsStack[c[e].question].answers.ranks[g] + '</td><td><a class="remove hide-remove" href="#" onclick="removeHide(this);"><i class="fa fa-times"></i></a></td></tr>';
@@ -3542,11 +3542,11 @@ var refreshAnswersList = function() {
             case "pick-many":
                 var c = questionsStack[b].answers[a].title;
                 break;
-            case "ranking-dropdown":
+            case "ranking":
             case "ranking-dragdrop":
                 c = questionsStack[b].answers[a].right;
                 break;
-            case "ranking":
+            case "ranking-dropdown":
                 c = questionsStack[b].answers.ranks[a];
                 break;
             case "likert-scale":
@@ -3618,13 +3618,13 @@ var refreshAnswersList = function() {
                             case "pick-many":
                                 n = questionsStack[b].answers[l].title;
                                 break;
-                            case "ranking-dropdown":
+                            case "ranking":
                             case "ranking-dragdrop":
                                 var a = !0,
                                     n = questionsStack[b].answers[l].right,
                                     p = questionsStack[b].answers[m].left;
                                 break;
-                            case "ranking":
+                            case "ranking-dropdown":
                                 a = !0;
                                 n = questionsStack[b].answers.ranks[l];
                                 p = questionsStack[b].answers.options[m];
@@ -3695,16 +3695,16 @@ var refreshAnswersList = function() {
                         if (a.answers[b].length)
                             for (var d = a.answers[b].length, e = 0; e < d; e++) questionsStack[b].answers[e].id = parseInt(a.answers[b][e]);
                         break;
-                    case "ranking-dropdown":
+                    case "ranking":
                     case "ranking-dragdrop":
                         if (a.answers[b].leftid.length)
                             for (d = a.answers[b].length, e = 0; e < d; e++) questionsStack[b].answers[e].leftid = parseInt(a.answers[b].leftid[e]), questionsStack[b].answers[e].rightid = parseInt(a.answers[b].rightid[e]);
                         break;
-                    case "ranking":
+                    case "ranking-dropdown":
                     case "likert-scale":
                         if (a.answers[b].oid.length)
                             for (questionsStack[b].answers.oid = [], d = a.answers[b].oid.length, e = 0; e < d; e++) questionsStack[b].answers.oid.push(parseInt(a.answers[b].oid[e]));
-                        c = "ranking" == c ? "rid" : "sid";
+                        c = "ranking-dropdown" == c ? "rid" : "sid";
                         if (a.answers[b][c].length)
                             for (questionsStack[b].answers[c] = [], d = a.answers[b][c].length, e = 0; e < d; e++) questionsStack[b].answers[c].push(parseInt(a.answers[b][c][e]))
                 }
