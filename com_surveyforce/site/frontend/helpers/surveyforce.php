@@ -782,14 +782,17 @@ class SurveyforceHelper
 		
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
-		$query->select('sf_name')
+		$query->select('sf_name, id')
                 ->from('#__survey_force_qsections')
                 ->where('sf_survey_id = "'.$data['survey']->id.'" AND addname = 1');
         $db->setQuery($query);
 		$section = $db->loadObject();
 		$sectionName = $section->sf_name;
-	
+
+		if($data['q_data']->sf_section_id == $section->id){
+		
 		$data['q_data']->sf_qtext = $sectionName.$data['q_data']->sf_qtext;
+		}
 		
 		if (method_exists($className, 'onGetQuestionData'))
 			$return = $className::onGetQuestionData($data);
@@ -1011,9 +1014,9 @@ class SurveyforceHelper
 		}
 		$query .= "ORDER BY `a`.`username`"
 			. "\n LIMIT $pageNav->limitstart, $pageNav->limit";
-		
-		$query = "SELECT * FROM #__extensions WHERE name = 'com_community' AND type = 'component'";
-		$database->setQuery($query);
+	
+		$query_check = "SELECT * FROM #__extensions WHERE name = 'com_community' AND type = 'component'";
+		$database->setQuery($query_check);
 		$isInstolled = $database->loadObject();
 		
 		
