@@ -316,6 +316,10 @@ class SurveyforceModelAuthoring extends JModelItem
 		$document =& JFactory::getDocument();
 		$document->addStyleSheet(JURI::root() . 'components/com_surveyforce/assets/css/surveyforce.css');
 		$document->addScript(JURI::root() . "components/com_surveyforce/assets/js/surveyforce.js");
+		$document->addScript(JURI::root() . "components/com_surveyforce/assets/js/jquery-1.9.1.min.js");
+		$document->addScript(JURI::root() . "components/com_surveyforce/assets/js/jquery-1.9.1.custom.min.js");
+		$document->addScript(JURI::root() . "components/com_surveyforce/assets/js/surveyforce.js");
+		$document->addScript(JURI::root() . "components/com_surveyforce/assets/js/bootstrap.min.js");
 
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
 		if ($sf_config->get('sf_enable_jomsocial_integration'))
