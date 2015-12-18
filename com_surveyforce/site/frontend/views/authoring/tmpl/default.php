@@ -19,7 +19,7 @@ if ( !$is_author ) {
 	function isChecked(a,b){if("undefined"===typeof b&&(b=document.getElementById("adminForm"),!b))b=document.adminForm;!0==a?b.boxchecked.value++:b.boxchecked.value--}
 	function checkAll (a,b){b||(b="cb");if(a.form){for(var c=0,d=0,f=a.form.elements.length;d<f;d++){var e=a.form.elements[d];if(e.type==a.type&&(b&&0==e.id.indexOf(b)||!b))e.checked=a.checked,c+=!0==e.checked?1:0}if(a.form.boxchecked)a.form.boxchecked.value=c;return!0}return!1};
 </script>
-	<style>#limit { width: 55px; }</style>
+	<style>#limit { width: 55px; } .left {float:none;} </style>
 <?php
 	echo $this->html;
 
