@@ -319,8 +319,8 @@ class mos_Survey_Force_UserInfo extends JTable  {
 	function check() {
 
 		$query = "SELECT id FROM #__survey_force_users "
-				." WHERE name = ".$database->quote($this->name)." AND lastname = ".$database->quote($this->lastname)
-				." AND email = ".$database->quote($this->email)." AND list_id = ".$database->quote($this->list_id);
+				." WHERE name = '".$this->name."' AND lastname = '".$this->lastname
+				."' AND email = '".$this->email."' AND list_id = '".$this->list_id."'";
 		$this->database->SetQuery($query);
 		$user = intval($this->database->LoadResult());
 		if ($user > 0) {
