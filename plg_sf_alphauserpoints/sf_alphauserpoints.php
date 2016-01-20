@@ -48,6 +48,10 @@ if(!class_exists('plgSystemSF_alphauserpoints')){
 			$points = $fixed_points ? (int)$this->params->get('points', 0): $params['user_points'];
 			$add_points_once = (int)$this->params->get('add_points_once', 0);
 
+			$pps = $this->params->get('pps');
+			if($pps->$params['survey_id']){
+				$points = $pps->$params['survey_id'];
+			}
 			
 			if ($points == 0 || ($points_rule == 'onsuccess' && !$params['passed'])) {
 				return;

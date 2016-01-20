@@ -16,24 +16,27 @@
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_sf_alphauserpoints.ini</language>
 	</languages>
 	<config>
-        <fields name="params">
-            <fieldset name="basic">
-		<field name="comment" type="text" default="Completed '{survey_title}' survey" size="60" label="SF_PARAM_COMMENT_LABEL" description="SF_PARAM_COMMENT_DESCR" />
-		<field name="points_rule" type="list" default="always" label="SF_PARAM_POINTSRULE_LABEL" description="SF_PARAM_POINTSRULE_DESCR">
-			<option value="always">SF_PARAM_POINTSRULE_OPT_ALWAYS</option>
-			<option value="onsuccess">SF_PARAM_POINTSRULE_OPT_ONSUCCESS</option>
-		</field>
-		<field name="fixed_points" type="hidden" default="1" label="SF_PARAM_FIXEDPOINTS_LABEL" description="SF_PARAM_FIXEDPOINTS_DESCR">
-      		<option value="0">SF_NO</option>
-      		<option value="1">SF_YES</option>
-    	</field>
-    	<field name="add_points_once" type="radio" default="0" label="SF_PARAM_POINTSONETIME_LABEL" description="SF_PARAM_POINTSONETIME_DESCR">
-      		<option value="0">SF_NO</option>
-      		<option value="1">SF_YES</option>
-    	</field>
-		<field name="points" type="text" size="5" default="1" label="SF_PARAM_POINTS_LABEL" description="SF_PARAM_POINTS_DESCR" />
-	 </fieldset>
-    </fields>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="comment" type="text" default="Completed '{survey_title}' survey" size="60" label="SF_PARAM_COMMENT_LABEL" description="SF_PARAM_COMMENT_DESCR" />
+				<field name="points_rule" type="list" default="always" label="SF_PARAM_POINTSRULE_LABEL" description="SF_PARAM_POINTSRULE_DESCR">
+					<option value="always">SF_PARAM_POINTSRULE_OPT_ALWAYS</option>
+					<option value="onsuccess">SF_PARAM_POINTSRULE_OPT_ONSUCCESS</option>
+				</field>
+				<field name="fixed_points" type="hidden" default="1" label="SF_PARAM_FIXEDPOINTS_LABEL" description="SF_PARAM_FIXEDPOINTS_DESCR">
+					<option value="0">SF_NO</option>
+					<option value="1">SF_YES</option>
+				</field>
+				<field name="add_points_once" type="radio" default="0" label="SF_PARAM_POINTSONETIME_LABEL" description="SF_PARAM_POINTSONETIME_DESCR">
+					<option value="0">SF_NO</option>
+					<option value="1">SF_YES</option>
+				</field>
+				<field name="points" type="text" size="5" default="1" label="SF_PARAM_POINTS_LABEL" description="SF_PARAM_POINTS_DESCR" />
+			</fieldset>
+			<fieldset addfieldpath="/plugins/system/sf_alphauserpoints/fields" name="surveys">
+				<field name="pps" type="pps" size="5" default="1" label="Points per survey" description="Specify points amount per survey" />
+			</fieldset>
+		</fields>
     </config>
 	
 </extension>
