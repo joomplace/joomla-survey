@@ -10,6 +10,7 @@
 	<version>3.0.4</version>
 	<description>JOOMLASURVEYFORCE ALPHA USER POINTS PLUGIN</description>
 	<files>
+		<folder>fields</folder>
 		<filename plugin="sf_alphauserpoints">sf_alphauserpoints.php</filename>
 	</files>
 	<languages>
