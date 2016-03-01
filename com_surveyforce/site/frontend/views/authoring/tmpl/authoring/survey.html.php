@@ -361,14 +361,14 @@
 				                    <div class="control-group form-inline">
 				                    	<label class="control-label"><?php echo JText::_('COM_SURVEYFORCE_STARTED_ON');?>:</label>
 				                    	<div class="controls">
-											<input type="text" class="input-xlarge required datapicker" size="30" name="sf_date_started" id="sf_date_started" value="<?php echo JHtml::_('date', $survey->sf_date_started,'Y-m-d H:i:s'); ?>"/>
+											<input type="text" class="input-xlarge required datapicker" size="30" name="sf_date_started" id="sf_date_started" value="<?php echo $survey->sf_date_started; ?>"/>
 				                    	</div>
 				                    </div>
 				                    <div style="clear:both"><br/></div>
 				                    <div class="control-group form-inline">
 				                    	<label class="control-label"><?php echo JText::_('COM_SURVEYFORCE_EXPIRED_ON');?>:</label>
 				                    	<div class="controls">
-											<input type="text" class="input-xlarge required datapicker" size="30" name="sf_date_expired" id="sf_date_expired" value="<?php echo JHtml::_('date', $survey->sf_date_expired,'Y-m-d H:i:s'); ?>"/>
+											<input type="text" class="input-xlarge required datapicker" size="30" name="sf_date_expired" id="sf_date_expired" value="<?php echo $survey->sf_date_expired; ?>"/>
 				                    	</div>
 				                    </div>
 				                    <div style="clear:both"><br/></div>
@@ -599,8 +599,8 @@
 												<div class="edit-html" style="display: none;"><a class="button button-small edit-html-btn" href="#" onclick="javascript:sfOpenCKEEditor(this, 'questionTitle');"><i class="fa fa-eye edit-html-text">&nbsp;<?php echo JText::_('COM_SF_OPEN_VISUAL_EDITOR');?></i></a></div>
 					                    	</div>
 					                    </div>
-					                    <div style="clear:both"><br/></div>
-							            <div class="control-group form-inline">
+					                    <div style="clear:both" ><br/></div>
+							            <div hidden="true"class="control-group form-inline">
 					                    	<label class="control-label"><?php echo JText::_('COM_SF_EXTRA_DESCRIPTION');?>:</label>
 					                    	<div class="controls">
 												<textarea class="inputbox" name="sf_qdescription" onclick="javascript:sfOpenEditButton(this);" onblur="javascript:sfCloseEditButton(this);" onkeyup="javascript:sfChangeQuestionDescription();"></textarea>

@@ -65,7 +65,6 @@ SurveyforceHelper::addFileUploadFull('index.php?option=com_surveyforce&task=imag
 	<li><a href="#survey-details" data-toggle="tab"><?php echo JText::_('COM_SURVEYFORCE_SURVEY_DETAILS'); ?></a></li>
 	<li><a href="#survey-settings" data-toggle="tab"><?php echo JText::_('COM_SURVEYFORCE_SURVEY_SETTINGS'); ?></a></li>
 	<li><a href="#survey-final-page" data-toggle="tab"><?php echo JText::_('COM_SURVEYFORCE_FINAL_PAGE2'); ?></a></li>
-	<li><a href="#survey-rules" data-toggle="tab"><?php echo JText::_('COM_SURVEYFORCE_SURVEY_RULES'); ?></a></li>
 </ul>
 <div class="tab-content">
 <div class="tab-pane" id="survey-details">
@@ -298,13 +297,6 @@ SurveyforceHelper::addFileUploadFull('index.php?option=com_surveyforce&task=imag
 		<?php echo $this->form->getLabel('sf_redirect_delay'); ?>
 		<div class="controls">
 			<?php echo $this->form->getInput('sf_redirect_delay'); ?>
-		</div>
-	</div>
-</div>
-<div class="tab-pane" id="survey-rules">
-	<div class="control-group">
-		<div class="controls">
-			<?php echo $this->form->getInput('rules'); ?>
 		</div>
 	</div>
 </div>

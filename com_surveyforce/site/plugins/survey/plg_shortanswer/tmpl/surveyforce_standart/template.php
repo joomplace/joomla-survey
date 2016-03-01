@@ -81,7 +81,7 @@ EOFTMPL;
     }
 
     public function QuestionAnswers() {
-
+		
 		$inp = 0;
 		if (strpos(SF_ShortanswerTemplate::$question->sf_qtext,'{x}') > 0 || strpos(SF_ShortanswerTemplate::$question->sf_qtext,'{y}') > 0) {
 			$inp = substr_count(SF_ShortanswerTemplate::$question->sf_qtext, '{x}')+substr_count(SF_ShortanswerTemplate::$question->sf_qtext, '{y}');
@@ -94,26 +94,27 @@ EOFTMPL;
 					'</textarea>' .
 					'</div>';
 		else
-		{
+		{	
+			
 			$return_str = SF_ShortanswerTemplate::$question->sf_qtext;
 			SF_ShortanswerTemplate::$question->sf_qtext = '';
 			for ( $i = 0; $i < $inp; $i++)
 			{
 				$x_pos = strpos($return_str, '{x}');
 				$y_pos = strpos($return_str, '{y}');
-
-				if ( ($x_pos < $y_pos || $y_pos === false) && $x_pos !== false) {
-					$tmp_str = '<input class="sa_input_text" type="text" id="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" name="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" value="" />';
-					$return_str = preg_replace('/\{x\}/i', $tmp_str, $return_str, 1);
-				}
-				elseif ( $y_pos !== false )
-				{
-					$tmp_str = '<textarea id="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" name="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" class="short_ans_textarea" rows="5" ></textarea>';
-					$return_str = preg_replace('/\{y\}/i', $tmp_str, $return_str, 1);
-				}
-			}
+				
+					if ( ($x_pos < $y_pos || $y_pos === false) && $x_pos !== false) {
+						$tmp_str = '<input class="sa_input_text" type="text" id="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" name="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" value="'.htmlspecialchars(stripslashes(SF_ShortanswerTemplate::$iscale['answ_txt'][$i])).'" />';
+						$return_str = preg_replace('/\{x\}/i', $tmp_str, $return_str, 1);
+					}
+					elseif ( $y_pos !== false )
+					{
+						$tmp_str = '<textarea id="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" name="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" class="short_ans_textarea" rows="5" >'.stripslashes(SF_ShortanswerTemplate::$iscale['answ_txt'][$i]).'</textarea>';
+						$return_str = preg_replace('/\{y\}/i', $tmp_str, $return_str, 1);
+					}
+				
 		}
-
+		}
         return $return_str;
     }
 
@@ -122,6 +123,7 @@ EOFTMPL;
         $return_str = '';
         $ans_imp_count = SF_ShortanswerTemplate::$iscale['ans_imp_count'];
         $iscale_name = SF_ShortanswerTemplate::$iscale['impscale_name'];
+		
         $iscount = count(SF_ShortanswerTemplate::$iscale['isfield']);
         if ($iscount) {
             $return_str = '<div align="left" class="importance_div">' .

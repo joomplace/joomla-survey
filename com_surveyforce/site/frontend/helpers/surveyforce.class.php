@@ -289,9 +289,9 @@ class mos_Survey_Force_ListUsers extends JTable  {
 	}
 
 	function check() {
-
+		$db = JFactory::getDbo();
 		$query = "SELECT id FROM #__survey_force_listusers "
-				." WHERE listname = '{$this->listname}' ".($this->id > 0? " AND id <> '{$this->id}'":'');
+				." WHERE listname = ".$db->quote($this->listname)."".($this->id > 0? " AND id <> ".$db->quote($this->id)."":'');
 		$this->database->SetQuery($query);
 		$user = intval($this->database->LoadResult());
 		if (intval($this->database->LoadResult()) > 0) {
@@ -317,10 +317,11 @@ class mos_Survey_Force_UserInfo extends JTable  {
 	}
 
 	function check() {
-
+		$db = JFactory::getDbo();
+		
 		$query = "SELECT id FROM #__survey_force_users "
-				." WHERE name = '".$this->name."' AND lastname = '".$this->lastname
-				."' AND email = '".$this->email."' AND list_id = '".$this->list_id."'";
+				." WHERE name = ".$db->quote($this->name)." AND lastname = ".$db->quote($this->lastname)
+				." AND email = ".$db->quote($this->email)." AND list_id = ".$db->quote($this->list_id);
 		$this->database->SetQuery($query);
 		$user = intval($this->database->LoadResult());
 		if ($user > 0) {

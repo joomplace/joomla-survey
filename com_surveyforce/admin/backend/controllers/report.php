@@ -112,7 +112,8 @@ class SurveyforceControllerReport extends JControllerForm {
 									break;
 								case 3:
 									$text_to_pdf = '';
-									foreach ($qrow['answer_data'] as $arow) {
+								
+									foreach ($qrow['answer_data']['answers']['answer'] as $arow) {	
 										$img_ans = $arow['alt_text'] ? " - ".JText::_('COM_SURVEYFORCE_USER_CHOICE') : '';
 										$text_to_pdf .= $arow['f_text'] . $img_ans . "\n";
 									}
@@ -123,8 +124,10 @@ class SurveyforceControllerReport extends JControllerForm {
 									$pdf->Ln();
 									break;
 								case 1:	
-									$oans = array_pop($qrow['answer_data']['answers']['answer']);
-									$text_to_pdf = JText::_('COM_SURVEYFORCE_SCALE').": " . $oans['alt_text'];
+									$alt_text = '';
+									$sc_count = count($qrow['answer_data']['answers']['answer']);
+									$i = 0;
+									$text_to_pdf = JText::_('COM_SURVEYFORCE_SCALE').": " . $qrow['answer_data']['answers']['scale'] ;
 									$text_to_pdf 	= $pdf_doc->cleanText( $text_to_pdf );
 									$pdf->SetFontSize(8);
 									$pdf->Write(5, $text_to_pdf, '', 0);
@@ -134,7 +137,7 @@ class SurveyforceControllerReport extends JControllerForm {
 								case 9:
 
 									$text_to_pdf = '';
-									foreach ($qrow['answer_data']['answer'] as $arow) {
+									foreach ($qrow['answer_data']['answers']['answer'] as $arow) {
 										$text_to_pdf .= $arow['f_text'] . " - " . $arow['alt_text'] . "\n";
 									}
 									$text_to_pdf 	= $pdf_doc->cleanText( $text_to_pdf );
@@ -149,7 +152,8 @@ class SurveyforceControllerReport extends JControllerForm {
 											if ($ii == 2) $tmp = JText::_('COM_SURVEYFORCE_SECOND_ANSWER');
 											elseif($ii == 3)	$tmp = JText::_('COM_SURVEYFORCE_THIRD_ANSWER');
 											elseif ($ii > 3) $tmp = $ii.JText::_('COM_SURVEYFORCE_TH_ANSWER');
-											foreach($qrow['answer_data']['answer']as $answer) {
+
+											foreach($qrow['answer_data']['answers']['answer']as $answer) {
 												if ($answer->ans_field == $ii) {
 													$text_to_pdf = $tmp.($answer->ans_txt == ''?' '.JText::_('COM_SURVEYFORCE_NO_ANSWER'):$answer->ans_txt)."\n";
 													$text_to_pdf = $pdf_doc->cleanText($text_to_pdf);
@@ -169,7 +173,11 @@ class SurveyforceControllerReport extends JControllerForm {
 										}
 									}
 									else {
-										$text_to_pdf = $qrow['answer_data']['answer'][0]->ans_txt . "\n";
+										$text_to_pdf = '';
+										foreach ($qrow['answer_data']['answers']['answer'] as $arow) {	
+										$ans_txt = JText::_('COM_SURVEYFORCE_USER_CHOICE_FOR')." ".$arow->ans_field." ".JText::_('COM_SURVEYFORCE_FIELD')." - ".$arow->ans_txt;
+										$text_to_pdf .= $ans_txt . "\n";
+										}
 										$text_to_pdf = $pdf_doc->cleanText($text_to_pdf);
 										$pdf->SetFontSize(8);
 										$pdf->Write(5, $text_to_pdf, '', 0);
@@ -183,26 +191,37 @@ class SurveyforceControllerReport extends JControllerForm {
 									$pdf->SetFontSize(8);
 									$pdf->Write(5, $text_to_pdf, '', 0);
 									$pdf->Ln();
-									break;
-							}
+									break;									
+							}	
+				
+							
 							if ($qrow['question']->sf_impscale) {
-								$text_to_pdf = $qrow['question']->iscale_name;
+	
+															
+								$text_to_pdf = $qrow['answer_data']['imp_answers']->iscale_name;
 								$text_to_pdf = $pdf_doc->cleanText($text_to_pdf);
 								$pdf->SetFontSize(10);
 								$pdf->Write(5, $text_to_pdf, '', 0);
 								$pdf->Ln();
+								
+
 								$text_to_pdf = '';
-							/*	foreach ($qrow->answer_imp as $arow) {
-									$img_ans = $arow->alt_text ? " - ".JText::_('COM_SURVEYFORCE_USER_CHOICE') : '';
-									$text_to_pdf .= $arow->f_text . $img_ans . "\n";
+					
+								foreach ($qrow['answer_data']['imp_answers']->answer_imp as $answ) {
+								
+								$img_ans = $answ->alt_text ? " - ".JText::_('COM_SURVEYFORCE_USER_CHOICE') : '';
+									
+									$text_to_pdf .= $answ->f_text . $img_ans . "\n";									
+						
 								}
-							*/
+							
 								//TODO: ANSWER_IMP ( Q->sf_impscale
 								$text_to_pdf = $pdf_doc->cleanText($text_to_pdf);
 								$pdf->SetFontSize(8);
 
 								$pdf->Write(5, $text_to_pdf, '', 0);
 								$pdf->Ln();
+								
 							}
 							$pdf->line( 15, $pdf->GetY(), 200, $pdf->GetY());
 						}
@@ -226,6 +245,7 @@ class SurveyforceControllerReport extends JControllerForm {
         $view->report = $this->getReport( $id );
 
         $view->display();
+		
     }
 
 	function getReport($id, $getUserInfo = false)

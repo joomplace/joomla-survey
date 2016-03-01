@@ -2528,8 +2528,8 @@ class survey_force_front_html {
 					<a onclick="Joomla.submitbutton('i_report'); return false;" href="javascript: void(0);"><i class="sf-icon-doc-text"></i><?php echo JText::_('COM_SURVEYFORCE_SF_CSV_REPORT');?></a>
 				</li>
 
-				<li>
-					<a onclick="Joomla.submitbutton('rep_surv'); return false;" href="javascript: void(0);"><i class="sf-icon-book-open"></i><?php echo JText::_('COM_SURVEYFORCE_SF_REP_SURVEYS');?></a>
+				<li hidden="true">
+					<a onclick="Joomla.submitbutton('rep_surv'); return false;"  href="javascript: void(0);"><i class="sf-icon-book-open"></i><?php echo JText::_('COM_SURVEYFORCE_SF_REP_SURVEYS');?></a>
 				</li>
 				<li>
 					<a onclick="Joomla.submitbutton('rep_pdf'); return false;" href="javascript: void(0);">
@@ -3107,6 +3107,7 @@ class survey_force_front_html {
 	function SF_showIReport( &$rows, &$lists, &$pageNav, $option, $is_i = false ) {
 		global  $Itemid,$Itemid_s;
 		
+		
 		?>
 		<script type="text/javascript" language="javascript">
 		Joomla.submitbutton = function(pressbutton) {
@@ -3197,7 +3198,10 @@ class survey_force_front_html {
 						<img src="components/com_surveyforce/assets/images/toolbar/<?php echo $img_spec;?>" width="16" height="16" border="0" alt="<?php echo $alt_published; ?>" />
 				</td>				
 				<td align="left">
-						<?php echo mosFormatDate($row->sf_date_expired, "Y-m-d");?>
+						<?php if ($row->sf_date_expired == "0000-00-00 00:00:00")
+							echo ("");
+						else
+							echo ($row->sf_date_expired);?>
 				</td>
 			</tr>
 			<?php
@@ -3523,7 +3527,7 @@ class survey_force_front_html {
 							<?php } ?>
 						</span><br/><br/>
 
-						<button type="submit" class="btn btn-primary" id="Start_button" onclick="StartInvitation();">Start</button>
+						<button type="button" class="btn btn-primary" id="Start_button" onclick="StartInvitation();">Start</button>
 						<button type="button" class="btn" onclick="StopInvitation();">Stop</button>
 					</div>
 
@@ -3617,7 +3621,7 @@ class survey_force_front_html {
 						Press Start to begin reminders sending process.
 					</span><br/><br/>
 
-					<button type="submit" class="btn btn-primary" id="Start_button" onclick="StartRemind();">Start</button>
+					<button type="button" class="btn btn-primary" id="Start_button" onclick="StartRemind();">Start</button>
 					<button type="button" class="btn" onclick="StopRemind();">Stop</button>
 				</div>
 

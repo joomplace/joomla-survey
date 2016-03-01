@@ -161,9 +161,9 @@ $sortFields = $this->getSortFields();
                         <td class="nowrap has-context">
                             <div class="pull-left">
                                 <?php if ($canEdit) : ?>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_surveyforce&view=survey&layout=edit&id='.$item->id); ?>"><?php echo $this->escape($item->sf_name); ?></a>&nbsp;<a href="<?php echo JRoute::_('index.php?option=com_surveyforce&view=questions&surv_id=' . $item->id); ?>">[<?php echo JText::_('COM_SURVEYFORCE_VIEW_QUESTIONS');?>]</a>
+                                    <a href="<?php echo JRoute::_('index.php?option=com_surveyforce&view=survey&layout=edit&id='.$item->id); ?>"><?php echo $this->escape(str_replace("&nbsp;", '', substr(strip_tags($item->sf_name), 0, 70))); ?></a>&nbsp;<a href="<?php echo JRoute::_('index.php?option=com_surveyforce&view=questions&surv_id=' . $item->id); ?>">[<?php echo JText::_('COM_SURVEYFORCE_VIEW_QUESTIONS');?>]</a>
                                 <?php else : ?>
-                                    <?php echo $this->escape($item->sf_name); ?>
+                                    <?php echo $this->escape(str_replace("&nbsp;", '', substr(strip_tags($item->sf_name), 0, 70))); ?>
                                 <?php endif; ?>
                             </div>
                         </td>
@@ -228,8 +228,8 @@ $sortFields = $this->getSortFields();
                                 <?php if ($item->sf_date_started == '0000-00-00 00:00:00')
 										echo JText::_('COM_SURVEYFORCE_NO');
 									else
-										if ( strtotime($item->sf_date_started) < strtotime(JFactory::getDate()) )
-											echo '<font color="red">'.JHtml::_('date',$item->sf_date_started,'H:i:s d/m/Y').'</font>';
+										if ( strtotime($item->sf_date_started) > strtotime(JFactory::getDate()) )
+											echo '<font color="lightgray">'.JHtml::_('date',$item->sf_date_started,'H:i:s d/m/Y').'</font>';
 										else
 											echo JHtml::_('date',$item->sf_date_started,'H:i:s d/m/Y');
 								?>

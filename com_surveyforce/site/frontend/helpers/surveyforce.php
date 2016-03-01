@@ -1035,7 +1035,10 @@ class SurveyforceHelper
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_ListUsers($database);
-		if (!$row->bind($_POST))
+		
+		$post = JFactory::getApplication()->input->getArray($_POST);		
+		
+		if (!$row->bind($post))
 		{
 			echo "<script> alert('" . $row->getError() . "'); window.history.go(-1); </script>\n";
 			exit();
@@ -1050,12 +1053,14 @@ class SurveyforceHelper
 		{
 			$row->date_created = date('Y-m-d H:i:s');
 		}
+		
 		// save the changes
 		if (!$row->store())
 		{
 			echo "<script> alert('" . $row->getError() . "'); window.history.go(-1); </script>\n";
 			exit();
 		}
+		
 		$list_id = $row->id;
 		$is_add_man = intval(mosGetParam($_POST, 'is_add_manually', 0));
 		$is_add_lms = intval(mosGetParam($_POST, 'is_add_lms', 0));
@@ -1064,9 +1069,11 @@ class SurveyforceHelper
 			$query = "SELECT `name`, `username`, `email` FROM `#__users` WHERE `id` IN (" . implode(',', $cid) . ") ";
 			$database->setQuery($query);
 			$mos_users = $database->loadObjectList();
+			
 			foreach ($mos_users as $mos_user)
 			{
 				$row_user = new mos_Survey_Force_UserInfo($database);
+				
 				$row_user->name = $mos_user->username;
 				$row_user->lastname = $mos_user->name;
 				$row_user->email = $mos_user->email;
@@ -2837,7 +2844,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	}
 
 	public function SF_ViewRepSurv($id, $option, $is_pdf = 0)
-	{
+	{	
 		$database = JFactory::getDbo();
 		$query = "SELECT * FROM `#__survey_force_survs` WHERE id = '" . $id . "'";
 		$database->setQuery($query);
@@ -6631,7 +6638,6 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$row->load($id);
 
 		$lists = array();
-
 		$query = "SELECT id AS value, email_subject AS text"
 			. "\n FROM #__survey_force_emails "
 			. ("\n WHERE user_id = '" . JFactory::getUser()->id . "' ")
@@ -6717,8 +6723,9 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 				@ob_flush();
 				die;
 			}
+			$url = JFactory::getURi()->root();
 			$user_invite_num = md5(uniqid(rand(), true));
-			$link = ' <a href="' . JFactory::getApplication()->getCfg('sitename') . "/index.php?option=com_surveyforce&task=start_invited&survey=" . $survey_id . "&invite=" . $user_invite_num . '">' . JFactory::getApplication()->getCfg('sitename') . "/index.php?option=com_surveyforce&task=start_invited&survey=" . $survey_id . "&invite=" . $user_invite_num . '</a>';
+			$link = ' <a href="' . $url . "/index.php?option=com_surveyforce&task=start_invited&survey=" . $survey_id . "&invite=" . $user_invite_num . '">' . $url . "/index.php?option=com_surveyforce&task=start_invited&survey=" . $survey_id . "&invite=" . $user_invite_num . '</a>';
 			$user_name = ' ' . $user_row->name . ' ' . $user_row->lastname . ' ';
 			$message_user = str_replace('#link#', $link, $message);
 			$message_user = str_replace('#name#', $user_name, $message_user);
@@ -6727,7 +6734,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			$database->setQuery($query);
 			$database->execute();
 			$user_invite_id = $database->insertid();
-
+			
 			mosMail($email_reply, JFactory::getApplication()->getCfg('fromname'), $user_row->email, $subject, nl2br($message_user), 1); //1 - in HTML mode
 
 			$query = "UPDATE #__survey_force_users SET is_invited = '1', invite_id = '" . $user_invite_id . "' WHERE id ='" . $user_row->id . "'";
@@ -6745,7 +6752,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 						. "div_log.style.width = '" . intval(($ii - $Users_to_invite + $Users_count) * 600 / $Users_count) . "px';"
 						. "}"
 						. " if (div_log_txt) {"
-						. "div_log_txt.innerHTML =  '" . ($ii - $Users_to_invite + $Users_count) . JText::_('COM_SF_USERS_INVITED_PAUSE') . "$jj" . JText::_('COM_SF_SECONDS') . "';"
+						. "div_log_txt.innerHTML =  '" . ($ii - $Users_to_invite + $Users_count) . JText::_('COM_SF_USERS_INVITED_PAUSE') . ' '. "$jj" . ' '. JText::_('COM_SF_SECONDS') . "';"
 						. "}"
 						. "</script>";
 					@flush();
@@ -6874,7 +6881,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 						. "div_log.style.width = '" . intval(($ii) * 600 / $Users_count) . "px';"
 						. "}"
 						. " if (div_log_txt) {"
-						. "div_log_txt.innerHTML =  '" . ($ii) . JText::_('COM_SF_USERS_REMINDED_PAUSE') . "$jj" . JText::_('COM_SF_SECONDS') . "';"
+						. "div_log_txt.innerHTML =  '" . ($ii) . ' '. JText::_('COM_SF_USERS_REMINDED_PAUSE') . ' '. "$jj" . ' '. JText::_('COM_SF_SECONDS') . "';"
 						. "}"
 						. "</script>";
 					@flush();
@@ -6891,7 +6898,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 					. "div_log.style.width = '" . intval(($ii) * 600 / $Users_count) . "px';"
 					. "}"
 					. " if (div_log_txt) {"
-					. "div_log_txt.innerHTML = '" . ($ii) . JText::_('COM_SF_USERS_REMINDED') . "';"
+					. "div_log_txt.innerHTML = '" . ' '. ($ii) . ' ' . JText::_('COM_SF_USERS_REMINDED') . "';"
 					. "}"
 					. "</script>";
 				@flush();
@@ -7619,7 +7626,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$database = JFactory::getDbo();
 		@set_time_limit(0);
 
-		require(JPATH_BASE . '/components/com_surveyforce/helpers/generate.surveyforce.php');
+		require_once(JPATH_BASE . '/components/com_surveyforce/helpers/generate.surveyforce.php');
 		$rows = array();
 		$query = "SELECT id FROM #__survey_force_quests WHERE published = 1 AND sf_survey = '" . $surv_id . "' ORDER BY ordering, id";
 		$database->setQuery($query);
@@ -7644,6 +7651,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		foreach ($questions as $question)
 		{
 			$img_src = $gg->getImage($surv_id, $question, 1);
+			
 			if (is_array($img_src))
 			{
 				foreach ($img_src as $imgsrc)

@@ -11,8 +11,8 @@
 
 // no direct access
 
-require ( JPATH_BASE . '/components/com_surveyforce/helpers/surveyforce.class.php' );
-require ( JPATH_BASE . '/components/com_surveyforce/assets/libchart/libchart.php' );
+include_once ( JPATH_BASE . '/components/com_surveyforce/helpers/surveyforce.class.php' );
+include_once ( JPATH_BASE . '/components/com_surveyforce/assets/libchart/libchart.php' );
 
 class sf_ImageGenerator extends SF_Object { 
 	
@@ -108,14 +108,14 @@ class sf_ImageGenerator extends SF_Object {
 		$barchart->drawTextBox($margin*2,$bar_height+$padding1,$width,$height,$legend,0,25,25,25,ALIGN_TOP_LEFT, false);
 		
 		$barchart->Render($filename);
-		
+
 		return $filename;
 	}
 
 	function getPieChartImage($numbers, $options, $filename) {
 		// Standard inclusions   
-		include_once(dirname(__FILE__)."/assets/pchart/pChart/pData.class.php");
-		include_once(dirname(__FILE__)."/assets/pchart/pChart/pChart.class.php");
+		include_once(dirname(__FILE__)."/../assets/pchart/pChart/pData.class.php");
+		include_once(dirname(__FILE__)."/../assets/pchart/pChart/pChart.class.php");
 		
 		$tmp_options = $options;
 		$tmp_numbers = $numbers;
@@ -155,20 +155,23 @@ class sf_ImageGenerator extends SF_Object {
 		$padding2 = 5;
 		
 		// Initialise the graph
+		
 		$piechart = new pChart($width, $height);
+		
 		$piechart->drawFilledRoundedRectangle($padding1, $padding1, $width - $padding1, $height - $padding1,5,240,240,240);
 		$piechart->drawRoundedRectangle($padding2, $padding2, $width - $padding2, $height - $padding2,5,230,230,230);
 		
 		
 		// Draw the pie chart
-		$piechart->setFontProperties(dirname(__FILE__)."/assets/pchart/Fonts/tahoma.ttf", $font_size);
+		
+		$piechart->setFontProperties(dirname(__FILE__)."/../assets/pchart/Fonts/tahoma.ttf", $font_size);
 		$piechart->AntialiasQuality = 0;
 		$piechart->drawPieGraph($DataSet->GetData(),$DataSet->GetDataDescription(),intval($width/2), intval($pie_height/2.2), intval($pie_height/1.8), PIE_PERCENTAGE,FALSE, 50, 20, 5);
 		
 		$piechart->drawPieLegend(2*$padding1, $pie_height, $DataSet->GetData(),$DataSet->GetDataDescription(),250,250,250);
 		
 		$piechart->Render($filename);
-		
+			
 		return $filename;
 	}
 
@@ -213,7 +216,7 @@ class sf_ImageGenerator extends SF_Object {
 			$query = "SELECT sf_qtype from #__survey_force_quests WHERE published = 1 AND id = '".$quest_id."'";
 			$this->database->SetQuery( $query );
 			$qtype = $this->database->LoadResult();
-			
+		
 			$query	= "SELECT `id` FROM `#__survey_force_user_starts` WHERE `survey_id` = '{$survey_id}'";
 			$this->database->SetQuery( $query );
 			$start_ids = $this->database->loadColumn();
@@ -273,8 +276,9 @@ class sf_ImageGenerator extends SF_Object {
 					
 					$query = "SELECT sf_qtext FROM `#__survey_force_quests` WHERE published = 1 AND `id` = $quest_id ";
 					$this->database->SetQuery( $query );
-					$maintitle = trim($this->database->LoadResult());		
-					return $this->createImage($sections, $titles, $usr_answers, $maintitle, $maxval, $i);
+					$maintitle = trim($this->database->LoadResult());
+							
+					return $this->createImage($sections, $titles, $usr_answers, $maintitle, $maxval, $i);	
 					break;
 				case '2':
 					$query = "SELECT start_id FROM `#__survey_force_user_answers` WHERE `quest_id` = $quest_id AND `start_id` IN ('".implode("','", $start_ids)."') GROUP BY start_id";
@@ -447,13 +451,16 @@ class sf_ImageGenerator extends SF_Object {
 					$options[] = sf_SafeSplit($item->label, intval(($this->width-50)/8));
 					$numbers[] = $item->number;
 				}
+				
 				$filename = (strlen(date('d')) < 2? '0'.date('d'): date('d')).'_'.md5(uniqid(mktime())).'.png';
 				if (in_array('Bar',$this->options))
 					$this->getBarChartImage($numbers, $options, $this->image_path.$filename);
 				else
-					$this->getPieChartImage($numbers, $options, $this->image_path.$filename);
 					
+					$this->getPieChartImage($numbers, $options, $this->image_path.$filename);
+				
 				$html .= '<img src="'.$this->image_src.$filename.'" alt="" title="" /><br/>';
+				
 			}
 			
 			$html .= '</div>';

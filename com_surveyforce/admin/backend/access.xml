@@ -10,8 +10,4 @@
 		<action name="core.notify" title="COM_SURVEYFORCE_NOTIFICATIONS" description="COM_SURVEYFORCE_NOTIFICATIONS_DESC" />
 
 	</section>
-    <section name="survey">
-        <action name="survey.show" title="COM_SURVEYFORCE_SETTINGS_SHOWSURV" description="COM_SURVEYFORCE_SETTINGS_SHOWSURV_DESC" />
-    </section>
-
 </access>

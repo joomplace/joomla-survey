@@ -1301,8 +1301,8 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 						case 6:
 						case 9:
 							$fields = $t_fields[$sfq->id.'569'];
-							$user_answer = '"';
-							$tmp_str = '';
+							$user_answer = '';
+							$tmp_str = '';							
 							foreach($fields as $field){
 								$query = "SELECT b.ftext as user_answer, c.ans_txt AS user_text  FROM (#__survey_force_user_answers as a, #__survey_force_fields as b) LEFT JOIN `#__survey_force_user_ans_txt` AS c ON a.next_quest_id = c.id "
 									. "\n WHERE a.quest_id = '".$sfq->id."' and b.quest_id = a.quest_id and a.answer = {$field->id} and b.id = a.ans_field  and a.survey_id = '".$sfq->sf_survey."' and a.start_id = '".$rows[$iii]->id."'";
@@ -1310,15 +1310,15 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 								$user_answer_ = $database->LoadObjectList();
 								if (isset($user_answer_[0])) {
-
-									$user_answer .= $user_answer_[0]->user_answer.($user_answer_[0]->user_text? ' ('.str_replace(',','',$this->SF_processCSVField_noquot(str_replace("\r\n","",$user_answer_[0]->user_text))).')':'').'","';
-
+									
+									$user_answer .= '"'.$user_answer_[0]->user_answer.($user_answer_[0]->user_text? ' ('.str_replace(',','',$this->SF_processCSVField_noquot(str_replace("\r\n","",$user_answer_[0]->user_text))).')':'').'",';
+								} else {
+									$user_answer .= JText::_('COM_SURVEYFORCE_NO_ANSWER').',';
 								}
 
 
 								$tmp_str .= ','.str_replace(',','',$this->SF_processCSVField(str_replace("\r\n","",$sfq->sf_qtext.' - '.$field->ftext)));
-							}
-							$user_answer .= '",';
+							}							
 							$sf_quests[$key]->sf_qtext2 = $tmp_str;
 							break;
 						case 2:

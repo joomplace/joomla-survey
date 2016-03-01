@@ -669,7 +669,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 		}
 
 		$post = JRequest::get("post");
-
+		
 		if($_FILES['image_file']['name']!=''){
 			if(!preg_match('/image.*/', $_FILES['image_file']['type'])){
 				return false;
@@ -700,10 +700,12 @@ class SurveyforceControllerSurvey extends JControllerForm {
 			$row->sf_descr = $post['sf_descr'];
 			$row->sf_image = (isset($filename)) ? $filename : '';
 			$row->sf_cat = $post['sf_cat'];
-
-			$post['sf_date_started'] = date("Y-m-d H:i:s", strtotime($post['sf_date_started']));
-			$post['sf_date_expired'] = date("Y-m-d H:i:s", strtotime($post['sf_date_expired']));
-
+			if($post['sf_date_started'] != "0000-00-00 00:00:00"){	
+				$post['sf_date_started'] = date("Y-m-d H:i:s", strtotime($post['sf_date_started']));
+			}
+			if($post['sf_date_expired'] != "0000-00-00 00:00:00"){
+				$post['sf_date_expired'] = date("Y-m-d H:i:s", strtotime($post['sf_date_expired']));
+			}
 			$row->sf_date_started = $post['sf_date_started'];
 			$row->sf_date_expired = $post['sf_date_expired'];
 			$row->sf_author = $my->id;
@@ -2062,8 +2064,12 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 
 					if (file_exists(JPATH_ROOT . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_community' . DIRECTORY_SEPARATOR . 'libraries' . DIRECTORY_SEPARATOR . 'userpoints.php')) {
-						include_once( JPATH_ROOT . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_community' . DIRECTORY_SEPARATOR . 'libraries' . DIRECTORY_SEPARATOR . 'userpoints.php');
+						include_once( JPATH_ROOT . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_community' . DIRECTORY_SEPARATOR . 'libraries' . DIRECTORY_SEPARATOR . 'core.php');
+						include_once( JPATH_ROOT . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_community' . DIRECTORY_SEPARATOR . 'libraries' . DIRECTORY_SEPARATOR . 'userpoints.php');						
 
+						 error_reporting(E_ALL);
+						 ini_set('display_errors', 1);
+						 
 						CuserPoints::assignPoint("completed.survey" . $survey_id);
 					}
 
@@ -2768,7 +2774,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$database->setQuery($query);
 		$questions = $database->loadAssocList();
 
-		require ( JPATH_ROOT . '/components/com_surveyforce/helpers/generate.surveyforce.php' );
+		require ( JPATH_ROOT . '/components/com_surveyforce/helpers/generate.php' );
 
 		$sf_config = new mos_Survey_Force_Config( );
 		$prefix = $sf_config->get('sf_result_type') == 'Bar' ? 'b' : 'p';

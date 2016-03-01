@@ -165,6 +165,7 @@ else
 	</tr>
 </table>
 <br />
+ <!-- 
 <table class="table table-striped">
 	<tr>
 		<th width="20px" align="center">#</th>
@@ -188,7 +189,7 @@ else
 		<th width="auto"></th>
 
 	</tr>
-
+-->
 	<?php
 	$k = 0; $ii = 1; $ind_last = count($lists['sf_fields_rule']);
 	if($ind_last)

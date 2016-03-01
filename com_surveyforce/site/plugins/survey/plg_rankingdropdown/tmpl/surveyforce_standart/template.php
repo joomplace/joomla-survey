@@ -81,30 +81,33 @@ EOFTMPL;
         $make_select = array();
 
         for ($i = 0; $i < $mcount; $i++) {
-            $make_select[$i] = '<option class="dd_option" value="0">' . $sf_dd_first_menu . '</option>';
+            $make_select[$i] = '<option class="dd_option" value="0">' . JText::_("COM_SURVEYFORCE_RANK_FIRST_ELEMENT") . '</option>';
         }
 
         $selected = '';
 
-        for ($i = 0; $i < $mcount; $i++) {
-            if ($ans_count > 0) {
-                for ($ii = 0; $ii < $ans_count; $ii++) {
-                    if (SF_RankingdropdownTemplate::$iscale['answers'][$ii]['a_quest_id']== SF_RankingdropdownTemplate::$iscale['mfield'][$i]['mfield_id'])
-                        $jj = $ii;
-                }
-            }
-            for ($j = 0; $j < $acount; $j++) {
-                $selected = '';
-                if ($ans_count > 0) {
-                    if ($jj >= 0 && SF_RankingdropdownTemplate::$iscale['answers'][$jj]['ans_id'] == SF_RankingdropdownTemplate::$iscale['afield'][$j]['afield_id'])
-                        $selected = " $selected ";
-                }
-                $make_select[$i] = $make_select[$i] . '<option class="dd_option" value ="' . SF_RankingdropdownTemplate::$iscale['afield'][$j]['afield_id'] . '" ' . $selected . '>' .
-                        SF_RankingdropdownTemplate::$iscale['afield'][$j]['afield_text'] .
-                        '</option>';
-            }
-            $jj = -1;
-        }
+		for ($i = 0; $i < $mcount; $i++) {
+			$mfield_id = SF_RankingdropdownTemplate::$iscale['mfield'][$i]['mfield_id'];
+			if ($ans_count > 0) {
+				for ($ii = 0; $ii < $ans_count; $ii++) {
+					if (SF_RankingdropdownTemplate::$iscale['answers'][$ii]['a_quest_id'] == $mfield_id)
+						$jj = $ii;
+				}
+			}
+			for ($j = 0; $j < $acount; $j++) {
+				$selected = '';
+				if ($ans_count > 0) {
+					if ($jj >= 0 && SF_RankingdropdownTemplate::$iscale['answers'][$jj]['ans_id'] == SF_RankingdropdownTemplate::$iscale['afield'][$j]['afield_id'])
+						$selected = " selected ";
+				}
+
+				$make_select[$i].= "\n" .
+					'<option class="r_option" value ="' . SF_RankingdropdownTemplate::$iscale['afield'][$j]['afield_id'] . '" ' . $selected . '>'
+					. SF_RankingdropdownTemplate::$iscale['afield'][$j]['afield_text'] .
+					'</option>';
+			}
+			$jj = -1;
+		}
         $return_str = '<div align="left" class="dp_n_dn_div">' .
                 '<form name="quest_form' . SF_RankingdropdownTemplate::$question->id . '">' .
                 '<br/>' .

@@ -224,6 +224,7 @@ class com_surveyforceInstallerScript
 			"UPDATE `#__survey_force_templates` SET `sf_display_name` = 'New style template' WHERE sf_name = 'surveyforce_new'",
 			"UPDATE `#__survey_force_templates` SET `sf_display_name` = 'Pretty Green template' WHERE sf_name = 'surveyforce_pretty_green'",
 			"UPDATE `#__survey_force_templates` SET `sf_display_name` = 'Pretty Blue template' WHERE sf_name = 'surveyforce_pretty_blue'",
+			"UPDATE `#__survey_force_quests` SET `sf_impscale` = '0' WHERE sf_qtype = '7'",
 		);
 
 		foreach ( $updateSql as $sql )

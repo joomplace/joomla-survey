@@ -456,7 +456,7 @@ class plgSurveyRanking {
 
         $iscale = array();
         $iscale['impscale_name'] = (isset($f_iscale_data) && count($f_iscale_data)) ? $f_iscale_data[0]->iscale_name : '';
-        $iscale['ans_imp_id'] = (isset($f_iscale_data) && count($f_iscale_data)) ? $f_iscale_data[0]->iscalefield_id : '';
+        $iscale['ans_imp_id'] = (isset($f_answ_imp_data) && count($f_answ_imp_data)) ? $f_answ_imp_data[0]->iscalefield_id : '';
         $iscale['ans_imp_count'] = intval(count($f_answ_imp_data));
         $iscale['alt_fields_count'] = intval(count($f_alt_data));
         $iscale['main_fields_count'] = intval(count($f_main_data));
@@ -754,21 +754,21 @@ class plgSurveyRanking {
 		$j = 0;
 		while ( $j < count($tmp_data) ) {
 			$result['answer'][$j] = array();
-			$result['answer']['num'] = $j;
-			$result['answer']['f_id'] = $tmp_data[$j]->id;
-			$result['answer']['f_text'] = $tmp_data[$j]->ftext;
-			$result['answer']['alt_text'] = ($question->sf_qtype == 9?'':JText::_('COM_SURVEYFORCE_NO_ANSWER'));
+			$result['answer'][$j]['num'] = $j;
+			$result['answer'][$j]['f_id'] = $tmp_data[$j]->id;
+			$result['answer'][$j]['f_text'] = $tmp_data[$j]->ftext;
+			$result['answer'][$j]['alt_text'] = ($question->sf_qtype == 9?'':JText::_('COM_SURVEYFORCE_NO_ANSWER'));
 			foreach ($ans_inf_data as $ans_data) {
 				if ($ans_data->answer == $tmp_data[$j]->id) {
-					$result['answer']['f_text'] = $tmp_data[$j]->ftext .($ans_data->ans_txt != '' ?' ('.$ans_data->ans_txt.')':'');
+					$result['answer'][$j]['f_text'] = $tmp_data[$j]->ftext .($ans_data->ans_txt != '' ?' ('.$ans_data->ans_txt.')':'');
 					$query = "SELECT * FROM #__survey_force_fields WHERE id = '".$ans_data->ans_field."'"
 						. "\n and quest_id = '".$question->id."'"
 						. "\n and is_main = 0 ORDER BY ordering";
 					$database->SetQuery( $query );
 					$alt_data = ($database->LoadObjectList() == null? array(): $database->LoadObjectList());
 					if (count($alt_data) > 0 ) {
-						$result['answer']['alt_text'] = ($ans_data->ans_field==0?($question->sf_qtype == 9?'':JText::_('COM_SURVEYFORCE_NO_ANSWER')):$alt_data[0]->ftext);
-						$result['answer']['alt_id'] = $ans_data->ans_field;
+						$result['answer'][$j]['alt_text'] = ($ans_data->ans_field==0?($question->sf_qtype == 9?'':JText::_('COM_SURVEYFORCE_NO_ANSWER')):$alt_data[0]->ftext);
+						$result['answer'][$j]['alt_id'] = $ans_data->ans_field;
 					}
 				}
 			}

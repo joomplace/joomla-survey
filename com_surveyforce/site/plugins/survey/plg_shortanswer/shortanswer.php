@@ -46,14 +46,13 @@ class plgSurveyShortanswer {
 
         $q_data = $data['q_data'];
         $start_id = $data['start_id'];
-
+		$iscale = array();
         $ret_str = '';
 
         // add answers section for prev/next
         $query = "SELECT * FROM #__survey_force_user_answers WHERE quest_id = '" . $q_data->id . "' AND start_id = '" . $start_id . "' ";
         $database->SetQuery($query);
-		$res = $database->LoadObjectList();
-        $f_answ_data = ($res == null ? array() : $res);
+        $f_answ_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
 
         $ret_str .= "\t" . '<quest_type>' . $q_data->sf_qtype . '</quest_type>' . "\n";
         $inp = 0;
@@ -64,8 +63,7 @@ class plgSurveyShortanswer {
         if ($q_data->sf_section_id > 0) {
             $query = "SELECT `addname`, `sf_name` FROM `#__survey_force_qsections` WHERE `id` = '" . $q_data->sf_section_id . "' ";
             $database->SetQuery($query);
-			$res = $database->LoadObjectList();
-            $qsection_t = ($res == null ? array() : $res);
+            $qsection_t = ($database->loadObject() == null ? array() : $database->loadObject());
             if (isset($qsection_t->addname) && intval($qsection_t->addname) > 0) {
 				$q_data->sf_qtext = '<div class="sf_section_name">' . $qsection_t->sf_name . "</div><br/>" . $q_data->sf_qtext;
             }
@@ -89,28 +87,30 @@ class plgSurveyShortanswer {
         if ($q_data->sf_impscale) { //important scale is SET
             $query = "SELECT a.iscale_name, b.* FROM #__survey_force_iscales as a, #__survey_force_iscales_fields as b WHERE a.id = '" . $q_data->sf_impscale . "' AND a.id = b.iscale_id ORDER BY b.ordering";
             $database->SetQuery($query);
-			$res = $database->LoadObjectList();
-            $f_iscale_data = ($res == null ? array() : $res);            
+            $f_iscale_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());            
         } 
 
         if (!(count($f_answ_data) > 0)) {
             $query = "SELECT * FROM #__survey_force_def_answers WHERE quest_id = '" . $q_data->id . "'  ";
             $database->SetQuery($query);
-			$res = $database->LoadObjectList();
-            $f_answ_data = ($res == null ? array() : $res);
+            $f_answ_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
         }
-
+		$iscale['answ_txt']= array();
+				
         if (count($f_answ_data) > 0) {
             $ret_str .= "\t" . '<answers>' . "\n";
 
             foreach ($f_answ_data as $answer) {
-                if (!isset($ans_txt) && $f_answ_data[0]->ans_field > 0) {
-                    $query = "SELECT ans_txt FROM #__survey_force_user_ans_txt WHERE id = '" . $f_answ_data[0]->ans_field . "' and start_id = '" . $start_id . "' ";
+					
+                if ( $answer->ans_field > 0) {
+                    $query = "SELECT ans_txt FROM #__survey_force_user_ans_txt WHERE id = '" . $answer->answer . "' and start_id = '" . $start_id . "' ";
                     $database->SetQuery($query);
                     $ans_txt = $database->loadResult();
+					
                     if (strlen($ans_txt) < 1)
-                        $ans_txt = '!!!---!!!';
-                    $ret_str .= "\t\t" . '<ans_txt><![CDATA[' . $ans_txt . ']]></ans_txt>' . "\n";
+                        $ans_txt = ' ';
+				array_push($iscale['answ_txt'], $ans_txt);
+				$ret_str .= "\t\t" . '<ans_txt><![CDATA[' . $ans_txt . ']]></ans_txt>' . "\n";
                 }
                 $ret_str .= "\t\t" . '<a_quest_id>' . $answer->answer . '</a_quest_id>' . "\n";
             }
@@ -126,8 +126,7 @@ class plgSurveyShortanswer {
         $ret_str .= "\t" . '<ans_count>' . intval(count($f_answ_data)) . '</ans_count>' . "\n";
         $query = "SELECT * FROM #__survey_force_user_answers_imp WHERE quest_id = '" . $q_data->id . "' and start_id = '" . $start_id . "' ";
         $database->SetQuery($query);
-		$res = $database->LoadObjectList();
-        $f_answ_imp_data = ($res == null ? array() : $res);
+        $f_answ_imp_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
 
         $ret_str .= "\t" . '<ans_imp_count>' . intval(count($f_answ_imp_data)) . '</ans_imp_count>' . "\n";
 
@@ -145,11 +144,12 @@ class plgSurveyShortanswer {
                 include_once JPATH_SITE . '/plugins/survey/' . $data['quest_type'] . '/tmpl/' . $tmpl_name . '/template.php';
 
 
-        $iscale = array();
+        
         $iscale['impscale_name'] = (isset($f_iscale_data) && count($f_iscale_data)) ? $f_iscale_data[0]->iscale_name : '';
-        $iscale['ans_imp_id'] = (isset($f_iscale_data) && count($f_iscale_data)) ? $f_iscale_data[0]->iscalefield_id : '';
+        $iscale['ans_imp_id'] = (isset($f_answ_imp_data) && count($f_answ_imp_data)) ? $f_answ_imp_data[0]->iscalefield_id : '';
         $iscale['ans_imp_count'] = intval(count($f_answ_imp_data));
-        $iscale['isfield'] = array();
+		
+		$iscale['isfield'] = array();
 
         if(isset($f_iscale_data) && count($f_iscale_data))
             foreach (@$f_iscale_data as $is_row) {
@@ -212,8 +212,7 @@ class plgSurveyShortanswer {
 				AND a.survey_id = '".$question->sf_survey."'
 				AND a.start_id = '".$start_data->id."' ORDER BY a.ans_field ";
 			$database->SetQuery( $query );
-			$res = $database->LoadObjectList();
-			$ans_inf_data = ($res == null? array(): $res);
+			$ans_inf_data = ($database->LoadObjectList() == null? array(): $database->LoadObjectList());
 			$result['answer'] = $ans_inf_data;
 			$result['answer_count'] = $n;
 		}

@@ -62,8 +62,7 @@ class plgSurveyBoilerplate {
         if ($q_data->sf_impscale) { //important scale is SET
             $query = "SELECT a.iscale_name, b.* FROM #__survey_force_iscales as a, #__survey_force_iscales_fields as b WHERE a.id = '" . $q_data->sf_impscale . "' AND a.id = b.iscale_id ORDER BY b.ordering";
             $database->SetQuery($query);
-			$res = $database->LoadObjectList();
-            $f_iscale_data = ($res == null ? array() : $res);
+            $f_iscale_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
         }
 
         
@@ -79,7 +78,7 @@ class plgSurveyBoilerplate {
 
         $iscale = array();
         $iscale['impscale_name'] = (isset($f_iscale_data) && count($f_iscale_data)) ? $f_iscale_data[0]->iscale_name : '';
-        $iscale['ans_imp_id'] = (isset($f_iscale_data) && count($f_iscale_data)) ? $f_iscale_data[0]->iscalefield_id : ''; 
+        $iscale['ans_imp_id'] = (isset($f_answ_imp_data) && count($f_answ_imp_data)) ? $f_answ_imp_data[0]->iscalefield_id : ''; 
         $iscale['isfield'] = array();
         
         if (isset($f_iscale_data) && count($f_iscale_data))

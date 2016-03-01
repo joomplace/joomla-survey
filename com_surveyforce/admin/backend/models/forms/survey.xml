@@ -68,8 +68,8 @@
             <option value="0">COM_SURVEYFORCE_NO</option>
         </field>
         <field name="sf_template" type="template" class="inputbox" labelclass="control-label" label="COM_SURVEYFORCE_TEMPLATE"/>
-		<field name="sf_date_started" type="calendar" label="COM_SURVEYFORCE_STARTED_ON" description="" format="%Y-%m-%d %H:%M:%S" filter="user_utc" class="input-medium" labelclass="control-label"/>
-        <field name="sf_date_expired" type="calendar" label="COM_SURVEYFORCE_EXPIRED_ON" description="" format="%Y-%m-%d %H:%M:%S" filter="user_utc" class="input-medium" labelclass="control-label"/>
+		<field name="sf_date_started" type="calendar" label="COM_SURVEYFORCE_STARTED_ON" description="COM_SURVEYFORCE_STARTED_DESCRIPTION" format="%Y-%m-%d %H:%M:%S" filter="user_utc" class="input-medium" labelclass="control-label"/>
+        <field name="sf_date_expired" type="calendar" label="COM_SURVEYFORCE_EXPIRED_ON" description="COM_SURVEYFORCE_EXPIRED_DESCRIPTION" format="%Y-%m-%d %H:%M:%S" filter="user_utc" class="input-medium" labelclass="control-label"/>
         <field name="sf_cat" type="categorys" label="COM_SF_PUBLIC" labelclass="control-label"/>
         <field name="sf_random" type="list" label="COM_SURVEYFORCE_RANDOMIZE_QUESTIONS" labelclass="control-label" default="0">
             <option value="0">COM_SURVEYFORCE_NO</option>
@@ -117,6 +117,5 @@
             <option value="2">COM_SURVEYFORCE_SHOW_MESSAGE_AND_SURVEY</option>
         </field>
         <field name="asset_id" type="hidden" filter="unset"/>
-        <field name="rules" type="rules" label="COM_SURVEYFORCE_SURVEY_RULES" translate_label="false" class="inputbox" filter="rules" component="com_surveyforce" section="survey" validate="rules"/>
     </fieldset>
 </form>

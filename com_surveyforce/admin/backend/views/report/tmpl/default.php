@@ -102,18 +102,22 @@ $ordering_list = $this->ordering_list;
 				
 			case 1:	
 				echo "<tr class='row".$k."'><td colspan=2><b>Scale: </b>" . $qrow['answer_data']['answers']['scale'] . "</td></tr>";
-
 				if(count($qrow['answer_data']['answers']['answer'])){
 					foreach ($qrow['answer_data']['answers']['answer'] as $arow) {
-						echo "<tr class='row".$k."'><td colspan=2><b>Answer: </b>" . $arow['alt_text'] . "</td></tr>";
+						echo "<tr class='row".$k."'><td colspan=2><b>".$arow['f_text'].": </b>" . $arow['alt_text'] . "</td></tr>";
 					}
 				}
 
 				$k = 1 - $k;
-			case 5:
-			case 6:
+				break;
+			case 5:	
+			case 6:			
 			case 9:
-				echo "<tr class='row".$k."'><td width='30%'>" . $qrow['answer_data']['answers']['answer']['f_text'] . "</td><td>" . $qrow['answer_data']['answers']['answer']['alt_text'] . "</td></tr>";
+				if(count($qrow['answer_data']['answers']['answer'])){
+					foreach ($qrow['answer_data']['answers']['answer'] as $arow) {
+						echo "<tr class='row".$k."'><td width='30%'>" . $arow['f_text'] . "</td><td>" . $arow['alt_text'] . "</td></tr>";
+				}
+				}
 				$k = 1 - $k;
 				break;
 			case 4: //TODO: check work
@@ -153,7 +157,6 @@ $ordering_list = $this->ordering_list;
 				<td colspan="2" align="left"><b><?php echo $qrow['answer_data']['imp_answers']->iscale_name ?></b></td>
 			</tr>
 			<?php
-
 			foreach ($qrow['answer_data']['imp_answers']->answer_imp as $arow) {
 				$img_ans = $arow->alt_text ? "<img src='".JURI::root()."administrator/components/com_surveyforce/assets/images/tick.png'  border='0' />" : '';
 				echo "<tr class='row".$k."'><td width='30%'>" . $arow->f_text . "</td><td>" . $img_ans . "</td></tr>";

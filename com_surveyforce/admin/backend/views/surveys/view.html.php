@@ -50,6 +50,7 @@ class SurveyforceViewSurveys extends JViewLegacy {
         JToolBarHelper::addNew('survey.add');
         JToolBarHelper::editList('survey.edit');
         JToolBarHelper::divider();
+		JToolBarHelper::custom('surveys.copy', 'copy.png', 'copy_f2.png', 'COM_SURVEYFORCE_COPY', true);
         JToolBarHelper::custom('surveys.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_PUBLISH', true);
         JToolBarHelper::custom('surveys.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
         JToolBarHelper::deleteList('', 'surveys.delete');

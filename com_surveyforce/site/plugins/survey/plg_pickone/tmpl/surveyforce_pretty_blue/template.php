@@ -91,7 +91,7 @@ EOFTMPL;
 			$return_str = '<br/>'.
 				'<div class="pick_one_div">'.
 				'<form name="quest_form'.SF_PickoneTemplate::$question->id.'">'.
-				'<select onchange="javascript: check_answer('.SF_PickoneTemplate::$question->id.');" class="po_select" name="quest_select_po_'.SF_PickoneTemplate::$question->id.'" id="quest_select_po_'.SF_PickoneTemplate::$question->id.'">'.
+				'<select onchange="javascript: check_answer('.SF_PickoneTemplate::$question->id.'); if(jQuery(this).val()=='.SF_PickoneTemplate::$iscale['afield'][0]['afield_id'].'){jQuery(\'.other_op_'.SF_PickoneTemplate::$question->id.'\').show();}else{jQuery(\'.other_op_'.SF_PickoneTemplate::$question->id.'\').hide();}" class="po_select" name="quest_select_po_'.SF_PickoneTemplate::$question->id.'" id="quest_select_po_'.SF_PickoneTemplate::$question->id.'">'.
 				'<option value="0" '.$selected.'>'.JText::_('COM_SURVEYFORCE_SELECT_ANS').'</option>';
 		} else {
 			//if radiobuttons style
@@ -148,9 +148,11 @@ EOFTMPL;
 				$return_str = $return_str.
 					'<option value="'.SF_PickoneTemplate::$iscale['afield'][0]['afield_id'].'" '.$selected.' >'.SF_PickoneTemplate::$iscale['afield'][0]['afield_text'].'</option>'.
 					'</select>'.
+					'<div style="display: none;" class="other_op_'. SF_PickoneTemplate::$question->id. '">'.
 					'<br/>'.JText::_('COM_SURVEYFORCE_OTHER_ANSWER').
 					'<br/>'.
-					'<input class="po_other" type="text" id="other_op_'. SF_PickoneTemplate::$question->id. '" name="other_op_'. SF_PickoneTemplate::$question->id. '" value="'. $other_val. '"/>';
+					'<input class="po_other" type="text" id="other_op_'. SF_PickoneTemplate::$question->id. '" name="other_op_'. SF_PickoneTemplate::$question->id. '" value="'. $other_val. '"/>'.
+					'</div>';
 			} else {
 				$return_str = $return_str. '<tr>'.
 					'<td class="po_answer_cell">'.

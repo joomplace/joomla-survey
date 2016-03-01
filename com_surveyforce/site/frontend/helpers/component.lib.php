@@ -1126,7 +1126,7 @@ function mosMail($from, $fromname, $recipient, $subject, $body, $mode=0, $cc=NUL
 
 	$mailer->addRecipient($recipient);
 	$mailer->setSubject($subject);
-	$mailer->isHTML(false);
+	$mailer->isHTML($mode);
 	$mailer->Encoding = 'base64';
 	$mailer->setBody($body);
 	$mailer->Send();
@@ -1697,7 +1697,9 @@ function josSpoofValue($alt = NULL)
 */
 if (!function_exists('mosToolTip')) {
 function mosToolTip( $tooltip, $title='', $width='', $image='tooltip.png', $text='', $href='', $link=1 )
-{
+{	
+	$db = JFactory::getDBO();
+	
 	// Initialize the toolips if required
 	static $init;
 	if ( ! $init )
@@ -1706,7 +1708,7 @@ function mosToolTip( $tooltip, $title='', $width='', $image='tooltip.png', $text
 		$init = true;
 	}
 
-	$title = mysql_escape_string( str_replace("'","&#039;", str_replace("\r",'', str_replace("\n",'', str_replace('\r', '', str_replace('\n', '', nl2br($title)))))) );
+	$title =  $db->escape( str_replace("'","&#039;", str_replace("\r",'', str_replace("\n",'', str_replace('\r', '', str_replace('\n', '', nl2br($title)))))) );
 
 	return JHTML::_('tooltip', $tooltip, $title, $image, $text, $href, $link);
 }

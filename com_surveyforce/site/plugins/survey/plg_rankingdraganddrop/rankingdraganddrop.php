@@ -97,20 +97,17 @@ class plgSurveyRankingdraganddrop {
 		$ret_str = '';
 		$query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '" . $q_data->id . "' and is_main = '1' ORDER BY ordering";
 		$database->SetQuery($query);
-		$res = $database->LoadObjectList();
-		$f_main_data = ($res == null ? array() : $res);
+		$f_main_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
 		$query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '" . $q_data->id . "' and is_main = '0' ORDER BY ordering";
 		$database->SetQuery($query);
-		$res = $database->LoadObjectList();
-		$f_alt_data = ($res == null ? array() : $res);
+		$f_alt_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
 		if ($q_data->sf_qtype != 9)
 			shuffle($f_alt_data);
 
 		// add answers section for prev/next
 		$query = "SELECT * FROM #__survey_force_user_answers WHERE quest_id = '" . $q_data->id . "' AND start_id = '" . $start_id . "' ";
 		$database->SetQuery($query);
-		$res = $database->LoadObjectList();
-		$f_answ_data = ($res == null ? array() : $res);
+		$f_answ_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
 
 		$ret_str .= "\t" . '<quest_type>' . $q_data->sf_qtype . '</quest_type>' . "\n";
 		$inp = 0;
@@ -124,8 +121,7 @@ class plgSurveyRankingdraganddrop {
 		if ($q_data->sf_section_id > 0) {
 			$query = "SELECT `addname`, `sf_name` FROM `#__survey_force_qsections` WHERE `id` = '" . $q_data->sf_section_id . "' ";
 			$database->SetQuery($query);
-			$res = $database->LoadObjectList();
-			$qsection_t = ($res == null ? array() : $res);
+			$qsection_t = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
 			if (isset($qsection_t[0]->addname) && intval($qsection_t[0]->addname) > 0) {
 				$q_text = '<div class="sf_section_name">' . $qsection_t[0]->sf_name . "</div><br/>" . $q_text;
 			}
@@ -171,8 +167,7 @@ class plgSurveyRankingdraganddrop {
 		if ($q_data->sf_impscale) { //important scale is SET
 			$query = "SELECT a.iscale_name, b.* FROM #__survey_force_iscales as a, #__survey_force_iscales_fields as b WHERE a.id = '" . $q_data->sf_impscale . "' AND a.id = b.iscale_id ORDER BY b.ordering";
 			$database->SetQuery($query);
-			$res = $database->LoadObjectList();
-			$f_iscale_data = ($res == null ? array() : $res);
+			$f_iscale_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
 			$ret_str .= "\t" . '<impscale_fields_count>' . count($f_iscale_data) . '</impscale_fields_count>' . "\n";
 			if (count($f_iscale_data) > 0) {
 				$ret_str .= "\t" . '<impscale_name><![CDATA[' . stripslashes($f_iscale_data[0]->iscale_name) . '&nbsp;]]></impscale_name>' . "\n";
@@ -190,8 +185,7 @@ class plgSurveyRankingdraganddrop {
 		if (!(count($f_answ_data) > 0)) {
 			$query = "SELECT * FROM #__survey_force_def_answers WHERE quest_id = '" . $q_data->id . "'  ";
 			$database->SetQuery($query);
-			$res = $database->LoadObjectList();
-			$f_answ_data = ($res == null ? array() : $res);
+			$f_answ_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
 		}
 
 		if (count($f_answ_data) > 0) {
@@ -209,8 +203,7 @@ class plgSurveyRankingdraganddrop {
 		$ret_str .= "\t" . '<ans_count>' . intval(count($f_answ_data)) . '</ans_count>' . "\n";
 		$query = "SELECT * FROM #__survey_force_user_answers_imp WHERE quest_id = '" . $q_data->id . "' and start_id = '" . $start_id . "' ";
 		$database->SetQuery($query);
-		$res = $database->LoadObjectList();
-		$f_answ_imp_data = ($res == null ? array() : $res);
+		$f_answ_imp_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
 
 		$ret_str .= "\t" . '<ans_imp_count>' . intval(count($f_answ_imp_data)) . '</ans_imp_count>' . "\n";
 
@@ -232,7 +225,7 @@ class plgSurveyRankingdraganddrop {
 
 		$iscale = array();
 		$iscale['impscale_name'] = (isset($f_iscale_data) && count($f_iscale_data)) ? $f_iscale_data[0]->iscale_name : '';
-		$iscale['ans_imp_id'] = (isset($f_iscale_data) && count($f_iscale_data)) ? $f_iscale_data[0]->iscalefield_id : '';
+		$iscale['ans_imp_id'] = (isset($f_answ_imp_data) && count($f_answ_imp_data)) ? $f_answ_imp_data[0]->iscalefield_id : '';
 		$iscale['ans_imp_count'] = intval(count($f_answ_imp_data));
 		$iscale['alt_fields_count'] = intval(count($f_alt_data));
 		$iscale['main_fields_count'] = intval(count($f_main_data));
@@ -550,14 +543,12 @@ class plgSurveyRankingdraganddrop {
                 . "\n FROM #__survey_force_rules as a, #__survey_force_fields as b, #__survey_force_quests as c, #__survey_force_fields as d"
                 . "\n WHERE a.quest_id = '" . $row->id . "' and a.answer_id = b.id and a.next_quest_id = c.id and a.alt_field_id = d.id";
         $database->SetQuery($query);
-		$res = $database->LoadObjectList();
-        $lists['sf_fields_rule'] = ($res == null ? array() : $res);
+        $lists['sf_fields_rule'] = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
 
         $lists['sf_fields'] = array();
         $query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '" . $row->id . "' AND is_main = 1 ORDER BY ordering";
         $database->SetQuery($query);
-		$res = $database->LoadObjectList();
-        $lists['sf_fields'] = ($res == null ? array() : $res);
+        $lists['sf_fields'] = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
         if ($is_return) {
             $lists['sf_fields'] = array();
             $sf_fields = $sessions->get('sf_fields_sf');
@@ -575,8 +566,7 @@ class plgSurveyRankingdraganddrop {
         $lists['sf_alt_fields'] = array();
         $query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '" . $row->id . "' AND is_main = 0 ORDER BY ordering";
         $database->SetQuery($query);
-		$res = $database->LoadObjectList();
-        $lists['sf_alt_fields'] = ($res == null ? array() : $res);
+        $lists['sf_alt_fields'] = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
         if ($is_return) {
             $lists['sf_alt_fields'] = array();
             $sf_alt_fields = $sessions->get('sf_alt_fields_sf');
@@ -594,8 +584,7 @@ class plgSurveyRankingdraganddrop {
         $sf_fields = $sf_fields_full = array();
         $query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '" . $row->id . "' and is_main = 1 ORDER BY ordering";
         $database->SetQuery($query);
-		$res = $database->LoadObjectList();
-        $sf_fields = ($res == null ? array() : $res);
+        $sf_fields = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
         $ii = 0;
         foreach ($sf_fields as $qrow) {
             $sf_fields_full[$ii]->id = $qrow->id;
@@ -630,13 +619,11 @@ class plgSurveyRankingdraganddrop {
                 . "\n FROM  #__survey_force_fields as b, #__survey_force_quests as c, #__survey_force_rules as a LEFT JOIN " . "#__survey_force_fields as d " . " ON a.alt_field_id = d.id "
                 . "\n WHERE a.quest_id = '" . $row->id . "' and a.answer_id <> 9999997 and a.answer_id = b.id and a.next_quest_id = c.id ";
         $database->setQuery($query);
-		$res = $database->LoadObjectList();
-        $lists['sf_fields_rule'] = ($res == null ? array() : $res);
+        $lists['sf_fields_rule'] = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
         $database->getQuery(true);
         $query = "SELECT a.*, c.sf_qtext, c.sf_qtype, c.id AS qid,  d.ftext AS aftext, e.stext AS astext, b.ftext AS qoption, b.id AS bid, d.id AS fdid, e.id AS sdid FROM  #__survey_force_fields AS b, #__survey_force_quests AS c, #__survey_force_quest_show AS a LEFT JOIN #__survey_force_fields AS d ON a.ans_field = d.id LEFT JOIN #__survey_force_scales AS e ON a.ans_field = e.id WHERE a.quest_id = '" . $row->id . "' AND a.answer = b.id AND a.quest_id_a = c.id ";
         $database->setQuery($query);
-		$res = $database->LoadObjectList();
-        $lists['quest_show'] = ($res == null ? array() : $res);
+        $lists['quest_show'] = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
 
         $query = "SELECT id AS value, sf_qtext AS text"
                 . "\n FROM #__survey_force_quests WHERE id <> '" . $id . "' AND sf_qtype <> 8 "
@@ -644,8 +631,7 @@ class plgSurveyRankingdraganddrop {
                 . "\n ORDER BY ordering, id "
         ;
         $database->setQuery($query);
-		$res = $database->LoadObjectList();
-        $quests = ($res == null ? array() : $res);
+        $quests = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
         $i = 0;
         while ($i < count($quests)) {
             $quests[$i]->text = strip_tags($quests[$i]->text);
@@ -699,39 +685,37 @@ class plgSurveyRankingdraganddrop {
 			LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf_qtype = 9 )
 			WHERE c.published = 1 AND a.quest_id = '".$question->id."' AND a.survey_id = '".$question->sf_survey."'	AND a.start_id = '".$start_data->id."' AND c.id = a.quest_id";
 		$database->SetQuery( $query );
-		$res = $database->LoadObjectList();
-		$ans_inf_data = ($res == null? array(): $res);
+		$ans_inf_data = ($database->LoadObjectList() == null? array(): $database->LoadObjectList());
 
 		$result['answer'] = array();
 		$query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '".$question->id."'"
 			. "\n and is_main = 1 ORDER BY ordering";
 		$database->SetQuery( $query );
-		$res = $database->LoadObjectList();
-		$tmp_data = ($res == null? array(): $res);
+		$tmp_data = ($database->LoadObjectList() == null? array(): $database->LoadObjectList());
 		$j = 0;
-		while ( $j < count($tmp_data) ) {
+			while ( $j < count($tmp_data) ) {
 			$result['answer'][$j] = array();
-			$result['answer']['num'] = $j;
-			$result['answer']['f_id'] = $tmp_data[$j]->id;
-			$result['answer']['f_text'] = $tmp_data[$j]->ftext;
-			$result['answer']['alt_text'] = ($question->sf_qtype == 9?'':JText::_('COM_SURVEYFORCE_NO_ANSWER'));
+			$result['answer'][$j]['num'] = $j;
+			$result['answer'][$j]['f_id'] = $tmp_data[$j]->id;
+			$result['answer'][$j]['f_text'] = $tmp_data[$j]->ftext;
+			$result['answer'][$j]['alt_text'] = ($question->sf_qtype == 9?'':JText::_('COM_SURVEYFORCE_NO_ANSWER'));
 			foreach ($ans_inf_data as $ans_data) {
 				if ($ans_data->answer == $tmp_data[$j]->id) {
-					$result['answer']['f_text'] = $tmp_data[$j]->ftext .($ans_data->ans_txt != '' ?' ('.$ans_data->ans_txt.')':'');
+					$result['answer'][$j]['f_text'] = $tmp_data[$j]->ftext .($ans_data->ans_txt != '' ?' ('.$ans_data->ans_txt.')':'');
 					$query = "SELECT * FROM #__survey_force_fields WHERE id = '".$ans_data->ans_field."'"
 						. "\n and quest_id = '".$question->id."'"
 						. "\n and is_main = 0 ORDER BY ordering";
 					$database->SetQuery( $query );
-					$res = $database->LoadObjectList();
-					$alt_data = ($res == null? array(): $res);
+					$alt_data = ($database->LoadObjectList() == null? array(): $database->LoadObjectList());
 					if (count($alt_data) > 0 ) {
-						$result['answer']['alt_text'] = ($ans_data->ans_field==0?($question->sf_qtype == 9?'':JText::_('COM_SURVEYFORCE_NO_ANSWER')):$alt_data[0]->ftext);
-						$result['answer']['alt_id'] = $ans_data->ans_field;
+						$result['answer'][$j]['alt_text'] = ($ans_data->ans_field==0?($question->sf_qtype == 9?'':JText::_('COM_SURVEYFORCE_NO_ANSWER')):$alt_data[0]->ftext);
+						$result['answer'][$j]['alt_id'] = $ans_data->ans_field;
 					}
 				}
 			}
 			$j ++;
 		}
+
 
 		return $result;
 	}

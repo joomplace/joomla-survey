@@ -96,6 +96,7 @@ $ordering_list = $this->ordering_list;
                             <?php echo $this->form->getInput('sf_survey'); ?>
                         </div>
                     </div>
+					<?php if ( $this->item->sf_qtype != 7 ) { ?>
                      <div class="control-group">
                         <div class="control-label">
                             <?php echo $this->form->getLabel('sf_impscale'); ?>
@@ -105,6 +106,7 @@ $ordering_list = $this->ordering_list;
                             <input type="button" class="btn" name="Define new" onClick="javascript: document.adminForm.task.value='iscale.add';document.adminForm.submit();" value="<?php echo JText::_('COM_SURVEYFORCE_DEFINE_NEW'); ?>" style="vertical-align:top;">
                         </div>
                     </div>
+					<?php } ?>
                     <div class="control-group">
                         <div class="control-label">
                             <?php echo $this->form->getLabel('published'); ?>
