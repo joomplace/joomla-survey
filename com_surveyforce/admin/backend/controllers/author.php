@@ -32,7 +32,7 @@ class SurveyforceControllerAuthor extends JControllerForm
 			foreach ($new_authors as $author)
 				$new_id .= '(' . $author->id . '),';
 
-			$new_id = substr($new_id, 0, strrpos($new_id, ','));
+			$new_id = mb_substr($new_id, 0, strrpos($new_id, ','));
 			$new_id .= ';';
 
 			$query = 'INSERT INTO `#__survey_force_authors` (`user_id`) VALUES ' . $new_id;

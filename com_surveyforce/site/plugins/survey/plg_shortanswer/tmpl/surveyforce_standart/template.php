@@ -72,7 +72,7 @@ EOFTMPL;
 
 		$inp = 0;
 		if (strpos(SF_ShortanswerTemplate::$question->sf_qtext,'{x}') > 0 || strpos(SF_ShortanswerTemplate::$question->sf_qtext,'{y}') > 0) {
-			$inp = substr_count(SF_ShortanswerTemplate::$question->sf_qtext, '{x}')+substr_count(SF_ShortanswerTemplate::$question->sf_qtext, '{y}');
+			$inp = mb_substr_count(SF_ShortanswerTemplate::$question->sf_qtext, '{x}')+mb_substr_count(SF_ShortanswerTemplate::$question->sf_qtext, '{y}');
 		}
 		if ( !$inp )
         	return SF_ShortanswerTemplate::$question->sf_qtext;
@@ -84,7 +84,7 @@ EOFTMPL;
 		
 		$inp = 0;
 		if (strpos(SF_ShortanswerTemplate::$question->sf_qtext,'{x}') > 0 || strpos(SF_ShortanswerTemplate::$question->sf_qtext,'{y}') > 0) {
-			$inp = substr_count(SF_ShortanswerTemplate::$question->sf_qtext, '{x}')+substr_count(SF_ShortanswerTemplate::$question->sf_qtext, '{y}');
+			$inp = mb_substr_count(SF_ShortanswerTemplate::$question->sf_qtext, '{x}')+mb_substr_count(SF_ShortanswerTemplate::$question->sf_qtext, '{y}');
 		}
 
 		if ( $inp == 0 )

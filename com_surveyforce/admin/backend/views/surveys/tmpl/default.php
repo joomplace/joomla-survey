@@ -161,9 +161,9 @@ $sortFields = $this->getSortFields();
                         <td class="nowrap has-context">
                             <div class="pull-left">
                                 <?php if ($canEdit) : ?>
-                                    <a href="<?php echo JRoute::_('index.php?option=com_surveyforce&view=survey&layout=edit&id='.$item->id); ?>"><?php echo $this->escape(str_replace("&nbsp;", '', substr(strip_tags($item->sf_name), 0, 70))); ?></a>&nbsp;<a href="<?php echo JRoute::_('index.php?option=com_surveyforce&view=questions&surv_id=' . $item->id); ?>">[<?php echo JText::_('COM_SURVEYFORCE_VIEW_QUESTIONS');?>]</a>
+                                    <a href="<?php echo JRoute::_('index.php?option=com_surveyforce&view=survey&layout=edit&id='.$item->id); ?>"><?php echo $this->escape(str_replace("&nbsp;", '', mb_substr(strip_tags($item->sf_name), 0, 70))); ?></a>&nbsp;<a href="<?php echo JRoute::_('index.php?option=com_surveyforce&view=questions&surv_id=' . $item->id); ?>">[<?php echo JText::_('COM_SURVEYFORCE_VIEW_QUESTIONS');?>]</a>
                                 <?php else : ?>
-                                    <?php echo $this->escape(str_replace("&nbsp;", '', substr(strip_tags($item->sf_name), 0, 70))); ?>
+                                    <?php echo $this->escape(str_replace("&nbsp;", '', mb_substr(strip_tags($item->sf_name), 0, 70))); ?>
                                 <?php endif; ?>
                             </div>
                         </td>

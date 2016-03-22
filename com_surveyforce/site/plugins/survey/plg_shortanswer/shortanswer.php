@@ -57,7 +57,7 @@ class plgSurveyShortanswer {
         $ret_str .= "\t" . '<quest_type>' . $q_data->sf_qtype . '</quest_type>' . "\n";
         $inp = 0;
 		if (strpos($q_data->sf_qtext,'{x}') !== 0 || strpos($q_data->sf_qtext,'{y}') !== 0) {
-			$inp = substr_count($q_data->sf_qtext, '{x}')+substr_count($q_data->sf_qtext, '{y}');
+			$inp = mb_substr_count($q_data->sf_qtext, '{x}')+mb_substr_count($q_data->sf_qtext, '{y}');
 		}
 
         if ($q_data->sf_section_id > 0) {
@@ -204,7 +204,7 @@ class plgSurveyShortanswer {
 	public function onGetAdminReport($question, $start_data)
 	{
 		$database = JFactory::getDbo();
-		$n = substr_count($question->sf_qtext, "{x}")+substr_count($question->sf_qtext, "{y}");
+		$n = mb_substr_count($question->sf_qtext, "{x}")+mb_substr_count($question->sf_qtext, "{y}");
 		if ($n > 0) {
 			$query = "SELECT b.ans_txt, a.ans_field FROM #__survey_force_user_answers as a
 						LEFT JOIN #__survey_force_user_ans_txt as b ON a.answer = b.id

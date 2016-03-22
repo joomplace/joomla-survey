@@ -52,7 +52,7 @@ class sf_ImageGenerator {
         if (is_null($cache)) {
             $cache = array();
             foreach (get_class_vars(get_class($this)) as $key => $val) {
-                if (substr($key, 0, 1) != '_') {
+                if (mb_substr($key, 0, 1) != '_') {
                     $cache[] = $key;
                 }
             }
@@ -102,7 +102,7 @@ class sf_ImageGenerator {
 
         $rows = count($options);
         foreach ($options as $option)
-            $rows += substr_count($option, "\n");
+            $rows += mb_substr_count($option, "\n");
 
         $rows += 1;
 
@@ -180,7 +180,7 @@ class sf_ImageGenerator {
 
         $rows = count($options);
         foreach ($options as $option)
-            $rows += substr_count($option, "\n");
+            $rows += mb_substr_count($option, "\n");
 
         $rows += 1;
         // Dataset definition 
@@ -524,9 +524,9 @@ class sf_ImageGenerator {
 					$pos = 0;
 				}
 				if (strlen($word) > $size*1.1) {
-					$word_pieses = @explode($delim, @substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)));
+					$word_pieses = @explode($delim, @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)));
 		
-					$out .= @substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)).' ';
+					$out .= @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)).' ';
 					$pos = @strlen(@$word_pieses[count($word_pieses)-1]) + 1; 
 				} else {
 				
@@ -548,9 +548,9 @@ class sf_ImageGenerator {
 				$pos = 0;
 			}
 			if (strlen($word) > $size*1.1) {
-				$word_pieses = @explode($delim, @substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)));
+				$word_pieses = @explode($delim, @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)));
 	
-				$out .= @substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)).' ';
+				$out .= @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)).' ';
 				$pos = @strlen(@$word_pieses[count($word_pieses)-1]) + 1; 
 			} else {
 				$out .= $word.' ';
@@ -621,7 +621,7 @@ class sf_ImageGenerator {
         $old_umask = umask(0);
         while (false !== ($entryname = readdir($current_dir))) {
             if ($entryname != '.' and $entryname != '..') {
-                if (!is_dir($this->image_path . $entryname) && substr($entryname, 0, 2) != $day) {
+                if (!is_dir($this->image_path . $entryname) && mb_substr($entryname, 0, 2) != $day) {
                     @chmod($this->image_path . $entryname, 0757);
                     unlink($this->image_path . $entryname);
                 }

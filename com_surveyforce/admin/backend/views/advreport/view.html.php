@@ -85,7 +85,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 	protected function getMQuestionsBySurvey( $survid )
 	{
 		$database = JFactory::getDbo();
-		$query = "SELECT id AS value, SUBSTRING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (4, 7, 8) AND sf_survey = $survid ORDER BY ordering, id";
+		$query = "SELECT id AS value, mb_substrING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (4, 7, 8) AND sf_survey = $survid ORDER BY ordering, id";
 		$database->SetQuery( $query );
 		$questions_tmp = $database->loadObjectList();
 		$questions = array();
@@ -119,7 +119,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 	protected function getCQuestionsBySurvey( $survid )
 	{
 		$database = JFactory::getDbo();
-		$query = "SELECT id AS value, SUBSTRING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (7, 8) AND sf_survey = $survid ORDER BY ordering";
+		$query = "SELECT id AS value, mb_substrING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (7, 8) AND sf_survey = $survid ORDER BY ordering";
 		$database->SetQuery( $query );
 		$questions_tmp = $database->loadObjectList();
 		$questions = array();
@@ -228,7 +228,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 			$m_id = intval($mquest_id);
 			$f_id = 0;
 			if (strpos($mquest_id, '_') > 0) {
-				$f_id = intval( substr($mquest_id, strpos($mquest_id, '_') + 1) );
+				$f_id = intval( mb_substr($mquest_id, strpos($mquest_id, '_') + 1) );
 			}
 			$query = "SELECT sf_qtype FROM #__survey_force_quests  WHERE published = 1 AND id = $m_id";
 			$database->SetQuery( $query );
@@ -302,7 +302,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 						$query = "SELECT id FROM #__survey_force_fields WHERE quest_id = {$quest->id} AND is_main = 0 ORDER BY ordering";
 					}
 					elseif ($quest->sf_qtype == 4) {
-						$questions2[$key]->answer_count = substr_count($quest->sf_qtext, '{x}')+substr_count($quest->sf_qtext, '{y}');
+						$questions2[$key]->answer_count = mb_substr_count($quest->sf_qtext, '{x}')+mb_substr_count($quest->sf_qtext, '{y}');
 						$questions[$quest->id]->answer_count = $questions2[$key]->answer_count;
 						if ($questions2[$key]->answer_count > 0) {
 							$n = $questions2[$key]->answer_count;
@@ -392,7 +392,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 						$query = "SELECT id FROM #__survey_force_fields WHERE quest_id = {$tmp->id} AND is_main = 0 ORDER BY ordering";
 					}
 					elseif ($tmp->sf_qtype == 4) {
-						$tmp->answer_count = substr_count($tmp->sf_qtext, '{x}')+substr_count($tmp->sf_qtext, '{y}');
+						$tmp->answer_count = mb_substr_count($tmp->sf_qtext, '{x}')+mb_substr_count($tmp->sf_qtext, '{y}');
 						if ($tmp->answer_count > 0) {
 							$n = $tmp->answer_count;
 							$tmp->fields = array();
@@ -455,7 +455,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 					elseif ($tmp->sf_qtype != 4) {
 						$tmp->a_fields = @array_merge($database->loadColumn(), array(0 => 0));
 						if (strpos($quest, '_') > 0) {
-							$tmp->fields = array(0 => 0, 1 => intval(substr($quest, strpos($quest, '_') + 1)) );
+							$tmp->fields = array(0 => 0, 1 => intval(mb_substr($quest, strpos($quest, '_') + 1)) );
 						}
 						else {
 							$query = "SELECT id FROM #__survey_force_fields WHERE quest_id = {$tmp->id} AND is_main = 1";
@@ -1346,7 +1346,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 							}
 							break;
 						case 4:
-							$n = substr_count($sfq->sf_qtext, '{x}')+substr_count($sfq->sf_qtext, '{y}');
+							$n = mb_substr_count($sfq->sf_qtext, '{x}')+mb_substr_count($sfq->sf_qtext, '{y}');
 							if ($n > 0) {
 								$tmp = JText::_('COM_SF_1ST_ANSWER');
 								$tmp_str = '';
@@ -1359,7 +1359,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 									$database->SetQuery( $query );
 									$user_answer .= '"'.$this->SF_processCSVField_noquot($database->LoadResult()).'",';
 
-									$tmp_str .= ',"'.substr(str_replace(',', '', $this->SF_processCSVField_noquot(str_replace("\r\n", "", $sfq->sf_qtext))), 0, $max_quest_length).' - '.$tmp.'"';
+									$tmp_str .= ',"'.mb_substr(str_replace(',', '', $this->SF_processCSVField_noquot(str_replace("\r\n", "", $sfq->sf_qtext))), 0, $max_quest_length).' - '.$tmp.'"';
 
 								}
 								$sf_quests[$key]->sf_qtext2 = $tmp_str;
@@ -1384,11 +1384,11 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 				if ($iii == 0) {
 					foreach ($sf_quests as $i=>$sfq) {
 						if (!isset($sfq->sf_qtext2))
-							echo ','.$this->SF_processCSVField(substr(str_replace("\r\n","",str_replace(',','',$sfq->sf_qtext)),0, $max_quest_length));
+							echo ','.$this->SF_processCSVField(mb_substr(str_replace("\r\n","",str_replace(',','',$sfq->sf_qtext)),0, $max_quest_length));
 						else
 							echo $sfq->sf_qtext2;
 						if ($show_iscale && $sfq->sf_impscale) {
-							echo ','.str_replace(',','',$this->SF_processCSVField(substr(str_replace("\r\n","",$sfq->iscale_name),0, $max_quest_length)));
+							echo ','.str_replace(',','',$this->SF_processCSVField(mb_substr(str_replace("\r\n","",$sfq->iscale_name),0, $max_quest_length)));
 						}
 					}
 					echo "\n";

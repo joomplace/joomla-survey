@@ -303,7 +303,7 @@ class mosAdminMenus
 				mosAdminMenus::ReadImages( $i_f, $ff_, $folders, $images );
 			} else if ( preg_match('/bmp|gif|jpg|png/', $file) && is_file( $i_f ) ) {
 				// leading / we don't need
-				$imageFile = substr( $ff, 1 );
+				$imageFile = mb_substr( $ff, 1 );
 				$images[$folderPath][] = JHTML::_('select.option',  $imageFile, $file );
 			}
 		}
@@ -350,7 +350,7 @@ class mosAdminMenus
 		foreach( $row->images as $file ) {
 			$temp = explode( '|', $file );
 			if( strrchr($temp[0], '/') ) {
-				$filename = substr( strrchr($temp[0], '/' ), 1 );
+				$filename = mb_substr( strrchr($temp[0], '/' ), 1 );
 			} else {
 				$filename = $temp[0];
 			}
@@ -976,7 +976,7 @@ function mosBindArrayToObject( $array, &$obj, $ignore='', $prefix=NULL, $checkSl
 
 	foreach (get_object_vars($obj) as $k => $v)
 	{
-		if( substr( $k, 0, 1 ) != '_' )
+		if( mb_substr( $k, 0, 1 ) != '_' )
 		{
 			// internal attributes of an object are ignored
 			if (strpos( $ignore, $k) === false)
@@ -1594,7 +1594,7 @@ function doGzip()
 		$gzip_crc = crc32($gzip_contents);
 
 		$gzip_contents = gzcompress($gzip_contents, 9);
-		$gzip_contents = substr($gzip_contents, 0, strlen($gzip_contents) - 4);
+		$gzip_contents = mb_substr($gzip_contents, 0, strlen($gzip_contents) - 4);
 
 		echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
 		echo $gzip_contents;
@@ -1723,7 +1723,7 @@ function sefRelToAbs($value)
 {
 	// Replace all &amp; with & as the router doesn't understand &amp;
 	$url = str_replace('&amp;', '&', $value);
-	if(substr(strtolower($url),0,9) != "index.php") return $url;
+	if(mb_substr(strtolower($url),0,9) != "index.php") return $url;
 	$uri    = JURI::getInstance();
 	$prefix = $uri->toString(array('scheme', 'host', 'port'));
 	return $prefix.JRoute::_($url);

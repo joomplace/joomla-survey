@@ -531,8 +531,8 @@ if (isset($survey->error) && $survey->error) {
         }
 
         function sf_AnalizeRequest(http_request) {
-            var finish_count = <?php echo substr_count($template, '{FINISH_BUTTON}'); ?>;
-            var next_count = <?php echo substr_count($template, '{NEXT_BUTTON}'); ?>;
+            var finish_count = <?php echo mb_substr_count($template, '{FINISH_BUTTON}'); ?>;
+            var next_count = <?php echo mb_substr_count($template, '{NEXT_BUTTON}'); ?>;
 
             if (http_request.readyState == 4) {
                 if ((http_request.status == 200)) {

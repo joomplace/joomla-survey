@@ -157,7 +157,7 @@ class DeCsvLoader {
 	function clearQuotes($str){ 
 		$str = trim($str);
 		if ($str{0} == $this->quote && $str{strlen($str)-1} == $this->quote)
-			$str = substr($str, 1, strlen($str)-2);
+			$str = mb_substr($str, 1, strlen($str)-2);
 		return $str;
 	}
 	
@@ -174,7 +174,7 @@ class DeCsvLoader {
         foreach($a as $key => $val){
             $str = trim($val);
             if ($val{0} == '"' && $val{strlen($val)-1} == '"')
-                $val = substr($val, 1, strlen($val)-2);
+                $val = mb_substr($val, 1, strlen($val)-2);
             $a[$key] = $val;
         }
 		

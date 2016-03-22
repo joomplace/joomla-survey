@@ -48,7 +48,7 @@ SurveyforceHelper::addFileUploadFull('index.php?option=com_surveyforce&task=imag
 			}
 		});
 		jQuery('#topic-form').bind('fileuploaddestroy', function(e, data) {
-			var filename = data.url.substring(data.url.indexOf("image=") + 6);
+			var filename = data.url.mb_substring(data.url.indexOf("image=") + 6);
 			jQuery('#remove_image').val(jQuery('#remove_image').val() + '|' + filename);
 		});
 		jQuery('#configTabs a:first').tab('show');

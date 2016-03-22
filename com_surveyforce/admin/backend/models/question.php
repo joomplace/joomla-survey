@@ -253,7 +253,7 @@ class SurveyforceModelQuestion extends JModelAdmin {
         while ($i < count($quests)) {
             $quests[$i]->text = strip_tags($quests[$i]->text);
             if (strlen($quests[$i]->text) > 55)
-                $quests[$i]->text = substr($quests[$i]->text, 0, 55) . '...';
+                $quests[$i]->text = mb_substr($quests[$i]->text, 0, 55) . '...';
             $quests[$i]->text = $quests[$i]->value . ' - ' . $quests[$i]->text;
             $i++;
         }
@@ -273,7 +273,7 @@ class SurveyforceModelQuestion extends JModelAdmin {
         while ($i < count($quests3)) {
             $quests3[$i]->text = strip_tags($quests3[$i]->text);
             if (strlen($quests3[$i]->text) > 55)
-                $quests3[$i]->text = substr($quests3[$i]->text, 0, 55) . '...';
+                $quests3[$i]->text = mb_substr($quests3[$i]->text, 0, 55) . '...';
             $quests3[$i]->text = $quests3[$i]->value . ' - ' . $quests3[$i]->text;
             $i++;
         }
@@ -290,7 +290,7 @@ class SurveyforceModelQuestion extends JModelAdmin {
         while ($i < count($lists['quest_show'])) {
             $lists['quest_show'][$i]->sf_qtext = strip_tags($lists['quest_show'][$i]->sf_qtext);
             if (strlen($lists['quest_show'][$i]->sf_qtext) > 55)
-                $lists['quest_show'][$i]->sf_qtext = substr($lists['quest_show'][$i]->sf_qtext, 0, 55) . '...';
+                $lists['quest_show'][$i]->sf_qtext = mb_substr($lists['quest_show'][$i]->sf_qtext, 0, 55) . '...';
             $lists['quest_show'][$i]->sf_qtext = $lists['quest_show'][$i]->qid . ' - ' . $lists['quest_show'][$i]->sf_qtext;
             $i++;
         }

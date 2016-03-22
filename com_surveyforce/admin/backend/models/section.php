@@ -73,7 +73,7 @@ class SurveyforceModelSection extends JModelAdmin {
         if(count($questions)){
             foreach ($questions as &$question) {
                 $question->text = trim(strip_tags($question->text));
-                $question->text = substr($question->text, 0, 100)."...";
+                $question->text = mb_substr($question->text, 0, 100)."...";
             }
         }
 

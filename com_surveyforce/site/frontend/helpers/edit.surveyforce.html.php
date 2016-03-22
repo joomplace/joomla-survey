@@ -1259,9 +1259,9 @@ class survey_force_front_html {
 								}
 								?>
 
-								<?php echo mosToolTip( $txt_for_tip, JText::_('COM_SURVEYFORCE_SF_QUEST_RANK'), 280, 'tooltip.png', (strlen(trim(strip_tags($row->sf_qtext))) > 100 ? substr(trim(strip_tags($row->sf_qtext)), 0, 100).'...': trim(strip_tags($row->sf_qtext))), $link );?>
+								<?php echo mosToolTip( $txt_for_tip, JText::_('COM_SURVEYFORCE_SF_QUEST_RANK'), 280, 'tooltip.png', (strlen(trim(strip_tags($row->sf_qtext))) > 100 ? mb_substr(trim(strip_tags($row->sf_qtext)), 0, 100).'...': trim(strip_tags($row->sf_qtext))), $link );?>
 							<?php } else { ?>
-								<a href="<?php echo $link; ?>" ><?php echo (strlen(trim(strip_tags($row->sf_qtext))) > 100 ? substr(trim(strip_tags($row->sf_qtext)), 0, 100).'...': trim(strip_tags($row->sf_qtext))); ?></a>
+								<a href="<?php echo $link; ?>" ><?php echo (strlen(trim(strip_tags($row->sf_qtext))) > 100 ? mb_substr(trim(strip_tags($row->sf_qtext)), 0, 100).'...': trim(strip_tags($row->sf_qtext))); ?></a>
 							<?php }?>
 							</td>
 							<td class="center">

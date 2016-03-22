@@ -336,24 +336,24 @@ class SurveyforceHelper
 					$chain .= '*';
 			}
 
-			if (substr($chain, -2) == '*#')
+			if (mb_substr($chain, -2) == '*#')
 			{
-				$chain = substr($chain, 0, -2);
+				$chain = mb_substr($chain, 0, -2);
 			}
 
-			if (substr($chain, -3) == '*#*')
+			if (mb_substr($chain, -3) == '*#*')
 			{
-				$chain = substr($chain, 0, -3);
+				$chain = mb_substr($chain, 0, -3);
 			}
 
-			if (substr($chain, -1) == '*')
+			if (mb_substr($chain, -1) == '*')
 			{
-				$chain = substr($chain, 0, -1);
+				$chain = mb_substr($chain, 0, -1);
 			}
 
-			if (substr($chain, -1) == '#')
+			if (mb_substr($chain, -1) == '#')
 			{
-				$chain = substr($chain, 0, -1);
+				$chain = mb_substr($chain, 0, -1);
 			}
 
 			if ($chaintype == 1)
@@ -1114,13 +1114,13 @@ class SurveyforceHelper
 				{
 					if (strpos($lms_group, '_') > 0)
 					{
-						$teacher_in_courses_str2 .= substr($lms_group, 2) . ',';
+						$teacher_in_courses_str2 .= mb_substr($lms_group, 2) . ',';
 					}
 					else
 						$lms_group_str .= $lms_group . ',';
 				}
-				$lms_group_str = substr($lms_group_str, 0, -1);
-				$teacher_in_courses_str2 = substr($teacher_in_courses_str2, 0, -1);
+				$lms_group_str = mb_substr($lms_group_str, 0, -1);
+				$teacher_in_courses_str2 = mb_substr($teacher_in_courses_str2, 0, -1);
 				$query = "SELECT user_id FROM #__lms_users_in_groups WHERE (group_id IN ({$lms_group_str}) AND course_id IN ({$teacher_in_courses_str})) "
 					. ($teacher_in_courses_str2 != '' ? " OR (group_id = 0 AND course_id IN ({$teacher_in_courses_str2}))" : '');
 				$database->setQuery($query);
@@ -1438,7 +1438,7 @@ class SurveyforceHelper
 							{
 								$quests33[$ji]->text = strip_tags($quests33[$ji]->text);
 								if (strlen($quests33[$ji]->text) > 55)
-									$quests33[$ji]->text = substr($quests33[$ji]->text, 0, 55) . '...';
+									$quests33[$ji]->text = mb_substr($quests33[$ji]->text, 0, 55) . '...';
 								$quests33[$ji]->text = $quests33[$ji]->value . ' - ' . $quests33[$ji]->text;
 
 								$ji++;
@@ -1490,7 +1490,7 @@ class SurveyforceHelper
 				{
 					$quests34[$ji]->text = strip_tags($quests34[$ji]->text);
 					if (strlen($quests34[$ji]->text) > 55)
-						$quests34[$ji]->text = substr($quests34[$ji]->text, 0, 55) . '...';
+						$quests34[$ji]->text = mb_substr($quests34[$ji]->text, 0, 55) . '...';
 					$quests34[$ji]->text = $quests34[$ji]->value . ' - ' . $quests34[$ji]->text;
 					$ji++;
 				}
@@ -1936,7 +1936,7 @@ class SurveyforceHelper
 							}
 							break;
 						case 4:
-							$n = substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, "{x}") + substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, "{y}");
+							$n = mb_substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, "{x}") + mb_substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, "{y}");
 							if ($n > 0)
 							{
 								$query = "SELECT b.ans_txt, a.ans_field FROM #__survey_force_user_answers as a LEFT JOIN #__survey_force_user_ans_txt as b ON a.answer = b.id	WHERE a.quest_id = '" . $rows[$ri]->questions_data[$qi]->id . "' AND a.survey_id = '" . $rows[$ri]->questions_data[$qi]->sf_survey . "' AND a.start_id = '" . $rows[$ri]->id . "' ORDER BY a.ans_field ";
@@ -2246,7 +2246,7 @@ class SurveyforceHelper
 						}
 						break;
 					case 4:
-						$n = substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, '{x}') + substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, '{y}');
+						$n = mb_substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, '{x}') + mb_substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, '{y}');
 						if ($n > 0)
 						{
 							$query = "SELECT id FROM #__survey_force_user_answers"
@@ -2765,7 +2765,7 @@ class SurveyforceHelper
 						}
 						break;
 					case 4:
-						$n = substr_count($questions_data[$i]->sf_qtext, "{x}") + substr_count($questions_data[$i]->sf_qtext, "{y}");
+						$n = mb_substr_count($questions_data[$i]->sf_qtext, "{x}") + mb_substr_count($questions_data[$i]->sf_qtext, "{y}");
 						if ($n > 0)
 						{
 							$query = "SELECT b.ans_txt, a.ans_field FROM #__survey_force_user_answers as a LEFT JOIN #__survey_force_user_ans_txt as b ON a.answer = b.id	WHERE a.quest_id = '" . $questions_data[$i]->id . "' AND a.survey_id = '" . $questions_data[$i]->sf_survey . "' AND a.start_id = '" . $id . "' ORDER BY a.ans_field ";
@@ -2971,7 +2971,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 					}
 					break;
 				case 4:
-					$n = substr_count($questions_data[$i]->sf_qtext, '{x}') + substr_count($questions_data[$i]->sf_qtext, '{y}');
+					$n = mb_substr_count($questions_data[$i]->sf_qtext, '{x}') + mb_substr_count($questions_data[$i]->sf_qtext, '{y}');
 					if ($n > 0)
 					{
 						$query = "SELECT id FROM #__survey_force_user_answers"
@@ -3254,7 +3254,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 					}
 					break;
 				case 4:
-					$n = substr_count($questions_data[$i]->sf_qtext, '{x}') + substr_count($questions_data[$i]->sf_qtext, '{y}');
+					$n = mb_substr_count($questions_data[$i]->sf_qtext, '{x}') + mb_substr_count($questions_data[$i]->sf_qtext, '{y}');
 					if ($n > 0)
 					{
 						$query = "SELECT id FROM #__survey_force_user_answers"
@@ -3559,7 +3559,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 					}
 					break;
 				case 4:
-					$n = substr_count($questions_data[$i]->sf_qtext, '{x}') + substr_count($questions_data[$i]->sf_qtext, '{y}');
+					$n = mb_substr_count($questions_data[$i]->sf_qtext, '{x}') + mb_substr_count($questions_data[$i]->sf_qtext, '{y}');
 					if ($n > 0)
 					{
 						$query = "SELECT id FROM #__survey_force_user_answers"
@@ -5187,7 +5187,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 							}
 							break;
 						case 4:
-							$n = substr_count($sfq->sf_qtext, '{x}') + substr_count($sfq->sf_qtext, '{y}');
+							$n = mb_substr_count($sfq->sf_qtext, '{x}') + mb_substr_count($sfq->sf_qtext, '{y}');
 							if ($n > 0)
 							{
 								$tmp = JText::_('COM_SF_1ST_ANSWER');
@@ -5202,7 +5202,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 									$database->setQuery($query);
 									$user_answer .= '"' . self::SF_processCSVField_noquot($database->loadResult()) . '",';
 
-									$tmp_str .= ',"' . substr(str_replace(',', '', self::SF_processCSVField_noquot(str_replace("\r\n", "", $sfq->sf_qtext))), 0, $max_quest_length) . ' - ' . $tmp . '"';
+									$tmp_str .= ',"' . mb_substr(str_replace(',', '', self::SF_processCSVField_noquot(str_replace("\r\n", "", $sfq->sf_qtext))), 0, $max_quest_length) . ' - ' . $tmp . '"';
 
 								}
 								$sf_quests[$key]->sf_qtext2 = $tmp_str;
@@ -5230,12 +5230,12 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 					foreach ($sf_quests as $i => $sfq)
 					{
 						if (!isset($sfq->sf_qtext2))
-							echo ',' . self::SF_processCSVField(substr(str_replace("\r\n", "", str_replace(',', '', $sfq->sf_qtext)), 0, $max_quest_length));
+							echo ',' . self::SF_processCSVField(mb_substr(str_replace("\r\n", "", str_replace(',', '', $sfq->sf_qtext)), 0, $max_quest_length));
 						else
 							echo $sfq->sf_qtext2;
 						if ($show_iscale && $sfq->sf_impscale)
 						{
-							echo ',' . str_replace(',', '', self::SF_processCSVField(substr(str_replace("\r\n", "", $sfq->iscale_name), 0, $max_quest_length)));
+							echo ',' . str_replace(',', '', self::SF_processCSVField(mb_substr(str_replace("\r\n", "", $sfq->iscale_name), 0, $max_quest_length)));
 						}
 					}
 					echo "\n";
@@ -5341,7 +5341,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$surveys = mosHTML::selectList($surveys, 'survid', 'class="text_area" size="1" onchange="document.adminForm.submit();"', 'value', 'text', $survid);
 		$lists['surveys'] = $surveys;
 
-		$query = "SELECT id AS value, SUBSTRING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (4, 7, 8) AND sf_survey = $survid ORDER BY ordering";
+		$query = "SELECT id AS value, mb_substrING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (4, 7, 8) AND sf_survey = $survid ORDER BY ordering";
 		$database->setQuery($query);
 		$questions_tmp = $database->loadObjectList();
 		$questions = array();
@@ -5375,7 +5375,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		else
 			$lists['mquest_id'] = '';
 
-		$query = "SELECT id AS value, SUBSTRING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (7, 8) AND sf_survey = $survid ORDER BY ordering";
+		$query = "SELECT id AS value, mb_substrING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (7, 8) AND sf_survey = $survid ORDER BY ordering";
 		$database->setQuery($query);
 		$questions_tmp = $database->loadObjectList();
 		$questions = array();
@@ -5450,7 +5450,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			$f_id = 0;
 			if (strpos($mquest_id, '_') > 0)
 			{
-				$f_id = intval(substr($mquest_id, strpos($mquest_id, '_') + 1));
+				$f_id = intval(mb_substr($mquest_id, strpos($mquest_id, '_') + 1));
 			}
 			$query = "SELECT sf_qtype FROM #__survey_force_quests  WHERE published = 1 AND id = $m_id";
 			$database->setQuery($query);
@@ -5528,7 +5528,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 					}
 					elseif ($quest->sf_qtype == 4)
 					{
-						$questions2[$key]->answer_count = substr_count($quest->sf_qtext, '{x}') + substr_count($quest->sf_qtext, '{y}');
+						$questions2[$key]->answer_count = mb_substr_count($quest->sf_qtext, '{x}') + mb_substr_count($quest->sf_qtext, '{y}');
 						$questions[$quest->id]->answer_count = $questions2[$key]->answer_count;
 						if ($questions2[$key]->answer_count > 0)
 						{
@@ -5613,7 +5613,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 					}
 					elseif ($tmp->sf_qtype == 4)
 					{
-						$tmp->answer_count = substr_count($tmp->sf_qtext, '{x}') + substr_count($tmp->sf_qtext, '{y}');
+						$tmp->answer_count = mb_substr_count($tmp->sf_qtext, '{x}') + mb_substr_count($tmp->sf_qtext, '{y}');
 						if ($tmp->answer_count > 0)
 						{
 							$n = $tmp->answer_count;
@@ -5672,7 +5672,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 						$tmp->a_fields = @array_merge($database->loadColumn(), array(0 => 0));
 						if (strpos($quest, '_') > 0)
 						{
-							$tmp->fields = array(0 => 0, 1 => intval(substr($quest, strpos($quest, '_') + 1)));
+							$tmp->fields = array(0 => 0, 1 => intval(mb_substr($quest, strpos($quest, '_') + 1)));
 						}
 						else
 						{
@@ -8240,7 +8240,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		{
 			$quests[$i]->text = strip_tags($quests[$i]->text);
 			if (strlen($quests[$i]->text) > 55)
-				$quests[$i]->text = substr($quests[$i]->text, 0, 55) . '...';
+				$quests[$i]->text = mb_substr($quests[$i]->text, 0, 55) . '...';
 			$quests[$i]->text = $quests[$i]->value . ' - ' . $quests[$i]->text;
 			$i++;
 		}
@@ -8258,7 +8258,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		{
 			$quests3[$i]->text = strip_tags($quests3[$i]->text);
 			if (strlen($quests3[$i]->text) > 55)
-				$quests3[$i]->text = substr($quests3[$i]->text, 0, 55) . '...';
+				$quests3[$i]->text = mb_substr($quests3[$i]->text, 0, 55) . '...';
 			$quests3[$i]->text = $quests3[$i]->value . ' - ' . $quests3[$i]->text;
 			$i++;
 		}
@@ -8277,7 +8277,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		{
 			$lists['quest_show'][$i]->sf_qtext = strip_tags($lists['quest_show'][$i]->sf_qtext);
 			if (strlen($lists['quest_show'][$i]->sf_qtext) > 55)
-				$lists['quest_show'][$i]->sf_qtext = substr($lists['quest_show'][$i]->sf_qtext, 0, 55) . '...';
+				$lists['quest_show'][$i]->sf_qtext = mb_substr($lists['quest_show'][$i]->sf_qtext, 0, 55) . '...';
 			$lists['quest_show'][$i]->sf_qtext = $lists['quest_show'][$i]->qid . ' - ' . $lists['quest_show'][$i]->sf_qtext;
 			$i++;
 		}
@@ -9229,7 +9229,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		{
 			$item->text = strip_tags($item->text);
 			if (strlen($item->text) > 255)
-				$item->text = substr($item->text, 0, 255) . '...';
+				$item->text = mb_substr($item->text, 0, 255) . '...';
 		}
 		$selected_q = 0;
 		if ($id)
@@ -9741,7 +9741,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			$orders[$i]->text = strip_tags($orders[$i]->text);
 			if (strlen($orders[$i]->text) > $chop)
 			{
-				$text = substr($orders[$i]->text, 0, $chop) . "...";
+				$text = mb_substr($orders[$i]->text, 0, $chop) . "...";
 			}
 			else
 			{

@@ -213,13 +213,13 @@ class SurveyforceModelListuser extends JModelAdmin {
 					$teacher_in_courses_str2 = '';
 					foreach ($lms_groups as $lms_group) {
 						if (strpos($lms_group, '_') > 0) {
-							$teacher_in_courses_str2 .= substr($lms_group, 2) . ',';
+							$teacher_in_courses_str2 .= mb_substr($lms_group, 2) . ',';
 						}
 						else
 							$lms_group_str .= $lms_group . ',';
 					}
-					$lms_group_str = substr($lms_group_str, 0, -1);
-					$teacher_in_courses_str2 = substr($teacher_in_courses_str2, 0, -1);
+					$lms_group_str = mb_substr($lms_group_str, 0, -1);
+					$teacher_in_courses_str2 = mb_substr($teacher_in_courses_str2, 0, -1);
 					$query = "SELECT user_id FROM `#__lms_users_in_groups` WHERE (group_id IN ({$lms_group_str})) "
 						. ($teacher_in_courses_str2 != '' ? " OR (group_id = 0 AND course_id IN ({$teacher_in_courses_str2}))" : '');
 					$database->SetQuery($query);

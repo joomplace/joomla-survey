@@ -225,9 +225,9 @@ $sortFields = $this->getSortFields();
                             <td class="nowrap has-context">
                                 <div class="pull-left">
                                     <?php if ($canEdit) : ?>
-                                        <a href="<?php echo JRoute::_('index.php?option=com_surveyforce&task=question.edit&id=' . $item->id); ?>"><?php echo $this->escape(str_replace("&nbsp;", '', substr(strip_tags($item->sf_qtext), 0, 100))); ?></a>
+                                        <a href="<?php echo JRoute::_('index.php?option=com_surveyforce&task=question.edit&id=' . $item->id); ?>"><?php echo $this->escape(str_replace("&nbsp;", '', mb_substr(strip_tags($item->sf_qtext), 0, 100))); ?></a>
                                     <?php else : ?>
-                                        <?php echo $this->escape(str_replace("&nbsp;", '', substr(strip_tags($item->sf_qtext), 0, 100))); ?>
+                                        <?php echo $this->escape(str_replace("&nbsp;", '', mb_substr(strip_tags($item->sf_qtext), 0, 100))); ?>
                                     <?php endif; ?>
                                 </div>
                             </td>
@@ -322,9 +322,9 @@ $sortFields = $this->getSortFields();
                             <td class="nowrap has-context"  colspan="2">
                                 <div class="pull-left">
                                     <?php if ($canEdit) : ?>
-                                        <a href="<?php echo JRoute::_('index.php?option=com_surveyforce&task=question.edit&id=' . $item->id); ?>"><?php echo $this->escape(str_replace("&nbsp;", '', substr(strip_tags($item->sf_qtext), 0, 100))); ?></a>
+                                        <a href="<?php echo JRoute::_('index.php?option=com_surveyforce&task=question.edit&id=' . $item->id); ?>"><?php echo $this->escape(str_replace("&nbsp;", '', mb_substr(strip_tags($item->sf_qtext), 0, 100))); ?></a>
                                     <?php else : ?>
-                                        <?php echo $this->escape(str_replace("&nbsp;", '', substr(strip_tags($item->sf_qtext), 0, 100))); ?>
+                                        <?php echo $this->escape(str_replace("&nbsp;", '', mb_substr(strip_tags($item->sf_qtext), 0, 100))); ?>
                                     <?php endif; ?>
                                 </div>
                             </td>

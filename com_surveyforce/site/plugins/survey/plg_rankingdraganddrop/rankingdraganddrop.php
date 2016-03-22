@@ -114,7 +114,7 @@ class plgSurveyRankingdraganddrop {
 		$q_text = $q_data->sf_qtext;
 		if ($q_data->sf_qtype == 4) {
 			if (strpos($q_text, '{x}') > 0 || strpos($q_text, '{y}') > 0) {
-				$inp = substr_count($q_text, '{x}') + substr_count($q_text, '{y}');
+				$inp = mb_substr_count($q_text, '{x}') + mb_substr_count($q_text, '{y}');
 			}
 		}
 
@@ -636,7 +636,7 @@ class plgSurveyRankingdraganddrop {
         while ($i < count($quests)) {
             $quests[$i]->text = strip_tags($quests[$i]->text);
             if (strlen($quests[$i]->text) > 55)
-                $quests[$i]->text = substr($quests[$i]->text, 0, 55) . '...';
+                $quests[$i]->text = mb_substr($quests[$i]->text, 0, 55) . '...';
             $quests[$i]->text = $quests[$i]->value . ' - ' . $quests[$i]->text;
             $i++;
         }

@@ -202,7 +202,7 @@ class SurveyforceControllerReports extends JControllerAdmin {
 					}
 					break;
 				case 4:
-					$n = substr_count($questions_data[$i]->sf_qtext, '{x}')+substr_count($questions_data[$i]->sf_qtext, '{y}');
+					$n = mb_substr_count($questions_data[$i]->sf_qtext, '{x}')+mb_substr_count($questions_data[$i]->sf_qtext, '{y}');
 					if ($n > 0) {
 						$query = "SELECT id FROM #__survey_force_user_answers"
 							. "\n WHERE quest_id = '".$questions_data[$i]->id."' AND survey_id = '".$questions_data[$i]->sf_survey."' AND start_id IN (".$start_ids.")  GROUP BY start_id, quest_id ";
@@ -486,7 +486,7 @@ class SurveyforceControllerReports extends JControllerAdmin {
 						}
 						break;
 					case 4:
-						$n = substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, '{x}')+substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, '{y}');
+						$n = mb_substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, '{x}')+mb_substr_count($rows[$ri]->questions_data[$qi]->sf_qtext, '{y}');
 						if ($n > 0) {
 							$query = "SELECT id FROM #__survey_force_user_answers"
 								. "\n WHERE quest_id = '".$rows[$ri]->questions_data[$qi]->id."'"

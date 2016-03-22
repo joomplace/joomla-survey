@@ -39,22 +39,22 @@ class SurveyforceTemplates {
 
         $template = str_replace('{SURVEY_BODY}', SurveyforceTemplates::get_container($survey->sf_descr, $show_description), $template);
 
-        $count = substr_count($template, '{START_BUTTON}');
+        $count = mb_substr_count($template, '{START_BUTTON}');
         for ($i = 0; $i < $count; $i++) {
             $template = preg_replace('/\{START_BUTTON\}/', '<span class="start_bt_container" id="start_' . $i . '">' . surveyforce_template_class::SF_GetStartButton() . '</span>', $template, 1);
         }
 
-        $count = substr_count($template, '{PREV_BUTTON}');
+        $count = mb_substr_count($template, '{PREV_BUTTON}');
         for ($i = 0; $i < $count; $i++) {
             $template = preg_replace('/\{PREV_BUTTON\}/', SurveyforceTemplates::get_button('prev', $i), $template, 1);
         }
 
-        $count = substr_count($template, '{NEXT_BUTTON}');
+        $count = mb_substr_count($template, '{NEXT_BUTTON}');
         for ($i = 0; $i < $count; $i++) {
             $template = preg_replace('/\{NEXT_BUTTON\}/', SurveyforceTemplates::get_button('next', $i), $template, 1);
         }
 
-        $count = substr_count($template, '{FINISH_BUTTON}');
+        $count = mb_substr_count($template, '{FINISH_BUTTON}');
         for ($i = 0; $i < $count; $i++) {
             $template = preg_replace('/\{FINISH_BUTTON\}/', SurveyforceTemplates::get_button('finish', $i), $template, 1);
         }

@@ -490,7 +490,7 @@ class DeImportFieldDescriptors {
 function sf_clearCSVQuotes($str){ 
 	$str = trim($str);
 	if ($str{0} == '"' && $str{strlen($str)-1} == '"')
-		$str = substr($str, 1, strlen($str)-2);
+		$str = mb_substr($str, 1, strlen($str)-2);
 	return $str;
 }
 
@@ -574,7 +574,7 @@ class DeCsvLoader {
 	function clearQuotes($str){ 
 		$str = trim($str);
 		if ($str{0} == $this->quote && $str{strlen($str)-1} == $this->quote)
-			$str = substr($str, 1, strlen($str)-2);
+			$str = mb_substr($str, 1, strlen($str)-2);
 		return $str;
 	}
 	
@@ -810,7 +810,7 @@ class SF_Object
 		if (is_null( $cache )) {
 			$cache = array();
 			foreach (get_class_vars( get_class( $this ) ) as $key=>$val) {
-				if (substr( $key, 0, 1 ) != '_') {
+				if (mb_substr( $key, 0, 1 ) != '_') {
 					$cache[] = $key;
 				}
 			}

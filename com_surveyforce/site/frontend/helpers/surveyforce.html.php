@@ -26,22 +26,22 @@ class survey_force_html
 		
 		$template = str_replace('{SURVEY_BODY}', survey_force_html::get_container($survey->sf_descr, $show_description), $template);
 		
-		$count =  substr_count($template, '{START_BUTTON}');
+		$count =  mb_substr_count($template, '{START_BUTTON}');
 		for ($i=0; $i<$count; $i++) {
 			$template = preg_replace('/\{START_BUTTON\}/', '<span class="start_bt_container" id="start_'.$i.'">'.surveyforce_template_class::SF_GetStartButton().'</span>', $template,1);
 		}
 		
-		$count =  substr_count($template, '{PREV_BUTTON}');
+		$count =  mb_substr_count($template, '{PREV_BUTTON}');
 		for ($i=0; $i<$count; $i++) {
 			$template = preg_replace('/\{PREV_BUTTON\}/', survey_force_html::get_button('prev', $i), $template,1);
 		}
 	
-		$count =  substr_count($template, '{NEXT_BUTTON}');
+		$count =  mb_substr_count($template, '{NEXT_BUTTON}');
 		for ($i=0; $i<$count; $i++) {
 			$template = preg_replace('/\{NEXT_BUTTON\}/', survey_force_html::get_button('next', $i), $template,1);
 		}
 	
-		$count =  substr_count($template, '{FINISH_BUTTON}');
+		$count =  mb_substr_count($template, '{FINISH_BUTTON}');
 		for ($i=0; $i<$count; $i++) {
 			$template = preg_replace('/\{FINISH_BUTTON\}/', survey_force_html::get_button('finish', $i), $template,1);
 		}
@@ -768,11 +768,11 @@ var is_prev = 1;
 
 <?php 
 $live_site = $GLOBALS['mosConfig_live_site'];
-if (substr($_SERVER['HTTP_HOST'],0,4) == 'www.') {
+if (mb_substr($_SERVER['HTTP_HOST'],0,4) == 'www.') {
 	if (strpos($GLOBALS['mosConfig_live_site'], 'www.') !== false)
 		$live_site = $GLOBALS['mosConfig_live_site'];
 	else {
-		$live_site = str_replace(substr($_SERVER['HTTP_HOST'],4), $_SERVER['HTTP_HOST'], $GLOBALS['mosConfig_live_site']);
+		$live_site = str_replace(mb_substr($_SERVER['HTTP_HOST'],4), $_SERVER['HTTP_HOST'], $GLOBALS['mosConfig_live_site']);
 	}
 } else { 
 	if (strpos($GLOBALS['mosConfig_live_site'], 'www.') !== false) 
@@ -785,7 +785,7 @@ $live_site_parts = parse_url($live_site);
 
 $live_url = $live_site_parts['scheme'].'://'.$live_site_parts['host'].(isset($live_site_parts['port'])?':'.$live_site_parts['port']:'').(isset($live_site_parts['path'])?$live_site_parts['path']:'/');
 
-if ( substr($live_url, strlen($live_url)-1, 1) !== '/')
+if ( mb_substr($live_url, strlen($live_url)-1, 1) !== '/')
 	$live_url .= '/';
 ?>
 
@@ -897,8 +897,8 @@ function sf_CreateQuestions() {
 }
 
 function sf_AnalizeRequest(http_request) {
-	var finish_count = <?php echo substr_count($template, '{FINISH_BUTTON}');?>;
-	var next_count = <?php echo substr_count($template, '{NEXT_BUTTON}');?>;
+	var finish_count = <?php echo mb_substr_count($template, '{FINISH_BUTTON}');?>;
+	var next_count = <?php echo mb_substr_count($template, '{NEXT_BUTTON}');?>;
 	
 	if (http_request.readyState == 4) {
 		if ((http_request.status == 200)) {
@@ -1531,10 +1531,10 @@ function sf_SurveyPrev() { //send 'TASK = prev'
 
 function sf_UpdateTaskDiv(task) {
 	
-	var start_count = <?php echo substr_count($template, '{START_BUTTON}');?>;
-	var finish_count = <?php echo substr_count($template, '{FINISH_BUTTON}');?>;
-	var prev_count = <?php echo substr_count($template, '{PREV_BUTTON}');?>;
-	var next_count = <?php echo substr_count($template, '{NEXT_BUTTON}');?>;
+	var start_count = <?php echo mb_substr_count($template, '{START_BUTTON}');?>;
+	var finish_count = <?php echo mb_substr_count($template, '{FINISH_BUTTON}');?>;
+	var prev_count = <?php echo mb_substr_count($template, '{PREV_BUTTON}');?>;
+	var next_count = <?php echo mb_substr_count($template, '{NEXT_BUTTON}');?>;
 	var i=0;
 	
 	try {

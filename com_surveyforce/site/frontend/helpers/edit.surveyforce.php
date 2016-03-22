@@ -52,7 +52,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 				{
 					$f_fields_data[$i]->text = strip_tags($f_fields_data[$i]->text);
 					if (strlen($f_fields_data[$i]->text) > 55)
-						$f_fields_data[$i]->text = substr($f_fields_data[$i]->text, 0, 55) . '...';
+						$f_fields_data[$i]->text = mb_substr($f_fields_data[$i]->text, 0, 55) . '...';
 					$f_fields_data[$i]->text = $f_fields_data[$i]->value . ' - ' . $f_fields_data[$i]->text;
 					$i++;
 				}
@@ -72,7 +72,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 				{
 					$f_fields_data[$i]->text = strip_tags($f_fields_data[$i]->text);
 					if (strlen($f_fields_data[$i]->text) > 55)
-						$f_fields_data[$i]->text = substr($f_fields_data[$i]->text, 0, 55) . '...';
+						$f_fields_data[$i]->text = mb_substr($f_fields_data[$i]->text, 0, 55) . '...';
 					$f_fields_data[$i]->text = $f_fields_data[$i]->value . ' - ' . $f_fields_data[$i]->text;
 					$i++;
 				}
@@ -92,7 +92,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 				{
 					$f_fields_data[$i]->text = strip_tags($f_fields_data[$i]->text);
 					if (strlen($f_fields_data[$i]->text) > 55)
-						$f_fields_data[$i]->text = substr($f_fields_data[$i]->text, 0, 55) . '...';
+						$f_fields_data[$i]->text = mb_substr($f_fields_data[$i]->text, 0, 55) . '...';
 					$f_fields_data[$i]->text = $f_fields_data[$i]->value . ' - ' . $f_fields_data[$i]->text;
 					$i++;
 				}
@@ -108,7 +108,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 				{
 					$f_fields_data2[$i]->text = strip_tags($f_fields_data2[$i]->text);
 					if (strlen($f_fields_data2[$i]->text) > 55)
-						$f_fields_data2[$i]->text = substr($f_fields_data2[$i]->text, 0, 55) . '...';
+						$f_fields_data2[$i]->text = mb_substr($f_fields_data2[$i]->text, 0, 55) . '...';
 					$f_fields_data2[$i]->text = $f_fields_data2[$i]->value . ' - ' . $f_fields_data2[$i]->text;
 					$i++;
 				}
@@ -128,7 +128,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 				{
 					$f_fields_data[$i]->text = strip_tags($f_fields_data[$i]->text);
 					if (strlen($f_fields_data[$i]->text) > 55)
-						$f_fields_data[$i]->text = substr($f_fields_data[$i]->text, 0, 55) . '...';
+						$f_fields_data[$i]->text = mb_substr($f_fields_data[$i]->text, 0, 55) . '...';
 					$f_fields_data[$i]->text = $f_fields_data[$i]->value . ' - ' . $f_fields_data[$i]->text;
 					$i++;
 				}
@@ -143,7 +143,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 				{
 					$f_fields_data2[$i]->text = strip_tags($f_fields_data2[$i]->text);
 					if (strlen($f_fields_data2[$i]->text) > 55)
-						$f_fields_data2[$i]->text = substr($f_fields_data2[$i]->text, 0, 55) . '...';
+						$f_fields_data2[$i]->text = mb_substr($f_fields_data2[$i]->text, 0, 55) . '...';
 					$f_fields_data2[$i]->text = $f_fields_data2[$i]->value . ' - ' . $f_fields_data2[$i]->text;
 					$i++;
 				}
@@ -226,7 +226,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 				mosErrorAlert(JText::_('COM_SF_S_IMAGE') . $userfile_name . JText::_('COM_SF_ALREADY_EXISTS'));
 			}
 
-			if ((strcasecmp(substr($userfile_name, -4), ".gif")) && (strcasecmp(substr($userfile_name, -4), ".jpg")) && (strcasecmp(substr($userfile_name, -4), ".png")) && (strcasecmp(substr($userfile_name, -4), ".bmp")))
+			if ((strcasecmp(mb_substr($userfile_name, -4), ".gif")) && (strcasecmp(mb_substr($userfile_name, -4), ".jpg")) && (strcasecmp(mb_substr($userfile_name, -4), ".png")) && (strcasecmp(mb_substr($userfile_name, -4), ".bmp")))
 			{
 				mosErrorAlert(JText::_('COM_SF_THE_FILE_MUST_BE_GIF'));
 			}

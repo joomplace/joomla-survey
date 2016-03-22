@@ -246,7 +246,7 @@ class SurveyforceHelper
 			$orders[$i]->text = strip_tags($orders[$i]->text);
 			if (strlen($orders[$i]->text) > $chop)
 			{
-				$text = substr($orders[$i]->text, 0, $chop) . "...";
+				$text = mb_substr($orders[$i]->text, 0, $chop) . "...";
 			}
 			else
 			{
@@ -421,7 +421,7 @@ class SurveyforceHelper
 		{
 			if ($entryname != '.' and $entryname != '..')
 			{
-				if (!is_dir($image_path . $entryname) && substr($entryname, 0, 2) != $day)
+				if (!is_dir($image_path . $entryname) && mb_substr($entryname, 0, 2) != $day)
 				{
 					@chmod($image_path . $entryname, 0757);
 					unlink($image_path . $entryname);
