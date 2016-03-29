@@ -14,6 +14,7 @@ defined('_JEXEC') or die('Restricted access');
 
 class SF_ShortanswerTemplate {
 
+	static $answer;
     static $question;
     static $iscale;
 
@@ -91,6 +92,7 @@ EOFTMPL;
 			$return_str = '<div align="left" class="short_ans_div">' .
 					'<br/>' .
 					'<textarea id="inp_short' . SF_ShortanswerTemplate::$question->id . '" class="short_ans_textarea" rows="5" >' .
+					((isset(SF_ShortanswerTemplate::$answer[SF_ShortanswerTemplate::$question->id]))?(SF_ShortanswerTemplate::$answer[SF_ShortanswerTemplate::$question->id]):'').
 					'</textarea>' .
 					'</div>';
 		else

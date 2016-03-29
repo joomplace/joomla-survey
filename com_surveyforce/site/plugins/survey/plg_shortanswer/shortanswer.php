@@ -96,22 +96,23 @@ class plgSurveyShortanswer {
             $f_answ_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
         }
 		$iscale['answ_txt']= array();
-				
+		
+		$answers_text = array();
         if (count($f_answ_data) > 0) {
             $ret_str .= "\t" . '<answers>' . "\n";
 
             foreach ($f_answ_data as $answer) {
 					
-                if ( $answer->ans_field > 0) {
-                    $query = "SELECT ans_txt FROM #__survey_force_user_ans_txt WHERE id = '" . $answer->answer . "' and start_id = '" . $start_id . "' ";
-                    $database->SetQuery($query);
-                    $ans_txt = $database->loadResult();
-					
-                    if (strlen($ans_txt) < 1)
-                        $ans_txt = ' ';
+				$query = "SELECT ans_txt FROM #__survey_force_user_ans_txt WHERE id = '" . $answer->answer . "' and start_id = '" . $start_id . "' ";
+				$database->SetQuery($query);
+				$ans_txt = $database->loadResult();
+				
+				if (strlen($ans_txt) < 1)
+					$ans_txt = ' ';
 				array_push($iscale['answ_txt'], $ans_txt);
+				$answers_text[$answer->quest_id] = $ans_txt;
 				$ret_str .= "\t\t" . '<ans_txt><![CDATA[' . $ans_txt . ']]></ans_txt>' . "\n";
-                }
+					
                 $ret_str .= "\t\t" . '<a_quest_id>' . $answer->answer . '</a_quest_id>' . "\n";
             }
             if (!isset($ans_txt)) {
@@ -159,6 +160,7 @@ class plgSurveyShortanswer {
                 ));
             }
 
+        $class_name::$answer = $answers_text;
         $class_name::$question = $q_data;
         $class_name::$iscale = $iscale;
         $html = $class_name::getQuestion();

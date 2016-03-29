@@ -787,11 +787,12 @@ class SurveyforceHelper
                 ->where('sf_survey_id = "'.$data['survey']->id.'" AND addname = 1');
         $db->setQuery($query);
 		$section = $db->loadObject();
-		$sectionName = $section->sf_name;
 
-		if($data['q_data']->sf_section_id == $section->id){
-		
-		$data['q_data']->sf_qtext = $sectionName.$data['q_data']->sf_qtext;
+		if($section){
+			$sectionName = $section->sf_name;
+			if($data['q_data']->sf_section_id == $section->id){
+				$data['q_data']->sf_qtext = $sectionName.$data['q_data']->sf_qtext;
+			}
 		}
 		
 		if (method_exists($className, 'onGetQuestionData'))
