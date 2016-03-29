@@ -146,22 +146,23 @@ class SurveyforceControllerReport extends JControllerForm {
 									$pdf->Ln();
 									break;
 								case 4:
-									if (isset($qrow['answer_count'])){
-										$tmp = JText::_('COM_SURVEYFORCE_1ST_ANSWER');
-										for($ii = 1; $ii <= $qrow['answer_count']; $ii++) {
+									if (isset($qrow['answer_data']['answers'])){
+										//$tmp = JText::_('COM_SURVEYFORCE_1ST_ANSWER');
+										$sh_answrs_count = count($qrow['answer_data']['answers']);
+										for($ii = 1; $ii <= $sh_answrs_count; $ii++) {
+											/* if('nosense_code'){ */
 											if ($ii == 2) $tmp = JText::_('COM_SURVEYFORCE_SECOND_ANSWER');
 											elseif($ii == 3)	$tmp = JText::_('COM_SURVEYFORCE_THIRD_ANSWER');
 											elseif ($ii > 3) $tmp = $ii.JText::_('COM_SURVEYFORCE_TH_ANSWER');
+											/* } */
 
-											foreach($qrow['answer_data']['answers']['answer']as $answer) {
-												if ($answer->ans_field == $ii) {
-													$text_to_pdf = $tmp.($answer->ans_txt == ''?' '.JText::_('COM_SURVEYFORCE_NO_ANSWER'):$answer->ans_txt)."\n";
-													$text_to_pdf = $pdf_doc->cleanText($text_to_pdf);
-													$pdf->SetFontSize(8);
-													$pdf->Write(5, $text_to_pdf, '', 0);
-													$pdf->Ln();
-													$tmp = -1;
-												}
+											foreach($qrow['answer_data']['answers'] as $answer) {
+												$text_to_pdf = $tmp.($answer == ''?' '.JText::_('COM_SURVEYFORCE_NO_ANSWER'):$answer)."\n";
+												$text_to_pdf = $pdf_doc->cleanText($text_to_pdf);
+												$pdf->SetFontSize(8);
+												$pdf->Write(5, $text_to_pdf, '', 0);
+												$pdf->Ln();
+												$tmp = -1;
 											}
 											if ($tmp != -1)	{
 												$text_to_pdf = $tmp." ".JText::_('COM_SURVEYFORCE_NO_ANSWER')."\n";
