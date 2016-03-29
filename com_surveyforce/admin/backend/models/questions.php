@@ -42,6 +42,16 @@ class SurveyforceModelQuestions extends JModelList {
         parent::populateState();
     }
 
+    public function getItems(){
+        $items = parent::getItems();
+
+        foreach ($items as $item) {
+            $item->sf_qtext = str_replace("&nbsp;", '', mb_substr(html_entity_decode(strip_tags($item->sf_qtext)), 0, 100));
+        }
+
+        return $items;
+    }
+
     protected function getListQuery() {
         $db = $this->getDbo();
         $surv_id = JFactory::getApplication()->input->getCmd('surv_id');
