@@ -758,7 +758,7 @@ class plgSurveyRanking {
 			$result['answer'][$j]['num'] = $j;
 			$result['answer'][$j]['f_id'] = $tmp_data[$j]->id;
 			$result['answer'][$j]['f_text'] = $tmp_data[$j]->ftext;
-			$result['answer'][$j]['alt_text'] = ($question->sf_qtype == 9?'':JText::_('COM_SURVEYFORCE_NO_ANSWER'));
+			$result['answer'][$j]['alt_text'] = $tmp_data[$j]->ftext;
 			foreach ($ans_inf_data as $ans_data) {
 				if ($ans_data->answer == $tmp_data[$j]->alt_field_id) {
 					$result['answer'][$j]['f_text'] = $tmp_data[$j]->ftext .($ans_data->ans_txt != '' ?' ('.$ans_data->ans_txt.')':'');
