@@ -85,7 +85,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 	protected function getMQuestionsBySurvey( $survid )
 	{
 		$database = JFactory::getDbo();
-		$query = "SELECT id AS value, mb_substrING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (4, 7, 8) AND sf_survey = $survid ORDER BY ordering, id";
+		$query = "SELECT id AS value, SUBSTRING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (4, 7, 8) AND sf_survey = $survid ORDER BY ordering, id";
 		$database->SetQuery( $query );
 		$questions_tmp = $database->loadObjectList();
 		$questions = array();
@@ -119,7 +119,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 	protected function getCQuestionsBySurvey( $survid )
 	{
 		$database = JFactory::getDbo();
-		$query = "SELECT id AS value, mb_substrING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (7, 8) AND sf_survey = $survid ORDER BY ordering";
+		$query = "SELECT id AS value, SUBSTRING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (7, 8) AND sf_survey = $survid ORDER BY ordering";
 		$database->SetQuery( $query );
 		$questions_tmp = $database->loadObjectList();
 		$questions = array();
