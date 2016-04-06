@@ -854,9 +854,9 @@ class SurveyforceHelper
 	public function SF_ListSurveys($option, $is_i = false)
 	{
 		$database = JFactory::getDbo();
-		$catid = intval(JApplication::getUserStateFromRequest("catid", 'catid', 0));
-		$limit = intval(JApplication::getUserStateFromRequest("viewlistlimit", 'limit', 20));
-		$limitstart = intval(JApplication::getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
+		$catid = intval(JFactory::getApplication()->getUserStateFromRequest("catid", 'catid', 0));
+		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
+		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
 		if ($limit == 0) $limit = 999999;
 		$limit = intval(JFactory::getApplication()->input->get('limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
 		if ($limit == 0) $limit = 999999;
@@ -928,7 +928,7 @@ class SurveyforceHelper
 		}
 		else
 		{
-			$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JApplication::getCfg('list_limit'))));
+			$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
 		}
 		JFactory::getSession()->set('list_limit', $limit);
 		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
@@ -1214,10 +1214,10 @@ class SurveyforceHelper
 	public function SF_ListCategories($option)
 	{
 		$database = JFactory::getDbo();
-		$limit = intval(JApplication::getUserStateFromRequest("viewlistlimit", 'limit', 20));
-		$limitstart = intval(JApplication::getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
+		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
+		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
 		if ($limit == 0) $limit = 999999;
-		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JApplication::getCfg('list_limit'))));
+		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
 		if ($limit == 0) $limit = 999999;
 		JFactory::getSession()->set('list_limit', $limit);
 		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
@@ -1340,10 +1340,10 @@ class SurveyforceHelper
 	public function SF_manageUsers($option)
 	{
 		$database = JFactory::getDbo();
-		$limit = intval(JApplication::getUserStateFromRequest("viewlistlimit", 'limit', 20));
-		$limitstart = intval(JApplication::getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
+		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
+		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
 		if ($limit == 0) $limit = 999999;
-		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JApplication::getCfg('list_limit'))));
+		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
 		if ($limit == 0) $limit = 999999;
 		JFactory::getSession()->set('list_limit', $limit);
 		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
@@ -1622,14 +1622,14 @@ class SurveyforceHelper
 	public function SF_ViewReportsPDF_full($option, $cid)
 	{
 		$database = JFactory::getDbo();
-		$limit = intval(JApplication::getUserStateFromRequest("viewlistlimit", 'limit', 20));
-		$limitstart = intval(JApplication::getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
-		$surv_id = intval(JApplication::getUserStateFromRequest("surv_id", 'surv_id', 0));
-		$filt_status = intval(JApplication::getUserStateFromRequest("filt_status", 'filt_status', 2));
-		$filt_utype = intval(JApplication::getUserStateFromRequest("filt_utype", 'filt_utype', 0));
-		$filt_ulist = intval(JApplication::getUserStateFromRequest("filt_ulist", 'filt_ulist', 0));
-		$filter_quest = intval(JApplication::getUserStateFromRequest("filter_quest", 'filter_quest', 0));
-		$filter_ans = intval(JApplication::getUserStateFromRequest("filter_ans", 'filter_ans', 0));
+		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
+		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
+		$surv_id = intval(JFactory::getApplication()->getUserStateFromRequest("surv_id", 'surv_id', 0));
+		$filt_status = intval(JFactory::getApplication()->getUserStateFromRequest("filt_status", 'filt_status', 2));
+		$filt_utype = intval(JFactory::getApplication()->getUserStateFromRequest("filt_utype", 'filt_utype', 0));
+		$filt_ulist = intval(JFactory::getApplication()->getUserStateFromRequest("filt_ulist", 'filt_ulist', 0));
+		$filter_quest = intval(JFactory::getApplication()->getUserStateFromRequest("filter_quest", 'filter_quest', 0));
+		$filter_ans = intval(JFactory::getApplication()->getUserStateFromRequest("filter_ans", 'filter_ans', 0));
 		if ($limit == 0) $limit = 999999;
 		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
 		if ($limit == 0) $limit = 999999;
@@ -2010,14 +2010,14 @@ class SurveyforceHelper
 	public function SF_ViewReportsCSV_full($option, $cid)
 	{
 		$database = JFactory::getDbo();
-		$limit = intval(JApplication::getUserStateFromRequest("viewlistlimit", 'limit', 20));
-		$limitstart = intval(JApplication::getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
-		$surv_id = intval(JApplication::getUserStateFromRequest("surv_id", 'surv_id', 0));
-		$filt_status = intval(JApplication::getUserStateFromRequest("filt_status", 'filt_status', 2));
-		$filt_utype = intval(JApplication::getUserStateFromRequest("filt_utype", 'filt_utype', 0));
-		$filt_ulist = intval(JApplication::getUserStateFromRequest("filt_ulist", 'filt_ulist', 0));
-		$filter_quest = intval(JApplication::getUserStateFromRequest("filter_quest", 'filter_quest', 0));
-		$filter_ans = intval(JApplication::getUserStateFromRequest("filter_ans", 'filter_ans', 0));
+		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
+		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
+		$surv_id = intval(JFactory::getApplication()->getUserStateFromRequest("surv_id", 'surv_id', 0));
+		$filt_status = intval(JFactory::getApplication()->getUserStateFromRequest("filt_status", 'filt_status', 2));
+		$filt_utype = intval(JFactory::getApplication()->getUserStateFromRequest("filt_utype", 'filt_utype', 0));
+		$filt_ulist = intval(JFactory::getApplication()->getUserStateFromRequest("filt_ulist", 'filt_ulist', 0));
+		$filter_quest = intval(JFactory::getApplication()->getUserStateFromRequest("filter_quest", 'filter_quest', 0));
+		$filter_ans = intval(JFactory::getApplication()->getUserStateFromRequest("filter_ans", 'filter_ans', 0));
 		if ($limit == 0) $limit = 999999;
 		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
 		if ($limit == 0) $limit = 999999;
@@ -2467,12 +2467,12 @@ class SurveyforceHelper
 	public function SF_removeRepAll($option)
 	{
 		$database = JFactory::getDbo();
-		$limit = intval(JApplication::getUserStateFromRequest("viewlistlimit", 'limit', 20));
-		$limitstart = intval(JApplication::getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
-		$surv_id = intval(JApplication::getUserStateFromRequest("surv_id", 'surv_id', 0));
-		$filt_status = intval(JApplication::getUserStateFromRequest("filt_status", 'filt_status', 2));
-		$filt_utype = intval(JApplication::getUserStateFromRequest("filt_utype", 'filt_utype', 0));
-		$filt_ulist = intval(JApplication::getUserStateFromRequest("filt_ulist", 'filt_ulist', 0));
+		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
+		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
+		$surv_id = intval(JFactory::getApplication()->getUserStateFromRequest("surv_id", 'surv_id', 0));
+		$filt_status = intval(JFactory::getApplication()->getUserStateFromRequest("filt_status", 'filt_status', 2));
+		$filt_utype = intval(JFactory::getApplication()->getUserStateFromRequest("filt_utype", 'filt_utype', 0));
+		$filt_ulist = intval(JFactory::getApplication()->getUserStateFromRequest("filt_ulist", 'filt_ulist', 0));
 		if ($limit == 0) $limit = 999999;
 		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
 		if ($limit == 0) $limit = 999999;
@@ -3420,10 +3420,10 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	public function SF_ViewRepUsers($cid, $option, $is_pdf = 0, $is_pc = 0)
 	{
 		$database = JFactory::getDbo();
-		$surv_id = intval(JApplication::getUserStateFromRequest("surv_id", 'surv_id', 0));
-		$filt_status = intval(JApplication::getUserStateFromRequest("filt_status", 'filt_status', 2));
-		$filt_utype = intval(JApplication::getUserStateFromRequest("filt_utype", 'filt_utype', 0));
-		$filt_ulist = intval(JApplication::getUserStateFromRequest("filt_ulist", 'filt_ulist', 0));
+		$surv_id = intval(JFactory::getApplication()->getUserStateFromRequest("surv_id", 'surv_id', 0));
+		$filt_status = intval(JFactory::getApplication()->getUserStateFromRequest("filt_status", 'filt_status', 2));
+		$filt_utype = intval(JFactory::getApplication()->getUserStateFromRequest("filt_utype", 'filt_utype', 0));
+		$filt_ulist = intval(JFactory::getApplication()->getUserStateFromRequest("filt_ulist", 'filt_ulist', 0));
 
 		$query = "SELECT * FROM #__survey_force_survs WHERE id = '" . $surv_id . "'";
 		$database->setQuery($query);
@@ -4835,8 +4835,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	public function SF_viewIScales($option)
 	{
 		$database = JFactory::getDbo();
-		$limit = intval(JApplication::getUserStateFromRequest("viewlistlimit", 'limit', 20));
-		$limitstart = intval(JApplication::getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
+		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
+		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
 		if ($limit == 0) $limit = 999999;
 		// get the total number of records
 		$query = "SELECT COUNT(*)"
