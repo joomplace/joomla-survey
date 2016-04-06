@@ -19,6 +19,7 @@ class SurveyforceControllerSamples extends JControllerForm {
 
     public function installsample1() {
         $database = JFactory::getDbo();
+        $application = JFactory::getApplication();
 
         $profile = new stdClass();
         $profile->id = NULL;
@@ -54,10 +55,7 @@ class SurveyforceControllerSamples extends JControllerForm {
         $profile->sf_anonymous = 0;
         $profile->sf_random = 0;
 
-        if (!$database->insertObject( '#__survey_force_survs', $profile, 'id' )) {
-            echo $database->stderr();
-            return false;
-        }
+        if (!$database->insertObject( '#__survey_force_survs', $profile, 'id' )) $application->enqueueMessage(JText::_($database->stderr()), 'error');
         else $new_survey_id = $profile->id;
 
         $query = "INSERT INTO `#__survey_force_quests` (`id`, `sf_survey`, `sf_qtype`, `sf_qtext`, `sf_impscale`, `sf_rule`, `sf_fieldtype`, `ordering`, `sf_compulsory`, `sf_section_id`, `published`, `sf_qstyle`, `sf_num_options`, `sf_default_hided`) VALUES (NULL, {$new_survey_id}, 4, '<b>What was your main reason for contacting technical support?</b>   &nbsp;', 0, 0, '', 1, 1, 0, 1, 0, 0, 0)";
