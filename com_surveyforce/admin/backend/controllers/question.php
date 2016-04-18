@@ -122,7 +122,7 @@ class SurveyforceControllerQuestion extends JControllerForm {
                         
                         $f_fields_data = JHtmlSelect::genericlist( $f_fields_data, 'sf_field_data_m', 'class="text_area" id="sf_field_data_m" size="1" ', 'value', 'text', null );                       
                         
-                        $return = ' and for option "'.$f_fields_data.'"  answer is "'.$f_scale_data.'" <input type="hidden" name="sf_qtype2" id="sf_qtype2" value="'.$quest->sf_qtype.'"/>';
+                        $return = ' '.JText::_('COM_SURVEYFORCE_AND_FOR_OPTION').' "'.$f_fields_data.'" '.JText::_('COM_SURVEYFORCE_ANSWER_IS').' "'.$f_scale_data.'" <input type="hidden" name="sf_qtype2" id="sf_qtype2" value="'.$quest->sf_qtype.'"/>';
 
                     } elseif ($quest->sf_qtype == 2 || $quest->sf_qtype == 3) {
                         
@@ -141,7 +141,7 @@ class SurveyforceControllerQuestion extends JControllerForm {
                         
                         $f_fields_data = JHtmlSelect::genericlist( $f_fields_data, 'sf_field_data_m', 'class="text_area" id="sf_field_data_m" size="1" ', 'value', 'text', null ); 
                         
-                        $return = ' answer is "'.$f_fields_data.'" <input type="hidden" name="sf_qtype2" id="sf_qtype2" value="'.$quest->sf_qtype.'"/>';
+                        $return = ' '.JText::_('COM_SURVEYFORCE_ANSWER_IS').' "'.$f_fields_data.'" <input type="hidden" name="sf_qtype2" id="sf_qtype2" value="'.$quest->sf_qtype.'"/>';
 
                     } elseif ($quest->sf_qtype == 5 || $quest->sf_qtype == 6 ) {
                                             
@@ -175,7 +175,7 @@ class SurveyforceControllerQuestion extends JControllerForm {
                         
                         $f_fields_data2 = JHtmlSelect::genericlist( $f_fields_data2, 'sf_field_data_a', 'class="text_area" id="sf_field_data_a" size="1" ', 'value', 'text', null );  
                         
-                        $return = ' and for option "'.$f_fields_data.'"  answer is "'.$f_fields_data2.'" <input type="hidden" name="sf_qtype2" id="sf_qtype2" value="'.$quest->sf_qtype.'"/>';
+                        $return = ' '.JText::_('COM_SURVEYFORCE_AND_FOR_OPTION').' "'.$f_fields_data.'" '.JText::_('COM_SURVEYFORCE_ANSWER_IS').' "'.$f_fields_data2.'" <input type="hidden" name="sf_qtype2" id="sf_qtype2" value="'.$quest->sf_qtype.'"/>';
 
                     } elseif ( $quest->sf_qtype == 9) {
                     
@@ -208,7 +208,7 @@ class SurveyforceControllerQuestion extends JControllerForm {
                         
                         $f_fields_data2 = JHtmlSelect::genericlist( $f_fields_data2, 'sf_field_data_a', 'class="text_area" id="sf_field_data_a" size="1" ', 'value', 'text', null );  
                         
-                        $return = ' and for option "'.$f_fields_data.'" rank is "'.$f_fields_data2.'" <input type="hidden" name="sf_qtype2" id="sf_qtype2" value="'.$quest->sf_qtype.'"/>';
+                        $return = ' '.JText::_('COM_SURVEYFORCE_AND_FOR_OPTION').' "'.$f_fields_data.'" '.JText::_('COM_SURVEYFORCE_RANK_IS').' "'.$f_fields_data2.'" <input type="hidden" name="sf_qtype2" id="sf_qtype2" value="'.$quest->sf_qtype.'"/>';
                         
                     }
                     @header ('Expires: Fri, 14 Mar 1980 20:53:00 GMT');

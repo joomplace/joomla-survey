@@ -19,10 +19,44 @@ class SurveyforceControllerSamples extends JControllerForm {
 
     public function installsample1() {
         $database = JFactory::getDbo();
-        $query = "INSERT INTO `#__survey_force_survs` (`id`, `sf_name`, `sf_descr`, `sf_image`, `sf_cat`, `sf_lang`, `sf_date`, `sf_author`, `sf_public`, `sf_invite`, `sf_reg`, `sf_friend`, `published`, `sf_fpage_type`, `sf_fpage_text`, `sf_special`, `sf_auto_pb`, `sf_progressbar`, `sf_progressbar_type`, `sf_use_css`, `sf_enable_descr`, `sf_reg_voting`, `sf_friend_voting`, `sf_inv_voting`, `sf_template`, `sf_pub_voting`, `sf_pub_control`, `surv_short_descr`, `sf_after_start`, `sf_anonymous`, `sf_random`) VALUES (NULL, 'Customer Service Satisfaction Survey', '<img src=\"http://demo.joomplace.com/images/survey_icon.jpg\" align=\"left\" height=\"200px\"><p style=\"text-align:justify\">\r\nWe all know customer satisfaction is essential to the survival of our businesses. How do we find out whether our customers are satisfied? The best way to find out whether your customers are satisfied is to ask them.\r\n</p>\r\n<p style=\"text-align:justify\">\r\nWhen you conduct a customer satisfaction survey, what you ask the customers is important. How, when , and how often you ask these questions are also important. However, the most important thing about conducting a customer satisfaction survey is what you do with their answers. \r\n</p>', '', 1, 1, '0000-00-00 00:00:00', 42, 1, 0, 1, 0, 1, 0, '<strong>End of the survey - Thank you for your time.</strong>', '0', 0, 0, 0, 0, 1, 2, 0, 1, 1, 2, 3, NULL, 0, 0, 0)";
-        $database->setQuery($query);
-        $database->execute();
-        $new_survey_id = $database->insertid();
+        $application = JFactory::getApplication();
+
+        $profile = new stdClass();
+        $profile->id = NULL;
+        $profile->sf_name = 'Customer Service Satisfaction Survey';
+        $profile->sf_descr = '<img src="http://demo.joomplace.com/images/survey_icon.jpg" align="left" height="200px"><p style="text-align:justify">\r\nWe all know customer satisfaction is essential to the survival of our businesses. How do we find out whether our customers are satisfied? The best way to find out whether your customers are satisfied is to ask them.\r\n</p>\r\n<p style="text-align:justify">\r\nWhen you conduct a customer satisfaction survey, what you ask the customers is important. How, when , and how often you ask these questions are also important. However, the most important thing about conducting a customer satisfaction survey is what you do with their answers. \r\n</p>';
+        $profile->sf_image = '';
+        $profile->sf_cat = 1;
+        $profile->sf_lang = 1;
+        //$profile->sf_date_started = '0000-00-00 00:00:00'; // Not, necessary. Its property set default
+        //$profile->sf_redirect_url = ??? //Field is not used
+        $profile->sf_author = 42;
+        $profile->sf_public = 1;
+        $profile->sf_invite = 0;
+        $profile->sf_reg = 1;
+        $profile->sf_friend = 0;
+        $profile->published = 1;
+        $profile->sf_fpage_type = 0;
+        $profile->sf_fpage_text = '<strong>End of the survey - Thank you for your time.</strong>';
+        $profile->sf_special = '0';
+        $profile->sf_auto_pb = 0;
+        $profile->sf_progressbar = 0;
+        $profile->sf_progressbar_type = 0;
+        $profile->sf_use_css = 0;
+        $profile->sf_enable_descr = 1;
+        $profile->sf_reg_voting = 2;
+        $profile->sf_friend_voting = 0;
+        $profile->sf_inv_voting = 1;
+        $profile->sf_template = 1;
+        $profile->sf_pub_voting = 2;
+        $profile->sf_pub_control = 3;
+        $profile->surv_short_descr = NULL;
+        $profile->sf_after_start = 0;
+        $profile->sf_anonymous = 0;
+        $profile->sf_random = 0;
+
+        if (!$database->insertObject( '#__survey_force_survs', $profile, 'id' )) $application->enqueueMessage(JText::_($database->stderr()), 'error');
+        else $new_survey_id = $profile->id;
 
         $query = "INSERT INTO `#__survey_force_quests` (`id`, `sf_survey`, `sf_qtype`, `sf_qtext`, `sf_impscale`, `sf_rule`, `sf_fieldtype`, `ordering`, `sf_compulsory`, `sf_section_id`, `published`, `sf_qstyle`, `sf_num_options`, `sf_default_hided`) VALUES (NULL, {$new_survey_id}, 4, '<b>What was your main reason for contacting technical support?</b>   &nbsp;', 0, 0, '', 1, 1, 0, 1, 0, 0, 0)";
         $database->setQuery($query);
