@@ -1805,7 +1805,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								$database->setQuery($query);
 								$database->query();
 							}
-							$tmp_data = mysql_escape_string(urldecode($answer));
+							$tmp_data = $database->escape(urldecode($answer));
 							if (strpos($answer, '!!--!!') > 0) {
 								$tmp_data = explode('!!,!!', $tmp_data);
 								$i = 0;
