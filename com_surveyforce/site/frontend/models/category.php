@@ -60,7 +60,7 @@ class SurveyforceModelCategory extends JModelItem {
 			$this->_item = $database->loadObject();
 			$this->_item->surveys = array();
 
-			$query = "SELECT * FROM `#__survey_force_survs` WHERE `sf_cat` = '$id' AND `published` = 1";
+			$query = "SELECT * FROM `#__survey_force_survs` WHERE `sf_cat` = '$id' AND `published` = 1 AND `sf_date_started` < CAST(NOW() as date) AND `sf_date_expired` > CAST(NOW() as date)";
 			$database->SetQuery( $query );
 			$rows = $database->loadObjectList();
 
