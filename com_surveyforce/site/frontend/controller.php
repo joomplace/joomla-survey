@@ -29,13 +29,13 @@ class SurveyforceController extends JControllerLegacy
 			unset($_SESSION['view']);
 		}
 
-		if (isset($_SESSION['view']) && $_SESSION['view'] == 'authoring' && $view != 'survey' && $view != 'category')
+		if (isset($_SESSION['view']) && $_SESSION['view'] == 'authoring' && $view != 'survey' && $view != 'passed_survey' && $view != 'category')
 		{
 			$input->set('view', 'authoring');
 		}
 		else
 		{
-			if ($view != 'category' && $view != 'insert_survey') $input->set('view', 'survey');
+			if ($view != 'category' && $view != 'insert_survey' && $view != 'passed_survey') $input->set('view', 'survey');
 		}
 
 		if ($task == 'start_invited')
