@@ -2810,8 +2810,8 @@ if(!class_exists('TCPDF')) {
 					$type = substr($file, $pos+1);
 				}
 				$type = strtolower($type);
-				$mqr = get_magic_quotes_runtime();
-				set_magic_quotes_runtime(0);
+				//$mqr = get_magic_quotes_runtime();
+				//set_magic_quotes_runtime(0);
 				if($type == 'jpg' or $type == 'jpeg') {
 					$info=$this->_parsejpg($file);
 				} elseif($type == 'gif') {
@@ -2830,7 +2830,7 @@ if(!class_exists('TCPDF')) {
 					//If false, we cannot process image
 					return;
 				}
-				set_magic_quotes_runtime($mqr);
+				//set_magic_quotes_runtime($mqr);
 				$info['i']=count($this->images)+1;
 				$this->images[$file]=$info;
 			}
@@ -3232,8 +3232,8 @@ if(!class_exists('TCPDF')) {
 				$this->_out('<</Type /Encoding /BaseEncoding /WinAnsiEncoding /Differences ['.$diff.']>>');
 				$this->_out('endobj');
 			}
-			$mqr=get_magic_quotes_runtime();
-			set_magic_quotes_runtime(0);
+			//$mqr=get_magic_quotes_runtime();
+			//set_magic_quotes_runtime(0);
 			foreach($this->FontFiles as $file=>$info) {
 				//Font file embedding
 				$this->_newobj();
@@ -3271,7 +3271,7 @@ if(!class_exists('TCPDF')) {
 				$this->_putstream($font);
 				$this->_out('endobj');
 			}
-			set_magic_quotes_runtime($mqr);
+			//set_magic_quotes_runtime($mqr);
 			foreach($this->fonts as $k=>$font) {
 				//Font objects
 				$this->fonts[$k]['n']=$this->n+1;
