@@ -70,7 +70,7 @@
         <field name="sf_template" type="template" class="inputbox" labelclass="control-label" label="COM_SURVEYFORCE_TEMPLATE"/>
 		<field name="sf_date_started" type="calendar" label="COM_SURVEYFORCE_STARTED_ON" description="COM_SURVEYFORCE_STARTED_DESCRIPTION" format="%Y-%m-%d %H:%M:%S" filter="user_utc" class="input-medium" labelclass="control-label"/>
         <field name="sf_date_expired" type="calendar" label="COM_SURVEYFORCE_EXPIRED_ON" description="COM_SURVEYFORCE_EXPIRED_DESCRIPTION" format="%Y-%m-%d %H:%M:%S" filter="user_utc" class="input-medium" labelclass="control-label"/>
-        <field name="sf_cat" type="categorys" label="COM_SF_PUBLIC" labelclass="control-label"/>
+        <field name="sf_cat" type="categorys" label="COM_SURVEYFORCE_CATEGORY2" labelclass="control-label"/>
         <field name="sf_random" type="list" label="COM_SURVEYFORCE_RANDOMIZE_QUESTIONS" labelclass="control-label" default="0">
             <option value="0">COM_SURVEYFORCE_NO</option>
             <option value="1">COM_SURVEYFORCE_RANDOMIZE_PAGES</option>
