@@ -101,11 +101,20 @@ class plgSurveyShortanswer {
         if (count($f_answ_data) > 0) {
             $ret_str .= "\t" . '<answers>' . "\n";
 
+            $reg_voting = $data['survey']->sf_reg_voting;
+
             foreach ($f_answ_data as $answer) {
-					
-				$query = "SELECT ans_txt FROM #__survey_force_user_ans_txt WHERE id = '" . $answer->answer . "' and start_id = '" . $start_id . "' ";
-				$database->SetQuery($query);
-				$ans_txt = $database->loadResult();
+
+                switch ($reg_voting) {
+                    case (2):
+                    case (3):
+                        $query = "SELECT ans_txt FROM #__survey_force_user_ans_txt WHERE id = '" . $answer->answer . "' and start_id = '" . $start_id . "' ";
+                        $database->SetQuery($query);
+                        $ans_txt = $database->loadResult();
+                        break;
+                    default:
+                        $ans_txt = ' ';
+                }
 				
 				if (strlen($ans_txt) < 1)
 					$ans_txt = ' ';
