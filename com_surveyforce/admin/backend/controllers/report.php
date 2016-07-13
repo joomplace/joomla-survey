@@ -20,25 +20,27 @@ class SurveyforceControllerReport extends JControllerForm {
 		$pdf_doc = new sf_pdf();
 		$pdf = &$pdf_doc->_engine;
 
-		$pdf->AliasNbPages();
+		$pdf->getAliasNbPages();
 		$pdf->AddPage();
 
+		$fontFamily = 'freesans';
+
 				$pdf->SetFontSize(10);
-				$pdf->setStyle('b', true);
+				$pdf->setFont($fontFamily, 'B');
 				$pdf->Write(5,JText::_('COM_SURVEYFORCE_SURVEY_INFORMATION'), '', 0);
 				$pdf->Ln();$pdf->Ln();
 
 				$pdf->SetFontSize(8);
 				$pdf->Write(5,JText::_('COM_SURVEYFORCE_NAME').": ", '', 0);
 
-				$pdf->setStyle('b', false);
+				$pdf->setFont($fontFamily, 'B');
 				$pdf->Write(5, $pdf_doc->cleanText($report['survey_info']->sf_name), '', 0);
 				$pdf->Ln();
 
-				$pdf->setStyle('b', true);
+				$pdf->setFont($fontFamily, 'B');
 				$pdf->Write(5,JText::_('COM_SURVEYFORCE_DESCRIPTION'), '', 0);
 
-				$pdf->setStyle('b', false);
+				$pdf->setFont($fontFamily, 'B');
 				$pdf->Write(5, $pdf_doc->cleanText($report['survey_info']->sf_descr), '', 0);
 				$pdf->Ln();
 
@@ -47,7 +49,7 @@ class SurveyforceControllerReport extends JControllerForm {
 				$pdf->Ln();
 
 			$pdf->SetFontSize(10);
-			$pdf->setStyle('b', true);
+			$pdf->setFont($fontFamily, 'B');
 			$pdf->Write(5,JText::_('COM_SURVEYFORCE_USER_INFORMATION'), '', 0);
 			$pdf->Ln();
 
@@ -57,14 +59,14 @@ class SurveyforceControllerReport extends JControllerForm {
 
 			$text_to_pdf = $report['start_data']->sf_time . (($report['start_data']->is_complete)?' (completed)':' (not completed)');
 			$text_to_pdf = $pdf_doc->cleanText($text_to_pdf);
-			$pdf->setStyle('b', false);
+			$pdf->setFont($fontFamily, 'B');
 			$pdf->Write(5, $text_to_pdf, '', 0);
 			$pdf->Ln();
 
-			$pdf->setStyle('b', true);
+			$pdf->setFont($fontFamily, 'B');
 			$pdf->Write(5,JText::_('COM_SURVEYFORCE_USER').": ", '', 0);
 
-					$pdf->setStyle('b', false);
+					$pdf->setFont($fontFamily, 'B');
 					$text_to_pdf = '';
 					switch($report['start_data']->usertype) {
 						case '0': $text_to_pdf .= JText::_('COM_SURVEYFORCE_GUEST')." - "; break;
@@ -84,12 +86,12 @@ class SurveyforceControllerReport extends JControllerForm {
 					$pdf->line( 15, $pdf->GetY()+2, 200, $pdf->GetY()+2);
 					$pdf->Ln();
 
-						$pdf->setStyle('b', true);
+						$pdf->setFont($fontFamily, 'B');
 						$pdf->Write(5,JText::_('COM_SURVEYFORCE_USER_ANSWERS'), '', 0);
 						$pdf->Ln();
 						$pdf->line( 15, $pdf->GetY(), 200, $pdf->GetY());
 						$pdf->Ln();
-						$pdf->setStyle('b', false);
+						$pdf->setFont($fontFamily, 'B');
 
 						foreach ($report['questions'] as $qrow) {
 							$text_to_pdf = $pdf_doc->cleanText($qrow['question']->sf_qtext);
