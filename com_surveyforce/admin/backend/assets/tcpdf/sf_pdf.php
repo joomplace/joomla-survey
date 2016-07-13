@@ -181,7 +181,7 @@ class sf_pdf {
 	function decodeHTML( $string ) {
 		$string = str_replace('&nbsp;', ' ', $string);
 		$string = strtr( $string, array_flip($this->get_html_translation_table_my( ) ) );
-		$string = preg_replace( "/&#([0-9]+);/me", "chr('\\1')", $string );
+
 		return $string;
 	}
 }
