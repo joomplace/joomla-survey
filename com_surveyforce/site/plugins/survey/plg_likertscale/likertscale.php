@@ -483,7 +483,7 @@ class plgSurveyLikertscale {
 
 		// Surveys with linkscape
 		$query = "SELECT id, sf_name FROM #__survey_force_survs ".
-			( ($is_front && JFactory::getUser()->get('usertype') != 'Super Administrator') ? " WHERE sf_author = ".JFactory::getUser()->id : '');
+			( ($is_front && JFactory::getUser()->get('usertype') != 'Super Administrator') ? " WHERE sf_author = LIKE '%\"".JFactory::getUser()->id."\"%' " : " ");//".JFactory::getUser()->id : ''
 
 		$database->SetQuery($query);
 		$SurvsList = $database->loadAssocList();

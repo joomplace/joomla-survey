@@ -2,8 +2,8 @@
 <form>
     <fieldset>
         <field name="id" type="hidden"/>
-
-		<field name="sf_author" type="user" label="Author" filter="unset" />
+		
+		<field name="sf_author" type="sql" query="SELECT DISTINCT(name),id  FROM #__users" multiple="true" key_field="id" value_field="name"  label="COM_SURVEYFORCE_AUTHOR_SELECTION" required="false" />
         <field name="sf_name" type="text" class="input-xlarge" size="30" label="COM_SURVEYFORCE_NAME_FIELD" required="true" labelclass="control-label"/>
         <field name="sf_redirect_url" type="text" class="input-xlarge" size="30" label="COM_SURVEYFORCE_REDIRECT_TO_THIS_URL" labelclass="control-label"/>
         <field name="sf_redirect_delay" type="text" size="10" label="COM_SURVEYFORCE_DELAY_BEFORE_REDIRECTION" labelclass="control-label"/>
@@ -70,7 +70,7 @@
         <field name="sf_template" type="template" class="inputbox" labelclass="control-label" label="COM_SURVEYFORCE_TEMPLATE"/>
 		<field name="sf_date_started" type="calendar" label="COM_SURVEYFORCE_STARTED_ON" description="COM_SURVEYFORCE_STARTED_DESCRIPTION" format="%Y-%m-%d %H:%M:%S" filter="user_utc" class="input-medium" labelclass="control-label"/>
         <field name="sf_date_expired" type="calendar" label="COM_SURVEYFORCE_EXPIRED_ON" description="COM_SURVEYFORCE_EXPIRED_DESCRIPTION" format="%Y-%m-%d %H:%M:%S" filter="user_utc" class="input-medium" labelclass="control-label"/>
-        <field name="sf_cat" type="categorys" label="COM_SURVEYFORCE_CATEGORY2" labelclass="control-label"/>
+        <field name="sf_cat" type="categorys" label="COM_SF_PUBLIC" labelclass="control-label"/>
         <field name="sf_random" type="list" label="COM_SURVEYFORCE_RANDOMIZE_QUESTIONS" labelclass="control-label" default="0">
             <option value="0">COM_SURVEYFORCE_NO</option>
             <option value="1">COM_SURVEYFORCE_RANDOMIZE_PAGES</option>

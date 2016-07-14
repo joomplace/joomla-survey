@@ -176,7 +176,7 @@ class SurveyforceModelQuestion extends JModelAdmin {
         //build list of surveys
         $query = "SELECT id AS value, sf_name AS text"
         . "\n FROM #__survey_force_survs"
-        . ( ! JFactory::getApplication()->isAdmin()? " WHERE sf_author = '{$my->id}' ": " ")
+        . ( ! JFactory::getApplication()->isAdmin()? " WHERE sf_author LIKE '%{$my->id}%' ": " ")
         . "\n ORDER BY sf_name"
         ;
         $database->setQuery( $query );

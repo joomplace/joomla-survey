@@ -127,7 +127,7 @@ class SurveyforceModelAuthoring extends JModelItem
 		$survey = '';
 		if($cid[0]){
 			
-			$db->setQuery("SELECT * FROM `#__survey_force_survs` WHERE `id` = '".$cid[0]."'".(JFactory::getUser()->authorise( 'core.manage', 'com_surveyforce' )?"":" AND `sf_author` = '".$user->id."'"));
+			$db->setQuery("SELECT * FROM `#__survey_force_survs` WHERE `id` = '".$cid[0]."'".(JFactory::getUser()->authorise( 'core.manage', 'com_surveyforce' )?"":" AND `sf_author` LIKE '%".$user->id."%'"));//= '".$user->id."'
 			$survey = $db->loadObject();
 
 			$db->setQuery("SELECT * FROM `#__survey_force_quests` WHERE `sf_survey` = '".$cid[0]."' ORDER BY `id`");
@@ -141,7 +141,7 @@ class SurveyforceModelAuthoring extends JModelItem
 			$row = new stdClass;
 			$row->id = '';
 			$row->sf_name = 'New Survey';
-			$row->sf_author = $user->id;
+			$row->sf_author = json_decode($user->id);
 			$row->sf_template = 3;
 			$row->sf_step = 1;
 

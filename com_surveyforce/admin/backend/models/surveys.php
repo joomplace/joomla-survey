@@ -36,11 +36,11 @@ class SurveyforceModelSurveys extends JModelList {
     protected function getListQuery() {
 
         $db = $this->getDbo();
-        $query = $db->getQuery(true);
-        $query->select('u.`username`, c.`sf_catname`, s.`id`, s.`sf_name`, s.`sf_descr`, s.`sf_image`, s.`sf_cat`, s.`sf_lang`, s.`sf_date_started`,s.`sf_date_expired`, s.`sf_author`, s.`sf_public`, s.`sf_invite`, s.`sf_reg`, s.`published`, s.`sf_fpage_type`, s.`sf_fpage_text`, s.`sf_special`, s.`sf_auto_pb`, s.`sf_progressbar`');
+     $query = $db->getQuery(true);
+        $query->select('c.`sf_catname`, s.`id`, s.`sf_name`, s.`sf_descr`, s.`sf_image`, s.`sf_cat`, s.`sf_lang`, s.`sf_date_started`,s.`sf_date_expired`, s.`sf_author`, s.`sf_public`, s.`sf_invite`, s.`sf_reg`, s.`published`, s.`sf_fpage_type`, s.`sf_fpage_text`, s.`sf_special`, s.`sf_auto_pb`, s.`sf_progressbar`');
         $query->from('`#__survey_force_survs` as s');
         $query->join('left', '`#__survey_force_cats` as c ON c.`id` = s.`sf_cat`');
-        $query->join('left', '`#__users` as u ON u.`id` = s.`sf_author`');
+		//$query->join('left', '`#__users` as u ON u.`id` = s.`sf_author`');
         $search = $this->getState('filter.search');
         if (!empty($search)) {
             $search = $db->Quote('%' . $db->Escape($search, true) . '%');
@@ -49,7 +49,11 @@ class SurveyforceModelSurveys extends JModelList {
         $orderCol = $this->state->get('list.ordering', 's.`sf_name`');
         $orderDirn = $this->state->get('list.direction', 'ASC');
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
-        return $query;
+        
+		
+	
+		
+		return $query;
     }
 
     function delete($cid) {
@@ -86,5 +90,28 @@ class SurveyforceModelSurveys extends JModelList {
 
         return true;
     }
+	
+	public function getMyAuthor($author = array()) {
+		
+		$db		= JFactory::getDbo();
+		
+		
+		foreach ($author as $i => $item){
+			$query = $db->getQuery(true);
+			$query->select('`name`');
+			$query->from('`#__users`');
+			$query->where($db->quoteName('id') . ' IN ('.implode(',',json_decode($item->sf_author)).')');
+			$db->setQuery($query);
+			$myauthor =  $db->loadColumn(); 
+			
+			$item->username = implode(',',$myauthor);
+		
+		}
+		
+		return $item->username;
+		
+		
+	}
+	
 
 }

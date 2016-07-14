@@ -75,8 +75,13 @@ class SurveyforceTableSurvey extends JTable
 		}
 		*/
 
-		$this->sf_author = $_POST['jform']['sf_author'];
+		
+		for ($i = 0;$i<count($_POST['jform']['sf_author']);$i++)
+			$arr0[$i] = $_POST['jform']['sf_author'][$i];
+			$this->sf_author = json_encode($arr0);
+		
 		if(!$this->sf_author) $this->sf_author = JFactory::getUser()->id;
+		
 		
 		return parent::store($updateNulls);
 	}

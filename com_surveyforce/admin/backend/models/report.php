@@ -71,7 +71,7 @@ class SurveyforceModelReport extends JModelAdmin {
         $database = JFactory::getDbo();
         
         $query = "SELECT * FROM #__survey_force_survs WHERE id = '" . $survey_id . "' "
-                . (!in_array(8, $my->groups)? " AND sf_author = '{$my->id}' " : ' ');
+                . (!in_array(8, $my->groups)? " AND sf_author LIKE '%"{$my->id}"%' " : ' ');   //sf_author = '{$my->id}'
         $database->SetQuery($query);
         $survey_data = $database->LoadObject();
         

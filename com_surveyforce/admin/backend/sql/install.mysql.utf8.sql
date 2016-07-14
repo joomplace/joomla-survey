@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `#__survey_force_survs` (
 `sf_cat` int(11) NOT NULL default '0',
 `sf_lang` int(11) NOT NULL default '0',
 `sf_date` datetime NOT NULL default '0000-00-00 00:00:00',
-`sf_author` int(11) NOT NULL default '0',
+`sf_author` varchar(255) NOT NULL default '',
 `sf_public` tinyint(4) NOT NULL default '0',
 `sf_invite` tinyint(4) NOT NULL default '0',
 `sf_reg` tinyint(4) NOT NULL default '0',

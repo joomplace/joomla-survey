@@ -26,9 +26,14 @@ class SurveyforceModelSurvey extends JModelAdmin {
         }
 
         $item = $this->getItem();
+	    $item->sf_author = json_decode($item->sf_author);
         $form->bind($item);
-
-        return $form;
+		
+	
+        
+		
+		
+		return $form;
     }
 
 }

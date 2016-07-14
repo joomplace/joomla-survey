@@ -708,7 +708,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 			}
 			$row->sf_date_started = $post['sf_date_started'];
 			$row->sf_date_expired = $post['sf_date_expired'];
-			$row->sf_author = $my->id;
+			$row->sf_author = json_encode($my->id);
 			$row->sf_public = (isset($post['sf_public'])) ? 1 : 0;
 			$row->sf_invite = (isset($post['sf_invite'])) ? 1 : 0;
 			$row->sf_reg = (isset($post['sf_reg'])) ? 1 : 0;
@@ -781,8 +781,9 @@ class SurveyforceControllerSurvey extends JControllerForm {
 		$isInstolled = $database->loadObject();
 		
 		$friends = array();
+		$survey->sf_author = implode(',',json_decode($survey->sf_author));
 		if ($sf_config->get('sf_enable_jomsocial_integration') && !empty($isInstolled))  {
-			$query = "SELECT j.connect_to FROM #__community_connection AS j WHERE j.status = 1 AND j.connect_from = '{$survey->sf_author}'";
+			$query = "SELECT j.connect_to FROM #__community_connection AS j WHERE j.status = 1 AND j.connect_from IN ('{$survey->sf_author}')";//LIKE '%{$survey->sf_author}%'
 			$database->setQuery($query);
 			$friends = $database->loadColumn();
 		}
@@ -794,7 +795,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 					//null;
 				} elseif (($my->id) && ($survey->sf_friend) && $sf_config->get('sf_enable_jomsocial_integration') && in_array($my->id, $friends)) {
 					//null;
-				} elseif ($my->id == $survey->sf_author) {
+				} elseif (in_array($my->id,json_decode($survey->sf_author))) {
 					//null;
 				} elseif ($survey->sf_public) {
 					//null;
@@ -1380,8 +1381,9 @@ class SurveyforceControllerSurvey extends JControllerForm {
 		$isInstolled = $database->loadObject();
 		
 		$friends = array();
+		$survey->sf_author = implode(',',json_decode($survey->sf_author));
 		if ($sf_config->get('sf_enable_jomsocial_integration') && !empty($isInstolled))  {
-			$query = "SELECT j.connect_to FROM #__community_connection AS j WHERE j.status = 1 AND j.connect_from = '{$survey->sf_author}'";
+			$query = "SELECT j.connect_to FROM #__community_connection AS j WHERE j.status = 1 AND j.connect_from IN ('{$survey->sf_author}')";
 			$database->setQuery($query);
 			$friends = $database->loadColumn();
 		}
@@ -1395,7 +1397,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 				} elseif (($my->id) && ($survey->sf_friend) && $sf_config->get('sf_enable_jomsocial_integration') && in_array($my->id, $friends)) {
 
-				} elseif ($my->id == $survey->sf_author) {
+				} elseif (in_array($my->id,json_decode($survey->sf_author))) {
 
 				} elseif ($survey->sf_public) {
 
@@ -2237,8 +2239,9 @@ class SurveyforceControllerSurvey extends JControllerForm {
 		$isInstolled = $database->loadObject();
 		
 		$friends = array();
+		$survey->sf_author = implode(',',json_decode($survey->sf_author));
 		if ($sf_config->get('sf_enable_jomsocial_integration') && !empty($isInstolled))  {
-			$query = "SELECT j.connect_to FROM #__community_connection AS j WHERE j.status = 1 AND j.connect_from = '{$survey->sf_author}'";
+			$query = "SELECT j.connect_to FROM #__community_connection AS j WHERE j.status = 1 AND j.connect_from IN ('{$survey->sf_author}')";
 			$database->setQuery($query);
 			$friends = $database->loadColumn();
 		}
@@ -2258,7 +2261,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 				} elseif ((JFactory::getUser()->id) && ($survey->sf_friend) && $sf_config->get('sf_enable_jomsocial_integration') && in_array(JFactory::getUser()->id, $friends)) {
 
-				} elseif (JFactory::getUser()->id == $survey->sf_author) {
+				} elseif (in_array(JFactory::getUser()->id,json_decode($survey->sf_author))) {
 
 				} elseif ($survey->sf_public) {
 

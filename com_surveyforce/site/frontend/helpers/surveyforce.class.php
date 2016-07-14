@@ -63,7 +63,7 @@ class mos_Survey_Force_Survey extends JTable  {
 	var $sf_cat				= null;
 	var $sf_lang			= null;
 	var $sf_date			= null;
-	var $sf_author			= null;
+	var $sf_author			= '';
 	var $sf_public			= null;
 	var $sf_invite			= null;
 	var $sf_reg				= null;

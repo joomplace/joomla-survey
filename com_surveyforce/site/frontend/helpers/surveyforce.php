@@ -547,9 +547,10 @@ class SurveyforceHelper
 		$isInstolled = $database->loadObject();
 		
 		$friends = array();
+		$survey->sf_author = implode(',',json_decode($survey->sf_author));
 		if ($sf_config->get('sf_enable_jomsocial_integration') && !empty($isInstolled))
 			{
-				$query = "SELECT j.connect_to FROM #__community_connection AS j WHERE j.status = 1 AND j.connect_from = '{$survey->sf_author}'";
+				$query = "SELECT j.connect_to FROM #__community_connection AS j WHERE j.status = 1 AND j.connect_from IN ('{$survey->sf_author}')";
 				$database->setQuery($query);
 				$friends = $database->loadColumn();
 			}
@@ -689,9 +690,10 @@ class SurveyforceHelper
 		$isInstolled = $database->loadObject();
 		
 		$friends = array();
+		$survey->sf_author = implode(',',json_decode($survey->sf_author));
 		if ($sf_config->get('sf_enable_jomsocial_integration') && !empty($isInstolled))
 			{
-				$query = "SELECT j.connect_to FROM #__community_connection AS j WHERE j.status = 1 AND j.connect_from = '{$survey->sf_author}'";
+				$query = "SELECT j.connect_to FROM #__community_connection AS j WHERE j.status = 1 AND j.connect_from IN ('{$survey->sf_author}')";
 				$database->setQuery($query);
 				$friends = $database->loadColumn();
 			}
@@ -876,7 +878,7 @@ class SurveyforceHelper
 		$query = "SELECT COUNT(*)"
 			. "\n FROM #__survey_force_survs as a WHERE 1=1 "
 			. ($catid ? "\n AND sf_cat = $catid" : '')
-			. (JFactory::getUser()->authorise( 'core.manage', 'com_surveyforce' )?'':" AND sf_author = '" . JFactory::getUser()->id . "' ")
+			. (JFactory::getUser()->authorise( 'core.manage', 'com_surveyforce' )?'':" AND sf_author LIKE '%\"".JFactory::getUser()->id."\"%' ") // = '" . JFactory::getUser()->id . "'
 			. $where_search;
 
 		$database->setQuery($query);
@@ -889,7 +891,7 @@ class SurveyforceHelper
 		$query = "SELECT a.*, b.sf_catname, us.username "
 			. "\n FROM #__survey_force_survs a LEFT JOIN #__survey_force_cats b ON a.sf_cat = b.id LEFT JOIN #__users as us ON a.sf_author = us.id WHERE 1=1 "
 			. ($catid ? "\n AND a.sf_cat = $catid " : '')
-			. (JFactory::getUser()->authorise( 'core.manage', 'com_surveyforce' )?'':" AND sf_author = '" . JFactory::getUser()->id . "' ")
+			. (JFactory::getUser()->authorise( 'core.manage', 'com_surveyforce' )?'':" AND sf_author LIKE '%\"".JFactory::getUser()->id."\"%' ") ////'" . JFactory::getUser()->id . "'
 			. $where_search
 			. "\n ORDER BY a.sf_name, b.sf_catname "
 			. "\n LIMIT $pageNav->limitstart, $pageNav->limit";
@@ -957,7 +959,7 @@ class SurveyforceHelper
 
 		$query = "SELECT id AS value, sf_name AS text"
 			. "\n FROM #__survey_force_survs WHERE published = 1"
-			. (JFactory::getUser()->get('usertype') != 'Super Administrator' ? " AND sf_author = '" . JFactory::getUser()->id . "' " : '')
+			. (JFactory::getUser()->get('usertype') != 'Super Administrator' ? " AND sf_author LIKE '%\"".JFactory::getUser()->id."\"%' " : '') //'" . JFactory::getUser()->id . "'
 			. "\n ORDER BY sf_name";
 		$database->setQuery($query);
 		$surveys = $database->loadObjectList();
@@ -1534,7 +1536,7 @@ class SurveyforceHelper
 			. "\n LEFT JOIN #__survey_force_users as sf_u ON sf_u.id = sf_ust.user_id and sf_ust.usertype=2"
 			. "\n WHERE sf_ust.survey_id = sf_s.id"
 			. ($surv_id ? "\n and sf_s.id = $surv_id" : '')
-			. (" AND sf_s.sf_author = '" . JFactory::getUser()->id . "' ")
+			. (" AND sf_s.sf_author LIKE '%\"".JFactory::getUser()->id."\"%' ")  //= '" . JFactory::getUser()->id . "'
 			. ($filt_status ? "\n and sf_ust.is_complete = '" . ($filt_status - 1) . "'" : '')
 			. ($filt_utype ? "\n and sf_ust.usertype = '" . ($filt_utype - 1) . "'" : '')
 			. ($filt_ulist ? "\n and sf_u.list_id = '" . ($filt_ulist) . "'" : '');
@@ -1557,7 +1559,7 @@ class SurveyforceHelper
 
 		$query = "SELECT id AS value, sf_name AS text"
 			. "\n FROM #__survey_force_survs"
-			. (" WHERE sf_author = '" . JFactory::getUser()->id . "' ")
+			. (" WHERE sf_author LIKE '%\"".JFactory::getUser()->id."\"%'") //= '" . JFactory::getUser()->id . "'
 			. "\n ORDER BY sf_name";
 		$database->setQuery($query);
 
@@ -1749,7 +1751,7 @@ class SurveyforceHelper
 			. "\n LEFT JOIN #__survey_force_users as sf_u ON sf_u.id = sf_ust.user_id and sf_ust.usertype=2"
 			. "\n WHERE sf_ust.survey_id = sf_s.id"
 			. ($surv_id ? "\n and sf_s.id = $surv_id" : '')
-			. (" AND sf_s.sf_author = '" . JFactory::getUser()->id . "' ")
+			. (" AND sf_s.sf_author LIKE '%\"".JFactory::getUser()->id."\"%' ")//= '" . JFactory::getUser()->id . "'
 			. ($filt_status ? "\n and sf_ust.is_complete = '" . ($filt_status - 1) . "'" : '')
 			. ($filt_utype ? "\n and sf_ust.usertype = '" . ($filt_utype - 1) . "'" : '')
 			. ($filt_ulist ? "\n and sf_u.list_id = '" . ($filt_ulist) . "'" : '');
@@ -2087,7 +2089,7 @@ class SurveyforceHelper
 		$query .= ""
 			. "\n WHERE sf_ust.survey_id = sf_s.id"
 			. ($surv_id ? "\n and sf_s.id = $surv_id" : '')
-			. (" AND sf_s.sf_author = '" . JFactory::getUser()->id . "' ")
+			. (" AND sf_s.sf_author LIKE '%\"".JFactory::getUser()->id."\"%' ")  //= '" . JFactory::getUser()->id . "'
 			. ($filt_status ? "\n and sf_ust.is_complete = '" . ($filt_status - 1) . "'" : '')
 			. ($filt_utype ? "\n and sf_ust.usertype = '" . ($filt_utype - 1) . "'" : '')
 			. ($filt_ulist ? "\n and sf_u.list_id = '" . ($filt_ulist) . "'" : '');
@@ -2533,7 +2535,7 @@ class SurveyforceHelper
 			. "\n LEFT JOIN #__survey_force_users as sf_u ON sf_u.id = sf_ust.user_id and sf_ust.usertype=2"
 			. "\n WHERE sf_ust.survey_id = sf_s.id"
 			. ($surv_id ? "\n and sf_s.id = $surv_id" : '')
-			. (" AND sf_s.sf_author = " . JFactory::getUser()->id . " ")
+			. (" AND sf_s.sf_author LIKE '%\"".JFactory::getUser()->id."\"%'")  // = " . JFactory::getUser()->id . "
 			. ($filt_status ? "\n and sf_ust.is_complete = '" . ($filt_status - 1) . "'" : '')
 			. ($filt_utype ? "\n and sf_ust.usertype = '" . ($filt_utype - 1) . "'" : '')
 			. ($filt_ulist ? "\n and sf_u.list_id = '" . ($filt_ulist) . "'" : '');
@@ -2611,7 +2613,7 @@ class SurveyforceHelper
 
 
 		$query = "SELECT * FROM #__survey_force_survs WHERE id = '" . $start_data[0]->survey_id . "' "
-			. (" AND sf_author = '" . JFactory::getUser()->id . "' ");
+			. (" AND sf_author LIKE '%\"".JFactory::getUser()->id."\"%' ");//= '" . JFactory::getUser()->id . "'
 		$database->setQuery($query);
 		$survey_data = $database->loadObjectList();
 
@@ -5328,7 +5330,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$lists = array();
 
 		$query = "SELECT id AS value, sf_name AS text FROM #__survey_force_survs "
-			. (" WHERE sf_author = '" . JFactory::getUser()->id . "' ");
+			. (" WHERE sf_author LIKE '%\"".JFactory::getUser()->id."\"%' ");//= '" . JFactory::getUser()->id . "'
 		$database->setQuery($query);
 		$surveys = $database->loadObjectList();
 		if (count($surveys) < 1)
@@ -7673,7 +7675,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$javascript = 'onchange="document.adminForm.submit();"';
 		$query = "SELECT id AS value, sf_name AS text"
 			. "\n FROM #__survey_force_survs"
-			. (JFactory::getUser()->get('usertype') != 'Super Administrator' ? " WHERE sf_author = '" . JFactory::getUser()->id . "' " : ' ')
+			. (JFactory::getUser()->get('usertype') != 'Super Administrator' ? " WHERE sf_author LIKE '%\"".JFactory::getUser()->id."\"%' " : ' ') //= '" . JFactory::getUser()->id . "'
 			. "\n ORDER BY sf_name";
 		$database->setQuery($query);
 
@@ -7706,18 +7708,18 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		{
 			// do stuff for existing records
 			$row->checkout(JFactory::getUser()->id);
-			$row->sf_author = JFactory::getUser()->id;
+			$row->sf_author = json_encode(JFactory::getUser()->id);
 		}
 		else
 		{
 			// do stuff for new records
 			#$row->published = 1;
-			$row->sf_author = JFactory::getUser()->id;
+			$row->sf_author = json_encode(JFactory::getUser()->id);
 			$row->sf_special = 0;
 			$row->sf_auto_pb = 1;
 		}
 		if (!$row->sf_author)
-			$row->sf_author = JFactory::getUser()->id;
+			$row->sf_author = json_encode(JFactory::getUser()->id);
 		$lists = array();
 		$query2 = "SELECT * FROM #__survey_force_cats order by sf_catname";
 		$database->setQuery($query2);
@@ -8065,7 +8067,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 		$query = "SELECT id AS value, sf_name AS text"
 			. "\n FROM #__survey_force_survs"
-			. (JFactory::getUser()->get('usertype') != 'Super Administrator' ? " WHERE sf_author = '" . JFactory::getUser()->id . "' " : ' ')
+			. (JFactory::getUser()->get('usertype') != 'Super Administrator' ? " WHERE sf_author LIKE '%\"".JFactory::getUser()->id."\"%' " : ' ') //= '" . JFactory::getUser()->id . "'
 			. "\n ORDER BY sf_name";
 		$database->setQuery($query);
 		$surveys[] = mosHTML::makeOption('0', JText::_("COM_SF_SELECT_SURVEY"));
@@ -8166,7 +8168,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		//build list of surveys
 		$query = "SELECT id AS value, sf_name AS text"
 			. "\n FROM #__survey_force_survs"
-			. (JFactory::getUser()->get('usertype') != 'Super Administrator' ? " WHERE sf_author = '" . JFactory::getUser()->id . "' " : " ")
+			. (JFactory::getUser()->get('usertype') != 'Super Administrator' ? " WHERE sf_author LIKE '%\"".JFactory::getUser()->id."\"%'" : " ") //= '" . JFactory::getUser()->id . "' 
 			. "\n ORDER BY sf_name";
 		$database->setQuery($query);
 		$surveys = $database->loadObjectList();
@@ -9667,7 +9669,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		## query to choose survey to move to
 		$query = "SELECT a.sf_name AS text, a.id AS value"
 			. "\n FROM #__survey_force_survs AS a"
-			. (JFactory::getUser()->get('usertype') != 'Super Administrator' ? " WHERE sf_author = '" . JFactory::getUser()->id . "' " : " ")
+			. (JFactory::getUser()->get('usertype') != 'Super Administrator' ? " WHERE sf_author LIKE '%\"".JFactory::getUser()->id."\"%' " : " ") //= '" . JFactory::getUser()->id . "'
 			. "\n ORDER BY a.sf_name";
 		$database->setQuery($query);
 		$surveys = $database->loadObjectList();

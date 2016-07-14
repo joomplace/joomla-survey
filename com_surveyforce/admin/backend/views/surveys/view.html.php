@@ -15,7 +15,9 @@ class SurveyforceViewSurveys extends JViewLegacy {
     protected $items;
     protected $pagination;
     protected $state;
-
+	
+	
+	
     function display($tpl = null) {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         $submenu = 'surveys';
@@ -29,7 +31,8 @@ class SurveyforceViewSurveys extends JViewLegacy {
         $items = $this->get('Items');
         $pagination = $this->get('Pagination');
         $state = $this->get('State');
-
+		
+		
         if (count($errors = $this->get('Errors'))) {
             JError::raiseError(500, implode('<br />', $errors));
             return false;
@@ -40,6 +43,11 @@ class SurveyforceViewSurveys extends JViewLegacy {
         $this->state = $state;
         $this->sidebar = JHtmlSidebar::render();
         
+		
+		$m = $this->getModel();
+		$item->username = $m->getMyAuthor($this->items);
+		
+		
         parent::display($tpl);
     }
 
@@ -73,5 +81,5 @@ class SurveyforceViewSurveys extends JViewLegacy {
             'id' => JText::_('JGRID_HEADING_ID')
         );
     }
-
+	
 }
