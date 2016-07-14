@@ -201,7 +201,6 @@ CREATE TABLE IF NOT EXISTS `#__survey_force_survs` (
 `sf_image` varchar(50) NOT NULL default '',
 `sf_cat` int(11) NOT NULL default '0',
 `sf_lang` int(11) NOT NULL default '0',
-`sf_date` datetime NOT NULL default '0000-00-00 00:00:00',
 `sf_author` int(11) NOT NULL default '0',
 `sf_public` tinyint(4) NOT NULL default '0',
 `sf_invite` tinyint(4) NOT NULL default '0',
@@ -231,6 +230,9 @@ CREATE TABLE IF NOT EXISTS `#__survey_force_survs` (
 `sf_friend` TINYINT(4) DEFAULT '0' NOT NULL,
 `sf_friend_voting` TINYINT(4) DEFAULT '0' NOT NULL,
 `sf_random` TINYINT(4) DEFAULT '0' NOT NULL,
+`sf_step` INT(3) NOT NULL,
+`sf_date_started` datetime NOT NULL default '0000-00-00 00:00:00',
+`sf_date_expired` datetime NOT NULL default '0000-00-00 00:00:00',
 PRIMARY KEY  (`id`),
 KEY `sf_cat` (`sf_cat`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8;

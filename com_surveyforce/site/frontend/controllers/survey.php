@@ -2689,7 +2689,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$message .= "<h3>" . JText::_('COM_SURVEYFORCE_SF_SURVEY_INFORMATION') . "</h3>";
 		$message .= '<strong>'.JText::_("COM_SURVEYFORCE_NAME") . '</strong>: ' . $survey_data[0]->sf_name . "<br/>";
 		$message .= '<strong>'.JText::_("COM_SURVEYFORCE_DESCRIPTION") . '</strong>: ' . strip_tags($survey_data[0]->sf_descr) . "<br/>";
-		$message .= '<strong>'.JText::_("COM_SURVEYFORCE_START_AT") . '</strong>: ' . JHtml::_('date',$survey_data[0]->sf_date,'Y-m-d H:i:s') . "<br/>";
+		$message .= '<strong>'.JText::_("COM_SURVEYFORCE_START_AT") . '</strong>: ' . JHtml::_('date',$survey_data[0]->sf_date_started,'Y-m-d H:i:s') . "<br/>";
 		$message .= '<strong>'.JText::_('COM_SURVEYFORCE_USER') . '</strong>: ';
 		switch ($start_data[0]->usertype) {
 			case '0': $message .= JText::_('COM_SURVEYFORCE_ANON');
