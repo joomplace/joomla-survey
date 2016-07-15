@@ -23,7 +23,8 @@ class SurveyforceControllerReport extends JControllerForm {
 		$pdf->getAliasNbPages();
 		$pdf->AddPage();
 
-		$fontFamily = 'freesans';
+		$pdf->SetFont('freesans');
+		$fontFamily = $pdf->getFontFamily();
 
 				$pdf->SetFontSize(10);
 				$pdf->setFont($fontFamily, 'B');
