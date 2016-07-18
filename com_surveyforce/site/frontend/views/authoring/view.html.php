@@ -28,7 +28,7 @@ class SurveyforceViewAuthoring extends JViewLegacy {
 
 		$model = $this->getModel ();
 
-		if ( $this->is_author )
+		if ( $this->is_author || $this->user->authorise('core.admin') )
 		{
 			$this->html = $model->getPage();
 			if ( !$this->html || is_array($this->html) )

@@ -11,7 +11,7 @@ defined('_JEXEC') or die('Restricted Access');
 $is_author = @$this->is_author;
 $authoring = @$this->authoring;
 
-if ( !$is_author ) {
+if ( !$is_author &&  !$this->user->authorise('core.admin') ) {
 	echo SurveyforceTemplates::Survey_blocked( $this->sf_config );
 } else {
 ?>
