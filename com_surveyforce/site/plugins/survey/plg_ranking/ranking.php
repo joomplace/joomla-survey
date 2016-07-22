@@ -547,22 +547,24 @@ class plgSurveyRanking {
             if ($data['data']['c_likertscole'][$j]['c_right']) {
                 $correct_answer .= $k . " ";
             }
+            $data['pdf']->SetFont('freesans');
+            $fontFamily = $data['pdf']->getFontFamily();
 
             $data['pdf']->Ln();
-            $data['pdf']->setStyle('b', true);
+            $data['pdf']->setFont($fontFamily, 'B');
             $str = "  $k.";
             $data['pdf']->Write(5, $data['pdf_doc']->cleanText($str), '', 0);
 
-            $data['pdf']->setStyle('b', false);
+            $data['pdf']->setFont($fontFamily, 'B');
             $str = $data['data']['c_likertscole'][$j]['c_likertscole'];
             $data['pdf']->Write(5, $data['pdf_doc']->cleanText($str), '', 0);
         }
 
         $data['pdf']->Ln();
-        $data['pdf']->setStyle('b', true);
+        $data['pdf']->setFont($fontFamily, 'B');
         $str = '  ' . JText::_('COM_QUIZ_PDF_ANSWER');
         $data['pdf']->Write(5, $data['pdf_doc']->cleanText($str), '', 0);
-        $data['pdf']->setStyle('b', false);
+        $data['pdf']->setFont($fontFamily, 'B');
         $str = $answer;
         $data['pdf']->Write(5, $data['pdf_doc']->cleanText($str), '', 0);
 

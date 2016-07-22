@@ -3801,8 +3801,11 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 		$pdf = &$pdf_doc->_engine;
 
-		$pdf->AliasNbPages();
+		$pdf->getAliasNbPages();
 		$pdf->AddPage();
+
+		$pdf->SetFont('freesans');
+		$fontFamily = $pdf->getFontFamily();
 
 		$cur_survey = -1;
 		$is_first = 1;
@@ -3817,7 +3820,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 				}
 				$is_first = 0;
 				$pdf->SetFontSize(10);
-				$pdf->setStyle('b', true);
+				$pdf->setFont($fontFamily, 'B');
 				$pdf->Write(5, JText::_('COM_SF_SURVEY_INFORMATION'), '', 0);
 				$pdf->Ln();
 				$pdf->Ln();
@@ -3825,14 +3828,14 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 				$pdf->SetFontSize(8);
 				$pdf->Write(5, JText::_('COM_SF_NAME') . ": ", '', 0);
 
-				$pdf->setStyle('b', false);
+				$pdf->setFont($fontFamily, 'B');
 				$pdf->Write(5, $pdf_doc->cleanText($row->survey_data[0]->sf_name), '', 0);
 				$pdf->Ln();
 
-				$pdf->setStyle('b', true);
+				$pdf->setFont($fontFamily, 'B');
 				$pdf->Write(5, JText::_('COM_SF_DESCRIPTION'), '', 0);
 
-				$pdf->setStyle('b', false);
+				$pdf->setFont($fontFamily, 'B');
 				$pdf->Write(5, $pdf_doc->cleanText($row->survey_data[0]->sf_descr), '', 0);
 				$pdf->Ln();
 
@@ -3843,7 +3846,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			$cur_survey = $row->survey_id;
 
 			$pdf->SetFontSize(10);
-			$pdf->setStyle('b', true);
+			$pdf->setFont($fontFamily, 'B');
 			$pdf->Write(5, JText::_('COM_SF_USER_INFORMATION'), '', 0);
 			$pdf->Ln();
 
@@ -3853,14 +3856,14 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 			$text_to_pdf = mosFormatDate($row->start_data[0]->sf_time, _CURRENT_SERVER_TIME_FORMAT) . (($row->is_complete) ? ' (completed)' : ' (not completed)');
 			$text_to_pdf = $pdf_doc->cleanText($text_to_pdf);
-			$pdf->setStyle('b', false);
+			$pdf->setFont($fontFamily, 'B');
 			$pdf->Write(5, $text_to_pdf, '', 0);
 			$pdf->Ln();
 
-			$pdf->setStyle('b', true);
+			$pdf->setFont($fontFamily, 'B');
 			$pdf->Write(5, JText::_('COM_SF_USER') . ": ", '', 0);
 
-			$pdf->setStyle('b', false);
+			$pdf->setFont($fontFamily, 'B');
 			$text_to_pdf = '';
 			switch ($row->usertype)
 			{
@@ -3894,12 +3897,12 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			$pdf->line(15, $pdf->GetY() + 2, 200, $pdf->GetY() + 2);
 			$pdf->Ln();
 
-			$pdf->setStyle('b', true);
+			$pdf->setFont($fontFamily, 'B');
 			$pdf->Write(5, JText::_('COM_SF_USER_ANSWERS'), '', 0);
 			$pdf->Ln();
 			$pdf->line(15, $pdf->GetY(), 200, $pdf->GetY());
 			$pdf->Ln();
-			$pdf->setStyle('b', false);
+			$pdf->setFont($fontFamily, 'B');
 
 			foreach ($row->questions_data as $qrow)
 			{
@@ -4171,8 +4174,11 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 		$pdf = &$pdf_doc->_engine;
 
-		$pdf->AliasNbPages();
+		$pdf->getAliasNbPages();
 		$pdf->AddPage();
+
+		$pdf->SetFont('freesans');
+		$fontFamily = $pdf->getFontFamily();
 
 		$s_user = '';
 		switch ($start_data[0]->usertype)
@@ -4190,7 +4196,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$s_user = $pdf_doc->cleanText($s_user);
 
 		$pdf->SetFontSize(10);
-		$pdf->setStyle('b', true);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, JText::_('COM_SF_SURVEY_INFORMATION'), '', 0);
 		$pdf->Ln();
 		$pdf->Ln();
@@ -4198,38 +4204,38 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$pdf->SetFontSize(8);
 		$pdf->Write(5, JText::_('COM_SF_NAME') . ": ", '', 0);
 
-		$pdf->setStyle('b', false);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, $pdf_doc->cleanText($survey_data[0]->sf_name), '', 0);
 		$pdf->Ln();
 
-		$pdf->setStyle('b', true);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, JText::_('COM_SF_DESCRIPTION'), '', 0);
 
-		$pdf->setStyle('b', false);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, $pdf_doc->cleanText($survey_data[0]->sf_descr), '', 0);
 		$pdf->Ln();
 
-		$pdf->setStyle('b', true);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, JText::_('COM_SF_START_AT') . ": ", '', 0);
 
-		$pdf->setStyle('b', false);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, $pdf_doc->cleanText(mosFormatDate($start_data[0]->sf_time, _CURRENT_SERVER_TIME_FORMAT)), '', 0);
 		$pdf->Ln();
 
-		$pdf->setStyle('b', true);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, JText::_('COM_SF_USER') . ": ", '', 0);
 
-		$pdf->setStyle('b', false);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, $s_user, '', 0);
 		$pdf->Ln();
 		$pdf->Ln();
 
-		$pdf->setStyle('b', true);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, JText::_('COM_SF_USER_ANSWERS'), '', 0);
 		$pdf->Ln();
 		$pdf->line(15, $pdf->GetY(), 200, $pdf->GetY());
 		$pdf->Ln();
-		$pdf->setStyle('b', false);
+		$pdf->setFont($fontFamily, 'B');
 
 
 		foreach ($questions_data as $qrow)
@@ -4367,12 +4373,15 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 		$pdf = &$pdf_doc->_engine;
 
-		$pdf->AliasNbPages();
+		$pdf->getAliasNbPages();
 		$pdf->AddPage();
+
+		$pdf->SetFont('freesans');
+		$fontFamily = $pdf->getFontFamily();
 
 		//get PDF content
 		$pdf->SetFontSize(10);
-		$pdf->setStyle('b', true);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, JText::_('COM_SF_SURVEY_INFORMATION'), '', 0);
 		$pdf->Ln();
 		$pdf->Ln();
@@ -4380,14 +4389,14 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$pdf->SetFontSize(8);
 		$pdf->Write(5, JText::_('COM_SF_NAME') . ": ", '', 0);
 
-		$pdf->setStyle('b', false);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, $pdf_doc->cleanText($survey_data->sf_name), '', 0);
 		$pdf->Ln();
 
-		$pdf->setStyle('b', true);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, JText::_('COM_SF_DESCRIPTION'), '', 0);
 
-		$pdf->setStyle('b', false);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, $pdf_doc->cleanText($survey_data->sf_descr), '', 0);
 		$pdf->Ln();
 		$pdf->Ln();
@@ -4403,7 +4412,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 			$text_to_pdf = $survey_data->total_inv_users . " - " . JText::_('COM_SF_TOTAL_INVITED_USERS');
 			$pdf->SetLeftMargin(60);
-			$pdf->setStyle('b', false);
+			$pdf->setFont($fontFamily, 'B');
 			$pdf->Write(4.5, $pdf_doc->cleanText($text_to_pdf), '', 0);
 			$pdf->Ln();
 			$pdf->Write(4.5, $pdf_doc->cleanText($survey_data->total_starts . " - " . JText::_('COM_SF_TOTAL_STARTS_OF_SURVEY')), '', 0);
@@ -4425,7 +4434,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 			$text_to_pdf = $survey_data->total_starts . " - " . JText::_('COM_SF_TOTAL_STARTS_OF_SURVEY');
 			$pdf->SetLeftMargin(60);
-			$pdf->setStyle('b', false);
+			$pdf->setFont($fontFamily, 'B');
 			$pdf->Write(4.5, $pdf_doc->cleanText($text_to_pdf), '', 0);
 			$pdf->Ln();
 			$pdf->Write(4.5, $pdf_doc->cleanText($survey_data->total_gstarts . " - " . JText::_('COM_SF_TOTAL_STARTS_OF_SURVEY_GUEST')), '', 0);
@@ -4500,7 +4509,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 							$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
 							$pdf->SetLeftMargin(60);
-							$pdf->setStyle('b', false);
+							$pdf->setFont($fontFamily, 'B');
 							$pdf->SetFontSize(8);
 							foreach ($qrow->answer[$ii - 1] as $arow)
 							{
@@ -5860,8 +5869,11 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 				$pdf = &$pdf_doc->_engine;
 
-				$pdf->AliasNbPages();
+				$pdf->getAliasNbPages();
 				$pdf->AddPage();
+
+				$pdf->SetFont('freesans');
+				$fontFamily = $pdf->getFontFamily();
 
 				$query = "SELECT  sf_qtext   FROM #__survey_force_quests  WHERE published = 1 AND id = {$m_id}";
 				$database->setQuery($query);
@@ -5881,8 +5893,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 					$pdf->SetX(60);
 					$pdf->SetFontSize(8);
-					$pdf->setStyle('b', true);
-					$pdf->setStyle('i', true);
+					$pdf->setFont($fontFamily, 'B');
+					$pdf->setFont($fontFamily, 'I');
 					$pdf->MultiCell(0, 0, $main_quest, 0, 'J', 0, 1, 0, 0, true, 0);
 					$pdf->Ln(0.5);
 
@@ -5890,7 +5902,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 					$database->setQuery($query);
 
 					$quest = $pdf_doc->cleanText($database->loadResult()) . "\n";
-					$pdf->setStyle('i', false);
+					$pdf->setFont($fontFamily, 'I');
 					$pdf->MultiCell(60, 0, $quest, 0, 'J', 0, 1, 0, 0, true, 0);
 					$pdf->Ln(0.5);
 
@@ -5922,7 +5934,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 					$pdf->line(60, $pdf->GetY() + 2, 200, $pdf->GetY() + 2);
 					$pdf->Ln();
-					$pdf->setStyle('b', false);
+					$pdf->setFont($fontFamily, 'B');
 					if ($questions[$key]->sf_qtype == 2 || $questions[$key]->sf_qtype == 3)
 					{
 						$total_row = array('total' => 0);
