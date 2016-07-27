@@ -218,7 +218,6 @@ class com_surveyforceInstallerScript
 
 		$updateSql = array(
 			"UPDATE `#__survey_force_templates` SET display =0 WHERE sf_name = 'surveyforce_new'",
-			"UPDATE `#__survey_force_config` SET config_value = '3.2.0.001' WHERE config_var = 'sf_version';",
 
 			"UPDATE `#__survey_force_templates` SET `sf_display_name` = 'Standart template' WHERE sf_name = 'surveyforce_standart'",
 			"UPDATE `#__survey_force_templates` SET `sf_display_name` = 'New style template' WHERE sf_name = 'surveyforce_new'",
