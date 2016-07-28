@@ -28,7 +28,6 @@ class com_surveyforceInstallerScript
 
 	function update($parent)
 	{
-		$this->_extract();
 		echo '<font style="font-size:2em; color:#55AA55;" >' . JText::_('COM_SURVEYFORCE_UPDATE_TEXT') . '</font><br/><br/>';
 	}
 
@@ -218,6 +217,7 @@ class com_surveyforceInstallerScript
 
 		$updateSql = array(
 			"UPDATE `#__survey_force_templates` SET display =0 WHERE sf_name = 'surveyforce_new'",
+			"UPDATE `#__survey_force_config` SET config_value = '3.2.0.001' WHERE config_var = 'sf_version';",
 
 			"UPDATE `#__survey_force_templates` SET `sf_display_name` = 'Standart template' WHERE sf_name = 'surveyforce_standart'",
 			"UPDATE `#__survey_force_templates` SET `sf_display_name` = 'New style template' WHERE sf_name = 'surveyforce_new'",
@@ -234,54 +234,6 @@ class com_surveyforceInstallerScript
 
 		$app = JFactory::getApplication();
 		$app->redirect(JURI::root().'administrator/index.php?option=com_surveyforce&task=install_plugins');
-	}
-
-	function _extract(){
-		
-		jimport( 'joomla.filesystem.folder' );
-		jimport( 'joomla.filesystem.file' );
-		jimport( 'joomla.filesystem.archive' );
-		
-		// Install frontend
-		$source			= JPATH_SITE . '/components/com_surveyforce/frontend.zip';
-		$destination	= JPATH_SITE . '/components/com_surveyforce/';
-		if (!JFolder::exists($destination))
-		{
-			JFolder::create($destination);
-		}
-
-		if(!JArchive::extract($source, $destination))
-		{
-			// If frontend did not extract
-			return false;
-		}
-		
-		// Copy site language file
-		JFile::copy(JPATH_SITE . DS . 'components'.DS. 'com_surveyforce' .DS. 'language' .DS. 'en-GB' .DS. 'en-GB.com_surveyforce.ini', JPATH_SITE . DS . 'language' . DS . 'en-GB' . DS . 'en-GB.com_surveyforce.ini');
-		
-		//Delete frontend archive
-		JFile::delete(JPATH_SITE.'/components/com_surveyforce/frontend.zip');
-		
-		// Install backend
-		$source			= JPATH_SITE . '/administrator/components/com_surveyforce/backend.zip';
-		$destination	= JPATH_SITE . '/administrator/components/com_surveyforce/';
-		if (!JFolder::exists($destination))
-		{
-			JFolder::create($destination);
-		}
-
-		if(!JArchive::extract($source, $destination))
-		{
-			// If backend did not extract
-			return false;
-		}
-		
-		// Copy admin language files
-		JFile::copy(JPATH_SITE.DS.'administrator' .DS. 'components'. DS . 'com_surveyforce' .DS. 'language' .DS. 'en-GB' .DS. 'en-GB.com_surveyforce.ini', JPATH_SITE.DS.'administrator'. DS . 'language' . DS . 'en-GB' . DS . 'en-GB.com_surveyforce.ini');
-		JFile::copy(JPATH_SITE.DS.'administrator' .DS. 'components'. DS . 'com_surveyforce' .DS. 'language' .DS. 'en-GB' .DS. 'en-GB.com_surveyforce.sys.ini', JPATH_SITE.DS.'administrator'. DS . 'language' . DS . 'en-GB' . DS . 'en-GB.com_surveyforce.sys.ini');
-		
-		//Delete backend archive
-		JFile::delete(JPATH_SITE.'/administrator/components/com_surveyforce/backend.zip');
 	}
 
 	function _installDatabase()

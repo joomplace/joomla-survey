@@ -7,15 +7,45 @@
     <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
     <authorEmail>support@joomplace.com</authorEmail>
     <authorUrl>www.joomplace.com</authorUrl>
-    <version>3.2.0.034</version>
+    <version>3.2.0.019</version>
     <description>Survey Force Deluxe component.</description>
         
     <scriptfile>script.php</scriptfile>
-        	
-    <files folder="site">	
-        <filename>frontend.zip</filename>
-        <folder>plugins</folder>			
-    </files>
+	<install>
+		<sql>
+		  <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	  </install>
+	  <uninstall>
+		<sql>
+		  <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	  </uninstall>
+	  <update>
+		<schemas>
+		  <schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	  </update>
+	
+	<files folder="site">
+		<folder>assets</folder>
+		<folder>controllers</folder>
+		<folder>helpers</folder>
+		<folder>language</folder>
+		<folder>models</folder>
+		<folder>tables</folder>
+		<folder>templates</folder>
+		<folder>views</folder>
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>jomsocial_rule.xml</filename>
+		<filename>metadata.xml</filename>
+		<filename>router.php</filename>
+		<filename>surveyforce.php</filename>
+	  </files>
+	  <languages folder="site/language">
+		<language tag="en-GB">en-GB.com_surveyforce.ini</language>
+	  </languages>
 	
     <administration>
         <menu img="components/com_surveyforce/assets/images/jp_menu_pic.gif">COM_SURVEYFORCE</menu>
@@ -28,10 +58,25 @@
             <menu link="option=com_surveyforce&amp;view=reports" img="class:stats">COM_SURVEYFORCE_MENU_REPORTS</menu>
         </submenu>
         
-        <files folder="admin">
-            <filename>backend.zip</filename>
-        </files>
-		
+	<files folder="admin">
+	  <filename>access.xml</filename>
+	  <filename>config.xml</filename>
+	  <filename>controller.php</filename>
+	  <filename>index.html</filename>
+	  <filename>surveyforce.php</filename>
+	  <folder>assets</folder>
+	  <folder>controllers</folder>
+	  <folder>helpers</folder>
+	  <folder>language</folder>
+	  <folder>models</folder>
+	  <folder>sql</folder>
+	  <folder>tables</folder>
+	  <folder>views</folder>
+	</files>
+	<languages folder="admin/language">
+      <language tag="en-GB">en-GB.com_surveyforce.ini</language>
+      <language tag="en-GB">en-GB.com_surveyforce.sys.ini</language>
+    </languages>	
     </administration>
 
     <media folder="media" destination="com_surveyforce">
