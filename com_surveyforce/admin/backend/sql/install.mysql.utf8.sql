@@ -161,6 +161,7 @@ CREATE TABLE IF NOT EXISTS `#__survey_force_quests` (
 `sf_num_options` TINYINT(4) DEFAULT '0' NOT NULL,
 `sf_default_hided` TINYINT(4) DEFAULT '0' NOT NULL,
 `is_final_question` TINYINT(3) DEFAULT '0' NOT NULL,
+`is_shuffle` TINYINT(1) UNSIGNED DEFAULT '0' NOT NULL,
 PRIMARY KEY  (`id`),
 KEY `sf_survey` (`sf_survey`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8;

@@ -54,12 +54,16 @@
             <option value="0">COM_SURVEYFORCE_NO</option>
             <option value="1">COM_SURVEYFORCE_YES</option>
         </field>
-        
+
         <field name="is_final_question" type="radio" class="btn-group" default="0" label="COM_SURVEYFORCE_IS_FINAL_QUESTION2" labelclass="control-label" >
         <option value="0">COM_SURVEYFORCE_NO</option>
         <option value="1">COM_SURVEYFORCE_YES</option>
-    </field>			
-		
+    </field>
+
+        <field name="is_shuffle" type="radio" class="btn-group" default="0" label="COM_SURVEYFORCE_IS_SHUFFLE" labelclass="control-label" >
+            <option value="0">COM_SURVEYFORCE_NO</option>
+            <option value="1">COM_SURVEYFORCE_YES</option>
+        </field>
 
     <field name="sf_survey" type="survey" label="COM_SURVEYFORCE_SURVEY2"  required="true"/>
     <field name="sf_impscale" type="iscale" label="COM_SURVEYFORCE_IMPORTANCE_SCALE2"  required="false"/>

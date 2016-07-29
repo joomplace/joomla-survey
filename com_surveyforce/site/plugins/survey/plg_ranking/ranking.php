@@ -335,8 +335,11 @@ class plgSurveyRanking {
         $query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '" . $q_data->id . "' and is_main = '1' ORDER BY ordering";
         $database->SetQuery($query);
         $f_alt_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
-        if ($q_data->sf_qtype != 9)
+
+        if ($q_data->is_shuffle) {
+            shuffle($f_main_data);
             shuffle($f_alt_data);
+        }
 
         // add answers section for prev/next
         $query = "SELECT * FROM #__survey_force_user_answers WHERE quest_id = '" . $q_data->id . "' AND start_id = '" . $start_id . "' ";
