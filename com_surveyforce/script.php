@@ -15,12 +15,6 @@ jimport('joomla.filesystem.folder');
 class com_surveyforceInstallerScript
 {
 
-	function install($parent)
-	{
-		$this->_extract();
-		$this->_installDatabase();
-	}
-
 	function uninstall($parent)
 	{
 		echo '<p>' . JText::_('COM_SURVEYFORCE_SURVEYFORCE_COMPONENT_UNINSTALLED') . '</p>';
@@ -230,56 +224,6 @@ class com_surveyforceInstallerScript
 		{
 			$db->setQuery($sql);
 			$db->execute();
-		}
-
-		$app = JFactory::getApplication();
-		$app->redirect(JURI::root().'administrator/index.php?option=com_surveyforce&task=install_plugins');
-	}
-
-	function _installDatabase()
-	{
-		$db	= JFactory::getDBO();
-		jimport('joomla.filesystem.file');
-		jimport('joomla.filesystem.folder');
-		jimport('joomla.filesystem.path');
-		jimport('joomla.base.adapter');
-		
-		$sqlfile = JPATH_SITE.'/administrator/components/com_surveyforce/sql/install.mysql.utf8.sql';
-		$buffer = file_get_contents($sqlfile);
-		
-		// Graceful exit and rollback if read not successful
-		if ($buffer === false)
-		{
-			JLog::add(JText::_('JLIB_INSTALLER_ERROR_SQL_READBUFFER'), JLog::WARNING, 'jerror');
-
-			return false;
-		}
-
-		// Create an array of queries from the sql file
-		$queries = JDatabaseDriver::splitSql($buffer);
-
-		if (count($queries) == 0)
-		{
-			// No queries to process
-			return 0;
-		}
-		
-		// Process each query in the $queries array (split out of sql file).
-		foreach ($queries as $query)
-		{
-			$query = trim($query);
-
-			if ($query != '' && $query{0} != '#')
-			{
-				$db->setQuery($query);
-
-				if (!$db->execute())
-				{
-					JLog::add(JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $db->stderr(true)), JLog::WARNING, 'jerror');
-
-					return false;
-				}
-			}
 		}
 	}
 

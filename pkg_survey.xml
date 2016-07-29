@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<extension type="package" version="3.x" method="upgrade">
+  <name>Joomla Survey Force Deluxe Package</name>
+  <author>Joomplace Team</author>
+  <creationDate>December 2012</creationDate>
+  <packagename>survey</packagename>
+  <authorEmail>support@joomplace.com</authorEmail>
+  <authorUrl>www.joomplace.com</authorUrl>
+  <copyright>(C) JoomPlace, www.joomplace.com</copyright>
+  <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
+  <version>3.2.0.034</version>
+  <files folder="packages">
+    <file type="component" id="com_surveyforce">com_surveyforce.zip</file>
+    <file type="plugin" id="boilerplate" group="survey">plg_boilerplate.zip</file>
+    <file type="plugin" id="likertscale" group="survey">plg_likertscale.zip</file>
+    <file type="plugin" id="pagebreak" group="survey">plg_pagebreak.zip</file>
+    <file type="plugin" id="pickmany" group="survey">plg_pickmany.zip</file>
+    <file type="plugin" id="pickone" group="survey">plg_pickone.zip</file>
+    <file type="plugin" id="ranking" group="survey">plg_ranking.zip</file>
+    <file type="plugin" id="rankingdraganddrop" group="survey">plg_rankingdraganddrop.zip</file>
+    <file type="plugin" id="rankingdropdown" group="survey">plg_rankingdropdown.zip</file>
+    <file type="plugin" id="shortanswer" group="survey">plg_shortanswer.zip</file>
+    <file type="plugin" id="surveyforce" group="editors-xtd">plg_survey_editor_button.zip</file>
+    <file type="plugin" id="surveyforce" group="content">plg_surveyforce.zip</file>
+    <file type="plugin" id="surveyforce" group="content">plg_content_surveyforce.zip</file>
+    <file type="plugin" id="surveyforce" group="community">plg_social_surveyforce.zip</file>
+    <file type="plugin" id="sf_alphauserpoints" group="system">plg_sf_alphauserpoints.zip</file>
+    <file type="plugin" id="plg_installer_joomplace" group="installer">plg_installer_joomplace.zip</file>
+  </files>
+</extension>
