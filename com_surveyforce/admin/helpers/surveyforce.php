@@ -499,12 +499,15 @@ class SurveyforceHelper
 
 		$pdf = & $pdf_doc->_engine;
 
-		$pdf->AliasNbPages();
+		$pdf->getAliasNbPages();
 		$pdf->AddPage();
+
+		$pdf->SetFont('freesans');
+		$fontFamily = $pdf->getFontFamily();
 
 		//get PDF content
 		$pdf->SetFontSize(10);
-		$pdf->setStyle('b', true);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, JText::_('COM_SF_SURVEY_INFORMATION'), '', 0);
 		$pdf->Ln();
 		$pdf->Ln();
@@ -512,14 +515,14 @@ class SurveyforceHelper
 		$pdf->SetFontSize(8);
 		$pdf->Write(5, JText::_('COM_SF_NAME') . ": ", '', 0);
 
-		$pdf->setStyle('b', false);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, $pdf_doc->cleanText($survey_data->sf_name), '', 0);
 		$pdf->Ln();
 
-		$pdf->setStyle('b', true);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, JText::_('COM_SF_DESCRIPTION'), '', 0);
 
-		$pdf->setStyle('b', false);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(5, $pdf_doc->cleanText($survey_data->sf_descr), '', 0);
 		$pdf->Ln();
 		$pdf->Ln();
@@ -535,7 +538,7 @@ class SurveyforceHelper
 
 		$text_to_pdf = $survey_data->total_starts . " - " . JText::_('COM_SF_TOTAL_STARTS_OF_SURVEY');
 		$pdf->SetLeftMargin(60);
-		$pdf->setStyle('b', false);
+		$pdf->setFont($fontFamily, 'B');
 		$pdf->Write(4.5, $pdf_doc->cleanText($text_to_pdf), '', 0);
 		$pdf->Ln();
 		$pdf->Write(4.5, $pdf_doc->cleanText($survey_data->total_gstarts . " - " . JText::_('COM_SF_TOTAL_STARTS_OF_SURVEY_GUEST')), '', 0);
@@ -609,7 +612,7 @@ class SurveyforceHelper
 							$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
 							$pdf->SetLeftMargin(60);
-							$pdf->setStyle('b', false);
+							$pdf->setFont($fontFamily, 'B');
 							$pdf->SetFontSize(8);
 							foreach ($qrow->answer[$ii - 1] as $arow)
 							{

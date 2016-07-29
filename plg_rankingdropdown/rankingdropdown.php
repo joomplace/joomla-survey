@@ -94,10 +94,13 @@ class plgSurveyRankingdropdown {
         $database->SetQuery($query);
 		$res = $database->LoadObjectList();
         $f_alt_data = ($res == null ? array() : $res);
-        if ($q_data->sf_qtype != 9)
-            shuffle($f_alt_data);
 
-        // add answers section for prev/next
+		if ($q_data->is_shuffle) {
+			shuffle($f_main_data);
+			shuffle($f_alt_data);
+		}
+
+		// add answers section for prev/next
         $query = "SELECT * FROM #__survey_force_user_answers WHERE quest_id = '" . $q_data->id . "' AND start_id = '" . $start_id . "' ";
         $database->SetQuery($query);
 		$res = $database->LoadObjectList();

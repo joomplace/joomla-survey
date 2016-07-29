@@ -131,6 +131,16 @@ $ordering_list = $this->ordering_list;
                             <?php echo $this->form->getInput('sf_default_hided'); ?>
                         </div>
                     </div>
+                    <?php if ( $this->item->sf_qtype != 7 || $this->item->sf_qtype != 4): ?>
+                        <div class="control-group">
+                            <div class="control-label">
+                                <?php echo $this->form->getLabel('is_shuffle'); ?>
+                            </div>
+                            <div class="controls">
+                                <?php echo $this->form->getInput('is_shuffle'); ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                     <div class="control-group">
                         <div class="control-label">
                             <?php echo $this->form->getLabel('is_final_question'); ?>

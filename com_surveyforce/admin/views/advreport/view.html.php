@@ -609,8 +609,11 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 				$pdf = &$pdf_doc->_engine;
 
-				$pdf->AliasNbPages();
+				$pdf->getAliasNbPages();
 				$pdf->AddPage();
+
+				$pdf->SetFont('freesans');
+				$fontFamily = $pdf->getFontFamily();
 
 				$query = "SELECT  sf_qtext   FROM #__survey_force_quests  WHERE published = 1 AND id = {$m_id}";
 				$database->SetQuery( $query );
@@ -629,8 +632,8 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 					$pdf->SetX(60);
 					$pdf->SetFontSize(8);
-					$pdf->setStyle('b', true);
-					$pdf->setStyle('i', true);
+					$pdf->setFont($fontFamily, 'B');
+					$pdf->setFont($fontFamily, 'I');
 					$pdf->MultiCell(0, 0, $main_quest, 0, 'J', 0, 1, 0 ,0, true, 0);
 					$pdf->Ln(0.5);
 
@@ -638,7 +641,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 					$database->SetQuery( $query );
 
 					$quest = $pdf_doc->cleanText($database->loadResult())."\n";
-					$pdf->setStyle('i', false);
+					$pdf->setFont($fontFamily, 'I');
 					$pdf->MultiCell(60, 0, $quest , 0, 'J', 0, 1, 0 ,0, true, 0);
 					$pdf->Ln(0.5);
 
@@ -675,7 +678,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 					$pdf->setFontSize(6);
 					$pdf->line( 60, $pdf->GetY()+2, 200, $pdf->GetY()+2);
 					$pdf->Ln();
-					$pdf->setStyle('b', false);
+					$pdf->setFont($fontFamily, 'B');
 					if ( $questions[$key]->sf_qtype == 2 || $questions[$key]->sf_qtype == 3 ) {
 						$total_row = array('total'=>0);
 						$cur_y2 = $pdf->GetY();
