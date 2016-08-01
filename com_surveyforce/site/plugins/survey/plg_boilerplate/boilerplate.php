@@ -112,7 +112,7 @@ class plgSurveyBoilerplate {
         return true;
     }
 
-    public function onGetAdminOptions(&$data) {
+    public static function onGetAdminOptions(&$data) {
 
         return false;
     }
