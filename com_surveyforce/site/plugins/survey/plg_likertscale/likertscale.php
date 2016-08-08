@@ -420,7 +420,7 @@ class plgSurveyLikertscale {
 
 	//Administration part
 
-	public function onGetAdminOptions($data, $lists, $is_front = false) {
+	public static function onGetAdminOptions($data, $lists, $is_front = false) {
 
 		$my = JFactory::getUser();
 		$database = JFactory::getDBO();
