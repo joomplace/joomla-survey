@@ -212,7 +212,7 @@ class plgSurveyShortanswer {
         return true;
     }
 
-	public function onGetAdminReport($question, $start_data)
+	public static function onGetAdminReport($question, $start_data)
 	{
 		$database = JFactory::getDbo();
 		$n = mb_substr_count($question->sf_qtext, "{x}")+mb_substr_count($question->sf_qtext, "{y}");

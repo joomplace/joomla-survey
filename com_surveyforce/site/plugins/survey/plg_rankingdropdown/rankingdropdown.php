@@ -505,7 +505,7 @@ class plgSurveyRankingdropdown {
         return true;
     }
 
-	public function onGetAdminReport($question, $start_data)
+	public static function onGetAdminReport($question, $start_data)
 	{
 		$database = JFactory::getDbo();
 
