@@ -1,0 +1,9 @@
+UPDATE `#__survey_force_qtypes` SET `sf_qtype` = 'COM_SURVEYFORCE_LIKERTSCALE' WHERE `id` = 1;
+UPDATE `#__survey_force_qtypes` SET `sf_qtype` = 'COM_SURVEYFORCE_PICKONE' WHERE `id` = 2;
+UPDATE `#__survey_force_qtypes` SET `sf_qtype` = 'COM_SURVEYFORCE_PICKMANY' WHERE `id` = 3;
+UPDATE `#__survey_force_qtypes` SET `sf_qtype` = 'COM_SURVEYFORCE_SHORTANSWER' WHERE `id` = 4;
+UPDATE `#__survey_force_qtypes` SET `sf_qtype` = 'COM_SURVEYFORCE_RANKING_DROPDOWN' WHERE `id` = 5;
+UPDATE `#__survey_force_qtypes` SET `sf_qtype` = 'COM_SURVEYFORCE_RANKING_DRAGNDROP' WHERE `id` = 6;
+UPDATE `#__survey_force_qtypes` SET `sf_qtype` = 'COM_SURVEYFORCE_BOILERPLATE' WHERE `id` = 7;
+UPDATE `#__survey_force_qtypes` SET `sf_qtype` = 'COM_SURVEYFORCE_PAGE_BREAK' WHERE `id` = 8;
+UPDATE `#__survey_force_qtypes` SET `sf_qtype` = 'COM_SURVEYFORCE_S_RANKING' WHERE `id` = 9;

@@ -70,33 +70,33 @@ $countOfQuest = sizeof($this->questions);
 $original_titles = array();
 foreach ($this->questions as $p => $question) {
 	
-	switch($question->sf_qtype){
-		case 'LikertScale':
-			$original_title[$p] = '<strong>LikertScale</strong> - allows users to measure their attitude towards something.';
+	switch(JText::_($question->sf_qtype)){
+		case JText::_('COM_SURVEYFORCE_LIKERTSCALE'):
+			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_LIKERTSCALE').'</strong> - allows users to measure their attitude towards something.';
 		break;
-		case 'PickOne':
-			$original_title[$p] = '<strong>PickOne</strong> - allows users to choose a single item from several choices.';
+		case JText::_('COM_SURVEYFORCE_PICKONE'):
+			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_PICKONE').'</strong> - allows users to choose a single item from several choices.';
 		break;
-		case 'PickMany':
-			$original_title[$p] = '<strong>PickMany</strong> - is a multiple response question.';
+		case JText::_('COM_SURVEYFORCE_PICKMANY'):
+			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_PICKMANY').'</strong> - is a multiple response question.';
 		break;
-		case 'Short Answer':
-			$original_title[$p] = '<strong>Short Answer</strong> - requires a short answer (it can be a single word or a phrase).';
+		case JText::_('COM_SURVEYFORCE_SHORT_ANSWER'):
+			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_SHORT_ANSWER').'</strong> - requires a short answer (it can be a single word or a phrase).';
 		break;
-		case 'Ranking Drop-Down':
-			$original_title[$p] = '<strong>Ranking Drop-Down</strong> - allows users to rank items in a preferred order by selecting from a series of drop-down lists.';
+		case JText::_('COM_SURVEYFORCE_RANKING_DROPDOWN'):
+			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_RANKING_DROPDOWN').'</strong> - allows users to rank items in a preferred order by selecting from a series of drop-down lists.';
 		break;
-		case 'Ranking Drag\'and\'Drop':
-			$original_title[$p] = '<strong>Ranking Drag\'and\'Drop</strong> - allows users to rank a list of items using a simple drag-and-drop interface.';
+		case JText::_('COM_SURVEYFORCE_RANKING_DRAGNDROP'):
+			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_RANKING_DRAGNDROP').'</strong> - allows users to rank a list of items using a simple drag-and-drop interface.';
 		break;
-		case 'Boilerplate':
-			$original_title[$p] = '<strong>Boilerplate</strong> - does not require a response (the user may be asked to read some text, watch video,etc.).';
+		case JText::_('COM_SURVEYFORCE_BOILERPLATE'):
+			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_BOILERPLATE').'</strong> - does not require a response (the user may be asked to read some text, watch video,etc.).';
 		break;
-		case 'Page Break':
-			$original_title[$p] = '<strong>Page Break</strong> - allows to separate questions and create new pages in a survey.';
+		case JText::_('COM_SURVEYFORCE_PAGE_BREAK'):
+			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_PAGE_BREAK').'</strong> - allows to separate questions and create new pages in a survey.';
 		break;
-		case 'Ranking':
-			$original_title[$p] = '<strong>Ranking</strong> - allows you to present your site users with a list of possible answers/options, which they may then rank in order of preference.';
+		case JText::_('COM_SURVEYFORCE_S_RANKING'):
+			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_S_RANKING').'</strong> - allows you to present your site users with a list of possible answers/options, which they may then rank in order of preference.';
 		break;
 		default:
 			$original_title[$p] = 'None';
@@ -114,11 +114,11 @@ foreach ($this->questions as $p => $question) {
 			
 			<tr>
 				<td width="50%">
-					<label for="new_qtype_id_<?php echo $this->questions[$i]->id?>"><input type="radio" onclick="Joomla.isChecked(this.checked);" name="new_qtype_id" id="new_qtype_id_<?php echo $this->questions[$i]->id?>" value="<?php echo $this->questions[$i]->id?>" <?php echo ($new_qtype_id == $this->questions[$i]->id? ' checked="checked" ': '')?> /> <span class="hasTooltip" data-original-title="<?php echo $original_title[$i]; ?>"><?php echo $this->questions[$i]->sf_qtype;?></span></label>
+					<label for="new_qtype_id_<?php echo $this->questions[$i]->id?>"><input type="radio" onclick="Joomla.isChecked(this.checked);" name="new_qtype_id" id="new_qtype_id_<?php echo $this->questions[$i]->id?>" value="<?php echo $this->questions[$i]->id?>" <?php echo ($new_qtype_id == $this->questions[$i]->id? ' checked="checked" ': '')?> /> <span class="hasTooltip" data-original-title="<?php echo $original_title[$i]; ?>"><?php echo JText::_($this->questions[$i]->sf_qtype);?></span></label>
 				</td>
 				<td width="50%">
 					<?php if(isset($this->questions[$i+1])):?>
-					<label for="new_qtype_id_<?php echo $this->questions[$i+1]->id?>"><input type="radio" onclick="Joomla.isChecked(this.checked);" name="new_qtype_id" id="new_qtype_id_<?php echo $this->questions[$i+1]->id?>" value="<?php echo $this->questions[$i+1]->id?>" <?php echo ($new_qtype_id == $this->questions[$i+1]->id? ' checked="checked" ': '')?> /><span class="hasTooltip" data-original-title="<?php echo $original_title[$i+1]; ?>"><?php echo $this->questions[$i+1]->sf_qtype;?></span></label>
+					<label for="new_qtype_id_<?php echo $this->questions[$i+1]->id?>"><input type="radio" onclick="Joomla.isChecked(this.checked);" name="new_qtype_id" id="new_qtype_id_<?php echo $this->questions[$i+1]->id?>" value="<?php echo $this->questions[$i+1]->id?>" <?php echo ($new_qtype_id == $this->questions[$i+1]->id? ' checked="checked" ': '')?> /><span class="hasTooltip" data-original-title="<?php echo $original_title[$i+1]; ?>"><?php echo JText::_($this->questions[$i+1]->sf_qtype);?></span></label>
 					<?php endif;?>
 				</td>
 			</tr>
