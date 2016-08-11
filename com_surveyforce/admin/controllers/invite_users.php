@@ -20,14 +20,11 @@ class SurveyforceControllerInvite_users extends JControllerForm {
     	$email_id = $app->input->get('email');
     	$list_id = $app->input->get('list');
 
-    	$database->setQuery("SELECT `params` FROM `#__extensions` WHERE `name` = 'com_surveyforce'");
-    	$params = $database->loadAssoc();
+		$component_params = JComponentHelper::getParams('com_surveyforce');
 
-    	$sf_config = json_decode($params);
-
-		$mail_pause = intval($sf_config['sf_mail_pause']);
-		$mail_count = intval($sf_config['sf_mail_count']);
-		$mail_max = intval($sf_config['sf_mail_maximum']);
+		$mail_pause = intval($component_params->get('sf_mail_pause'));
+		$mail_count = intval($component_params->get('sf_mail_count'));
+		$mail_max = intval($component_params->get('sf_mail_maximum'));
 
 		ignore_user_abort(false); // STOP script if User press 'STOP' button
 		@set_time_limit(0);
@@ -59,7 +56,7 @@ class SurveyforceControllerInvite_users extends JControllerForm {
 			die();
 		}
 
-		$query = "SELECT count(*) FROM `#__survey_force_users` WHERE `list_id` ='".$list_id."'";
+		$query = "SELECT count(*) FROM `#__survey_force_users` WHERE `list_id` ='".$list_id."' and `is_invited` = '0'";
 		$database->SetQuery($query);
 		$Users_count = $database->LoadResult();
 		$query = "SELECT * FROM `#__survey_force_users` WHERE `list_id` ='".$list_id."' and `is_invited` = '0'";
@@ -111,9 +108,12 @@ class SurveyforceControllerInvite_users extends JControllerForm {
 			$query = "UPDATE `#__survey_force_users` SET `is_invited` = '1', `invite_id` = '". $user_invite_id ."' WHERE `id` ='".$user_row->id."'";
 			$database->SetQuery($query);
 			$database->execute();
-			if (($mail_pause && $mail_count) && $counter == ($mail_count - 1)){
+
+			if (($mail_pause && $mail_count) && $counter == ($mail_count - 1) && $Users_count != $ii){
+
 				$counter = -1;
-				for($jj = $mail_pause; $jj > 1; $jj--) {
+				for($jj = $mail_pause; $jj > 0; $jj--) {
+
 					echo "<script>var div_log = getObj_frame('div_invite_log');"
 					. "var div_log_txt = getObj_frame('div_invite_log_txt');"
 					. " if (div_log) {"
@@ -121,7 +121,7 @@ class SurveyforceControllerInvite_users extends JControllerForm {
 					. "div_log.style.width = '".intval(($ii - $Users_to_invite + $Users_count)*600/$Users_count)."px';"
 					. "}"
 					. " if (div_log_txt) {"
-					. "div_log_txt.innerHTML =  '" . ($ii - $Users_to_invite + $Users_count) . ' '.JText::_('COM_SURVEYFORCE_USERS_INVITED_PAUSE')."$jj" .JText::_('COM_SURVEYFORCE_SECONDS')."';"
+					. "div_log_txt.innerHTML =  '" . ($ii - $Users_to_invite + $Users_count) . ' '.JText::_('COM_SURVEYFORCE_USERS_INVITED_PAUSE')." $jj " .JText::_('COM_SURVEYFORCE_SECONDS')."';"
 					. "}"
 					. "</script>";
 					@flush();
