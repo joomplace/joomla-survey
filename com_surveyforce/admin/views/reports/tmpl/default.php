@@ -43,10 +43,11 @@ $listDirn = $this->state->get('list.direction');
 				return;
 			}
 			submitform( pressbutton );
+            document.getElementsByName("task")[0].value = "";
 			return;
 		}
-
 		submitform( pressbutton );
+        document.getElementsByName("task")[0].value = "";
 	}
 </script>
 <form action="<?php echo JRoute::_('index.php?option=com_surveyforce&view=reports'); ?>" method="post" name="adminForm" id="adminForm">

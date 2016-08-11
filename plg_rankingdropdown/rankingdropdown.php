@@ -400,7 +400,7 @@ class plgSurveyRankingdropdown {
 
     //Administration part
 
-     public function onGetAdminOptions($data, $lists) {
+     public static function onGetAdminOptions($data, $lists) {
 
 		$my = JFactory::getUser();
 		$database = JFactory::getDBO();

@@ -528,7 +528,7 @@ class plgSurveyRankingdraganddrop {
 
     //Administration part
 
-    public function onGetAdminOptions($data, $lists) {
+    public static function onGetAdminOptions($data, $lists) {
 
         $database = JFactory::getDBO();
         $row = $data['item'];
