@@ -75,19 +75,6 @@ JText::script('COM_SURVEYFORCE_BE_CONTROL_PANEL_BUT_CHECK_VERSION');
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_CHANGELOG') . ':'; ?></td>
-			<td>
-				<div class="button2-left">
-					<div class="blank">
-						<button class="btn btn-small" onclick="onBtnShowChangelogClick(this, event);">
-							<i class="icon-file"></i>
-							<?php echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_BUT_CHANGELOG'); ?>
-						</button>
-					</div>
-				</div>
-			</td>
-		</tr>
-		<tr>
 			<td colspan="2">
 				<table cellpadding="5" class="survf_control_panel_news_table">
 					<tr>

@@ -129,18 +129,6 @@ function onGetLatestNewsTimeout(request, syncObject)
         Joomla.JText._('COM_SURVEYFORCE_BE_CONTROL_PANEL_TIMEOUT') + '</span>';
 }
 
-function onBtnShowChangelogClick(sender, event)
-{
-    var link = 'index.php?option=com_surveyforce&task=general.show_changelog&tmpl=component';
-    var width = 620;
-    var height = 620;
-
-    var linkElement = document.createElement('a');
-    linkElement.href = link;
-
-    SqueezeBox.fromElement(linkElement, { handler: 'iframe', size: { x: width, y: height }, url: link });
-}
-
 function dateAjaxRef()
 {
     jQuery.ajax({
