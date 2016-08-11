@@ -25,6 +25,6 @@
     <file type="plugin" id="surveyforce" group="content">plg_content_surveyforce.zip</file>
     <file type="plugin" id="surveyforce" group="community">plg_social_surveyforce.zip</file>
     <file type="plugin" id="sf_alphauserpoints" group="system">plg_sf_alphauserpoints.zip</file>
-    <file type="plugin" id="plg_installer_joomplace" group="installer">plg_installer_joomplace.zip</file>
+    <file type="plugin" id="updater" group="installer">plg_installer_joomplaceupdater.zip</file>
   </files>
 </extension>
