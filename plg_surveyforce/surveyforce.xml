@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="content" method="upgrade">
+	<name>Content - SurveyForce</name>
+	<author>JoomPlace Team</author>
+	<creationDate>February 2011</creationDate>
+	<copyright>(C) JoomPlace, www.joomplace.com</copyright>
+	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
+	<authorEmail>support@joomplace.com</authorEmail>
+	<authorUrl>www.joomplace.com</authorUrl>
+	<version>1.6</version>
+	<description>Displays Survey in content items</description>
+	<files>
+		<filename plugin="surveyforce">surveyforce.php</filename>
+		<filename>surveyforce.xml</filename>
+	</files>
+	<params/>
+</extension>
