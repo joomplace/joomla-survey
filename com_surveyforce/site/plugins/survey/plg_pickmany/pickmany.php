@@ -427,7 +427,7 @@ class plgSurveyPickmany {
 		return true;
 	}
 //TODO: not tested
-	public function onGetAdminReport($question, $start_data)
+	public static function onGetAdminReport($question, $start_data)
 	{
 		$database = JFactory::getDbo();
 		

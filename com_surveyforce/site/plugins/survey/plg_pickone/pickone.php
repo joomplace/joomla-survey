@@ -418,7 +418,7 @@ class plgSurveyPickone {
         return true;
     }
 
-	public function onGetAdminReport($question, $start_data)
+	public static function onGetAdminReport($question, $start_data)
 	{
 		$database = JFactory::getDbo();
 		$query = "SELECT a.answer, b.ans_txt FROM ( #__survey_force_user_answers AS a, #__survey_force_quests AS c ) LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.ans_field = b.id AND c.sf_qtype = 2 ) 
