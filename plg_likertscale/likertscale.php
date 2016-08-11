@@ -1,8 +1,8 @@
 <?php
 /**
- * Survey Force Deluxe Pickmany Plugin for Joomla 3
+ * Survey Force Deluxe Likertscale Plugin for Joomla 3
  * @package Joomla.Plugin
- * @subpackage Survey.pickmany
+ * @subpackage Survey.likertscale
  * @author JoomPlace Team
  * @Copyright Copyright (C) JoomPlace, www.joomplace.com
  * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
@@ -10,13 +10,13 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class plgSurveyPickmany {
+class plgSurveyLikertscale {
 
-	var $name = 'Pickmany';
-	var $_name = 'pickmany';
+	var $name = 'Likertscale';
+	var $_name = 'likertscale';
 	var $_type = 'survey';
 
-	public function plgSurveyPickmany() {
+	public function plgSurveyLikertscale() {
 		return true;
 	}
 
@@ -25,23 +25,36 @@ class plgSurveyPickmany {
 		ob_start();
 		?>
 		<div>
-			<table width='100%' class='table table-striped'>
+			<table  class='table table-striped' width="100%">
 				<tr>
-					<th valign="top" class="title" colspan="2"><?php echo $lists['row']->sf_qtext?></th>
+					<th valign="top" class="title" ><?php echo $lists['row']->sf_qtext?></th>
 				</tr>
-				<?php foreach($lists['main_data'] as $main) {
-					$selected = '';
-
-					if(count($lists['answer_data']))
-						if (isset($lists['answer_data'][$main->id]))
-							$selected = ' checked="checked" ';
-					?>
-					<tr><td width='20px' align='left'>
-							<input type='checkbox' name='quest_box[]' <?php echo $selected?> value='<?php echo $main->id?>'>
-						</td>
-						<td align='left'><?php echo $main->ftext?><br></td>
-					</tr>
-				<?php } ?>
+				<tr><td>
+						<table border=1 cellpadding=3 cellspacing=0 class='adminform' style="width: auto;">
+							<tr><td >&nbsp;</td>
+								<?php foreach($lists['scale_data'] as $scale) { ?>
+									<td align='center' style='text-align:center'><?php echo $scale->stext?></td>
+								<?php } ?>
+							</tr>
+							<?php foreach($lists['main_data'] as $main) { ?>
+								<tr><td align='left' style='text-align:left'>&nbsp;&nbsp;<?php echo $main->ftext?>
+										<input type="hidden" name="scale_id[]" value="<?php echo $main->id?>" />
+									</td>
+									<?php foreach($lists['scale_data'] as $scale) {
+										$selected = '';
+										if ( $lists['answer_data'][$main->id]['ans_field'] == $scale->id )
+										{
+											$selected = ' checked="checked" ';
+										}
+										?>
+										<td align='center' style='text-align:center'>
+											<input type='radio' <?php echo $selected?> name='quest_radio_<?php echo $main->id?>' value='<?php echo $scale->id?>' />
+										</td>
+									<?php } ?>
+								</tr>
+							<?php } ?>
+						</table>
+					</td></tr>
 			</table>
 		</div>
 		<?php
@@ -55,19 +68,17 @@ class plgSurveyPickmany {
 
 	public function onSaveDefault(&$data){
 
-
 		$database = JFactory::getDBO();
-		$ans_ids = $data['quest_box'];
-		if ( !empty($ans_ids) )
+		if ( !empty($data['scale_id']) )
 		{
-			foreach ($ans_ids as $ans_id)
+			foreach ($data['scale_id'] as $scale_id)
 			{
-				$query = "INSERT INTO `#__survey_force_def_answers` (`survey_id`, `quest_id`, `answer`, `ans_field`) VALUES (".$data['survey_id'].", ".$data['id'].", ".$ans_id.", 0)";
+				$ans_field = $data['quest_radio_'.$scale_id];
+				$query = "INSERT INTO `#__survey_force_def_answers` (`survey_id`, `quest_id`, `answer`, `ans_field`) VALUES (".$data['survey_id'].", ".$data['id'].", ".$scale_id.", ".$ans_field.")";
 				$database->setQuery($query);
 				$database->execute();
 			}
 		}
-
 
 		return true;
 
@@ -80,74 +91,122 @@ class plgSurveyPickmany {
 		$rules_ar = $data['rules_ar'];
 
 		$field_order = 0;
-		$other_option_cb = intval(JFactory::getApplication()->input->get('other_option_cb', 0));
+		// _scales
+		if ( !empty($_POST['is_likert_predefined']) && !empty($_POST['sf_likert_scale']) )
+		{
+			$database->setQuery( "SELECT * FROM #__survey_force_fields WHERE `quest_id` = '".$_POST['sf_likert_scale']."'" );
+			$preDefinedFields =  $database->loadObjectList();
 
-		$sf_hid_fields = (!empty($_POST['sf_hid_fields'])) ? $_POST['sf_hid_fields'] : array();
-		$sf_hid_field_ids = JFactory::getApplication()->input->get('sf_hid_field_ids', '', 'array', array(0));
-		$old_sf_hid_field_ids = JFactory::getApplication()->input->get('old_sf_hid_field_ids', '', 'array', array(0));
-		$old_sf_hid_field_ids = @array_merge(array(0 => 0), $old_sf_hid_field_ids);
-
-		for ($i = 0, $n = count($old_sf_hid_field_ids); $i < $n; $i++) {
-			if (in_array($old_sf_hid_field_ids[$i], $sf_hid_field_ids))
-				unset($old_sf_hid_field_ids[$i]);
-		}
-
-		if(count($old_sf_hid_field_ids)){
-			$query = "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = '".$data['qid']."' AND ( id IN ( ".implode(', ', $old_sf_hid_field_ids)." ) ".($other_option_cb != 2? ' OR is_main = 0 ': '')." )";
-			$database->setQuery($query);
+			$database->setQuery( "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = ".$data['qid'] );
 			$database->execute();
+
+			foreach ( $preDefinedFields as $pd_field)
+			{
+				$new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
+				$new_field->quest_id = $data['qid'];
+				$new_field->ftext = SurveyforceHelper::SF_processGetField($pd_field->ftext);
+				$new_field->alt_field_id = $pd_field->alt_field_id;
+				$new_field->is_main = $pd_field->is_main;
+				$new_field->ordering = $pd_field->ordering;
+				$new_field->is_true = $pd_field->is_true;
+				$new_field->store();
+			}
+
+
+			$database->setQuery( "SELECT * FROM #__survey_force_scales WHERE `quest_id` = '".$_POST['sf_likert_scale']."'" );
+			$preDefinedScales =  $database->loadObjectList();
+
+			$database->setQuery( "DELETE FROM `#__survey_force_scales` WHERE `quest_id` = ".$data['qid'] );
+			$database->execute();
+
+			foreach ( $preDefinedScales as $pd_scale)
+			{
+				$new_field = JTable::getInstance('Scales', 'SurveyforceTable', array());
+				$new_field->quest_id = $data['qid'];
+				$new_field->stext = SurveyforceHelper::SF_processGetField($pd_scale->stext);
+				$new_field->ordering = $pd_scale->ordering;
+				$new_field->store();
+			}
 		}
+		else
+		{
+			$sf_hid_fields_scale = (!empty($_POST['sf_hid_fields_scale'])) ? $_POST['sf_hid_fields_scale'] : array();
+			$sf_hid_field_scale_ids = JFactory::getApplication()->input->get('sf_hid_field_scale_ids', '', 'array', array(0));
+			$old_sf_hid_field_scale_ids = JFactory::getApplication()->input->get('old_sf_hid_field_scale_ids', '', 'array', array(0));
+			$old_sf_hid_field_scale_ids = @array_merge(array(0 => 0), $old_sf_hid_field_scale_ids);
 
-		for ($i = 0, $n = count($sf_hid_fields); $i < $n; $i++) {
-
-			$f_row = $sf_hid_fields[$i];
-			$new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
-			if ($sf_hid_field_ids[$i] > 0 ) {
-				$new_field->id = $sf_hid_field_ids[$i];
+			for ($i = 0, $n = count($old_sf_hid_field_scale_ids); $i < $n; $i++) {
+				if (in_array($old_sf_hid_field_scale_ids[$i], $sf_hid_field_scale_ids))
+					unset($old_sf_hid_field_scale_ids[$i]);
 			}
-			$new_field->quest_id = $data['qid'];
-			$new_field->ftext = SurveyforceHelper::SF_processGetField($f_row);
-			$new_field->alt_field_id = 0;
-			$new_field->is_main = 1;
-			$new_field->ordering = $field_order;
-			$new_field->is_true = 1;
 
+			if(count($old_sf_hid_field_scale_ids)){
+				$query = "DELETE FROM `#__survey_force_scales` WHERE `quest_id` = '".$data['qid']."' AND id IN ( ".implode(', ', $old_sf_hid_field_scale_ids)." )";
+				$database->setQuery($query);
+				$database->execute();
+			}
 
-			if (!$new_field->check()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
-			if (!$new_field->store()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
-			$j = 0;
-			while ($j < $data['rules_count']) {
-				if ($rules_ar[$j]->rul_txt == $new_field->ftext) {
-					$rules_ar[$j]->answer_id = $new_field->id;
+			for ($i = 0, $n = count($sf_hid_fields_scale); $i < $n; $i++) {
+
+				$s_row = $sf_hid_fields_scale[$i];
+				$new_field = JTable::getInstance('Scales', 'SurveyforceTable', array());
+				if ($sf_hid_field_scale_ids[$i] > 0 ) {
+					$new_field->id = $sf_hid_field_scale_ids[$i];
 				}
-				$j++;
+				$new_field->quest_id = $data['qid'];
+				$new_field->stext = SurveyforceHelper::SF_processGetField($s_row);
+				$new_field->ordering = $field_order;
+
+				if (!$new_field->check()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
+				if (!$new_field->store()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
+
+				$field_order ++ ;
 			}
-			$field_order ++ ;
-		}
 
-		if ($other_option_cb == 2) {
+			$field_order = 0;
+			// FIELDS
+			$sf_hid_fields = (!empty($_POST['sf_hid_fields'])) ? $_POST['sf_hid_fields'] : array();
+			$sf_hid_field_ids = JFactory::getApplication()->input->get('sf_hid_field_ids', '', 'array', array(0));
+			$old_sf_hid_field_ids = JFactory::getApplication()->input->get('old_sf_hid_field_ids', '', 'array', array(0));
+			$old_sf_hid_field_ids = @array_merge(array(0 => 0), $old_sf_hid_field_ids);
 
-			$other_text = $_POST['other_option'];
-			$other_id = JFactory::getApplication()->input->get('other_op_id', 0);
-
-			$new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
-			if ($other_id > 0 ) {
-				$new_field->id = $other_id;
+			for ($i = 0, $n = count($old_sf_hid_field_ids); $i < $n; $i++) {
+				if (in_array($old_sf_hid_field_ids[$i], $sf_hid_field_ids))
+					unset($old_sf_hid_field_ids[$i]);
 			}
-			$new_field->quest_id = $data['qid'];
-			$new_field->ftext = SurveyforceHelper::SF_processGetField($other_text);
-			$new_field->alt_field_id = 0;
-			$new_field->is_main = 0;
-			$new_field->ordering = $field_order;
-			$new_field->is_true = 1;
-			if (!$new_field->check()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
-			if (!$new_field->store()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
-			$j = 0;
-			while ($j < $data['rules_count']) {
-				if ($rules_ar[$j]->rul_txt == $new_field->ftext) {
-					$rules_ar[$j]->answer_id = $new_field->id;
+
+			if(count($old_sf_hid_field_ids)){
+				$query = "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = '".$data['qid']."' AND id IN ( ".implode(', ', $old_sf_hid_field_ids)." )";
+				$database->setQuery($query);
+				$database->execute();
+			}
+
+			for ($i = 0, $n = count($sf_hid_fields); $i < $n; $i++) {
+
+				$f_row = $sf_hid_fields[$i];
+				$new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
+				if ($sf_hid_field_ids[$i] > 0 ) {
+					$new_field->id = $sf_hid_field_ids[$i];
 				}
-				$j++;
+				$new_field->quest_id = $data['qid'];
+				$new_field->ftext = SurveyforceHelper::SF_processGetField($f_row);
+				$new_field->alt_field_id = 0;
+				$new_field->is_main = 1;
+				$new_field->ordering = $field_order;
+				$new_field->is_true = 1;
+
+
+				if (!$new_field->check()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
+				if (!$new_field->store()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
+				$j = 0;
+				while ($j < $data['rules_count']) {
+					if ($rules_ar[$j]->rul_txt == $new_field->ftext) {
+						$rules_ar[$j]->answer_id = $new_field->id;
+					}
+					$j++;
+				}
+
+				$field_order ++ ;
 			}
 		}
 
@@ -235,6 +294,19 @@ class plgSurveyPickmany {
 			$ret_str .= "\t" . '</alt_fields>' . "\n";
 		}
 
+		$query = "SELECT * FROM #__survey_force_scales WHERE quest_id = '".$q_data->id."' ORDER BY ordering";
+		$database->SetQuery($query);
+		$f_scale_data = ($database->LoadObjectList() == null? array(): $database->LoadObjectList());
+		$ret_str .= "\t" . '<scale_fields_count>'.count($f_scale_data).'</scale_fields_count>' . "\n";
+		if (count($f_scale_data) > 0) {
+			$ret_str .= "\t" . '<scale_fields>' . "\n";
+			foreach ($f_scale_data as $s_row) {
+				$ret_str .= "\t\t" . '<scale_field><sfield_text><![CDATA['.stripslashes($s_row->stext).'&nbsp;]]></sfield_text>' . "\n";
+				$ret_str .= "\t\t\t" . '<sfield_id>'.$s_row->id.'</sfield_id></scale_field>' . "\n";
+			}
+			$ret_str .= "\t" . '</scale_fields>' . "\n";
+		}
+
 		$f_iscale_data = array();
 		if ($q_data->sf_impscale) { //important scale is SET
 			$query = "SELECT a.iscale_name, b.* FROM #__survey_force_iscales as a, #__survey_force_iscales_fields as b WHERE a.id = '" . $q_data->sf_impscale . "' AND a.id = b.iscale_id ORDER BY b.ordering";
@@ -252,14 +324,10 @@ class plgSurveyPickmany {
 			$ret_str .= "\t" . '<answers>' . "\n";
 
 
-			$query = "SELECT ans_txt FROM #__survey_force_user_ans_txt WHERE id = '" . $f_answ_data[0]->ans_field . "' and start_id = '" . $start_id . "' ";
-			$database->SetQuery($query);
-			$ans_txt = $database->loadResult();
-			if (strlen($ans_txt) < 1)
-				$ans_txt = '!!!---!!!';
-			$ret_str .= "\t\t" . '<ans_txt><![CDATA[' . $ans_txt . ']]></ans_txt>' . "\n";
-			$ret_str .= "\t\t" . '<a_quest_id>' . $f_answ_data[0]->answer . '</a_quest_id>' . "\n";
-
+			foreach($f_answ_data as $answer){
+				$ret_str .= "\t\t" . '<a_quest_id>' . $answer->answer. '</a_quest_id>' . "\n";
+				$ret_str .= "\t\t" . '<ans_id>' . $answer->ans_field . '</ans_id>' . "\n";
+			}
 
 
 			$ret_str .= "\t" . '</answers>' . "\n";
@@ -287,16 +355,27 @@ class plgSurveyPickmany {
 				include_once JPATH_SITE . '/plugins/survey/'.$data['quest_type'].'/tmpl/' . $tmpl_name . '/template.php';
 
 		$iscale = array();
+		$iscale['factor_name'] = $q_data->sf_fieldtype;
 		$iscale['impscale_name'] = (isset($f_iscale_data) && count($f_iscale_data)) ? $f_iscale_data[0]->iscale_name : '';
 		$iscale['ans_imp_id'] = (isset($f_answ_imp_data) && count($f_answ_imp_data)) ? $f_answ_imp_data[0]->iscalefield_id : '';
 		$iscale['ans_imp_count'] = intval(count($f_answ_imp_data));
 		$iscale['alt_fields_count'] = intval(count($f_alt_data));
 		$iscale['main_fields_count'] = intval(count($f_main_data));
+		$iscale['scale_fields_count'] = intval(count($f_scale_data));
 		$iscale['ans_count'] = intval(count($f_answ_data));
 		$iscale['isfield'] = array();
 		$iscale['afield'] = array();
 		$iscale['answers'] = array();
 		$iscale['mfield'] = array();
+		$iscale['sdata'] = array();
+
+		if (count($f_scale_data))
+			foreach ($f_scale_data as $is_row) {
+				array_push($iscale['sdata'], array(
+					'sfield_text' => $is_row->stext,
+					'sfield_id' => $is_row->id,
+				));
+			}
 
 		if (isset($f_iscale_data) && count($f_iscale_data))
 			foreach ($f_iscale_data as $is_row) {
@@ -341,7 +420,7 @@ class plgSurveyPickmany {
 
 	//Administration part
 
-	public static function onGetAdminOptions($data, $lists) {
+	public static function onGetAdminOptions($data, $lists, $is_front = false) {
 
 		$my = JFactory::getUser();
 		$database = JFactory::getDBO();
@@ -406,9 +485,25 @@ class plgSurveyPickmany {
 		$list_fields = JHtmlSelect::genericlist($lists['sf_fields'], 'sf_field_list', 'class="text_area" id="sf_field_list" size="1" ', 'ftext', 'ftext', 0);
 		$lists['sf_list_fields'] = $list_fields;
 
+		// Surveys with linkscape
+		$query = "SELECT id, sf_name FROM #__survey_force_survs ".
+			( ($is_front && JFactory::getUser()->get('usertype') != 'Super Administrator') ? " WHERE sf_author = ".JFactory::getUser()->id : '');
+
+		$database->SetQuery($query);
+		$SurvsList = $database->loadAssocList();
+		foreach ( $SurvsList as $k =>$survs )
+		{
+			$database->setQuery("SELECT id, sf_qtext FROM #__survey_force_quests WHERE sf_survey = ".$survs['id'].' AND sf_qtype = 1 AND id <> '.(int)$id);
+			$quests = $database->loadAssocList();
+			if ( !$quests )
+				unset($SurvsList[$k]);
+			else
+				$SurvsList[$k]['quests'] = $quests;
+		}
+
 		ob_start();
-		include_once(JPATH_SITE . "/plugins/survey/pickmany/admin/js/pickmany.js.php");
-		include_once(JPATH_SITE . "/plugins/survey/pickmany/admin/options/pickmany.php");
+		include_once(JPATH_SITE . "/plugins/survey/likertscale/admin/js/likertscale.js.php");
+		include_once(JPATH_SITE . "/plugins/survey/likertscale/admin/options/likertscale.php");
 		$options = ob_get_contents();
 		ob_clean();
 
@@ -426,33 +521,43 @@ class plgSurveyPickmany {
 
 		return true;
 	}
-//TODO: not tested
-	public function onGetAdminReport($question, $start_data)
+
+	public static function onGetAdminReport($question, $start_data)
 	{
 		$database = JFactory::getDbo();
-		
-		$query = "SELECT a.answer, b.ans_txt FROM ( #__survey_force_user_answers AS a, #__survey_force_quests AS c ) LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.ans_field = b.id AND c.sf_qtype = 3 )
-			WHERE c.published = 1 AND a.quest_id = '".$question->id."' AND a.survey_id = '".$question->sf_survey."' AND a.start_id = '".$start_data->id."' AND c.id = a.quest_id ";
+
+		$result = array();
+
+		$query = "SELECT stext FROM #__survey_force_scales WHERE quest_id = '".$question->id."' ORDER BY ordering";
 		$database->SetQuery( $query );
-		$ans_inf_data = ($database->LoadObjectList() == null? array(): $database->LoadObjectList());
+		$tmp_data = $database->loadColumn();
+		$result['scale'] = implode(', ', $tmp_data);
+
+		$query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '".$question->id."' AND is_main = 1 ORDER BY ordering";
+		$database->SetQuery( $query );
+		$tmp_data = ($database->loadObjectList() == null? array(): $database->loadObjectList());
+
+		$query = "SELECT * FROM #__survey_force_user_answers WHERE quest_id = '".$question->id."' and survey_id = '".$question->sf_survey."' and start_id = '".$start_data->id."'";
+		$database->SetQuery( $query );
+		$ans_inf_data = ($database->loadObjectList() == null? array(): $database->loadObjectList());
 
 		$result['answer'] = array();
-		$query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '".$question->id."'"
-			. "\n ORDER BY ordering";
-		$database->SetQuery( $query );
-		$tmp_data = ($database->LoadObjectList() == null? array(): $database->LoadObjectList());
 		$j = 0;
 		while ( $j < count($tmp_data) ) {
 			$result['answer'][$j] = array();
 			$result['answer'][$j]['num'] = $j;
 			$result['answer'][$j]['f_id'] = $tmp_data[$j]->id;
 			$result['answer'][$j]['f_text'] = $tmp_data[$j]->ftext;
-			$result['answer'][$j]['alt_text'] = '';
+			$result['answer'][$j]['alt_text'] = JText::_('COM_SURVEYFORCE_NO_ANSWER');
 			foreach ($ans_inf_data as $ans_data) {
 				if ($ans_data->answer == $tmp_data[$j]->id) {
-					$result['answer'][$j]['f_text'] = $tmp_data[$j]->ftext . ($ans_data->ans_txt != '' ?' ('.$ans_data->ans_txt.')':'');
-					$result['answer'][$j]['alt_text'] = '1';
-					$result['answer'][$j]['alt_id'] = $ans_data->answer;
+					$query = "SELECT * FROM #__survey_force_scales WHERE id = '".$ans_data->ans_field."'"
+						. "\n and quest_id = '".$question->id."'"
+						. "\n ORDER BY ordering";
+					$database->SetQuery( $query );
+					$alt_data = ($database->loadObjectList() == null? array(): $database->loadObjectList());
+					$result['answer'][$j]['alt_text'] = ($ans_data->ans_field==0? JText::_('COM_SURVEYFORCE_NO_ANSWER') :$alt_data[0]->stext);
+					$result['answer'][$j]['alt_id'] = $ans_data->ans_field;
 				}
 			}
 			$j ++;
@@ -460,6 +565,7 @@ class plgSurveyPickmany {
 		
 		return $result;
 	}
+
 
 	public function onGetAdminQuestionData(&$data) {
 
