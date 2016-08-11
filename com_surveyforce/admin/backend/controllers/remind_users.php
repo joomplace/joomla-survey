@@ -20,14 +20,11 @@ class SurveyforceControllerRemind_users extends JControllerForm {
     	$email_id = $app->input->get('email');
     	$list_id = $app->input->get('list');
 
-    	$database->setQuery("SELECT `params` FROM `#__extensions` WHERE `name` = 'com_surveyforce'");
-    	$params = $database->loadAssoc();
+		$component_params = JComponentHelper::getParams('com_surveyforce');
 
-    	$sf_config = json_decode($params);
-
-		$mail_pause = intval($sf_config['sf_mail_pause']);
-		$mail_count = intval($sf_config['sf_mail_count']);
-		$mail_max = intval($sf_config['sf_mail_maximum']);
+		$mail_pause = intval($component_params->get('sf_mail_pause'));
+		$mail_count = intval($component_params->get('sf_mail_count'));
+		$mail_max = intval($component_params->get('sf_mail_maximum'));
 
 		ignore_user_abort(false); // STOP script if User press 'STOP' button
 		@set_time_limit(0);
@@ -50,10 +47,11 @@ class SurveyforceControllerRemind_users extends JControllerForm {
 		$is_invited = $list_data[0]->is_invited;
 		$survey_id = $list_data[0]->survey_id;
 
-		$query = "SELECT count(a.id) FROM `#__survey_force_users` as a, `#__survey_force_invitations` as b WHERE a.`list_id` ='".$list_id."' and a.is_reminded = 0 and a.invite_id = b.id and b.inv_status = 0";
+		$query = "SELECT count(a.id) FROM `#__survey_force_users` as a, `#__survey_force_invitations` as b WHERE a.`list_id` ='".$list_id."' and a.is_invited = 1 and a.invite_id = b.id and b.inv_status = 0";
 		$database->SetQuery($query);
 		$Users_count = $database->LoadResult();
-		$query = "SELECT a.* FROM `#__survey_force_users` as a, `#__survey_force_invitations` as b WHERE a.list_id ='".$list_id."' and a.is_reminded = 0 and a.invite_id = b.id and b.inv_status = 0";
+		$query = "SELECT a.* FROM `#__survey_force_users` as a, `#__survey_force_invitations` as b WHERE a.list_id ='".$list_id."' and a.is_invited = 1 and a.invite_id = b.id and b.inv_status = 0 and a.is_invited = 1";
+
 		$database->SetQuery($query);
 		$UsersList = $database->loadObjectList();
 		$Users_to_remind = count($UsersList);
@@ -73,7 +71,7 @@ class SurveyforceControllerRemind_users extends JControllerForm {
 		$send_rem = 0;
 		$counter = 0;
 		foreach ($UsersList as $user_row) {
-			if ($mail_max && $send_count == $mail_max) {
+			if ($mail_max && $send_rem == $mail_max) {
 				echo "<script>var st_but = getObj_frame('Start_button');"
 					. "var div_log_txt = getObj_frame('div_invite_log_txt');"
 					. "st_but.value = 'Resume';"
@@ -95,12 +93,12 @@ class SurveyforceControllerRemind_users extends JControllerForm {
 			$jmail = JFactory::getMailer();
 			$jmail->sendMail( $email_reply , $fromname, $user_row->email, $subject, nl2br($message_user), 1 ); //1 - in HTML mode
 
-			$query = "UPDATE `#__survey_force_users` SET `is_reminded` = '1' WHERE `id` ='".$user_row->id."'";
+			$query = "UPDATE `#__survey_force_users` SET `is_reminded` = `is_reminded` + 1 WHERE `id` ='".$user_row->id."'";
 			$database->SetQuery($query);
 			$database->execute();
-			if (($mail_pause && $mail_count) && $counter == ($mail_count - 1)){
+			if (($mail_pause && $mail_count) && $counter == ($mail_count - 1) && $Users_count != $ii){
 				$counter = -1;
-				for($jj = $mail_pause; $jj > 1; $jj--) {
+				for($jj = $mail_pause; $jj > 0; $jj--) {
 					echo "<script>var div_log = getObj_frame('div_invite_log');"
 					. "var div_log_txt = getObj_frame('div_invite_log_txt');"
 					. " if (div_log) {"
@@ -108,7 +106,7 @@ class SurveyforceControllerRemind_users extends JControllerForm {
 					. "div_log.style.width = '".intval(($ii)*600/$Users_count)."px';"
 					. "}"
 					. " if (div_log_txt) {"
-					. "div_log_txt.innerHTML =  '" . ($ii) . ' '.JText::_('COM_SURVEYFORCE_USERS_REMINDED_PAUSE')."$jj " .JText::_('COM_SURVEYFORCE_SECONDS')."';"
+					. "div_log_txt.innerHTML =  '" . ($ii) . ' '.JText::_('COM_SURVEYFORCE_USERS_REMINDED_PAUSE')." $jj " .JText::_('COM_SURVEYFORCE_SECONDS')."';"
 					. "}"
 					. "</script>";
 					@flush();
@@ -135,9 +133,9 @@ class SurveyforceControllerRemind_users extends JControllerForm {
 			$send_rem ++;
 			$counter++;
 		}
-		$query = "UPDATE `#__survey_force_users` SET `is_reminded` = '0' WHERE `list_id` ='".$list_id."'";
+		/*$query = "UPDATE `#__survey_force_users` SET `is_reminded` = '0' WHERE `list_id` ='".$list_id."'";
 		$database->SetQuery($query);
-		$database->execute();
+		$database->execute();*/
 
 		echo "<script>var div_log = getObj_frame('div_invite_log'); if (div_log) {"
 			. "div_log.innerHTML = '100%';"

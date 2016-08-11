@@ -56,7 +56,7 @@ class SurveyforceControllerInvite_users extends JControllerForm {
 			die();
 		}
 
-		$query = "SELECT count(*) FROM `#__survey_force_users` WHERE `list_id` ='".$list_id."'";
+		$query = "SELECT count(*) FROM `#__survey_force_users` WHERE `list_id` ='".$list_id."' and `is_invited` = '0'";
 		$database->SetQuery($query);
 		$Users_count = $database->LoadResult();
 		$query = "SELECT * FROM `#__survey_force_users` WHERE `list_id` ='".$list_id."' and `is_invited` = '0'";
@@ -108,9 +108,11 @@ class SurveyforceControllerInvite_users extends JControllerForm {
 			$query = "UPDATE `#__survey_force_users` SET `is_invited` = '1', `invite_id` = '". $user_invite_id ."' WHERE `id` ='".$user_row->id."'";
 			$database->SetQuery($query);
 			$database->execute();
-			if (($mail_pause && $mail_count) && $counter == ($mail_count - 1)){
+
+			if (($mail_pause && $mail_count) && $counter == ($mail_count - 1) && $Users_count != $ii){
+
 				$counter = -1;
-				for($jj = $mail_count; $jj > 0; $jj--) {
+				for($jj = $mail_pause; $jj > 0; $jj--) {
 
 					echo "<script>var div_log = getObj_frame('div_invite_log');"
 					. "var div_log_txt = getObj_frame('div_invite_log_txt');"
