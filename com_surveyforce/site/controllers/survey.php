@@ -1469,7 +1469,12 @@ class SurveyforceControllerSurvey extends JControllerForm {
 				$query = "SELECT sf_chain FROM #__survey_force_user_chain WHERE start_id = '" . $start_id . "'";
 				$database->setQuery($query);
 				$sf_chain = $database->LoadResult();
-				$chain_questions = explode('*', str_replace('*#*', '*', $sf_chain));
+
+				if (preg_match_all('/(?<id>\d+)/', $sf_chain, $preg_match)) {
+					$chain_questions = $preg_match['id'];
+				}
+
+				//$chain_questions = explode('*', str_replace('*#*', '*', $sf_chain));
 
 				for ($ii = 0, $nn = count($is_imp_scales); $ii < $nn; $ii++) {
 					$is_imp_scale = $is_imp_scales[$ii];
