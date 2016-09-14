@@ -63,11 +63,11 @@ class SurveyforceHelper
 		return $db->loadObject();
 	}
 	
-	public static function isEnabledPlugin($type)
+	public static function isDisabledPlugin($type)
 	{
-		foreach($type as $t){
-			if (!JPluginHelper::isEnabled('survey',$t->sf_plg_name)){
-				return $t->sf_plg_name;
+		foreach($types as $type){
+			if (!JPluginHelper::isEnabled('survey',$type->sf_plg_name)){
+				return $type->sf_plg_name;
 			}
 		}
 		return false;

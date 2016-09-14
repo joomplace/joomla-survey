@@ -1184,7 +1184,7 @@ if (isset($survey->error) && $survey->error) {
     echo '<span id="surveyforce_top" style="visibility:hidden; height:1px;"></span>';
 
     $listQuestionTypes = SurveyforceHelper::listQuestionTypes($survey->id);
-	$plugin = SurveyforceHelper::isEnabledPlugin($listQuestionTypes);
+	$plugin = SurveyforceHelper::isDisabledPlugin($listQuestionTypes);
 	if ($plugin){
 		die('Please, make sure SurveyForce '.$plugin.' plugin is enabled');
 	}
