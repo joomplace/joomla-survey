@@ -62,6 +62,16 @@ class SurveyforceHelper
 		$db->setQuery($query);
 		return $db->loadObject();
 	}
+	
+	public static function isEnabledPlugin($type)
+	{
+		foreach($type as $t){
+			if (!JPluginHelper::isEnabled('survey',$t->sf_plg_name)){
+				return $t->sf_plg_name;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Get an authorization user tyype

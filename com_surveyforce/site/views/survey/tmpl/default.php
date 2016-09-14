@@ -1184,6 +1184,10 @@ if (isset($survey->error) && $survey->error) {
     echo '<span id="surveyforce_top" style="visibility:hidden; height:1px;"></span>';
 
     $listQuestionTypes = SurveyforceHelper::listQuestionTypes($survey->id);
+	$plugin = SurveyforceHelper::isEnabledPlugin($listQuestionTypes);
+	if ($plugin){
+		die('Please, make sure SurveyForce '.$plugin.' plugin is enabled');
+	}
     SurveyforceHelper::getJsCss($sf_config->get('template'),$listQuestionTypes);
 
 
