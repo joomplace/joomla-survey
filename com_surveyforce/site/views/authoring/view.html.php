@@ -25,6 +25,7 @@ class SurveyforceViewAuthoring extends JViewLegacy {
     public function display($tpl = null) {
 		$this->sf_config = JComponentHelper::getParams('com_surveyforce');
 		$this->is_author = $this->get('is_author');
+		$this->user = JFactory::getUser();
 
 		$model = $this->getModel ();
 
