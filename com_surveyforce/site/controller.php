@@ -43,6 +43,11 @@ class SurveyforceController extends JControllerLegacy
 			$input->set('view', 'survey');
 		}
 
+		if ($task == 'view_users')
+		{
+			$input->set('view', 'authoring');
+		}
+
 		parent::display($cachable);
 	}
 }

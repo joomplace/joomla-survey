@@ -34,6 +34,7 @@ class SFPageNav {
 		foreach ( array(5,10,15,20,25,50,100) as $i ) {
 			$limits[] = JHtmlSelect::option( "$i" );
 		}
+		$limits[] = JHtmlSelect::option( '999', JText::_('JALL') );
 
 		// build the html select list
 		$link = $link ."&amp;limit='+this.options[selectedIndex].value+'&amp;limitstart=". $this->limitstart;
