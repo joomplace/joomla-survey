@@ -3233,7 +3233,7 @@ class survey_force_front_html {
 		<form action="<?php echo JRoute::_("index.php?option=com_surveyforce")?>" method="post" name="adminForm" id="adminForm">
 			<?php
 			$toolbar = array();
-			$toolbar[] = array('btn_type' => 'back', 'btn_js' => "Joomla.submitbutton('surveys');");
+			$toolbar[] = array('btn_type' => 'back', 'btn_js' => "Joomla.submitbutton('surveys');", 'btn_str' => JText::_('COM_SURVEYFORCE_SF_BACK'), "btn_ico" => "sf-icon-left-open");
 
 			$additionBottomRight = '';
 			$additionBottomLeft =  JText::_('COM_SURVEYFORCE_SF_SURVEY').' : '.$lists['survey'];

@@ -70,6 +70,8 @@ class sf_ImageGenerator extends SF_Object {
 		$DataSet->SetAbsciseLabelSerie("Serie2");
 
 		$font_size = 8;
+
+		$this->checkGraphSize();
 		
 		$bar_height = $this->height;
 		$width = $this->width;
@@ -145,6 +147,8 @@ class sf_ImageGenerator extends SF_Object {
 		$DataSet->SetAbsciseLabelSerie("Serie2");
 		
 		$font_size = 8;
+
+		$this->checkGraphSize();
 		
 		$pie_height = $this->height;
 		$height = $pie_height + 2.1*$rows*$font_size;
@@ -506,6 +510,11 @@ class sf_ImageGenerator extends SF_Object {
 		}
 		umask($old_umask);
 		closedir( $current_dir );
+	}
+
+	private function checkGraphSize() {
+		if (!$this->height) $this->height = 200;
+		if (!$this->width) $this->width = 600;
 	}
 }
 
