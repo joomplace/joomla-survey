@@ -108,6 +108,7 @@ class SurveyforceModelReport extends JModelAdmin {
 
                 $j = 0;
                 while ( $j < count($tmp_data) ) {
+                    $imp_question->answer_imp[$j] = new stdClass;
                     $imp_question->answer_imp[$j]->num = $j;
                     $imp_question->answer_imp[$j]->f_id = $tmp_data[$j]->id;
                     $imp_question->answer_imp[$j]->f_text = $tmp_data[$j]->isf_name;
