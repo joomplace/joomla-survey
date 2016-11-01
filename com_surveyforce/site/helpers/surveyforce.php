@@ -3815,7 +3815,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$pdf->getAliasNbPages();
 		$pdf->AddPage();
 
-		$pdf->SetFont('freesans');
+		$pdf->SetFont('dejavusans');
 		$fontFamily = $pdf->getFontFamily();
 
 		$cur_survey = -1;
@@ -4188,7 +4188,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$pdf->getAliasNbPages();
 		$pdf->AddPage();
 
-		$pdf->SetFont('freesans');
+		$pdf->SetFont('dejavusans');
 		$fontFamily = $pdf->getFontFamily();
 
 		$s_user = '';
@@ -4387,7 +4387,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$pdf->getAliasNbPages();
 		$pdf->AddPage();
 
-		$pdf->SetFont('freesans');
+		$pdf->SetFont('dejavusans');
 		$fontFamily = $pdf->getFontFamily();
 
 		//get PDF content
@@ -5883,7 +5883,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 				$pdf->getAliasNbPages();
 				$pdf->AddPage();
 
-				$pdf->SetFont('freesans');
+				$pdf->SetFont('dejavusans');
 				$fontFamily = $pdf->getFontFamily();
 
 				$query = "SELECT  sf_qtext   FROM #__survey_force_quests  WHERE published = 1 AND id = {$m_id}";

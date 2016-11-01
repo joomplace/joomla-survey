@@ -123,7 +123,7 @@ class sf_pdf {
 		$this->_engine->setHeaderData('', 0, JFactory::getApplication()->getCfg('sitename'), _PDF_GENERATED .' '. JHtml::_('date',time(), 'j F, Y, H:i') );
 		
 		// Set PDF Header and Footer fonts
-		$font = 'freesans';
+		$font = 'dejavusans';
 	
 		$this->_engine->setHeaderFont(array($font, '', 7));
 		$this->_engine->setFooterFont(array($font, '', 7));

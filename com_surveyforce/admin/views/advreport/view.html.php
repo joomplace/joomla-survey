@@ -612,7 +612,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 				$pdf->getAliasNbPages();
 				$pdf->AddPage();
 
-				$pdf->SetFont('freesans');
+				$pdf->SetFont('dejavusans');
 				$fontFamily = $pdf->getFontFamily();
 
 				$query = "SELECT  sf_qtext   FROM #__survey_force_quests  WHERE published = 1 AND id = {$m_id}";

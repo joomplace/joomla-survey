@@ -502,7 +502,7 @@ class SurveyforceHelper
 		$pdf->getAliasNbPages();
 		$pdf->AddPage();
 
-		$pdf->SetFont('freesans');
+		$pdf->SetFont('dejavusans');
 		$fontFamily = $pdf->getFontFamily();
 
 		//get PDF content
