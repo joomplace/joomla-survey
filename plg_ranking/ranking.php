@@ -163,9 +163,17 @@ class plgSurveyRanking {
         $query = "DELETE FROM #__survey_force_fields WHERE quest_id = '" . $qid . "' AND id IN ( '" . ( (count($old_id)) ? implode('\', \'', $old_id) : 0 ) . "' )";
 		$database->setQuery($query);
         $database->query();
-		
-		$ii = 0;
-				
+
+        $last_id_query = $database->getQuery(true);
+        $last_id_query
+            ->select('MAX('.$database->quoteName('id').')')
+            ->from($database->quoteName('#__survey_force_fields'));
+        $database->setQuery($last_id_query);
+
+        if (!($last_id = $database->loadResult())) {
+            $last_id = 0;
+        }
+
         for ($i = 0, $n = count($sf_alt_fields); $i < $n; $i++) {
             $f_row = $sf_alt_fields[$i];                     
 		
@@ -180,7 +188,7 @@ class plgSurveyRanking {
 				$new_field_id = $sf_alt_field_ids[$i];				
 			} else {
 				$values = array($database->quote($qid), $database->quote($f_row),
-                $database->quote(0), $database->quote(0), $database->quote($ii),
+                $database->quote(($database->insertid() !== 0)?$database->insertid():$last_id), $database->quote(1), $database->quote($ii),
                 $database->quote(1));
 				$columns = array('quest_id', 'ftext', 'alt_field_id', 'is_main', 'ordering', 'is_true');
 			
@@ -196,9 +204,9 @@ class plgSurveyRanking {
 
 
             if ($sf_alt_field_ids[$i] > 0) {
-                $new_alt_field[$ii]->alt_field_id = $sf_alt_field_ids[$i];
-            } else {				
-                $new_alt_field[$ii]->alt_field_id = $new_field_id;
+                $new_alt_field[$i]->alt_field_id = $sf_alt_field_ids[$i];
+            } else {
+                $new_alt_field[$i]->alt_field_id = $new_field_id;
             }
 	
             $j = 0;
@@ -208,8 +216,6 @@ class plgSurveyRanking {
                 }
                 $j++;
             }
-			
-            $ii++;
         }
        
         $field_order = 0;		
@@ -239,7 +245,7 @@ class plgSurveyRanking {
 				
 			} else {
 				$values = array($database->quote($qid), $database->quote($f_row),
-                $database->quote($new_alt_field[$i]->alt_field_id), $database->quote(1), $database->quote($field_order),
+                $database->quote($new_alt_field[$i]->alt_field_id), $database->quote(0), $database->quote($field_order),
                 $database->quote(1));
 				$columns = array('quest_id', 'ftext', 'alt_field_id', 'is_main', 'ordering', 'is_true');
 			
