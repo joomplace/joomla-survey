@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Survey Force Deluxe component for Joomla 3
  * @package Survey Force Deluxe

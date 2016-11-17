@@ -7,7 +7,7 @@
 	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
  	<authorEmail>support@joomplace.com</authorEmail> 
 	<authorUrl>www.joomplace.com</authorUrl> 
-	<version>3.0.4</version>
+	<version>3.2.1.001</version>
 	<description>JOOMLASURVEYFORCE ALPHA USER POINTS PLUGIN</description>
 	<files>
 		<folder>fields</folder>
@@ -19,7 +19,7 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="comment" type="text" default="Completed '{survey_title}' survey" size="60" label="SF_PARAM_COMMENT_LABEL" description="SF_PARAM_COMMENT_DESCR" />
+				<field name="comment" type="text" default="Completed '{survey_title}' survey" size="60" label="SF_PARAM_COMMENT_LABEL" description="SF_PARAM_COMMENT_DESCR"/>
 				<field name="points_rule" type="list" default="always" label="SF_PARAM_POINTSRULE_LABEL" description="SF_PARAM_POINTSRULE_DESCR">
 					<option value="always">SF_PARAM_POINTSRULE_OPT_ALWAYS</option>
 					<option value="onsuccess">SF_PARAM_POINTSRULE_OPT_ONSUCCESS</option>
@@ -32,10 +32,10 @@
 					<option value="0">SF_NO</option>
 					<option value="1">SF_YES</option>
 				</field>
-				<field name="points" type="text" size="5" default="1" label="SF_PARAM_POINTS_LABEL" description="SF_PARAM_POINTS_DESCR" />
+				<field name="points" type="text" size="5" default="1" label="SF_PARAM_POINTS_LABEL" description="SF_PARAM_POINTS_DESCR"/>
 			</fieldset>
 			<fieldset addfieldpath="/plugins/system/sf_alphauserpoints/fields" name="surveys">
-				<field name="pps" type="pps" size="5" default="1" label="Points per survey" description="Specify points amount per survey" />
+				<field name="pps" type="pps" size="5" default="1" label="Points per survey" description="Specify points amount per survey"/>
 			</fieldset>
 		</fields>
     </config>
