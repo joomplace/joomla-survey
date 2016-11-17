@@ -451,7 +451,9 @@ class SurveyforceHelper
 		$preview = $app->input->get('preview', 0);
 
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
-		$survey = new stdClass();
+		if(!$survey){
+			$survey = new stdClass();
+		}
 		$survey->is_complete = 1;
 
 		$survey->sf_descr = @SurveyforceHelper::sfPrepareText($survey->sf_descr);
