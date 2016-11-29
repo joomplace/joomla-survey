@@ -39,7 +39,7 @@ class SurveyforceControllerReport extends JControllerForm {
 				$pdf->Ln();
 
 				$pdf->setFont($fontFamily, 'B');
-				$pdf->Write(5,JText::_('COM_SURVEYFORCE_DESCRIPTION'), '', 0);
+				$pdf->Write(5,JText::_('COM_SURVEYFORCE_DESCRIPTION').": ", '', 0);
 
 				$pdf->setFont($fontFamily, 'B');
 				$pdf->Write(5, $pdf_doc->cleanText($report['survey_info']->sf_descr), '', 0);

@@ -31,8 +31,8 @@ $ordering_list = $this->ordering_list;
     </tr>
     <tr>
         <td>
-            <b><?php echo JText::_('COM_SURVEYFORCE_NAME'); ?>: </b><?php echo $this->report['survey_info']->sf_name ?><br>
-            <b><?php echo JText::_('COM_SURVEYFORCE_DESCRIPTION'); ?></b><br><?php echo nl2br($this->report['survey_info']->sf_descr) ?><br>
+            <b><?php echo JText::_('COM_SURVEYFORCE_NAME').": "; ?></b><?php echo $this->report['survey_info']->sf_name ?><br>
+            <b><?php echo JText::_('COM_SURVEYFORCE_DESCRIPTION').": "; ?></b><br><?php echo nl2br($this->report['survey_info']->sf_descr) ?><br>
             <b><?php echo JText::_('COM_SURVEYFORCE_START_AT'); ?>: </b><?php echo $this->report['start_data']->sf_time ?><br>
             <b><?php echo JText::_('COM_SURVEYFORCE_USER'); ?> :</b>
             <?php
@@ -146,7 +146,9 @@ $ordering_list = $this->ordering_list;
 				}
 				break;
 			default:
-				echo "<tr class='row".$k."'><td width='30%'>".nl2br($qrow['answer_data']['answers']['answer'])."</td><td>&nbsp;</td></tr>";
+				if (isset($qrow['answer_data']['answers']['answer'])) {
+					echo "<tr class='row".$k."'><td width='30%'>".nl2br($qrow['answer_data']['answers']['answer'])."</td><td>&nbsp;</td></tr>";
+				}
 				break;
 		}
 		?>
