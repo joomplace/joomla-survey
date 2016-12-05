@@ -8,7 +8,7 @@
   <authorUrl>www.joomplace.com</authorUrl>
   <copyright>(C) JoomPlace, www.joomplace.com</copyright>
   <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-  <version>3.2.1.002</version>
+  <version>3.2.1.001</version>
   <files folder="packages">
     <file type="component" id="com_surveyforce">com_surveyforce.zip</file>
     <file type="plugin" id="boilerplate" group="survey">plg_boilerplate.zip</file>
