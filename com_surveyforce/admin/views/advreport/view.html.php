@@ -634,7 +634,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 					$pdf->SetFontSize(8);
 					$pdf->setFont($fontFamily, 'B');
 					$pdf->setFont($fontFamily, 'I');
-					$pdf->MultiCell(0, 0, $main_quest, 0, 'J', 0, 1, 0 ,0, true, 0);
+					$pdf->MultiCell(0, 0, $main_quest, 0, 'J', 0, 1, '', '', true, 0);
 					$pdf->Ln(0.5);
 
 					$query = "SELECT  sf_qtext   FROM #__survey_force_quests  WHERE published = 1 AND id = {$key}";
@@ -642,7 +642,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 					$quest = $pdf_doc->cleanText($database->loadResult())."\n";
 					$pdf->setFont($fontFamily, 'I');
-					$pdf->MultiCell(60, 0, $quest , 0, 'J', 0, 1, 0 ,0, true, 0);
+					$pdf->MultiCell(60, 0, $quest , 0, 'J', 0, 1, '' , '', true, 0);
 					$pdf->Ln(0.5);
 
 					$cur_y = $pdf->GetY();
@@ -650,7 +650,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 					$pdf->SetFontSize(6);
 
 					$pdf->SetX(60);
-					$pdf->MultiCell($col_width, 0, "Total" , 0, 'C', 0, 1, 0 ,0, true, 0);
+					$pdf->MultiCell($col_width, 0, "Total" , 0, 'C', 0, 1, '', '', true, 0);
 
 					$i = 1;
 					$line_y = 10000;
@@ -666,7 +666,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 							$tt = JText::_('COM_SURVEYFORCE_NO_ANSWER');
 						$pdf->SetY($cur_y);
 						$pdf->SetX(60+($col_width)*$i);
-						$pdf->MultiCell($col_width, 50, $tt , 0, 'C', 0, 1, 0 ,0, true, 0);										
+						$pdf->MultiCell($col_width, 5, $tt , 0, 'C', 0, 1, '', '', true, 0);
 						if($maxlen<strlen($tt))
 							$maxlen = strlen($tt);
 						$i++;
@@ -694,7 +694,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 							$cur_y = $pdf->GetY();
 							$pdf->SetY($cur_y);
 							$pdf->SetX(17);
-							$pdf->MultiCell(40, 0, $tt."\n" , 0, 'J', 0, 1, 0 ,0, true, 0);
+							$pdf->MultiCell(40, 0, $tt."\n" , 0, 'J', 0, 1, '', '', true, 0);
 							$pdf->Ln(0.5);
 							$cur_y2 = $pdf->GetY();
 
@@ -708,7 +708,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 								$pdf->SetY($cur_y);
 								$pdf->SetX(60+$col_width*$i);
-								$pdf->MultiCell($col_width, 0, "{$item[$fields_id]}" , 0, 'C', 0, 1, 0 ,0, true, 0);
+								$pdf->MultiCell($col_width, 0, "{$item[$fields_id]}" , 0, 'C', 0, 1, '', '', true, 0);
 
 								$total_col = $total_col + $item[$fields_id];
 								if (!isset($total_row[$fields_id]))
@@ -719,22 +719,22 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 							$total_row['total'] = $total_row['total'] + $total_col;
 							$pdf->SetY($cur_y);
 							$pdf->SetX(60);
-							$pdf->MultiCell($col_width, 0, "{$total_col}", 0, 'C', 0, 1, 0 ,0, true, 0);
+							$pdf->MultiCell($col_width, 0, "{$total_col}", 0, 'C', 0, 1, '', '', true, 0);
 						}
 						$pdf->line( 60, $pdf->GetY()+2, 200, $pdf->GetY()+2);
 						$pdf->Ln();
 						$cur_y = $pdf->GetY();
 						$pdf->SetX(30);
-						$pdf->MultiCell(20, 0, "Totals", 0, 'R', 0, 1, 0 ,0, true, 0);
+						$pdf->MultiCell(20, 0, "Totals", 0, 'R', 0, 1, '', '', true, 0);
 
 						$pdf->SetY($cur_y);
 						$pdf->SetX(60);
-						$pdf->MultiCell($col_width, 0, "{$total_row['total']}", 0, 'C', 0, 1, 0 ,0, true, 0);
+						$pdf->MultiCell($col_width, 0, "{$total_row['total']}", 0, 'C', 0, 1, '', '', true, 0);
 						$i = 1;
 						foreach($fields_ids as $fields_id) {
 							$pdf->SetY($cur_y);
 							$pdf->SetX(60+$col_width*$i);
-							$pdf->MultiCell($col_width, 0, "{$total_row[$fields_id]}" , 0, 'C', 0, 1, 0 ,0, true, 0);
+							$pdf->MultiCell($col_width, 0, "{$total_row[$fields_id]}" , 0, 'C', 0, 1, '', '', true, 0);
 							$i++;
 						}
 					}
@@ -749,7 +749,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 								$pdf_doc->cleanText($tmp);
 								$pdf->SetX(18);
-								$pdf->MultiCell(42, 0, $tmp."\n" , 0, 'J', 0, 1, 0 ,0, true, 0);
+								$pdf->MultiCell(42, 0, $tmp."\n" , 0, 'J', 0, 1, '', '', true, 0);
 
 								$total_row = array('total'=>0);
 								$cur_y2 = $pdf->GetY();
@@ -769,7 +769,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 									$cur_y = $pdf->GetY();
 									$pdf->SetY($cur_y);
 									$pdf->SetX(17);
-									$pdf->MultiCell(40, 0, $tt."\n" , 0, 'J', 0, 1, 0 ,0, true, 0);
+									$pdf->MultiCell(40, 0, $tt."\n" , 0, 'J', 0, 1, '', '', true, 0);
 									$pdf->Ln(0.5);
 									$cur_y2 = $pdf->GetY();
 
@@ -777,7 +777,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 									foreach($fields_ids as $fields_id) {
 										$pdf->SetY($cur_y);
 										$pdf->SetX(60+$col_width*$i);
-										$pdf->MultiCell($col_width, 0, "{$item[$fields_id]}" , 0, 'C', 0, 1, 0 ,0, true, 0);
+										$pdf->MultiCell($col_width, 0, "{$item[$fields_id]}" , 0, 'C', 0, 1, '', '', true, 0);
 										$total_col = $total_col + $item[$fields_id];
 										if (!isset($total_row[$fields_id]))
 											$total_row[$fields_id] = 0;
@@ -787,23 +787,23 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 									$total_row['total'] = $total_row['total'] + $total_col;
 									$pdf->SetY($cur_y);
 									$pdf->SetX(60);
-									$pdf->MultiCell($col_width, 0, "{$total_col}", 0, 'C', 0, 1, 0 ,0, true, 0);
+									$pdf->MultiCell($col_width, 0, "{$total_col}", 0, 'C', 0, 1, '', '', true, 0);
 								}
 								$pdf->line( 60, $pdf->GetY()+2, 200, $pdf->GetY()+2);
 								$pdf->Ln();
 								$cur_y = $pdf->GetY();
 								$pdf->SetX(30);
-								$pdf->MultiCell(20, 0, "Totals", 0, 'R', 0, 1, 0 ,0, true, 0);
+								$pdf->MultiCell(20, 0, "Totals", 0, 'R', 0, 1, '' ,'', true, 0);
 
 								$pdf->SetY($cur_y);
 								$pdf->SetX(60);
-								$pdf->MultiCell($col_width, 0, "{$total_row['total']}", 0, 'C', 0, 1, 0 ,0, true, 0);
+								$pdf->MultiCell($col_width, 0, "{$total_row['total']}", 0, 'C', 0, 1, '', '', true, 0);
 
 								$i = 1;
 								foreach($fields_ids as $fields_id) {
 									$pdf->SetY($cur_y);
 									$pdf->SetX(60+$col_width*$i);
-									$pdf->MultiCell($col_width, 0, "{$total_row[$fields_id]}" , 0, 'C', 0, 1, 0 ,0, true, 0);
+									$pdf->MultiCell($col_width, 0, "{$total_row[$fields_id]}" , 0, 'C', 0, 1, '', '', true, 0);
 									$i++;
 								}
 							}
@@ -826,7 +826,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 								$pdf->SetY($cur_y2);
 								$cur_y = $pdf->GetY();
 								$pdf->SetX(17);
-								$pdf->MultiCell(40, 0, $tt."\n" , 0, 'J', 0, 1, 0 ,0, true, 0);
+								$pdf->MultiCell(40, 0, $tt."\n" , 0, 'J', 0, 1, '', '', true, 0);
 								$pdf->Ln(0.5);
 								$cur_y2 = $pdf->GetY();
 
@@ -834,7 +834,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 								foreach($fields_ids as $fields_id) {
 									$pdf->SetY($cur_y);
 									$pdf->SetX(60+$col_width*$i);
-									$pdf->MultiCell($col_width, 0, "{$item[$fields_id]}", 0, 'C', 0, 1, 0 ,0, true, 0);
+									$pdf->MultiCell($col_width, 0, "{$item[$fields_id]}", 0, 'C', 0, 1, '', '', true, 0);
 
 									$total_col = $total_col + $item[$fields_id];
 									if (!isset($total_row[$fields_id]))
@@ -845,7 +845,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 								$total_row['total'] = $total_row['total'] + $total_col;
 								$pdf->SetY($cur_y);
 								$pdf->SetX(60);
-								$pdf->MultiCell($col_width, 0, "{$total_col}", 0, 'C', 0, 1, 0 ,0, true, 0);
+								$pdf->MultiCell($col_width, 0, "{$total_col}", 0, 'C', 0, 1, '', '', true, 0);
 
 							}
 							$pdf->SetY($cur_y2);
@@ -854,17 +854,17 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 							$cur_y = $pdf->GetY();
 
 							$pdf->SetX(30);
-							$pdf->MultiCell(20, 0, "Totals", 0, 'R', 0, 1, 0 ,0, true, 0);
+							$pdf->MultiCell(20, 0, "Totals", 0, 'R', 0, 1, '', '', true, 0);
 
 							$pdf->SetY($cur_y);
 							$pdf->SetX(60);
-							$pdf->MultiCell($col_width, 0, "{$total_row['total']}", 0, 'C', 0, 1, 0 ,0, true, 0);
+							$pdf->MultiCell($col_width, 0, "{$total_row['total']}", 0, 'C', 0, 1, '', '', true, 0);
 
 							$i = 1;
 							foreach($fields_ids as $fields_id) {
 								$pdf->SetY($cur_y);
 								$pdf->SetX(60+$col_width*$i);
-								$pdf->MultiCell($col_width, 0, "{$total_row[$fields_id]}" , 0, 'C', 0, 1, 0 ,0, true, 0);
+								$pdf->MultiCell($col_width, 0, "{$total_row[$fields_id]}" , 0, 'C', 0, 1, '', '', true, 0);
 								$i++;
 							}
 						}
@@ -884,7 +884,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 							$tt = $pdf_doc->cleanText($tt);
 							$pdf->SetX(17);
-							$pdf->MultiCell(42, 0, $tt."\n" , 0, 'J', 0, 1, 0 ,0, true, 0);
+							$pdf->MultiCell(42, 0, $tt."\n" , 0, 'J', 0, 1, '', '', true, 0);
 							$cur_y2 = $pdf->GetY();
 
 							foreach($item as $kk => $it) {
@@ -906,7 +906,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 								$cur_y = $pdf->GetY();
 								$pdf->SetY($cur_y);
 								$pdf->SetX(20);
-								$pdf->MultiCell(40, 0, $tt."\n" , 0, 'J', 0, 1, 0 ,0, true, 0);
+								$pdf->MultiCell(40, 0, $tt."\n" , 0, 'J', 0, 1, '', '', true, 0);
 								$pdf->Ln(0.5);
 								$cur_y2 = $pdf->GetY();
 
@@ -915,7 +915,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 								foreach($fields_ids as $fields_id) {
 									$pdf->SetY($cur_y);
 									$pdf->SetX(60+$col_width*$i);
-									$pdf->MultiCell($col_width, 0, "{$it[$fields_id]}" , 0, 'C', 0, 1, 0 ,0, true, 0);
+									$pdf->MultiCell($col_width, 0, "{$it[$fields_id]}" , 0, 'C', 0, 1, '', '', true, 0);
 
 									$total_col = $total_col + $it[$fields_id];
 									if (!isset($total_row[$fields_id]))
@@ -926,24 +926,24 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 								$total_row['total'] = $total_row['total'] + $total_col;
 								$pdf->SetY($cur_y);
 								$pdf->SetX(60);
-								$pdf->MultiCell($col_width, 0, "{$total_col}", 0, 'C', 0, 1, 0 ,0, true, 0);
+								$pdf->MultiCell($col_width, 0, "{$total_col}", 0, 'C', 0, 1, '', '', true, 0);
 							}
 							$pdf->line( 60, $pdf->GetY()+2, 200, $pdf->GetY()+2);
 							$pdf->Ln();
 							$cur_y = $pdf->GetY();
 
 							$pdf->SetX(30);
-							$pdf->MultiCell(20, 0, "Totals", 0, 'R', 0, 1, 0 ,0, true, 0);
+							$pdf->MultiCell(20, 0, "Totals", 0, 'R', 0, 1, '', '', true, 0);
 
 							$pdf->SetY($cur_y);
 							$pdf->SetX(60);
-							$pdf->MultiCell($col_width, 0, "{$total_row['total']}", 0, 'C', 0, 1, 0 ,0, true, 0);
+							$pdf->MultiCell($col_width, 0, "{$total_row['total']}", 0, 'C', 0, 1, '', '', true, 0);
 
 							$i = 1;
 							foreach($fields_ids as $fields_id) {
 								$pdf->SetY($cur_y);
 								$pdf->SetX(60+$col_width*$i);
-								$pdf->MultiCell($col_width, 0, "{$total_row[$fields_id]}", 0, 'C', 0, 1, 0 ,0, true, 0);
+								$pdf->MultiCell($col_width, 0, "{$total_row[$fields_id]}", 0, 'C', 0, 1, '', '', true, 0);
 								$i++;
 							}
 						}
