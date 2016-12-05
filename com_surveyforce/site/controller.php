@@ -16,6 +16,17 @@ class SurveyforceController extends JControllerLegacy
 {
 	public function display($cachable = false, $urlparams = array())
 	{
+
+		$input = JFactory::getApplication()->input;
+		$itemid = $input->post->get('Itemid', 0, 'INT');
+		if(!$itemid){
+			$itemid = $input->get->get('Itemid', 0, 'INT');
+			if(!$itemid){
+				$itemid = $input->get('Itemid', 0, 'INT');
+			}
+		}
+		$input->set('Itemid',$itemid);
+
 		$view = JFactory::getApplication()->input->get('view');
 		$task = JFactory::getApplication()->input->get('task');
 
