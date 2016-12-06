@@ -7,7 +7,7 @@
 	<license/>
 	<authorEmail/>
 	<authorUrl/>
-	<version>3.2.1.001</version>
+	<version>3.2.1.005</version>
 	<description>Allow easy insert survey tags into article</description>
 	<files>
 		<filename plugin="surveyforce">surveyforce.php</filename>
