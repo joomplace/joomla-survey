@@ -69,22 +69,22 @@ function SF_showTop( $HeadPicture, $HeadTitle, $toolbar, $additionBottomRight, $
 				<a class="brand" href="#">Dashboard</a>
 				<?php if($additionUpLeft == 'new_survey'){ ?>
 
-					<a onclick="javascript:window.open('<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_surv&tmpl=component&Itemid=<?php echo $Itemid; ?>', '_blank'); return false;" href="javascript: void(0);" class="btn btn-primary"><i class="sf-icon-plus"></i>New
+					<a onclick="javascript:window.open('<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_surv&tmpl=component&Itemid=<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid); ?>', '_blank'); return false;" href="javascript: void(0);" class="btn btn-primary"><i class="sf-icon-plus"></i>New
 					</a>
 
 				<?php } elseif($additionUpLeft == 'new_category'){ ?>
 
-					<a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_cat&Itemid=<?php echo $Itemid; ?>" class="btn btn-primary"><i class="sf-icon-plus"></i>New
+					<a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_cat&Itemid=<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid); ?>" class="btn btn-primary"><i class="sf-icon-plus"></i>New
 					</a>
 
 				<?php } elseif($additionUpLeft == 'new_userlist'){ ?>
 
-					<a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_list&Itemid=<?php echo $Itemid; ?>" class="btn btn-primary"><i class="sf-icon-plus"></i>New
+					<a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_list&Itemid=<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid); ?>" class="btn btn-primary"><i class="sf-icon-plus"></i>New
 					</a>
 
 				<?php } elseif($additionUpLeft == 'new_email'){ ?>
 
-					<a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=add_email&Itemid=<?php echo $Itemid; ?>" class="btn btn-primary"><i class="sf-icon-plus"></i>New
+					<a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=add_email&Itemid=<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid); ?>" class="btn btn-primary"><i class="sf-icon-plus"></i>New
 					</a>
 
 				<?php } ?>
@@ -1658,7 +1658,7 @@ class survey_force_front_html {
 		<input type="hidden" name="option" value="com_surveyforce" />
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		</form>
 		</div>
 	<?php
@@ -1892,7 +1892,7 @@ class survey_force_front_html {
 		<input type="hidden" name="option" value="com_surveyforce" />
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		</form><br/><br/>
 		</div>
 		<?php
@@ -2044,7 +2044,7 @@ class survey_force_front_html {
 		<input type="hidden" name="task" value="<?php echo JFactory::getApplication()->input->get('task')?>" />
 		<input type="hidden" name="boxchecked" value="0" />
 		<input type="hidden" name="hidemainmenu" value="0">
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		</form><br/><br/>
 		</div>
 		<?php
@@ -2279,7 +2279,7 @@ class survey_force_front_html {
 		<input type="hidden" name="boxchecked" value="0" />
 		<input type="hidden" name="hidemainmenu" value="0">
 		<input type="hidden" name="id" value="<?php echo $lists['listid']; ?>" />
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		<input type="hidden" name="sf_author_id" value="<?php echo JFactory::getUser()->id?>" />				
 		</form><br/><br/>
 		</div>
@@ -2382,7 +2382,7 @@ class survey_force_front_html {
 		<input type="hidden" name="task" value="view_users" />
 		<input type="hidden" name="boxchecked" value="0" />
 		<input type="hidden" name="hidemainmenu" value="0">
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		<input type="hidden" name="list_id" value="<?php echo $lists['listid']?>" />		
 		</form><br/><br/>
 		</div>
@@ -2560,7 +2560,7 @@ class survey_force_front_html {
 		<input type="hidden" name="task" value="reports" />
 		<input type="hidden" name="boxchecked" value="0" />
 		<input type="hidden" name="hidemainmenu" value="0">
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		</form><br/><br/>
 		</div>
 		<?php
@@ -2605,7 +2605,7 @@ class survey_force_front_html {
 		<input type="hidden" name="option" value="com_surveyforce" />
 		<input type="hidden" name="id" value="<?php echo $start_data[0]->id; ?>" />
 		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		</form>
 
 		<fieldset>
@@ -2756,7 +2756,7 @@ class survey_force_front_html {
 			<input type="hidden" name="option" value="com_surveyforce" />
 			<input type="hidden" name="id" value="<?php echo (JFactory::getApplication()->input->get('task') == 'view_rep_list')?$list_id:$survey_data->id; ?>" />
 			<input type="hidden" name="task" value="" />
-			<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		</form>
 		<fieldset>
 			<legend><?php echo JText::_('COM_SURVEYFORCE_SF_SURVEY_INFORMATION')?></legend>
@@ -3099,7 +3099,7 @@ class survey_force_front_html {
 		<input type="hidden" name="option" value="com_surveyforce" />
 		<input type="hidden" name="id" value="0" />
 		<input type="hidden" name="task" value="cross_rep" />
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		</form><br/><br/></div>
 <?php
 	}
@@ -3220,7 +3220,7 @@ class survey_force_front_html {
 		<input type="hidden" name="option" value="com_surveyforce" />
 		<input type="hidden" name="task" value="<?php echo JFactory::getApplication()->input->get('task')?>" />
 		<input type="hidden" name="boxchecked" value="0" />
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		<input type="hidden" name="hidemainmenu" value="0">
 		</form><br/><br/></div>
 		<?php
@@ -3256,7 +3256,7 @@ class survey_force_front_html {
 		
 		<input type="hidden" name="option" value="com_surveyforce" />
 		<input type="hidden" name="task" value="show_results" />
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		<input type="hidden" name="boxchecked" value="0" />
 		</form><br/><br/></div>
 	<?php
@@ -3362,7 +3362,7 @@ class survey_force_front_html {
 		<input type="hidden" name="option" value="com_surveyforce" />
 		<input type="hidden" name="task" value="emails" />
 		<input type="hidden" name="boxchecked" value="0" />
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		<input type="hidden" name="hidemainmenu" value="0">
 		</form><br/><br/>
 		</div>
@@ -3444,7 +3444,7 @@ class survey_force_front_html {
 		<input type="hidden" name="option" value="com_surveyforce" />
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="user_id" value="<?php echo JFactory::getUser()->id; ?>" />
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+		<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 		<input type="hidden" name="task" value="" />
 		</form><br/><br/>
 		</div>
@@ -3538,7 +3538,7 @@ class survey_force_front_html {
 				<br />
 				<input type="hidden" name="option" value="com_surveyforce" />
 				<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
-				<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+				<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 				<input type="hidden" name="task" value="usergroups" />
 				<input type="hidden" name="view" value="authoring" />
 
@@ -3632,7 +3632,7 @@ class survey_force_front_html {
 			<br />
 			<input type="hidden" name="option" value="com_surveyforce" />
 			<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
-			<input type="hidden" name="Itemid" value="<?php echo $Itemid?>" />
+			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid',$Itemid)?>" />
 			<input type="hidden" name="task" value="usergroups" />
 			<input type="hidden" name="view" value="authoring" />
 
