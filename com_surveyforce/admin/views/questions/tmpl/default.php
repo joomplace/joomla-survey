@@ -366,7 +366,7 @@ $sortFields = $this->getSortFields();
 
                             <td class="has-context">
                                 <div class="center">
-                                    <?php echo $item->sf_qtype; ?>
+                                    <?php echo JText::_($item->sf_qtype); ?>
                                 </div>
                             </td>
                             <td class="has-context">

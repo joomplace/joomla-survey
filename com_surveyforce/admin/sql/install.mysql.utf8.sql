@@ -382,15 +382,15 @@ CREATE TABLE IF NOT EXISTS `#__survey_force_qtypes` (
 PRIMARY KEY  (`id`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (1, 'LikertScale', 'likertscale');
-INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (2, 'PickOne', 'pickone');
-INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (3, 'PickMany', 'pickmany');
-INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (4, 'Short Answer', 'shortanswer');
-INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (5, 'Ranking Drop-Down', 'rankingdropdown');
-INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (6, 'Ranking Drag''and''Drop', 'rankingdraganddrop');
-INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (7, 'Boilerplate', 'boilerplate');
-INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (8, 'Page Break', 'pagebreak');
-INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (9, 'Ranking', 'ranking');
+INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (1, 'COM_SURVEYFORCE_LIKERTSCALE', 'likertscale');
+INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (2, 'COM_SURVEYFORCE_PICKONE', 'pickone');
+INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (3, 'COM_SURVEYFORCE_PICKMANY', 'pickmany');
+INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (4, 'COM_SURVEYFORCE_SHORTANSWER', 'shortanswer');
+INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (5, 'COM_SURVEYFORCE_RANKING_DROPDOWN', 'rankingdropdown');
+INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (6, 'COM_SURVEYFORCE_RANKING_DRAGNDROP', 'rankingdraganddrop');
+INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (7, 'COM_SURVEYFORCE_BOILERPLATE', 'boilerplate');
+INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (8, 'COM_SURVEYFORCE_PAGE_BREAK', 'pagebreak');
+INSERT INTO #__survey_force_qtypes (id, sf_qtype, sf_plg_name) VALUES (9, 'COM_SURVEYFORCE_RANKING', 'ranking');
 
 UPDATE #__survey_force_config SET config_value = '3.1.1.001' WHERE config_var = 'sf_version';
 
