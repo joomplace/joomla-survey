@@ -45,21 +45,22 @@ JText::script('COM_SURVEYFORCE_BE_CONTROL_PANEL_BUT_CHECK_VERSION');
 				<strong><?php echo JText::_('COM_SURVEYFORCE'); ?></strong> component for Joomla! 3.x Developed by <a href="http://www.joomplace.com/" target="_blank">JoomPlace</a>.
 			</th>
 		</tr>
-		<tr>
-			<td width="120" style="border-top: 0 !important;"><?php echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_INSTALLED_VERS') . ':'; ?></td>
-			<td class="survf_control_panel_current_version"><?php echo $this->version;?></td>
-		</tr>
-		<tr>
-			<td><?php echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_LAT_VERSION') . ':'; ?></td>
-			<td>
-				<div id="survfLatestVersion">
-					<button class="btn btn-small" onclick="onBtnCheckLatestVersionClick(this, event);">
-						<i class="icon-health"></i>
-						<?php echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_BUT_CHECK_VERSION'); ?>
-					</button>
-				</div>
-			</td>
-		</tr>
+		<!-- Hide current and latest version since integrate Joomla update system -->
+<!--		<tr>-->
+<!--			<td width="120" style="border-top: 0 !important;">--><?php //echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_INSTALLED_VERS') . ':'; ?><!--</td>-->
+<!--			<td class="survf_control_panel_current_version">--><?php //echo $this->version;?><!--</td>-->
+<!--		</tr>-->
+<!--		<tr>-->
+<!--			<td>--><?php //echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_LAT_VERSION') . ':'; ?><!--</td>-->
+<!--			<td>-->
+<!--				<div id="survfLatestVersion">-->
+<!--					<button class="btn btn-small" onclick="onBtnCheckLatestVersionClick(this, event);">-->
+<!--						<i class="icon-health"></i>-->
+<!--						--><?php //echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_BUT_CHECK_VERSION'); ?>
+<!--					</button>-->
+<!--				</div>-->
+<!--			</td>-->
+<!--		</tr>-->
 		<tr>
 			<td><?php echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_ABOUT') . ':'; ?></td>
 			<td>
