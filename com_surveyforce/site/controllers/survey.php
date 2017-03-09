@@ -801,7 +801,8 @@ class SurveyforceControllerSurvey extends JControllerForm {
 				} elseif ($survey->sf_invite && ($invite_num != '')) {
 					$query = "SELECT inv_status FROM #__survey_force_invitations WHERE invite_num = '" . $invite_num . "'";
 					$database->setQuery($query);
-					$inv_data = ($database->loadObject() == null ? array() : $database->loadObject());
+					$inv_status = $database->loadObject();
+					$inv_data = ($inv_status == null ? array() : $inv_status);
 					if (count($inv_data) == 1) {
 						if ($inv_data->inv_status != 1) {
 							// Continue
