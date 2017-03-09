@@ -852,7 +852,8 @@ class SurveyforceControllerSurvey extends JControllerForm {
 			if ($invite_num != '') {
 				$query = "SELECT inv_status, user_id, id FROM #__survey_force_invitations WHERE invite_num = '" . $invite_num . "'";
 				$database->setQuery($query);
-				$inv_data = ($database->loadObject() == null ? array() : $database->loadObject());
+				$inv_status = $database->loadObject();
+				$inv_data = ($inv_status == null ? array() : $inv_status);
 				if (($inv_data->inv_status == 1 || ($survey->sf_anonymous && $inv_data->inv_status == 3)) && $survey->sf_inv_voting == 1) {
 					if ($survey->sf_after_start && !$survey->sf_anonymous) {
 						$query = "SELECT a.id FROM #__survey_force_user_starts AS a, #__survey_force_invitations AS b WHERE b.invite_num = '" . $invite_num . "' AND b.id = a.invite_id ORDER BY a.id DESC";
