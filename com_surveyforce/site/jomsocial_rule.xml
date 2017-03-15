@@ -1,39 +1,20 @@
-
-
-	<rule>
-
-		<name>Completed survey ID=3</name>
-
-		<description>Give points when registered user successfully completes survey.</description>
-
-		<action_string>completed.survey3</action_string>
-
-		<publish>COM_SF_FALSE</publish>
-
-		<points>0</points>
-
-		<access_level>1</access_level>
-
-	</rule>
-
-
-
-
-	<rule>
-
-		<name>Completed survey ID=4</name>
-
-		<description>Give points when registered user successfully completes survey.</description>
-
-		<action_string>completed.survey4</action_string>
-
-		<publish>COM_SF_FALSE</publish>
-
-		<points>0</points>
-
-		<access_level>1</access_level>
-
-	</rule>
-
-
-</rules></jomsocial>
+<jomsocial>
+	<rules>
+        <rule>
+            <name>completed survey id=3</name>
+            <description>give points when registered user successfully completes survey.</description>
+            <action_string>completed.survey3</action_string>
+            <publish>com_sf_false</publish>
+            <points>0</points>
+            <access_level>1</access_level>
+        </rule>
+        <rule>
+            <name>completed survey id=4</name>
+            <description>give points when registered user successfully completes survey.</description>
+            <action_string>completed.survey4</action_string>
+            <publish>com_sf_false</publish>
+            <points>0</points>
+            <access_level>1</access_level>
+        </rule>
+    </rules>
+</jomsocial>
