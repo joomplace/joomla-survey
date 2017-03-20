@@ -43,7 +43,7 @@ class plgSurveyBoilerplate {
         if ($q_data->sf_section_id > 0) {
             $query = "SELECT `addname`, `sf_name` FROM `#__survey_force_qsections` WHERE `id` = '" . $q_data->sf_section_id . "' ";
             $database->SetQuery($query);
-            $qsection_t = ($database->loadObject() == null ? array() : $database->loadObject());
+            $qsection_t = ($database->loadObject());
             if (isset($qsection_t->addname) && intval($qsection_t->addname) > 0) {
                 $q_text = '<div class="sf_section_name">' . $qsection_t->sf_name . "</div><br/>" . $q_text;
             }
@@ -62,7 +62,8 @@ class plgSurveyBoilerplate {
         if ($q_data->sf_impscale) { //important scale is SET
             $query = "SELECT a.iscale_name, b.* FROM #__survey_force_iscales as a, #__survey_force_iscales_fields as b WHERE a.id = '" . $q_data->sf_impscale . "' AND a.id = b.iscale_id ORDER BY b.ordering";
             $database->SetQuery($query);
-            $f_iscale_data = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
+            $result = $database->LoadObjectList();
+            $f_iscale_data = ($result == null ? array() : $result);
         }
 
         
