@@ -513,13 +513,13 @@ class plgSurveyRankingdropdown {
 			LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf_qtype = 9 )
 			WHERE c.published = 1 AND a.quest_id = '".$question->id."' AND a.survey_id = '".$question->sf_survey."'	AND a.start_id = '".$start_data->id."' AND c.id = a.quest_id";
 		$database->SetQuery( $query );
-		$ans_inf_data = ($database->LoadObjectList() == null? array(): $database->LoadObjectList());
+		$ans_inf_data = ($database->LoadObjectList());
 
 		$result['answer'] = array();
 		$query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '".$question->id."'"
 			. "\n and is_main = 1 ORDER BY ordering";
 		$database->SetQuery( $query );
-		$tmp_data = ($database->LoadObjectList() == null? array(): $database->LoadObjectList());
+		$tmp_data = ($database->LoadObjectList());
 		$j = 0;
 
 		while ( $j < count($tmp_data) ) {
@@ -535,7 +535,7 @@ class plgSurveyRankingdropdown {
 						. "\n and quest_id = '".$question->id."'"
 						. "\n and is_main = 0 ORDER BY ordering";
 					$database->SetQuery( $query );
-					$alt_data = ($database->LoadObjectList() == null? array(): $database->LoadObjectList());
+					$alt_data = ($database->LoadObjectList());
 					if (count($alt_data) > 0 ) {
 						$result['answer'][$j]['alt_text'] = ($ans_data->ans_field==0?($question->sf_qtype == 9?'':JText::_('COM_SURVEYFORCE_NO_ANSWER')):$alt_data[0]->ftext);
 						$result['answer'][$j]['alt_id'] = $ans_data->ans_field;
