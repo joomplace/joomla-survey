@@ -88,6 +88,9 @@ EOFTMPL;
 			if ($acount > 0) {
 				$selected = " selected='selected' ";
 			}
+            if(!isset(SF_PickoneTemplate::$iscale['afield'][0]['afield_id'])){
+                SF_PickoneTemplate::$iscale['afield'][0]['afield_id'] = '';
+            }
 			$return_str = '<br/>'.
 				'<div class="pick_one_div">'.
 				'<form name="quest_form'.SF_PickoneTemplate::$question->id.'">'.
@@ -166,7 +169,7 @@ EOFTMPL;
 		}
 
 		if ($quest_style == 1) {
-			if (acount > 0)
+			if ($acount > 0)
 				$return_str = $return_str. '</form></div>';
 			else
 				$return_str = $return_str. '</select></form></div>';

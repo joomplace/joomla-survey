@@ -286,6 +286,7 @@ class plgSurveyPickone {
                 include_once JPATH_SITE . '/plugins/survey/'.$data['quest_type'].'/tmpl/' . $tmpl_name . '/template.php';
 
         $iscale = array();
+        $iscale['ans_txt'] = isset($ans_txt) ? $ans_txt : '';
         $iscale['impscale_name'] = (isset($f_iscale_data) && count($f_iscale_data)) ? $f_iscale_data[0]->iscale_name : '';
         $iscale['ans_imp_id'] = (isset($f_answ_imp_data) && count($f_answ_imp_data)) ? $f_answ_imp_data[0]->iscalefield_id : 0;
         $iscale['ans_imp_count'] = intval(count($f_answ_imp_data));

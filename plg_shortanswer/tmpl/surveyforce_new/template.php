@@ -105,11 +105,16 @@ EOFTMPL;
 				$y_pos = strpos($return_str, '{y}');
 
 				if ( ($x_pos < $y_pos || $y_pos === false) && $x_pos !== false) {
+                    if(!isset(SF_ShortanswerTemplate::$iscale['answ_txt'][$i])){
+                        SF_ShortanswerTemplate::$iscale['answ_txt'][$i] = '';
+                    }
 					$tmp_str = '<input class="sa_input_text" type="text" id="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" name="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" value="'.htmlspecialchars(stripslashes(SF_ShortanswerTemplate::$iscale['answ_txt'][$i])).'" />';
 					$return_str = preg_replace('/\{x\}/i', $tmp_str, $return_str, 1);
 				}
-				elseif ( $y_pos !== false )
-				{
+				elseif ( $y_pos !== false ){
+                    if(!isset(SF_ShortanswerTemplate::$iscale['answ_txt'][$i])){
+                        SF_ShortanswerTemplate::$iscale['answ_txt'][$i] = '';
+                    }
 					$tmp_str = '<textarea id="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" name="short_ans_'.SF_ShortanswerTemplate::$question->id.'_'.$i.'" class="short_ans_textarea" rows="5" >'.stripslashes(SF_ShortanswerTemplate::$iscale['answ_txt'][$i]).'</textarea>';
 					$return_str = preg_replace('/\{y\}/i', $tmp_str, $return_str, 1);
 				}
