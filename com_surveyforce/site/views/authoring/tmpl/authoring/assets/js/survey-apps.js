@@ -2413,7 +2413,7 @@ var sfPublishSurvey = function(a, b) {
         return a = a.replace(/{y}/g, '<textarea class="text" style="width: 400px;height:200px;"></textarea>')
     },
     sfEnableOptions = function() {
-        currQuestion ? ($("#fieldPropertiesDisable").hide(), $("#fieldProperties").show(), $("#SettingsDisable").hide(), $("#Settings").show(), currQuestion.attr('name') != 'short-answer' ? $("#panelRules").show() : '', $("#panelActions").css("display", "block")) : sfDisableOptions()
+        currQuestion ? ($("#fieldPropertiesDisable").hide(), $("#fieldProperties").show(), $("#SettingsDisable").hide(), $("#Settings").show(), currQuestion.attr('name') == 'short-answer' ? $("#hideForShortAnswer").hide() : $("#hideForShortAnswer").show(), $("#panelActions").css("display", "block")) : sfDisableOptions()
     },
     sfDisableOptions = function() {
         $("#fieldPropertiesDisable").show();
