@@ -21,8 +21,76 @@ class plgSurveyShortanswer {
         return true;
     }
     
-     public static function onGetAdminOptions($data) {
-        return false;
+     public static function onGetAdminOptions($data, $lists) {
+         $my = JFactory::getUser();
+         $database = JFactory::getDBO();
+         $row = $data['item'];
+
+         $q_om_type = $row->sf_qtype;
+         $mainframe = JFactory::getApplication();
+         $sessions = JFactory::getSession();
+
+         $is_return = $sessions->get('is_return_sf') > 0 ? true : false;
+         $id = (isset($data['id'])) ? $data['id'] : '';
+
+         $lists['sf_fields_scale'] = array();
+         $query = "SELECT * FROM `#__survey_force_scales` WHERE `quest_id` = '" . $row->id . "' ORDER BY ordering";
+         $database->SetQuery($query);
+         $lists['sf_fields_scale'] = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
+
+         $fields_scale = JHtmlSelect::genericlist($lists['sf_fields_scale'], 'sf_list_scale_fields', 'class="text_area" size="1" id="sf_list_scale_fields"', 'stext', 'stext', 0);
+         $lists['sf_list_scale_fields'] = $fields_scale;
+
+         if ($is_return) {
+             $lists['sf_fields_scale'] = array();
+             $sf_hid_scale = $sessions->get('sf_hid_scale_sf');
+             $sf_hid_scale_id = $sessions->get('sf_hid_scale_id_sf');
+             for ($i = 0, $n = count($sf_hid_scale); $i < $n; $i++) {
+                 $tmp = new stdClass();
+                 $tmp->id = $sf_hid_scale_id[$i];
+                 $tmp->ordering = 0;
+                 $tmp->quest_id = 0;
+                 $tmp->stext = $sf_hid_scale[$i];
+                 $lists['sf_fields_scale'][] = $tmp;
+             }
+         }
+
+         $lists['sf_fields'] = array();
+         $query = "SELECT * FROM `#__survey_force_fields` WHERE quest_id = '" . $row->id . "' ORDER BY ordering";
+         $database->SetQuery($query);
+         $lists['sf_fields'] = ($database->LoadObjectList() == null ? array() : $database->LoadObjectList());
+         if ($is_return) {
+             $lists['sf_fields'] = array();
+             $sf_hid_fields = $sessions->get('sf_hid_fields_sf');
+             $sf_hid_field_ids = $sessions->get('sf_hid_field_ids_sf');
+             for ($i = 0, $n = count($sf_hid_fields); $i < $n; $i++) {
+                 $tmp = new stdClass();
+                 $tmp->id = $sf_hid_field_ids[$i];
+                 $tmp->ftext = $sf_hid_fields[$i];
+                 $lists['sf_fields'][] = $tmp;
+             }
+             if ($sessions->get('other_option_cb_sf') == 2)
+                 $lists['other_option'] = 1;
+             else
+                 $lists['other_option'] = 0;
+
+             $tmp = new stdClass();
+             $tmp->id = $sessions->get('other_op_id_sf');
+             $tmp->ftext = $sessions->get('other_option_sf');
+             $tmp->is_main = 0;
+             $lists['sf_fields'][] = $tmp;
+         }
+
+         $list_fields = JHtmlSelect::genericlist($lists['sf_fields'], 'sf_field_list', 'class="text_area" id="sf_field_list" size="1" ', 'ftext', 'ftext', 0);
+         $lists['sf_list_fields'] = $list_fields;
+
+         ob_start();
+         include_once(JPATH_SITE . "/plugins/survey/shortanswer/admin/js/shortanswer.js.php");
+         include_once(JPATH_SITE . "/plugins/survey/shortanswer/admin/options/shortanswer.php");
+         $options = ob_get_contents();
+         ob_clean();
+
+         return $options;
      }
 
     public function onSaveQuestion(&$data) {
