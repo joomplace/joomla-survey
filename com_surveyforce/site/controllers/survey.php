@@ -540,6 +540,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 						switch($question['sf_qtype']){
 							case 'pick-one':
 							case 'pick-many':
+                            case 'short-answer':
 
 								if(isset($return_json['questions'][$question['hides'][$n]['question']]) && isset($return_json['answers'][$question['hides'][$n]['question']][$question['hides'][$n]['answer'] - 1])){
 
