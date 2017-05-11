@@ -2084,6 +2084,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
                     // for B/C
                     $params['params'] = array();
 					$params['survey_id'] = $survey_id;
+					$params['start_id'] = $start_id;
 					$params['passed'] = 1;
                     $params['user_points'] = 1;
                     // for B/C
