@@ -2081,13 +2081,19 @@ class SurveyforceControllerSurvey extends JControllerForm {
 					}
 
 					$params = array();
-					$params['user_points'] = 1;
+                    // for B/C
+                    $params['params'] = array();
 					$params['survey_id'] = $survey_id;
+					$params['start_id'] = $start_id;
 					$params['passed'] = 1;
+                    $params['user_points'] = 1;
+                    // for B/C
+                    $params['params'] = $params;
 
-					$dispatcher = & JDispatcher::getInstance();
-					JPluginHelper::importPlugin('system');
-					$dispatcher->trigger('onSForceFinished', array(&$params));
+                    JPluginHelper::importPlugin('system');
+                    $dispatcher = JEventDispatcher::getInstance();
+                    $dispatcher->trigger('onAfterSurveyComplete', array($survey_id));
+					$dispatcher->trigger('onSForceFinished', $params);
 				}
 			}
 		}
