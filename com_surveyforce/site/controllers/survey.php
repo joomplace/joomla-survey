@@ -2092,7 +2092,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
                     JPluginHelper::importPlugin('system');
                     $dispatcher = JEventDispatcher::getInstance();
-                    $dispatcher->trigger('OnAfterSurveyComplete', array($survey_id));
+                    $dispatcher->trigger('onAfterSurveyComplete', array($survey_id));
 					$dispatcher->trigger('onSForceFinished', $params);
 				}
 			}
