@@ -10,7 +10,7 @@
   side and write it to a file or the database.
 */
 /**
-* Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+* @copyright Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
 * @license For licensing, see LICENSE.md or <a href="http://ckeditor.com/license">http://ckeditor.com/license</a>
 */
 /*
