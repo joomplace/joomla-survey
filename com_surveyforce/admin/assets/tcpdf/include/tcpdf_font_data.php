@@ -38,6 +38,9 @@
  * @package com.tecnick.tcpdf
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 /**
  * @class TCPDF_FONT_DATA
  * Unicode data and encoding maps for TCPDF.

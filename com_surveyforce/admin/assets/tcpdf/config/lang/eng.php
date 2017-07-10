@@ -30,6 +30,9 @@
  * @since 2004-03-03
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 // ENGLISH
 
 $l = Array();

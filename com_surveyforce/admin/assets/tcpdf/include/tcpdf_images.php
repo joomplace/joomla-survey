@@ -41,6 +41,9 @@
  * @version 1.0.005
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 /**
  * @class TCPDF_IMAGES
  * Static image methods used by the TCPDF class.

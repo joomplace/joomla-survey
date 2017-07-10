@@ -31,6 +31,9 @@
       GetHash($ID,$Data)
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
  /* pCache class definition */
  class pCache
   {

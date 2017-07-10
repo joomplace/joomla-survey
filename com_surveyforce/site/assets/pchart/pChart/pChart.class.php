@@ -92,7 +92,10 @@
       Render($FileName)
       Stroke()
  */
- 
+      
+ // no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
  /* Declare some script wide constants */
  define("SCALE_NORMAL",1);
  define("SCALE_ADDALL",2);

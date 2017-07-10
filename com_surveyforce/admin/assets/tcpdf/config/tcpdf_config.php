@@ -29,6 +29,9 @@
  * @since 2004-10-27
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 // If you define the constant K_TCPDF_EXTERNAL_CONFIG, the following settings will be ignored.
 
 if (!defined("K_TCPDF_EXTERNAL_CONFIG")) {

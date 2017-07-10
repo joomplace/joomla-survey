@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <?php
-/*
-Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.md or http://ckeditor.com/license
+/**
+* Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+* @license For licensing, see LICENSE.md or http://ckeditor.com/license
 */
+
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 <html>
 <head>

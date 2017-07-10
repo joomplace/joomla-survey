@@ -18,6 +18,8 @@
  * @package com.tecnick.tcpdf
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 /**
  * Returns the UTF-8 string corresponding to unicode value.

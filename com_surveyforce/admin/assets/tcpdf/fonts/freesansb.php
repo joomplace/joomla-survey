@@ -1,4 +1,15 @@
 <?php
+/**
+ * Survey Force Deluxe component for Joomla 3
+ * @package Survey Force Deluxe
+ * @author JoomPlace Team
+ * @Copyright Copyright (C) JoomPlace, www.joomplace.com
+ * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+ */
+
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 $type='TrueTypeUnicode';
 $name='FreeSansBold';
 $desc=array('Ascent'=>1159,'Descent'=>-355,'CapHeight'=>1159,'Flags'=>32,'FontBBox'=>'[-459 -355 1300 1159]','ItalicAngle'=>0,'StemV'=>120,'MissingWidth'=>600);

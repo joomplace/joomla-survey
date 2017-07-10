@@ -40,6 +40,9 @@
  * @version 1.0.001
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 /**
  * @class TCPDF_FILTERS
  * This is a PHP class for decoding common PDF filters (PDF 32000-2008 - 7.4 Filters).<br>

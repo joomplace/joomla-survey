@@ -32,6 +32,9 @@
  * THE SOFTWARE.
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 /**
  * The reCAPTCHA server URL's
  */

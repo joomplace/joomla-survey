@@ -1,3 +1,15 @@
+<?php
+/**
+* Survey Force Deluxe component for Joomla 3
+* @package Component.Surveyforce
+* @author JoomPlace Team
+* @Copyright Copyright (C) JoomPlace, www.joomplace.com
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+*/
+
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+?>
 <script type="text/javascript">
 var quest_type = <?php echo isset($q_om_type) ? $q_om_type : 0; ?>;
 var field_name = '';

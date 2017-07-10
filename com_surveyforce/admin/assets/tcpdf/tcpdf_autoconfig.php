@@ -40,6 +40,9 @@
  * @version 1.1.1
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 // DOCUMENT_ROOT fix for IIS Webserver
 if ((!isset($_SERVER['DOCUMENT_ROOT'])) OR (empty($_SERVER['DOCUMENT_ROOT']))) {
 	if(isset($_SERVER['SCRIPT_FILENAME'])) {
