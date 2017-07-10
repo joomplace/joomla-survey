@@ -2,7 +2,7 @@
 <?php
 /**
 * @copyright Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
-* @license For licensing, see LICENSE.md or http://ckeditor.com/license
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 */
 
 // no direct access

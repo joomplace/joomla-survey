@@ -11,7 +11,7 @@
 */
 /**
 * @copyright Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
-* @license For licensing, see LICENSE.md or <a href="http://ckeditor.com/license">http://ckeditor.com/license</a>
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 */
 /*
 -------------------------------------------------------------------------------------------
