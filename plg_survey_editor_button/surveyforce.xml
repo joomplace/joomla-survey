@@ -2,7 +2,7 @@
 <extension version="3.1" type="plugin" group="editors-xtd" method="upgrade">
 	<name>Button - SurveyForce</name>
 	<author>JoomPlace Team</author>
-	<creationDate>February 2011</creationDate>
+	<version>July 2017</version>
 	<copyright>(C) JoomPlace, www.joomplace.com</copyright>
 	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
 	<authorEmail>support@joomplace.com</authorEmail>
