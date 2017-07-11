@@ -50,17 +50,6 @@ JText::script('COM_SURVEYFORCE_BE_CONTROL_PANEL_BUT_CHECK_VERSION');
 			<td class="survf_control_panel_current_version"><?php echo $this->version;?></td>
 		</tr>
 		<tr>
-			<td><?php echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_LAT_VERSION') . ':'; ?></td>
-			<td>
-				<div id="survfLatestVersion">
-					<button class="btn btn-small" onclick="onBtnCheckLatestVersionClick(this, event);">
-						<i class="icon-health"></i>
-						<?php echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_BUT_CHECK_VERSION'); ?>
-					</button>
-				</div>
-			</td>
-		</tr>
-		<tr>
 			<td><?php echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_ABOUT') . ':'; ?></td>
 			<td>
 				<?php echo JText::_('COM_SURVEYFORCE_ABOUT_TEXT'); ?>
