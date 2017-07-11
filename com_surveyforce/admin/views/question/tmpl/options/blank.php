@@ -1,3 +1,15 @@
+<?php
+/**
+* Survey Force Deluxe component for Joomla 3
+* @package Component.Surveyforce
+* @author JoomPlace Team
+* @Copyright Copyright (C) JoomPlace, www.joomplace.com
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+*/
+
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+?>
 		<?php
 		$jq_num = 99999999;
 		for ($z = 0; $z < count($blank_data); $z++) { 

@@ -27,4 +27,7 @@
     <file type="plugin" id="sf_alphauserpoints" group="system">plg_sf_alphauserpoints.zip</file>
     <file type="plugin" id="updater" group="installer">plg_installer_joomplaceupdater.zip</file>
   </files>
+  <updateservers>
+    <server type="collection" priority="1" name="Joomplace Update Site">http://www.joomplace.com/updates/collections.xml</server>
+  </updateservers>
 </extension>

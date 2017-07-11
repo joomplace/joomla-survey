@@ -41,6 +41,9 @@
  * @version 1.1.2
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 /**
  * @class TCPDF_STATIC
  * Static methods used by the TCPDF class.

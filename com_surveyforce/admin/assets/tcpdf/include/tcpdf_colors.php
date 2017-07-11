@@ -38,6 +38,9 @@
  * @package com.tecnick.tcpdf
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 /**
  * @class TCPDF_COLORS
  * PHP color class for TCPDF

@@ -1,3 +1,15 @@
+<?php
+/**
+* Survey Force Deluxe component for Joomla 3
+* @package Component.Surveyforce
+* @author JoomPlace Team
+* @Copyright Copyright (C) JoomPlace, www.joomplace.com
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+*/
+
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+?>
 <?php if ($wysiwyg) { ?>		
 		<link rel="stylesheet" href="<?php echo JURI::root();?>administrator/components/com_joomlaquiz/assets/css/thickbox/thickbox.css" type="text/css" />
 		<script language="javascript" type="text/javascript" src="<?php echo JURI::root();?>administrator/components/com_joomlaquiz/assets/js/thickbox/thickbox.js" ></script>

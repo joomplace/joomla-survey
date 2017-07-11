@@ -1,4 +1,16 @@
 <?php
+/**
+* Survey Force Deluxe component for Joomla 3
+* @package Component.Surveyforce
+* @author JoomPlace Team
+* @Copyright Copyright (C) JoomPlace, www.joomplace.com
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+*/
+
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+?>
+<?php
 JToolBarHelper::title( ($row->id ? JText::_('COM_SURVEYFORCE_EDIT_QUESTION') : JText::_('COM_SURVEYFORCE_NEW_QUESTION')).' ('.JText::_('COM_SURVEYFORCE_RANKING').(($q_om_type == 5)?JText::_('COM_SURVEYFORCE_DROPDOWN'):JText::_('COM_SURVEYFORCE_DRAG_N_DROP')).')', 'static.png' );
 ?>
 <table width="100%">

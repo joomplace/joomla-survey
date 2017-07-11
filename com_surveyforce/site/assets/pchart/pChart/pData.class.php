@@ -44,6 +44,9 @@
       GetDataDescription()
  */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
  /* pData class definition */
  class pData
   {

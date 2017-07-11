@@ -31,6 +31,9 @@
  * @since 2.1.000 (2008-01-08)
 */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 /**
 * Left-to-Right Mark
 */

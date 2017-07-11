@@ -10,6 +10,7 @@
 */
 
 // no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 class mos_Survey_Force_Template extends JDatabase {
 	var $id 				= null;

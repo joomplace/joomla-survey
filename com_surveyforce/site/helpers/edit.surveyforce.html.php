@@ -9,6 +9,9 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 */
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 if (!function_exists('idBox'))
 {
 	function idBox( $rowNum, $recId, $checkedOut=false, $name='cid' ) {

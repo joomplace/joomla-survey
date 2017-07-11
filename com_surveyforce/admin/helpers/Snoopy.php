@@ -36,6 +36,9 @@ http://snoopy.sourceforge.net/
 
 *************************************************/
 
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 class Snoopy
 {
 	/**** Public variables ****/

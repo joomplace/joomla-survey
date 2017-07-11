@@ -10,6 +10,7 @@
 */
 
 // no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 include_once ( JPATH_BASE . '/components/com_surveyforce/helpers/surveyforce.class.php' );
 include_once ( JPATH_BASE . '/components/com_surveyforce/assets/libchart/libchart.php' );
