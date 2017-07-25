@@ -11,7 +11,7 @@
     </state>
 	
     <fields name="params" >
-        <fieldset name="basic" label="SurveyForce Parameters" addfieldpath="/administrator/components/com_surveyforce/models/fields">		
+        <fieldset name="request" label="SurveyForce Parameters" addfieldpath="/administrator/components/com_surveyforce/models/fields">
             <field name="surv_id" type="survey" default="0" label="Select survey" description="">
             </field>
 			
