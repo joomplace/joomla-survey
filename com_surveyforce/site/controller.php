@@ -14,51 +14,44 @@ defined('_JEXEC') or die('Restricted access');
  */
 class SurveyforceController extends JControllerLegacy
 {
-	public function display($cachable = false, $urlparams = array())
-	{
+    /**
+     * @param bool $cachable
+     * @param array $urlparams
+     * @internal in my opinion this method may contains only call parent display method. All the rest is superfluous
+     * @return JControllerLegacy|void
+     */
+    public function display($cachable = false, $urlparams = array())
+    {
+        $view   = $this->input->get('view');
+        $task   = $this->input->get('task');
+        $itemid = $this->input->get('Itemid', 0, 'INT');
 
-		$input = JFactory::getApplication()->input;
-		$itemid = $input->post->get('Itemid', 0, 'INT');
-		if(!$itemid){
-			$itemid = $input->get->get('Itemid', 0, 'INT');
-			if(!$itemid){
-				$itemid = $input->get('Itemid', 0, 'INT');
-			}
-		}
-		$input->set('Itemid',$itemid);
+        if (empty($itemid)) {
+            $itemid = !empty($this->input->post->get('Itemid', 0, 'INT')) ? $this->input->post->get('Itemid', 0, 'INT') : $this->input->get->get('Itemid', 0, 'INT');
+        }
 
-		$view = JFactory::getApplication()->input->get('view');
-		$task = JFactory::getApplication()->input->get('task');
+        $this->input->set('Itemid', $itemid);
 
-		$input = JFactory::getApplication()->input;
-		if ($view == 'authoring' && !isset($_SESSION['view']))
-		{
-			$_SESSION['view'] = 'authoring';
-		}
-		elseif ($view != 'authoring' && (isset($_SESSION['view']) && $_SESSION['view'] != 'authoring'))
-		{
-			unset($_SESSION['view']);
-		}
+        if ($view == 'authoring' && !isset($_SESSION['view'])) {
+            $_SESSION['view'] = 'authoring';
+        } elseif ($view != 'authoring' && (isset($_SESSION['view']) && $_SESSION['view'] != 'authoring')) {
+            unset($_SESSION['view']);
+        }
 
-		if (isset($_SESSION['view']) && $_SESSION['view'] == 'authoring' && $view != 'survey' && $view != 'passed_survey' && $view != 'category')
-		{
-			$input->set('view', 'authoring');
-		}
-		else
-		{
-			if ($view != 'category' && $view != 'insert_survey' && $view != 'passed_survey') $input->set('view', 'survey');
-		}
+        if (isset($_SESSION['view']) && $_SESSION['view'] == 'authoring' && $view != 'survey' && $view != 'passed_survey' && $view != 'category') {
+            $this->input->set('view', 'authoring');
+        } else {
+            if ($view != 'category' && $view != 'insert_survey' && $view != 'passed_survey') $this->input->set('view', 'survey');
+        }
 
-		if ($task == 'start_invited')
-		{
-			$input->set('view', 'survey');
-		}
+        if ($task == 'start_invited') {
+            $this->input->set('view', 'survey');
+        }
 
-		if ($task == 'view_users')
-		{
-			$input->set('view', 'authoring');
-		}
+        if ($task == 'view_users') {
+            $this->input->set('view', 'authoring');
+        }
 
-		parent::display($cachable);
-	}
+        parent::display($cachable);
+    }
 }
