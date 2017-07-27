@@ -64,13 +64,13 @@ class SurveyforceControllerInvite_users extends JControllerForm {
 		$UsersList = $database->loadObjectList();
 		$Users_to_invite = count($UsersList);
 		
-		$config = new JConfig();
+		$config = JFactory::getConfig();
 		$mailfrom = $config->mailfrom;
 		$fromname = $config->fromname;
 
 		$message 			= $Send_email[0]->email_body;
 		$subject 			= stripslashes( $Send_email[0]->email_subject);
-		$email_reply		= $Send_email[0]->email_reply;
+        $email_reply		= $Send_email[0]->email_reply ? $Send_email[0]->email_reply : $mailfrom;
 		$ii = 1;
 		
 		$query = "UPDATE `#__survey_force_listusers` SET `is_invited` = '2', `date_invited` = '".date( 'Y-m-d H:i:s' )."' WHERE `id` ='".$list_id."'";
