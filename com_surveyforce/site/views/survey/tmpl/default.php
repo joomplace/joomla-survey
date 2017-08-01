@@ -522,8 +522,6 @@ if (isset($survey->error) && $survey->error) {
                 var post_target = mosConfig_live_site + url_prefix;
                 http_request.open("POST", post_target, true);
                 http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                http_request.setRequestHeader("Content-length", url.length);
-                http_request.setRequestHeader("Connection", "close");
                 http_request.send(url);
 
     <?php } ?>
