@@ -137,40 +137,24 @@ JHtml::_('formbehavior.chosen', 'select');
                     </div>
                 </fieldset>
                 <fieldset class="form-horizontal">
-                    <legend>Colors for Progress Bar</legend>
+                    <legend><?php echo JText::_('COM_SURVEYFORCE_PROGRESS_BAR_STYLE_LEGEND'); ?></legend>
                     <div class="control-group">
                         <div class="control-label">
-                            <?php echo $this->form->getLabel('color_border'); ?>
-	                    </div>
+                            <?php echo $this->form->getLabel('progress_bar_style'); ?>
+                        </div>
                         <div class="controls">
-                            <?php echo $this->form->getInput('color_border'); ?>
+                            <?php echo $this->form->getInput('progress_bar_style'); ?>
                         </div>
                     </div>
                     <div class="control-group">
-	                    <div class="control-label">
-                            <?php echo $this->form->getLabel('color_text');?>
-		                </div>
+                        <div class="control-label">
+                            <?php echo $this->form->getLabel('progress_bar_striped'); ?>
+                        </div>
                         <div class="controls">
-                            <?php echo $this->form->getInput('color_text'); ?>
+                            <?php echo $this->form->getInput('progress_bar_striped'); ?>
                         </div>
                     </div>
-                    <div class="control-group">
-	                    <div class="control-label">
-                            <?php echo $this->form->getLabel('color_completed'); ?>
-		                </div>
-                        <div class="controls">
-                            <?php echo $this->form->getInput('color_completed'); ?>
-                        </div>
-                    </div>
-                    <div class="control-group">
-	                    <div class="control-label">
-                            <?php echo $this->form->getLabel('color_uncompleted'); ?>
-		                </div>
-                        <div class="controls" >
-                            <?php echo $this->form->getInput('color_uncompleted'); ?>
-                        </div>
-                    </div>
-                </fieldset>          
+                </fieldset>
             </div>
             <div class="tab-pane" id="survey-result-review">            
                 <fieldset>
