@@ -1,0 +1,1 @@
+ALTER TABLE `#__survey_force_survs` MODIFY `sf_image` VARCHAR(250);
