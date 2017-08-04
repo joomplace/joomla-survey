@@ -154,6 +154,14 @@ JHtml::_('formbehavior.chosen', 'select');
                             <?php echo $this->form->getInput('progress_bar_striped'); ?>
                         </div>
                     </div>
+                    <div class="control-group">
+                        <div class="control-label">
+                            <?php echo $this->form->getLabel('progress_bar_animate'); ?>
+                        </div>
+                        <div class="controls">
+                            <?php echo $this->form->getInput('progress_bar_animate'); ?>
+                        </div>
+                    </div>
                 </fieldset>
             </div>
             <div class="tab-pane" id="survey-result-review">            

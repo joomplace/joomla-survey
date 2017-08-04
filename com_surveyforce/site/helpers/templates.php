@@ -75,10 +75,11 @@ class SurveyforceTemplates {
         $lang = JFactory::getLanguage();
         $lang->load(COMPONENT_OPTION, JPATH_SITE, $tag, true);
 
-        $striped = $sf_config->get('progress_bar_striped') ? ' progress-bar-striped' : '';
+        $striped = $sf_config->get('progress_bar_striped') ? 'progress-striped' : '';
+        $animate = $sf_config->get('progress_bar_animate') ? 'active' : '';
 
-        $str = '<div class="progress surveyforce" id="progress" style="display:none">
-					<div class="progress-bar ' . $sf_config->get('progress_bar_style') . $striped . '" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progress_bar" >&nbsp;</div>
+        $str = '<div class="progress ' . $animate . ' ' . $sf_config->get('progress_bar_style') . ' ' . $striped . '" id="progress" style="display:none">
+					<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progress_bar" >&nbsp;</div>
 				</div>';
 
         return $str;

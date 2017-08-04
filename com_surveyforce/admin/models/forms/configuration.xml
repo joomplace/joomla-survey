@@ -114,6 +114,12 @@
             <option value='0'>COM_SURVEYFORCE_NO</option>
         </field>
 
+        <field name="progress_bar_animate" type="radio" default="0" label="COM_SURVEYFORCE_PROGRESS_BAR_USE_ANIMATE"
+               readonly="false"  class="btn-group">
+            <option value='1'>COM_SURVEYFORCE_YES</option>
+            <option value='0'>COM_SURVEYFORCE_NO</option>
+        </field>
+
         <field name="color_border" type="color" default="#000000" label="COM_SURVEYFORCE_BORDER_COLOR"
                readonly="false"  />
 
