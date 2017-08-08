@@ -151,6 +151,16 @@ if (isset($survey->error) && $survey->error) {
             });
         });
 
+    function preventKeyPress(e, charCode) {
+        // look for window.event in case event isn't passed in
+        e = e || window.event;
+        if (e.keyCode == charCode) {
+            document.getElementById('sf_next_button').click();
+            return false;
+        }
+        return true;
+    }
+
         function check_num_opt(n, elem) {
             if (questions[n].cur_quest_type == 3) {
                 var sf_num_options = 0;
