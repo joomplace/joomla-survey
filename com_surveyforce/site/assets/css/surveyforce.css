@@ -575,3 +575,17 @@ div#progress_bar_txt {
 label {
     cursor:pointer;
 }
+
+.pick_many_table input[type="checkbox"] {
+    float: left;
+    margin: 7px 4px;
+}
+
+.pick_many_table label {
+    display: block;
+    margin: 5px 30px;
+}
+
+.surveyforce .btn .caret {
+    margin: 6px 0 6px;
+}

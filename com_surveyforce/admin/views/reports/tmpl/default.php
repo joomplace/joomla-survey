@@ -56,9 +56,9 @@ $listDirn = $this->state->get('list.direction');
 
 		<?php echo $this->sidebar; ?>
 		<br/><br/>
-		<h4 class="page-header"><?php echo JText::_('JSEARCH_FILTER_LABEL');?></h4>
 
         <div class="filter-select fltrt">
+            <h4 class="page-header"><?php echo JText::_('JSEARCH_FILTER_LABEL');?></h4>
             <select name="filter_is_complete" class="inputbox" onchange="document.adminForm.task.value = 'reports'; this.form.submit()" style="width: 268px">
                 <option value=""><?php echo JText::_('COM_SURVEYFORCE_SELECT_STATUS'); ?></option>
                 <?php echo JHtml::_('select.options', $this->sf_status, 'value', 'text', $this->state->get('filter.is_complete')); ?>
