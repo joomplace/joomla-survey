@@ -95,8 +95,6 @@ EOFTMPL;
             }
             $return_str .= '<tr><td class="pm_answer_cell">' .
                     '<input onclick="javascript: return check_num_opt(' . SF_PickmanyTemplate::$question->id . ', this)" onchange="javascript:  if (check_num_opt(' . SF_PickmanyTemplate::$question->id . ', this)) check_answer(' . SF_PickmanyTemplate::$question->id . ');" class="pm_checkbox" type="checkbox" name="quest_check' . SF_PickmanyTemplate::$question->id . '" id="quest_check' . SF_PickmanyTemplate::$question->id . $i . '" value="' . SF_PickmanyTemplate::$iscale['mfield'][$i]['mfield_id'] . '" ' . $selected . '>' .
-                    '</td>' .
-                    '<td class="pm_quest_cell">' .
                     '<label onclick="javascript: return check_num_opt(' . SF_PickmanyTemplate::$question->id . ', this);" for="quest_check' . SF_PickmanyTemplate::$question->id . $i . '">' .
                     SF_PickmanyTemplate::$iscale['mfield'][$i]['mfield_text'] .
                     '</label>' .
@@ -119,8 +117,6 @@ EOFTMPL;
             $return_str .= '<tr>' .
                     '<td class="pm_answer_cell">' .
                     '<input onclick="javascript: return check_num_opt(' . SF_PickmanyTemplate::$question->id . ', this)" onchange="javascript: if (check_num_opt(' . SF_PickmanyTemplate::$question->id . ', this)) check_answer(' . SF_PickmanyTemplate::$question->id . ');" type="checkbox" class="pm_checkbox" name="quest_check' . SF_PickmanyTemplate::$question->id . '" id="quest_check' . SF_PickmanyTemplate::$question->id . 'e" value="' .SF_PickmanyTemplate::$iscale['afield'][0]['afield_id'] . '" ' . $selected . '>' .
-                    '</td>' .
-                    '<td class="pm_quest_cell">' .
                     '<label onclick="javascript: return check_num_opt(' . SF_PickmanyTemplate::$question->id . ', this)" for="quest_check' . SF_PickmanyTemplate::$question->id . 'e">' .
                     SF_PickmanyTemplate::$iscale['afield'][0]['afield_text'] .
                     '</label>' .

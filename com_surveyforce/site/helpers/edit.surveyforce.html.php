@@ -68,30 +68,36 @@ function SF_showTop( $HeadPicture, $HeadTitle, $toolbar, $additionBottomRight, $
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
+                <div class="btn-group">
+                    <a class="brand" href="#">Dashboard</a>
+                </div>
+                <div class="btn-group">
+                    <?php if ($additionUpLeft == 'new_survey') { ?>
 
-				<a class="brand" href="#">Dashboard</a>
-				<?php if($additionUpLeft == 'new_survey'){ ?>
+                        <a onclick="javascript:window.open('<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_surv&tmpl=component&Itemid=<?php echo $Itemid; ?>', '_blank'); return false;"
+                           href="javascript: void(0);" class="btn btn-primary"><i class="sf-icon-plus"></i>New
+                        </a>
 
-					<a onclick="javascript:window.open('<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_surv&tmpl=component&Itemid=<?php echo $Itemid; ?>', '_blank'); return false;" href="javascript: void(0);" class="btn btn-primary"><i class="sf-icon-plus"></i>New
-					</a>
+                    <?php } elseif ($additionUpLeft == 'new_category') { ?>
 
-				<?php } elseif($additionUpLeft == 'new_category'){ ?>
+                        <a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_cat&Itemid=<?php echo $Itemid; ?>"
+                           class="btn btn-primary"><i class="sf-icon-plus"></i>New
+                        </a>
 
-					<a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_cat&Itemid=<?php echo $Itemid; ?>" class="btn btn-primary"><i class="sf-icon-plus"></i>New
-					</a>
+                    <?php } elseif ($additionUpLeft == 'new_userlist') { ?>
 
-				<?php } elseif($additionUpLeft == 'new_userlist'){ ?>
+                        <a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_list&Itemid=<?php echo $Itemid; ?>"
+                           class="btn btn-primary"><i class="sf-icon-plus"></i>New
+                        </a>
 
-					<a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=edit_list&Itemid=<?php echo $Itemid; ?>" class="btn btn-primary"><i class="sf-icon-plus"></i>New
-					</a>
+                    <?php } elseif ($additionUpLeft == 'new_email') { ?>
 
-				<?php } elseif($additionUpLeft == 'new_email'){ ?>
+                        <a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=add_email&Itemid=<?php echo $Itemid; ?>"
+                           class="btn btn-primary"><i class="sf-icon-plus"></i>New
+                        </a>
 
-					<a href="<?php echo JURI::root(); ?>index.php?option=com_surveyforce&task=add_email&Itemid=<?php echo $Itemid; ?>" class="btn btn-primary"><i class="sf-icon-plus"></i>New
-					</a>
-
-				<?php } ?>
-
+                    <?php } ?>
+                </div>
 				<div class="nav-collapse navbar-responsive-collapse collapse" style="height: 0px;">
 					<ul class="nav pull-right">
 						<?php if(!empty($toolbar)){ ?>
@@ -2644,7 +2650,7 @@ class survey_force_front_html {
 					$ans = count($qrow->answer);
 					foreach ($qrow->answer as $n => $arow) {
 						$img_ans = $arow->alt_text ? "<img src='components/com_surveyforce/assets/images/buttons/btn_apply.png' width='12' height='12' border='0' />" : '';
-						echo "<small " . ($img_ans ? 'class="label"' : '') . ">" . $arow->f_text . "</small>";
+						echo "<div><small " . ($img_ans ? 'class="label"' : '') . ">" . $arow->f_text . "</small></div>";
 						if ($n != $ans-1) echo "<br/>";
 						$k = 3 - $k;
 					}
