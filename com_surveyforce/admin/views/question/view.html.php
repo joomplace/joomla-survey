@@ -59,19 +59,16 @@ class SurveyforceViewQuestion extends JViewLegacy {
         $data['quest_type'] = $type;
         $data['item'] = $this->item;
 
-        if($data['quest_type'] == 'pagebreak'){
-			
-            if (method_exists($className, 'onSaveQuestion'))
-                $return = $className::onSaveQuestion($data);
-            $app->redirect(JRoute::_(JURI::base().'index.php?option=com_surveyforce&view=questions&surv_id='.$this->item->sf_survey));
+        if ($data['quest_type'] == 'pagebreak') {
+            $app->redirect(JRoute::_(JURI::base() . 'index.php?option=com_surveyforce&view=questions&surv_id=' . $this->item->sf_survey));
         }
-        
+
         $model = JModelLegacy::getInstance("Question", "SurveyforceModel");
         $lists = $model->getLists($this->item->id);
 
         if (method_exists($className, 'onGetAdminOptions'))
                 $this->options = $className::onGetAdminOptions($data, $lists);
-        
+
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
             JError::raiseError(500, implode("\n", $errors));
