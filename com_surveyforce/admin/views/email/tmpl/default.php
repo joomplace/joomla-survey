@@ -63,7 +63,12 @@ JHtml::_('behavior.formvalidation');
 						<div class="control-group form-inline">
 							<?php echo JText::_('COM_SURVEYFORCE_REPLY_TO') . ':' ?>
 							<div class="controls">
-								<?php echo $this->form->getInput('email_reply'); ?>
+                            <?php
+                                $config = JFactory::getConfig();
+                                $hint = $this->form->getFieldAttribute('email_reply', 'hint') ? $this->form->getFieldAttribute('email_reply', 'hint') : $config->get('mailfrom');
+                                $this->form->setFieldAttribute('email_reply', 'hint', $hint)
+                            ?>
+                            <?php echo $this->form->getInput('email_reply'); ?>
 							</div>
 						</div>
 						<br style="clear:both;"/>
