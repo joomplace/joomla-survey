@@ -89,6 +89,36 @@
         <field name="fe_lang" type="text" default="0" label="COM_SURVEYFORCE_FE_LANG" 
                readonly="false"  />
 
+        <field
+                name="progress_bar_style"
+                type="list"
+                label="COM_SURVEYFORCE_PROGRESS_BAR_BOOTSTRAP_STYLE"
+                default="0"
+        >
+            <option value="progress-bar">Default</option>
+            <option value="progress-bar-success">Success</option>
+            <option value="progress-bar-info">Info</option>
+            <option value="progress-bar-warning">Warning</option>
+            <option value="progress-bar-danger">Danger</option>
+        </field>
+
+        <field
+                name="progress_bar_striped"
+                type="radio"
+                default="1"
+                label="COM_SURVEYFORCE_PROGRESS_BAR_USE_GRADIENT"
+                readonly="false"
+                class="btn-group"
+        >
+            <option value='1'>COM_SURVEYFORCE_YES</option>
+            <option value='0'>COM_SURVEYFORCE_NO</option>
+        </field>
+
+        <field name="progress_bar_animate" type="radio" default="0" label="COM_SURVEYFORCE_PROGRESS_BAR_USE_ANIMATE"
+               readonly="false"  class="btn-group">
+            <option value='1'>COM_SURVEYFORCE_YES</option>
+            <option value='0'>COM_SURVEYFORCE_NO</option>
+        </field>
 
         <field name="color_border" type="color" default="#000000" label="COM_SURVEYFORCE_BORDER_COLOR"
                readonly="false"  />

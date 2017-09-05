@@ -571,7 +571,7 @@ if (isset($survey->error) && $survey->error) {
                             sf_CreateQuestions();
                             sf_getObj("progress").style.display = "<?php echo ($survey->sf_progressbar == 1 ? '' : 'none'); ?>";//"none"
                             sf_getObj('progress_bar').style.width = response.getElementsByTagName('progress_bar')[0].firstChild.data;
-                            sf_getObj('progress_bar_txt').innerHTML = response.getElementsByTagName('progress_bar_txt')[0].firstChild.data;
+                            sf_getObj('progress_bar').setAttribute('aria-valuenow', response.getElementsByTagName('progress_bar')[0].firstChild.data);
                             if (response.getElementsByTagName('is_resume')[0].firstChild.data == 0)
                                 sf_UpdateTaskDiv('start');
                             else
@@ -590,7 +590,7 @@ if (isset($survey->error) && $survey->error) {
                                 }
                             }
                             sf_getObj('progress_bar').style.width = response.getElementsByTagName('progress_bar')[0].firstChild.data;
-                            sf_getObj('progress_bar_txt').innerHTML = response.getElementsByTagName('progress_bar_txt')[0].firstChild.data;
+                            sf_getObj('progress_bar').setAttribute('aria-valuenow', response.getElementsByTagName('progress_bar')[0].firstChild.data);
                             if (task == 'prev')
                                 sf_UpdateTaskDiv('next');
                             else
@@ -616,7 +616,7 @@ if (isset($survey->error) && $survey->error) {
                                 }
                             }
                             sf_getObj('progress_bar').style.width = response.getElementsByTagName('progress_bar')[0].firstChild.data;
-                            sf_getObj('progress_bar_txt').innerHTML = response.getElementsByTagName('progress_bar_txt')[0].firstChild.data;
+                            sf_getObj('progress_bar').setAttribute('aria-valuenow', response.getElementsByTagName('progress_bar')[0].firstChild.data);
                             sf_UpdateTaskDiv(task);
                             break;
                         case 'finish':
