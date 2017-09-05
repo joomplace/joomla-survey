@@ -664,7 +664,7 @@ class SurveyforceHelper
 		$survey->is_complete = 0;
 		if ($invite_num != '')
 		{
-			$query = "SELECT 1 FROM `#__survey_force_invitations` AS a, `#__survey_force_user_starts` AS b WHERE a.invite_num = '{$invite_num}' AND b.invite_id = a.id AND b.is_complete = 1";
+			$query = "SELECT 1 FROM `#__survey_force_invitations` AS a, `#__survey_force_user_starts` AS b WHERE a.invite_num = ".JFactory::getDbo()->q($invite_num)." AND b.invite_id = a.id AND b.is_complete = 1";
 			$database->setQuery($query);
 			$survey->is_complete = (int) $database->loadResult();
 		}
