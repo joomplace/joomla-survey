@@ -119,11 +119,11 @@ EOFTMPL;
 			}
 			$return_str .= '<tr>' .
 				'<td class="pm_answer_cell">' .
-				'<input onclick="javascript: return check_num_opt(' . SF_PickmanyTemplate::$question->id . ', this)" onchange="javascript: if (check_num_opt(' . SF_PickmanyTemplate::$question->id . ', this)) check_answer(' . SF_PickmanyTemplate::$question->id . ');" type="checkbox" class="pm_checkbox" name="quest_check' . SF_PickmanyTemplate::$question->id . '" id="quest_check' . SF_PickmanyTemplate::$question->id . 'e" value="' .SF_PickmanyTemplate::$iscale['afield'][0]['afield_id'] . '" ' . $selected . '>' .
+				'<input onkeypress = "return preventKeyPress(event, 13);" onclick="javascript: return check_num_opt(' . SF_PickmanyTemplate::$question->id . ', this)" onchange="javascript: if (check_num_opt(' . SF_PickmanyTemplate::$question->id . ', this)) check_answer(' . SF_PickmanyTemplate::$question->id . ');" type="checkbox" class="pm_checkbox" name="quest_check' . SF_PickmanyTemplate::$question->id . '" id="quest_check' . SF_PickmanyTemplate::$question->id . 'e" value="' .SF_PickmanyTemplate::$iscale['afield'][0]['afield_id'] . '" ' . $selected . '>' .
 				'<label onclick="javascript: return check_num_opt(' . SF_PickmanyTemplate::$question->id . ', this)" for="quest_check' . SF_PickmanyTemplate::$question->id . 'e">' .
 				SF_PickmanyTemplate::$iscale['afield'][0]['afield_text'] .
 				'</label>' .
-				'&nbsp;<input class="pm_other" type="text" id="other_op_' . SF_PickmanyTemplate::$question->id . '" name="other_op_' . SF_PickmanyTemplate::$question->id . '" value="' . $other_val . '"/>' .
+				'&nbsp;<input onkeypress = "return preventKeyPress(event, 13);" class="pm_other" type="text" id="other_op_' . SF_PickmanyTemplate::$question->id . '" name="other_op_' . SF_PickmanyTemplate::$question->id . '" value="' . $other_val . '"/>' .
 				'<br/>' .
 				'</td>' .
 				'</tr>';
