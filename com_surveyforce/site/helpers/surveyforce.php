@@ -627,7 +627,7 @@ class SurveyforceHelper
 
 		$database = JFactory::getDbo();
 		$survey_id = JFactory::getApplication()->input->get('survey', 0);
-		$invite_num = JFactory::getApplication()->input->getString('invite', '');
+		$invite_num = JFactory::getApplication()->input->get('invite', '', 'CMD');
 		$template = JFactory::getApplication()->input->get('survey_template');
 		$survey = new mos_Survey_Force_Survey($database);
 		$survey->load($survey_id);
@@ -667,6 +667,14 @@ class SurveyforceHelper
 			$query = "SELECT 1 FROM `#__survey_force_invitations` AS a, `#__survey_force_user_starts` AS b WHERE a.invite_num = ".JFactory::getDbo()->q($invite_num)." AND b.invite_id = a.id AND b.is_complete = 1";
 			$database->setQuery($query);
 			$survey->is_complete = (int) $database->loadResult();
+			$db = JFactory::getDbo();
+			$query = $db->getQuery(true);
+			$query->select('1')
+                ->from('#__survey_force_invitations')
+                ->where('invite_num = '.$db->q($invite_num));
+			if(!$db->setQuery($query)->loadResult()){
+                JFactory::getApplication()->input->set('invite', 'NOINVITE');
+            }
 		}
 
 
