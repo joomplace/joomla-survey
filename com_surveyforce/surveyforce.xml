@@ -2,12 +2,12 @@
 <extension type="component" version="3.x" method="upgrade">
   <name>COM_SURVEYFORCE</name>
   <author>JoomPlace Team</author>
-  <creationDate>July 2017</creationDate>
+  <creationDate>September 2017</creationDate>
   <copyright>(C) JoomPlace, www.joomplace.com</copyright>
   <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
   <authorEmail>support@joomplace.com</authorEmail>
   <authorUrl>www.joomplace.com</authorUrl>
-  <version>3.2.4</version>
+  <version>3.2.5</version>
   <description>Survey Force Deluxe component.</description>
   <scriptfile>script.php</scriptfile>
   <install>

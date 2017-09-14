@@ -2,12 +2,12 @@
 <surveyforce_install type="template" version="1.0.0">
     <name>surveyforce_standart</name>
     <author>JoomPlace Team</author>
-    <creationDate>July 2017</creationDate>
+    <creationDate>September 2017</creationDate>
     <copyright>(C) JoomPlace, www.joomplace.com</copyright>
     <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
     <authorEmail>support@joomplace.com</authorEmail>
     <authorUrl>www.joomplace.com</authorUrl>
-    <version>3.2.4</version>
+    <version>3.2.5</version>
     <description>Additional template for SurveyForce component.</description>
     <files>
         <filename>index.html</filename>
