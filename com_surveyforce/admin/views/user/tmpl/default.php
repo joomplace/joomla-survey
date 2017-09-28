@@ -29,7 +29,8 @@ JHtml::_('behavior.formvalidation');
 		}
 		
 		// do field validation
-		var reg_email = /[0-9a-z_]+@[0-9a-z_^.]+.[a-z]{2,3}/;
+		//var reg_email = /[0-9a-z]+@[0-9a-z_^.]+.[a-z]{2,3}/i;
+        var reg_email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (document.getElementById('jform_name').value == ""){
 			alert( "<?php echo JText::_('COM_SURVEYFORCE_USER_MUST_HAVE_NAME'); ?>" );
 		} else if (document.getElementById('jform_lastname').value == ""){
