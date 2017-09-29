@@ -27,7 +27,7 @@ class SurveyforceModelListusers extends JModelList {
     protected function getListQuery() {
         $db = $this->getDbo();
         $query = $db->getQuery(true);
-        $query->select('a.id, a.listname, a.survey_id, a.date_created, a.date_invited, a.date_remind, a.is_invited, b.sf_name as survey_name, count(c.id) as users_count, d.name AS author, e.user_id AS starts');
+        $query->select('a.id, a.listname, a.survey_id, a.date_created, a.date_invited, a.date_remind, a.is_invited, b.sf_name as survey_name, count(c.id) as users_count, d.name AS author, COUNT(e.user_id) AS starts');
         $query->from('#__survey_force_listusers a LEFT JOIN #__survey_force_survs b ON b.id = a.survey_id LEFT JOIN #__survey_force_users c ON c.list_id = a.id LEFT JOIN #__users AS d ON d.id = a.sf_author_id LEFT JOIN #__survey_force_user_starts AS e ON c.id=e.user_id');
         $query->group('a.id');
         /*$query->group('a.id, a.listname, a.survey_id, a.date_created, a.date_invited, a.date_remind, a.is_invited, b.sf_name, e.user_id');*/
