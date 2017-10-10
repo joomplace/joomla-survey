@@ -5372,7 +5372,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$surveys = mosHTML::selectList($surveys, 'survid', 'class="text_area" size="1" onchange="document.adminForm.submit();"', 'value', 'text', $survid);
 		$lists['surveys'] = $surveys;
 
-		$query = "SELECT id AS value, mb_substrING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (4, 7, 8) AND sf_survey = $survid ORDER BY ordering";
+		$query = "SELECT id AS value, SUBSTRING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (4, 7, 8) AND sf_survey = $survid ORDER BY ordering";
 		$database->setQuery($query);
 		$questions_tmp = $database->loadObjectList();
 		$questions = array();
@@ -5406,7 +5406,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		else
 			$lists['mquest_id'] = '';
 
-		$query = "SELECT id AS value, mb_substrING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (7, 8) AND sf_survey = $survid ORDER BY ordering";
+		$query = "SELECT id AS value, SUBSTRING(sf_qtext,1,100) AS text, sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_qtype NOT IN (7, 8) AND sf_survey = $survid ORDER BY ordering";
 		$database->setQuery($query);
 		$questions_tmp = $database->loadObjectList();
 		$questions = array();
