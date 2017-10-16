@@ -17,7 +17,7 @@ class plgSurveyPickmany {
 	var $_name = 'pickmany';
 	var $_type = 'survey';
 
-	public function plgSurveyPickmany() {
+	public function __construct() {
 		return true;
 	}
 

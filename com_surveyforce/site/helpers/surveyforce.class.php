@@ -415,7 +415,7 @@ class DeImportFieldDescriptor {
 	var $required		= FALSE;
 	var $defaultValue	= NULL;
 	
-	function DeImportFieldDescriptor($name, $required = FALSE, $defaultValue = NULL) {
+	function _construct($name, $required = FALSE, $defaultValue = NULL) {
 		$this->name				= $name;
 		$this->required			= $required;
 		$this->defaultValue		= $defaultValue;

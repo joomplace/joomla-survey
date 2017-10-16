@@ -17,7 +17,7 @@ class plgSurveyShortanswer {
     var $_name = 'shortanswer';
     var $_type = 'survey';
 
-    public function plgSurveyShortanswer() {
+    public function __construct() {
         return true;
     }
     

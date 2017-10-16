@@ -18,7 +18,7 @@ class plgSurveyPagebreak {
     var $_name = 'pagebreak';
     var $_type = 'survey';
 
-    public function plgSurveyPagebreak() {
+    public function __construct() {
         return true;
     }
 

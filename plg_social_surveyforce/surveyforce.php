@@ -22,7 +22,7 @@ if(!class_exists('plgCommunitySurveyforce'))
 		public $_name		= 'surveyforce';
 		var $_path		= '';
 
-	    function plgCommunitySurveyforce($subject, $config)
+	    function __construct($subject, $config)
 	    {
 			parent::__construct($subject, $config);
 

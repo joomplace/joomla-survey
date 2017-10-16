@@ -18,7 +18,7 @@ if(!class_exists('plgSystemSF_alphauserpoints')){
 		/*
 		 * Constructor
 		 */
-		function plgSystemSF_alphauserpoints(&$subject, $config)
+		function __construct(&$subject, $config)
 		{
 			parent::__construct($subject, $config);
 		}

@@ -5,7 +5,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
         /** Libchart - PHP chart library
         *       
-        * Copyright (C) 2005-2006 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * Copyright (C) 2005-2006 Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
         *       
         * This library is free software; you can redistribute it and/or
         * modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
         /**
         * Automatic axis boundaries and ticks calibration
         *
-        * @author   Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * @author   Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
         */
 
         class Axis
@@ -39,7 +39,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 * @param        integer         maximum value on the axis
                 */
                 
-                function Axis($min, $max)
+                function __construct($min, $max)
                 {
                         $this->min = $min;
                         $this->max = $max;

@@ -457,11 +457,6 @@ class mosCategory extends JTableCategory
 		parent::__construct( $db );
 	}
 
-	function mosCategory(&$db)
-	{
-		parent::__construct( $db );
-	}
-
 	/**
 	 * Legacy Method, use {@link JTable::reorder()} instead
 	 * @deprecated As of 1.5
@@ -487,7 +482,7 @@ class mosCategory extends JTableCategory
 if (!class_exists('mosAbstractTasker')) {
 class mosAbstractTasker
 {
-	function mosAbstractTasker()
+	function __construct()
 	{
 		jexit( 'mosAbstractTasker deprecated, use JController instead' );
 	}
@@ -511,7 +506,7 @@ class mosEmpty
 if (!class_exists('MENU_Default')) {
 class MENU_Default
 {
-	function MENU_Default()
+	function __construct()
 	{
 		JToolBarHelper::publishList();
 		JToolBarHelper::unpublishList();
@@ -854,11 +849,6 @@ class mosDBTable extends JTable
 	 * Constructor
 	 */
 	function __construct($table, $key, &$db)
-	{
-		parent::__construct( $table, $key, $db );
-	}
-
-	function mosDBTable($table, $key, &$db)
 	{
 		parent::__construct( $table, $key, $db );
 	}
@@ -2115,10 +2105,6 @@ if (!class_exists('JInstaller')) {
 
 class mosInstaller extends JInstaller
 {
-	function mosInstaller() {
-		parent::__construct();
-	}
-	
 	function __construct() {
 		parent::__construct();
 	}
@@ -2149,19 +2135,6 @@ class mosMainFrame extends JApplication
 	 * @param string The path of the mos directory [DEPRECATED]
 	 */	
 	function __construct( &$db, $option, $basePath=null, $client=0 )
-	{
-		$config = array();
-		$config['clientId'] = $client;
-		parent::__construct( $config );
-	}
-
-	/**
-	 * Class constructor
-	 * @param database A database connection object
-	 * @param string The url option [DEPRECATED]
-	 * @param string The path of the mos directory [DEPRECATED]
-	 */
-	function mosMainFrame( &$db, $option, $basePath=null, $client=0 )
 	{
 		$config = array();
 		$config['clientId'] = $client;
@@ -2256,11 +2229,6 @@ if (!class_exists('JDispatcher')) {
 
 class mosMambotHandler extends JDispatcher
 {
-	function mosMambotHandler()
-	{
-		parent::__construct();
-	}
-	
 	function __construct()
 	{
 		parent::__construct();
@@ -2318,11 +2286,6 @@ class mosMenu extends JTableMenu
 	 * Constructor
 	 */
 	function __construct(&$db)
-	{
-		parent::__construct( $db );
-	}
-
-	function mosMenu(&$db)
 	{
 		parent::__construct( $db );
 	}
@@ -2445,11 +2408,6 @@ class mosModule extends JTableModule
 		parent::__construct( $db );
 	}
 
-	function mosModule(&$db)
-	{
-		parent::__construct( $db );
-	}
-
 	/**
 	 * Legacy Method, use {@link JTable::reorder()} instead
 	 * @deprecated As of 1.5
@@ -2550,11 +2508,7 @@ class mosProfiler extends JProfiler
 	/**
 	* @return object A function cache object
 	*/
-	function mosProfiler (  $prefix=''  )
-	{
-		parent::__construct($prefix);
-	}
-	
+
 	function __construct (  $prefix=''  )
 	{
 		parent::__construct($prefix);
@@ -2591,11 +2545,6 @@ class mosSession extends JTableSession
 	function __construct(&$db)
 	{
 		parent::__construct(  $db );
-	}
-
-	function mosSession(&$db)
-	{
-		parent::__construct( $db );
 	}
 
 	/**
@@ -2997,11 +2946,6 @@ class mosUser extends JTableUser
 		parent::__construct( $db );
 	}
 
-	function mosUser(&$db)
-	{
-		parent::__construct( $db);
-	}
-
 	/**
 	 * Legacy Method, use {@link JTable::reorder()} instead
 	 * @deprecated As of 1.5
@@ -3090,7 +3034,7 @@ if (!class_exists('JPagination')) {
 */
 class mosPageNav extends JPagination
 {
-	function mosPageNav( $total, $limitstart, $limit ) {
+	function __construct( $total, $limitstart, $limit ) {
 		parent::__construct($total, $limitstart, $limit);
 	}
 

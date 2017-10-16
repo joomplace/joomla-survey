@@ -16,7 +16,7 @@ class plgSurveyLikertscale {
 	var $_name = 'likertscale';
 	var $_type = 'survey';
 
-	public function plgSurveyLikertscale() {
+	public function __construct() {
 		return true;
 	}
 

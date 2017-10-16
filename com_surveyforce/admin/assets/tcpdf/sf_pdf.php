@@ -30,7 +30,7 @@ class sf_pdf {
 	var $_isRTL			= false;
 	
 	
-	function sf_pdf($options = array()) {
+	function __construct($options = array()) {
 		global $mosConfig_absolute_path, $mosConfig_sitename, $mosConfig_live_site;
 		
 		if (isset($options['margin-header'])) {

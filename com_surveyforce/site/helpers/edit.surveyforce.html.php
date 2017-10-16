@@ -1258,7 +1258,7 @@ class survey_force_front_html {
 								else
 									$txt_for_tip = '<b>'.JText::_('COM_SURVEYFORCE_SF_IMP_SCALE_NOT_DEF').'</b>';
 								if ($row->sf_impscale) {
-									$txt_for_tip = "<b>".mysql_escape_string(nl2br($row->iscale_name))."</b><br>";
+									$txt_for_tip = "<b>".mysqli_escape_string(nl2br($row->iscale_name))."</b><br>";
 									$tot = $row->total_iscale_answers;
 									$txt_for_tip .= "<table width=\'100%\' cellpadding=0 cellspacing=0 border=0>";
 									foreach ($row->answer_imp as $arow) {

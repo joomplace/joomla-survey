@@ -180,19 +180,6 @@ class sf_ImageGenerator extends SF_Object {
 		return $filename;
 	}
 
-	function sf_ImageGenerator($options = null, $path = null) {
-		
-		if (!empty($options)) {
-			$this->options = $options;
-		}
-		
-		if ($path == null)
-			$this->image_path = JPATH_ROOT."/media/com_surveyforce/gen_images/";
-		else
-			$this->image_path = $path;
-	}
-
-
 	function __construct($options = null, $path = null, $src = null) {
 		$this->database = JFactory::getDbo();
 		if (!empty($options)) {

@@ -17,7 +17,7 @@ class plgSurveyRanking {
     var $_name = 'ranking';
     var $_type = 'survey';
 
-    public function plgSurveyRanking() {
+    public function __construct() {
         return true;
     }
 

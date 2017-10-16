@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 class MultiVerticalChart extends VerticalChart {
 	
-	function MultiVerticalChart($width = 600, $height = 250, $sections)
+	function __construct($width = 600, $height = 250, $sections)
 	{
     	parent::VerticalChart($width, $height);
 		
