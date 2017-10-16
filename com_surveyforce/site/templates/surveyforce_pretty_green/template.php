@@ -54,7 +54,7 @@ if (!class_exists('surveyforce_template_class')) {
 			<div id="surveyforce" class="contentpane surveyforce">
 			
 			<div class="componentheading">{SURVEY_NAME}</div>
-			<table class="contentpane" id="survey_container_tbl" style="min-height:250px; height:auto !important; height:250px; width:100%;{BACKGROUND_IMAGE}" cellpadding="0" cellspacing="0" border="0" >
+			<table class="contentpane" id="survey_container_tbl" style="min-height:250px; height:auto !important; height:250px; width:100%;{BACKGROUND_IMAGE} background-size: cover;" cellpadding="0" cellspacing="0" border="0" >
 			<tr><td id="sf_progressbar" colspan="3" align="left">
 				{PROGRESS_BAR}
 			</td></tr>
