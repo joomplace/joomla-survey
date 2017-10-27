@@ -277,98 +277,98 @@ class plgSurveyRankingdropdown {
 
     public function onSaveQuestion(&$data) {
 
-		$database = JFactory::getDbo();
-		$mainframe = JFactory::getApplication();
+        $database = JFactory::getDbo();
+        $mainframe = JFactory::getApplication();
 
-		$field_order = 0;
-			$sf_hid_fields_rank = (!empty($_POST['sf_hid_fields_rank'])) ? $_POST['sf_hid_fields_rank'] : array();
-			$sf_hid_field_rank_ids = JFactory::getApplication()->input->get('sf_hid_field_rank_ids', '', 'array', array(0));
-			$old_sf_hid_field_rank_ids = JFactory::getApplication()->input->get('old_sf_hid_field_rank_ids', '', 'array', array(0));
-			$old_sf_hid_field_rank_ids = @array_merge(array(0 => 0), $old_sf_hid_field_rank_ids);
-			
-			for ($i = 0, $n = count($old_sf_hid_field_rank_ids); $i < $n; $i++) {
-				if (in_array($old_sf_hid_field_rank_ids[$i], $sf_hid_field_rank_ids))
-					unset($old_sf_hid_field_rank_ids[$i]);
-			}
+        $field_order = 0;
+        $sf_hid_fields_rank = (!empty($_POST['sf_hid_fields_rank'])) ? $_POST['sf_hid_fields_rank'] : array();
+        $sf_hid_field_rank_ids = JFactory::getApplication()->input->get('sf_hid_field_rank_ids', '', 'array', array(0));
+        $old_sf_hid_field_rank_ids = JFactory::getApplication()->input->get('old_sf_hid_field_rank_ids', '', 'array', array(0));
+        $old_sf_hid_field_rank_ids = @array_merge(array(0 => 0), $old_sf_hid_field_rank_ids);
 
-			if(count($old_sf_hid_field_rank_ids)){
-				$query = "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = '".$data['qid']."' AND id IN ( ".implode(', ', $old_sf_hid_field_rank_ids)." )";
-				$database->setQuery($query);
-				$database->execute();
-			}
+        for ($i = 0, $n = count($old_sf_hid_field_rank_ids); $i < $n; $i++) {
+            if (in_array($old_sf_hid_field_rank_ids[$i], $sf_hid_field_rank_ids))
+                unset($old_sf_hid_field_rank_ids[$i]);
+        }
 
-			for ($i = 0, $n = count($sf_hid_fields_rank); $i < $n; $i++) {
+        if(count($old_sf_hid_field_rank_ids) && !$data['issave2copy']){
+            $query = "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = '".$data['qid']."' AND id IN ( ".implode(', ', $old_sf_hid_field_rank_ids)." )";
+            $database->setQuery($query);
+            $database->execute();
+        }
 
-				$r_row = $sf_hid_fields_rank[$i];
-				$new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
-				if ($sf_hid_field_rank_ids[$i] > 0 ) {
-					$new_field->id = $sf_hid_field_rank_ids[$i];
-				}
-				$new_field->quest_id = $data['qid'];
-				$new_field->ftext = SurveyforceHelper::SF_processGetField($r_row);
-				$new_field->alt_field_id = 0;
-				$new_field->is_main = 0;
-				$new_field->ordering = $field_order;
-				$new_field->is_true = 1;
+        for ($i = 0, $n = count($sf_hid_fields_rank); $i < $n; $i++) {
 
-				if (!$new_field->check()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
-				if (!$new_field->store()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
+            $r_row = $sf_hid_fields_rank[$i];
+            $new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
+            if ($sf_hid_field_rank_ids[$i] > 0 && !$data['issave2copy']) {
+                $new_field->id = $sf_hid_field_rank_ids[$i];
+            }
+            $new_field->quest_id = $data['qid'];
+            $new_field->ftext = SurveyforceHelper::SF_processGetField($r_row);
+            $new_field->alt_field_id = 0;
+            $new_field->is_main = 0;
+            $new_field->ordering = $field_order;
+            $new_field->is_true = 1;
 
-				$field_order ++ ;
-			}
+            if (!$new_field->check()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
+            if (!$new_field->store()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
 
-		$field_order = 0;
-			// FIELDS
-			$sf_hid_fields = (!empty($_POST['sf_hid_fields'])) ? $_POST['sf_hid_fields'] : array();
-			$sf_hid_field_ids = JFactory::getApplication()->input->get('sf_hid_field_ids', '', 'array', array(0));
-			$old_sf_hid_field_ids = JFactory::getApplication()->input->get('old_sf_hid_field_ids', '', 'array', array(0));
-			$old_sf_hid_field_ids = @array_merge(array(0 => 0), $old_sf_hid_field_ids);
+            $field_order ++ ;
+        }
 
-			for ($i = 0, $n = count($old_sf_hid_field_ids); $i < $n; $i++) {
-				if (in_array($old_sf_hid_field_ids[$i], $sf_hid_field_ids))
-					unset($old_sf_hid_field_ids[$i]);
-			}
+        $field_order = 0;
+        // FIELDS
+        $sf_hid_fields = (!empty($_POST['sf_hid_fields'])) ? $_POST['sf_hid_fields'] : array();
+        $sf_hid_field_ids = JFactory::getApplication()->input->get('sf_hid_field_ids', '', 'array', array(0));
+        $old_sf_hid_field_ids = JFactory::getApplication()->input->get('old_sf_hid_field_ids', '', 'array', array(0));
+        $old_sf_hid_field_ids = @array_merge(array(0 => 0), $old_sf_hid_field_ids);
 
-			if(count($old_sf_hid_field_ids)){
-				$query = "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = '".$data['qid']."' AND id IN ( ".implode(', ', $old_sf_hid_field_ids)." )";
-				$database->setQuery($query);
-				$database->execute();
-			}
+        for ($i = 0, $n = count($old_sf_hid_field_ids); $i < $n; $i++) {
+            if (in_array($old_sf_hid_field_ids[$i], $sf_hid_field_ids))
+                unset($old_sf_hid_field_ids[$i]);
+        }
 
-			for ($i = 0, $n = count($sf_hid_fields); $i < $n; $i++) {
+        if(count($old_sf_hid_field_ids) && !$data['issave2copy']){
+            $query = "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = '".$data['qid']."' AND id IN ( ".implode(', ', $old_sf_hid_field_ids)." )";
+            $database->setQuery($query);
+            $database->execute();
+        }
 
-				$f_row = $sf_hid_fields[$i];
-				$new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
-				if ($sf_hid_field_ids[$i] > 0 ) {
-					$new_field->id = $sf_hid_field_ids[$i];
-				}
-				$new_field->quest_id = $data['qid'];
-				$new_field->ftext = SurveyforceHelper::SF_processGetField($f_row);
-				$new_field->alt_field_id = 0;
-				$new_field->is_main = 1;
-				$new_field->ordering = $field_order;
-				$new_field->is_true = 1;
+        for ($i = 0, $n = count($sf_hid_fields); $i < $n; $i++) {
+
+            $f_row = $sf_hid_fields[$i];
+            $new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
+            if ($sf_hid_field_ids[$i] > 0 && !$data['issave2copy']) {
+                $new_field->id = $sf_hid_field_ids[$i];
+            }
+            $new_field->quest_id = $data['qid'];
+            $new_field->ftext = SurveyforceHelper::SF_processGetField($f_row);
+            $new_field->alt_field_id = 0;
+            $new_field->is_main = 1;
+            $new_field->ordering = $field_order;
+            $new_field->is_true = 1;
 
 
-				if (!$new_field->check()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
-				if (!$new_field->store()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
-				$j = 0;
-				$rules_ar = array();
-				while ($j < $data['rules_count']) {
-					if ($rules_ar[$j]->rul_txt == $new_field->ftext) {
-						$rules_ar[$j]->answer_id = $new_field->id;
-					}
-					$j++;
-				}
-				$field_order ++ ;
-			}
+            if (!$new_field->check()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
+            if (!$new_field->store()) { echo "<script> alert('".$new_field->getError()."'); window.history.go(-1); </script>\n"; exit(); }
+            $j = 0;
+            $rules_ar = array();
+            while ($j < $data['rules_count']) {
+                if ($rules_ar[$j]->rul_txt == $new_field->ftext) {
+                    $rules_ar[$j]->answer_id = $new_field->id;
+                }
+                $j++;
+            }
+            $field_order ++ ;
+        }
 
-		if ($database->errorMsg()) {
+        if ($database->errorMsg()) {
 
-			return $database->errorMsg();
-		}
-		else
-			return $data;
+            return $database->errorMsg();
+        }
+        else
+            return $data;
     }
 
    

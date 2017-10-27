@@ -384,10 +384,12 @@ class plgSurveyRankingdraganddrop {
         }
 
         $old_id = @array_merge(array(0 => 0), $old_sf_field_ids, $old_sf_alt_field_ids);
-        
-        $query = "DELETE FROM #__survey_force_fields WHERE quest_id = '" . $qid . "' AND id IN ( '" . ( (count($old_id)) ? implode('\', \'', $old_id) : 0 ) . "' )";
-        $database->setQuery($query);
-        $database->query();
+        if (!$data['issave2copy']) {
+			$query = "DELETE FROM #__survey_force_fields WHERE quest_id = '" . $qid . "' AND id IN ( '" . ( (count($old_id)) ? implode('\', \'', $old_id) : 0 ) . "' )";
+			$database->setQuery($query);
+			$database->query();
+		}
+
 
 		$new_alt_field = array();
 
@@ -396,7 +398,7 @@ class plgSurveyRankingdraganddrop {
 
 			$new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
 
-			if ($sf_alt_field_ids[$i] > 0 ) {
+			if ($sf_alt_field_ids[$i] > 0 && !$data['issave2copy']) {
 				$new_field->id = $sf_alt_field_ids[$i];
 			}
 
@@ -412,7 +414,7 @@ class plgSurveyRankingdraganddrop {
 
 			$new_field_id = $new_field->id;
 
-            if ($sf_alt_field_ids[$i] > 0) {
+            if ($sf_alt_field_ids[$i] > 0 && !$data['issave2copy']) {
                 $new_alt_field[$ii]->alt_field_id = $sf_alt_field_ids[$i];
             } else {
                 $new_alt_field[$ii]->alt_field_id = $new_field_id;
@@ -435,7 +437,7 @@ class plgSurveyRankingdraganddrop {
 
 			$new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
 
-			if ($sf_field_ids[$i] > 0 ) {
+			if ($sf_field_ids[$i] > 0 && !$data['issave2copy']) {
 				$new_field->id = $sf_field_ids[$i];
 			}
 

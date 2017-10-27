@@ -7,9 +7,8 @@
  * @Copyright Copyright (C) JoomPlace, www.joomplace.com
  * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
  */
-
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 
 class plgSurveyPickmany {
 
@@ -93,7 +92,7 @@ class plgSurveyPickmany {
 				unset($old_sf_hid_field_ids[$i]);
 		}
 
-		if(count($old_sf_hid_field_ids)){
+		if(count($old_sf_hid_field_ids) && !$data['issave2copy']){
 			$query = "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = '".$data['qid']."' AND ( id IN ( ".implode(', ', $old_sf_hid_field_ids)." ) ".($other_option_cb != 2? ' OR is_main = 0 ': '')." )";
 			$database->setQuery($query);
 			$database->execute();
@@ -103,8 +102,8 @@ class plgSurveyPickmany {
 
 			$f_row = $sf_hid_fields[$i];
 			$new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
-			if ($sf_hid_field_ids[$i] > 0 ) {
-				$new_field->id = $sf_hid_field_ids[$i];
+			if ($sf_hid_field_ids[$i] > 0  && !$data['issave2copy']) {
+                $new_field->id = $sf_hid_field_ids[$i];
 			}
 			$new_field->quest_id = $data['qid'];
 			$new_field->ftext = SurveyforceHelper::SF_processGetField($f_row);
@@ -132,7 +131,7 @@ class plgSurveyPickmany {
 			$other_id = JFactory::getApplication()->input->get('other_op_id', 0);
 
 			$new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
-			if ($other_id > 0 ) {
+			if ($other_id > 0  && !$data['issave2copy']) {
 				$new_field->id = $other_id;
 			}
 			$new_field->quest_id = $data['qid'];

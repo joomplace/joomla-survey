@@ -106,9 +106,12 @@ class plgSurveyRanking {
 
         $qid = $row->id;
 
-        $query = "DELETE FROM #__survey_force_rules WHERE quest_id = '" . $qid . "'";
-        $database->setQuery($query);
-        $database->query();
+        if(!$data['issave2copy']){
+			$query = "DELETE FROM #__survey_force_rules WHERE quest_id = '" . $qid . "'";
+			$database->setQuery($query);
+			$database->query();
+        }
+
 
         $rules_ar = array();
         $rules_count = 0;
@@ -155,14 +158,15 @@ class plgSurveyRanking {
         $sf_alt_fields = JRequest::getVar('sf_alt_fields', array(), 'default', 'array', JREQUEST_ALLOWRAW);
         $sf_alt_field_ids = JRequest::getVar('sf_alt_field_ids', array(0));
         $old_sf_alt_field_ids = JRequest::getVar('old_sf_alt_field_ids', array(0));
-		
+
 		$delAltItems =  array_diff($old_sf_alt_field_ids, $sf_alt_field_ids);
 		$delItems = array_diff($old_sf_field_ids, $sf_field_ids);
 
         $old_id = array_merge(array(0 => 0), $delItems, $delAltItems);
-        $query = "DELETE FROM #__survey_force_fields WHERE quest_id = '" . $qid . "' AND id IN ( '" . ( (count($old_id)) ? implode('\', \'', $old_id) : 0 ) . "' )";
+
+		$query = "DELETE FROM #__survey_force_fields WHERE quest_id = '" . $qid . "' AND id IN ( '" . ( (count($old_id)) ? implode('\', \'', $old_id) : 0 ) . "' )";
 		$database->setQuery($query);
-        $database->query();
+		$database->query();
 
         $last_id_query = $database->getQuery(true);
         $last_id_query
@@ -175,21 +179,32 @@ class plgSurveyRanking {
         }
 
         for ($i = 0, $n = count($sf_alt_fields); $i < $n; $i++) {
-            $f_row = $sf_alt_fields[$i];                     
-		
+            $f_row = $sf_alt_fields[$i];
+
 			if ($sf_alt_field_ids[$i]){
-				$new_field = $database->getQuery(true);
-				$new_field->update('#__survey_force_fields')
-					->set('`ordering` = "' . $i . '"')
-					->where('`id` = ' . $sf_alt_field_ids[$i]);
-				
-				$database->setQuery($new_field);
-				$database->execute();
-				$new_field_id = $sf_alt_field_ids[$i];				
+				if ($data['issave2copy']) {
+					$new_field = $database->getQuery(true);
+					$new_field->insert('#__survey_force_fields')
+						->columns($database->qn(array('quest_id', 'ftext', 'alt_field_id', 'is_main', 'ordering', 'is_true')))
+						->values(implode(',', array($qid, $sf_alt_fields[$i], $sf_alt_field_ids[$i], $database->q(1), $database->q($i), $database->quote(1))));
+
+					$database->setQuery($new_field);
+					$database->execute();
+				} else {
+					$new_field = $database->getQuery(true);
+					$new_field->update('#__survey_force_fields')
+						->set('`ordering` = "' . $i . '"')
+						->where('`id` = ' . $sf_alt_field_ids[$i]);
+
+					$database->setQuery($new_field);
+					$database->execute();
+					$new_field_id = $sf_alt_field_ids[$i];
+				}
 			} else {
 				$values = array($database->quote($qid), $database->quote($f_row),
-                $database->quote(($database->insertid() !== 0)?$database->insertid():$last_id), $database->quote(1), $database->quote($ii),
-                $database->quote(1));
+					$database->quote(($database->insertid() !== 0)?$database->insertid():$last_id), $database->quote(1), $database->quote($ii),
+					$database->quote(1)
+				);
 				$columns = array('quest_id', 'ftext', 'alt_field_id', 'is_main', 'ordering', 'is_true');
 			
 				$new_field = $database->getQuery(true);
@@ -234,15 +249,24 @@ class plgSurveyRanking {
 			*/
 
 			if ($sf_field_ids[$i]){
-				$new_field = $database->getQuery(true);
-				$new_field->update('#__survey_force_fields')
-					->set('`ordering` = "' . $i . '"')					
-					->where('`id` = ' . $sf_field_ids[$i]);
-				
-				$database->setQuery($new_field);
-				$database->execute();
-				$new_field_id = $sf_field_ids[$i];				
-				
+				if ($data['issave2copy']) {
+					$new_field = $database->getQuery(true);
+					$new_field->insert('#__survey_force_fields')
+						->columns($database->qn(array('quest_id', 'ftext', 'alt_field_id', 'is_main', 'ordering', 'is_true')))
+						->values(implode(',', array($qid, $sf_fields[$i], $sf_field_ids[$i], $database->q(0), $database->q($i), $database->quote(1))));
+
+					$database->setQuery($new_field);
+					$database->execute();
+				} else {
+					$new_field = $database->getQuery(true);
+					$new_field->update('#__survey_force_fields')
+						->set('`ordering` = "' . $i . '"')
+						->where('`id` = ' . $sf_field_ids[$i]);
+
+					$database->setQuery($new_field);
+					$database->execute();
+					$new_field_id = $sf_field_ids[$i];
+				}
 			} else {
 				$values = array($database->quote($qid), $database->quote($f_row),
                 $database->quote($new_alt_field[$i]->alt_field_id), $database->quote(0), $database->quote($field_order),
