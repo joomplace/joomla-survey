@@ -39,9 +39,9 @@ class plgSystemSF_altauserpoints extends JPlugin
 	* started - start date
 	* spent_time - spent time
 	*/
-	function onSForceFinished($params)
+	public function onSForceFinished($params)
     {
-		if (!file_exists(JPATH_SITE.'/components/com_altauserpoints/helper.php')) {
+        if (!file_exists(JPATH_SITE.'/components/com_altauserpoints/helper.php')) {
             return;
         }
 		require_once(JPATH_SITE.'/components/com_altauserpoints/helper.php');
@@ -51,14 +51,15 @@ class plgSystemSF_altauserpoints extends JPlugin
 		$comment = htmlspecialchars($this->params->get('comment', ''), ENT_COMPAT,'UTF-8');
 		$points_rule = htmlspecialchars($this->params->get('points_rule', 'always'), ENT_COMPAT,'UTF-8');
 		$fixed_points = (int)$this->params->get('fixed_points', 0);
-		$points = $fixed_points ? (int)$this->params->get('points', 0) : (int)$params['user_points'];
+        $points = $fixed_points ? (int)$this->params->get('points', 0) : (int)$params['user_points'];
 		$add_points_once = (int)$this->params->get('add_points_once', 0);
 
-		$pps = (int)$this->params->get('pps');
-		if($pps->$params['survey_id']){
-			$points = $pps->$params['survey_id'];
+		$pps = $this->params->get('pps');
+		$sid = $params['survey_id'];
+		if(isset($pps->$sid) && $pps->$sid){
+			$points = $pps->$sid;
 		}
-			
+
 		if ($points == 0 || ($points_rule == 'onsuccess' && !$params['passed'])) {
 			return;
 		}
@@ -67,9 +68,25 @@ class plgSystemSF_altauserpoints extends JPlugin
 		$params['user_name'] = $user->name;
 		$params['ended'] = date('Y-m-d H:i:s');
 		foreach($params as $key=>$value){
-			$comment = str_replace('{'.$key.'}', $value, $comment);
+		    if($key != 'params') {
+                $comment = str_replace('{' . $key . '}', $value, $comment);
+            }
 		}
 
-        AltaUserPointsHelper::newpoints('plgup_surveyforcepoints', '', ($add_points_once ? $params['survey_id'] : ''), $comment, $points);
+        $referredid = $this->getReferredId($user->id);
+
+        AltaUserPointsHelper::newpoints('sysplgaup_surveyforcepoints', $referredid, ($add_points_once ? $params['survey_id'] : ''), $comment, $points);
 	}
+
+	private  function getReferredId($user_id=0)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select($db->qn('referreid'))
+            ->from($db->qn('#__alpha_userpoints'))
+            ->where($db->qn('userid') .'='. $db->q((int)$user_id));
+        $db->setQuery( $query );
+        $referredid = $db->loadResult();
+        return $referredid;
+    }
 }
