@@ -84,7 +84,7 @@ class SurveyforceModelSection extends JModelAdmin {
 
     }
 
-    public function save(){
+    public function save($data = null){
 
         $database = JFactory::getDBO();
 
