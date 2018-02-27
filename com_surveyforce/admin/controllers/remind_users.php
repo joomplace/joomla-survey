@@ -93,7 +93,7 @@ class SurveyforceControllerRemind_users extends JControllerForm
             $message_user = str_replace('#link#', $link, $message);
             $message_user = str_replace('#name#', $user_name, $message_user);
             $jmail = JFactory::getMailer();
-            $jmail->sendMail($email_reply, $fromname, $user_row->email, $subject, nl2br($message_user), 1); //1 - in HTML mode
+            $jmail->sendMail($email_reply, $fromname, $user_row->email, $subject, $message_user, 1); //1 - in HTML mode
 
             $query = "UPDATE `#__survey_force_users` SET `is_reminded` = `is_reminded` + 1 WHERE `id` ='" . $user_row->id . "'";
             $database->SetQuery($query);

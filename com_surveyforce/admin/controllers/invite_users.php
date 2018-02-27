@@ -105,7 +105,7 @@ class SurveyforceControllerInvite_users extends JControllerForm
             $user_invite_id = $database->insertid();
 
             $jmail = JFactory::getMailer();
-            $jmail->sendMail($email_reply, $fromname, $user_row->email, $subject, nl2br($message_user), 1); //1 - in HTML mode
+            $jmail->sendMail($email_reply, $fromname, $user_row->email, $subject, $message_user, 1); //1 - in HTML mode
 
             $query = "UPDATE `#__survey_force_users` SET `is_invited` = '1', `invite_id` = '" . $user_invite_id . "' WHERE `id` ='" . $user_row->id . "'";
             $database->SetQuery($query);
