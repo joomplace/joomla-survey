@@ -1,8 +1,7 @@
 <?php
-
 /**
  * Survey Force component for Joomla
- * @version $Id: generate.php 
+ * @version $Id: generate.php
  * @package Survey Force
  * @subpackage generate.php
  * @author JoomPlace Team
@@ -14,7 +13,8 @@ defined('_JEXEC') or die('Restricted access');
 
 require ( JPATH_SITE . '/components/com_surveyforce/assets/libchart/libchart.php' );
 
-class sf_ImageGenerator {
+class sf_ImageGenerator
+{
 
     var $options = array('Bar');
     var $height = 200;
@@ -25,7 +25,8 @@ class sf_ImageGenerator {
      * @param string The name of the property
      * @param mixed The value of the property to set
      */
-    function set($property, $value = null) {
+    function set($property, $value = null)
+    {
         $this->$property = $value;
     }
 
@@ -34,7 +35,8 @@ class sf_ImageGenerator {
      * @param mixed  The default value
      * @return mixed The value of the property
      */
-    function get($property, $default = null) {
+    function get($property, $default = null)
+    {
         if (isset($this->$property)) {
             return $this->$property;
         }
@@ -46,7 +48,8 @@ class sf_ImageGenerator {
      *
      * @return array
      */
-    function getPublicProperties() {
+    function getPublicProperties()
+    {
         static $cache = null;
 
         if (is_null($cache)) {
@@ -66,20 +69,22 @@ class sf_ImageGenerator {
      *
      * @return string This name of this class
      */
-    function toString() {
+    function toString()
+    {
         return get_class($this);
     }
 
-    function getBarChartImage($options_v, $options, $filename) {
-        // Standard inclusions   
+    function getBarChartImage($options_v, $options, $filename)
+    {
+        // Standard inclusions
         include_once(JPATH_SITE . "/components/com_surveyforce/assets/pchart/pChart/pData.class.php");
         include_once(JPATH_SITE . "/components/com_surveyforce/assets/pchart/pChart/pChart.class.php");
 
         $tmp_options = $options;
         $tmp_options_v = $options_v;
         foreach ($tmp_options as $k => $option) {
-            if(trim($option) == JText::_('COM_SURVEYFORCE_SURVEY_NO_ANSWER')){
-                if(!$tmp_options_v[$k]){
+            if (trim($option) == JText::_('COM_SURVEYFORCE_SURVEY_NO_ANSWER')) {
+                if (!$tmp_options_v[$k]) {
                     unset($options_v[$k]);
                     unset($options[$k]);
                 }
@@ -106,7 +111,7 @@ class sf_ImageGenerator {
 
         $rows += 1;
 
-        // Dataset definition 
+        // Dataset definition
         $DataSet = new pData;
         $DataSet->Data = array();
         $DataSet->AddPoint($options_v, "Serie1");
@@ -158,17 +163,18 @@ class sf_ImageGenerator {
         return $filename;
     }
 
-    function getPieChartImage($numbers, $options, $filename) {
-       
-        // Standard inclusions   
+    function getPieChartImage($numbers, $options, $filename)
+    {
+
+        // Standard inclusions
         include_once(JPATH_SITE . "/components/com_surveyforce/assets/pchart/pChart/pData.class.php");
         include_once(JPATH_SITE . "/components/com_surveyforce/assets/pchart/pChart/pChart.class.php");
 
         $tmp_options = $options;
         $tmp_numbers = $numbers;
         foreach ($tmp_options as $k => $option) {
-            if(trim($option) == JText::_('COM_SURVEYFORCE_SURVEY_NO_ANSWER')){
-                if(!$tmp_numbers[$k]){
+            if (trim($option) == JText::_('COM_SURVEYFORCE_SURVEY_NO_ANSWER')) {
+                if (!$tmp_numbers[$k]) {
                     unset($numbers[$k]);
                     unset($options[$k]);
                 }
@@ -183,7 +189,7 @@ class sf_ImageGenerator {
             $rows += mb_substr_count($option, "\n");
 
         $rows += 1;
-        // Dataset definition 
+        // Dataset definition
         $DataSet = new pData;
         $DataSet->Data = array();
         $DataSet->AddPoint($numbers, "Serie1");
@@ -197,16 +203,16 @@ class sf_ImageGenerator {
         $height = $pie_height + 2.1 * $rows * $font_size;
 
         $width = $this->width;
-        
+
 
         $padding1 = 7;
         $padding2 = 5;
-       
+
         // Initialise the graph
         $piechart = new pChart($width, $height);
         $piechart->drawFilledRoundedRectangle($padding1, $padding1, $width - $padding1, $height - $padding1, 5, 240, 240, 240);
         $piechart->drawRoundedRectangle($padding2, $padding2, $width - $padding2, $height - $padding2, 5, 230, 230, 230);
-        
+
         // Draw the pie chart
         $piechart->setFontProperties(JPATH_SITE . "/components/com_surveyforce/assets/pchart/Fonts/tahoma.ttf", $font_size);
         $piechart->AntialiasQuality = 0;
@@ -219,7 +225,8 @@ class sf_ImageGenerator {
         return $filename;
     }
 
-    function sf_ImageGenerator($options = null, $path = null) {
+    function sf_ImageGenerator($options = null, $path = null)
+    {
 
         if (!empty($options)) {
             $this->options = $options;
@@ -231,7 +238,8 @@ class sf_ImageGenerator {
             $this->image_path = $path;
     }
 
-    function __construct($options = null, $path = null, $src = null) {
+    function __construct($options = null, $path = null, $src = null)
+    {
 
         if (!empty($options)) {
             $this->options = $options;
@@ -243,8 +251,7 @@ class sf_ImageGenerator {
             $this->image_path = JPATH_ROOT . "/media/com_surveyforce/gen_images/";
             if (!is_dir($this->image_path))
                 mkdir($this->image_path, 0755, true);
-        }
-        else
+        } else
             $this->image_path = $path;
 
         if ($src == null)
@@ -256,7 +263,8 @@ class sf_ImageGenerator {
     //
     # Collect data -> call to createImage function -> return image filename
     //
-	function getImage($survey_id = 0, $quest_id = 0, $start_id = 0) {
+	function getImage($survey_id = 0, $quest_id = 0, $start_id = 0)
+    {
 
         $database = JFactory::getDbo();
 
@@ -361,7 +369,7 @@ class sf_ImageGenerator {
                     $query = "SELECT sf_qtext from #__survey_force_quests WHERE published = 1 AND id = $quest_id ORDER BY id";
                     $database->SetQuery($query);
                     $title = $database->LoadResult();
-                    
+
                     $results = array_count_values($answers);
                     $rows = array();
 
@@ -494,7 +502,6 @@ class sf_ImageGenerator {
 
         return false;
     }
-
     # sections - array of section (section = question), each section is array of rows, each row (row = answer) is object with properties:
     # label - answer text (or scale option)
     # percent - % value
@@ -504,66 +511,70 @@ class sf_ImageGenerator {
     # maintitle - title for sections
     # max_value - absolute number of given answers from all users (percent = number/max_value *100%)
 
-    function sf_SafeSplit($html,$size,$delim="\n") {
-	$pos = 0;
-	$out = '';
-	if (strpos($html, "\n") !== false) {
-		$html = str_replace("\n\r", "\n", $html);
-		$html = str_replace("\r\n", "\n", $html);
-		$htmls = explode("\n", $html);
-		$out_r = '';
-		foreach($htmls as $html) {
-			$words = explode(" ", $html);	
-			$out = '';	
-			$pos = 0;
-			foreach($words as $word) {
-				if (!trim($word)) continue;
-				$word = trim($word);
-				if ($pos >= $size || ($pos+strlen($word.' ')) >= $size) {
-					$out .= $delim;
-					$pos = 0;
-				}
-				if (strlen($word) > $size*1.1) {
-					$word_pieses = @explode($delim, @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)));
-		
-					$out .= @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)).' ';
-					$pos = @strlen(@$word_pieses[count($word_pieses)-1]) + 1; 
-				} else {
-				
-					$out .= $word.' ';
-					$pos += strlen($word.' ');
-				}
-			}
-			$out_r .= $out."\n";
-		}
-		$out = $out_r;
-	} else  {
-		$words = explode(" ", $html);
-		
-		foreach($words as $word) {
-			if (!trim($word)) continue;
-			$word = trim($word);
-			if ($pos >= $size || ($pos+strlen($word.' ')) >= $size) {
-				$out .= $delim;
-				$pos = 0;
-			}
-			if (strlen($word) > $size*1.1) {
-				$word_pieses = @explode($delim, @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)));
-	
-				$out .= @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)).' ';
-				$pos = @strlen(@$word_pieses[count($word_pieses)-1]) + 1; 
-			} else {
-				$out .= $word.' ';
-				$pos += strlen($word.' ');
-			}
-		}
-	}
-	
-	return $out;
-}
+    function sf_SafeSplit($html, $size, $delim = "\n")
+    {
+        $pos = 0;
+        $out = '';
+        if (strpos($html, "\n") !== false) {
+            $html = str_replace("\n\r", "\n", $html);
+            $html = str_replace("\r\n", "\n", $html);
+            $htmls = explode("\n", $html);
+            $out_r = '';
+            foreach ($htmls as $html) {
+                $words = explode(" ", $html);
+                $out = '';
+                $pos = 0;
+                foreach ($words as $word) {
+                    if (!trim($word))
+                        continue;
+                    $word = trim($word);
+                    if ($pos >= $size || ($pos + strlen($word . ' ')) >= $size) {
+                        $out .= $delim;
+                        $pos = 0;
+                    }
+                    if (strlen($word) > $size * 1.1) {
+                        $word_pieses = @explode($delim, @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)));
 
-    function createImage(&$sectionsz, &$titlesz, &$answersz, $maintitle, $max_value) {
-        
+                        $out .= @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)) . ' ';
+                        $pos = @strlen(@$word_pieses[count($word_pieses) - 1]) + 1;
+                    } else {
+
+                        $out .= $word . ' ';
+                        $pos += strlen($word . ' ');
+                    }
+                }
+                $out_r .= $out . "\n";
+            }
+            $out = $out_r;
+        } else {
+            $words = explode(" ", $html);
+
+            foreach ($words as $word) {
+                if (!trim($word))
+                    continue;
+                $word = trim($word);
+                if ($pos >= $size || ($pos + strlen($word . ' ')) >= $size) {
+                    $out .= $delim;
+                    $pos = 0;
+                }
+                if (strlen($word) > $size * 1.1) {
+                    $word_pieses = @explode($delim, @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)));
+
+                    $out .= @mb_substr(@chunk_split($word, $size, $delim), 0, -strlen($delim)) . ' ';
+                    $pos = @strlen(@$word_pieses[count($word_pieses) - 1]) + 1;
+                } else {
+                    $out .= $word . ' ';
+                    $pos += strlen($word . ' ');
+                }
+            }
+        }
+
+        return $out;
+    }
+
+    function createImage(&$sectionsz, &$titlesz, &$answersz, $maintitle, $max_value)
+    {
+
         $html = '<div class="sf_graphs_container" style="font-family: Tahoma;">';
         if (count($sectionsz) >= 1) {
             $html .= '<div class="sf_graph_container">' . $maintitle . '<br/>';
@@ -571,12 +582,12 @@ class sf_ImageGenerator {
                 $html .= $titlesz[$i] . '<br/>';
                 $options = array();
                 $numbers = array();
-                
+
                 foreach ($section as $item) {
-                    $options[] = $item->label;//$this->sf_SafeSplit($item->label, intval(($this->width - 50) / 8));
+                    $options[] = $item->label; //$this->sf_SafeSplit($item->label, intval(($this->width - 50) / 8));
                     $numbers[] = $item->number;
                 }
-                
+
                 $filename = (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png';
 
                 if (in_array('Bar', $this->options))
@@ -610,7 +621,8 @@ class sf_ImageGenerator {
         return $html;
     }
 
-    function clearOldImages($day = null) {
+    function clearOldImages($day = null)
+    {
         if ($day == null)
             $day = (strlen(date('d')) < 2 ? '0' . date('d') : date('d'));
         elseif (strlen($day) < 2)
@@ -630,7 +642,6 @@ class sf_ImageGenerator {
         umask($old_umask);
         closedir($current_dir);
     }
-
 }
 
 ?>
