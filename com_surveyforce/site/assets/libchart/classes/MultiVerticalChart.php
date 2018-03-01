@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 class MultiVerticalChart extends VerticalChart
 {
 
-    function MultiVerticalChart($width = 600, $height = 250, $sections)
+    function __construct($width = 600, $height = 250, $sections)
     {
         parent::VerticalChart($width, $height);
 
@@ -33,7 +33,7 @@ class MultiVerticalChart extends VerticalChart
      *
      * @access       protected
      */
-    function computeLabelMargin($n)
+    function computeLabelMargin($n = NULL)
     {
         //$this->axis = new Axis($this->yMinValue, $this->yMaxValue);
         $this->axis = new Axis(0, 90);
@@ -69,7 +69,7 @@ class MultiVerticalChart extends VerticalChart
      *
      * @access       private
      */
-    function printTitle($n)
+    function printTitle($n = NULL)
     {
 
         if ($n == 1)
@@ -84,7 +84,7 @@ class MultiVerticalChart extends VerticalChart
      * @access       public
      * @param        Point           sampling point to add
      */
-    function addPoint($i, $point, $number)
+    function addPoint($i, $point = NULL, $number = NULL)
     {
         if (!isset($this->points[$i]))
             $this->points[$i] = array();

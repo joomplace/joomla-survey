@@ -588,7 +588,7 @@ class sf_ImageGenerator
                     $numbers[] = $item->number;
                 }
 
-                $filename = (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png';
+                $filename = (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png';
 
                 if (in_array('Bar', $this->options))
                     $this->getBarChartImage($numbers, $options, $this->image_path . $filename);

@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 class MultiPieChart extends PieChart
 {
 
-    function MultiPieChart($width = 600, $height = 250, $sections)
+    function __construct($width = 600, $height = 250, $sections)
     {
         parent::PieChart($width, $height);
 
@@ -31,7 +31,7 @@ class MultiPieChart extends PieChart
         $this->labelBoxHeight = 15;
     }
 
-    function addPoint($i, $point)
+    function addPoint($i, $point = NULL)
     {
         if (!isset($this->points[$i]))
             $this->points[$i] = array();
@@ -94,7 +94,7 @@ class MultiPieChart extends PieChart
         }
     }
 
-    function computeLabelMargin($n)
+    function computeLabelMargin($n = NULL)
     {
         $graphWidth = $this->width - $this->margin * 2 - $this->labelMarginLeft - $this->labelMarginCenter - $this->labelMarginRight;
 
@@ -118,7 +118,7 @@ class MultiPieChart extends PieChart
         $this->pieLegendWidth = round($graphWidth * $this->pieRatio);
     }
 
-    function printTitle($n)
+    function printTitle($n = NULL)
     {
         if ($n == 1)
             $this->text->printCentered2($this->img, 4 + ($this->labelMarginTop + $this->margin) / 2, $this->textColor, $this->title, $this->text->fontCondensedBold);
