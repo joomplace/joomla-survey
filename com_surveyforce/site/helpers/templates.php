@@ -34,7 +34,7 @@ class SurveyforceTemplates
         $template = str_replace('{SURVEY_NAME}', $survey->sf_name, $template);
 
         if ($survey->sf_image) {
-            $template = preg_replace('/\{BACKGROUND_IMAGE\}/', "background: url(images/com_surveyforce/" . $survey->sf_image . ");", $template, 1);
+            $template = preg_replace('/\{BACKGROUND_IMAGE\}/', "background: url(" . $survey->sf_image . ");", $template, 1);
         }
         $template = preg_replace('/\{PROGRESS_BAR\}/', SurveyforceTemplates::get_progress_bar($sf_config), $template, 1);
         $template = preg_replace('/\{ERROR_MESSAGE_TOP\}/', SurveyforceTemplates::get_error_message_top($sf_config), $template, 1);
