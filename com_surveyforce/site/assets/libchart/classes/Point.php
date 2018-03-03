@@ -38,7 +38,7 @@ class Point
      * @param        integer         x coordinate (label)
      * @param        integer         y coordinate (value)
      */
-    function Point($x, $y)
+    function __construct($x, $y)
     {
         $this->x = $x;
         $this->y = $y;

@@ -37,7 +37,7 @@ class PieChart extends Chart
      * @param        integer         width of the image
      * @param        integer         height of the image
      */
-    function PieChart($width = 600, $height = 250)
+    function __construct($width = 600, $height = 250)
     {
         parent::Chart($width, $height);
 

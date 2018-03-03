@@ -40,7 +40,7 @@ class ColorHex
      * @param        integer         blue [0,255]
      * @param        integer         alpha [0,255]
      */
-    function ColorHex($color, $alpha = 0)
+    function __construct($color, $alpha = 0)
     {
         $this->red = hexdec(substr($color, 0, 2));
         $this->green = hexdec(substr($color, 2, 2));

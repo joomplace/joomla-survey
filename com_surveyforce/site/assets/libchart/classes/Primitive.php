@@ -36,7 +36,7 @@ class Primitive
      * @access       public
      * @param        resource        GD image resource
      */
-    function Primitive($img)
+    function __construct($img)
     {
         $this->img = $img;
     }

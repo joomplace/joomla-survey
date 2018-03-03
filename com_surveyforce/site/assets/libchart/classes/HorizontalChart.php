@@ -37,7 +37,7 @@ class HorizontalChart extends BarChart
      * @param        integer         width of the image
      * @param        integer         height of the image
      */
-    function HorizontalChart($width = 600, $height = 250)
+    function __construct($width = 600, $height = 250)
     {
         parent::BarChart($width, $height);
 

@@ -38,7 +38,7 @@ class BarChart extends Chart
      * @param        integer         width of the image
      * @param        integer         height of the image
      */
-    function BarChart($width, $height)
+    function __construct($width, $height)
     {
         parent::Chart($width, $height);
 
