@@ -13,9 +13,11 @@ jimport('joomla.application.component.view');
 /**
  * HTML Template class for the Surveyforce Deluxe Component
  */
-class SurveyforceTemplates {
+class SurveyforceTemplates
+{
 
-    public function __construct($template_name) {
+    public function __construct($template_name)
+    {
 
         if (file_exists(JPATH_SITE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_surveyforce' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_name . DIRECTORY_SEPARATOR . 'template.php')) {
             require_once(JPATH_SITE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_surveyforce' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_name . DIRECTORY_SEPARATOR . 'template.php');
@@ -26,7 +28,8 @@ class SurveyforceTemplates {
         return true;
     }
 
-    public static function processTemplate($template, $sf_config, $survey, $show_description) {
+    public static function processTemplate($template, $sf_config, $survey, $show_description)
+    {
 
         $template = str_replace('{SURVEY_NAME}', $survey->sf_name, $template);
 
@@ -65,7 +68,8 @@ class SurveyforceTemplates {
         return $template;
     }
 
-    public static function get_progress_bar($sf_config) {
+    public static function get_progress_bar($sf_config)
+    {
 
         $tag = JFactory::getLanguage()->getTag();
         $lang = JFactory::getLanguage();
@@ -85,19 +89,22 @@ class SurveyforceTemplates {
         return $str;
     }
 
-    public static function get_error_message_top() {
+    public static function get_error_message_top()
+    {
         $str = '<span id="error_messagebox" style="visibility:hidden;">Error text here</span>';
 
         return $str;
     }
 
-    public static function get_error_message_bottom() {
+    public static function get_error_message_bottom()
+    {
         $str = '<span id="error_messagebox2" style="visibility:hidden;">Error text here</span>';
 
         return $str;
     }
 
-    public static function get_container($text, $show_description = 1) {
+    public static function get_container($text, $show_description = 1)
+    {
         $str = ' <div id="survey_container" ><div id="start_div">';
         if (!$show_description) {
             $str .= '<script language="javascript" type="text/javascript">sf_StartSurveyOn();</script>';
@@ -109,24 +116,26 @@ class SurveyforceTemplates {
         return $str;
     }
 
-    public static function get_button($button, $i = 0) {
+    public static function get_button($button, $i = 0)
+    {
         $str = '<span class="' . $button . '_bt_container" id="' . $button . '_' . $i . '" style="display:none;"></span>';
         return $str;
     }
 
-    public static function Survey_blocked($sf_config = false, $message = '') {
+    public static function Survey_blocked($sf_config = false, $message = '')
+    {
 
         $tag = JFactory::getLanguage()->getTag();
         $lang = JFactory::getLanguage();
         $lang->load(COMPONENT_OPTION, JPATH_SITE, $tag, true);
-        
-		$livePath = JUri::root();
-		if ( !$sf_config )
-			$sf_config = JComponentHelper::getParams('com_surveyforce');
 
-		$COM_SURVEYFORCE_NOT_AVAIL = JText::_('COM_SURVEYFORCE_NOT_AVAIL'.strtoupper($message));
-$blocked_html= <<<HTML
-		
+        $livePath = JUri::root();
+        if (!$sf_config)
+            $sf_config = JComponentHelper::getParams('com_surveyforce');
+
+        $COM_SURVEYFORCE_NOT_AVAIL = JText::_('COM_SURVEYFORCE_NOT_AVAIL' . strtoupper($message));
+        $blocked_html = <<<HTML
+
         <script language="JavaScript" src="{$livePath}components/com_surveyforce/assets/js/bits_message.js" type="text/javascript"></script>
 
         <script language="JavaScript" src="{$livePath}components/com_surveyforce/assets/js/pagination.js" type="text/javascript"></script>
@@ -161,16 +170,16 @@ $blocked_html= <<<HTML
                     <br /><br />
                 </td></tr>
 HTML;
-            if ($sf_config->get('sf_show_dev_info', 1)) {	
-                $blocked_html.='<tr><td colspan="3" align="center" style="text-align:center "><div style="text-align:center;">Powered by <span title="JoomPlace"><a target="_blank" title="JoomPlace" href="http://www.joomplace.com/e-learning/surveyforce-deluxe.html" rel="nofollow">Joomla component</a></span> SurveyForce Deluxe Software</div></td></tr>';
-             }
-        $blocked_html.='</table>';
+        if ($sf_config->get('sf_show_dev_info', 1)) {
+            $blocked_html .= '<tr><td colspan="3" align="center" style="text-align:center "><div style="text-align:center;">Powered by <span title="JoomPlace"><a target="_blank" title="JoomPlace" href="http://www.joomplace.com/e-learning/surveyforce-deluxe.html" rel="nofollow">Joomla component</a></span> SurveyForce Deluxe Software</div></td></tr>';
+        }
+        $blocked_html .= '</table>';
 
-		return $blocked_html;
-
+        return $blocked_html;
     }
 
-    public static function showCategory($cat, $rows, $sf_config) {
+    public static function showCategory($cat, $rows, $sf_config)
+    {
 
         surveyforce_template_class::showCategoryView($cat, $rows);
 
@@ -180,10 +189,8 @@ HTML;
             $word = 'extension';
 
         if ($sf_config->get('sf_show_dev_info', 1)) {
+
             ?><br/><div style="text-align:center;">Powered by <span title='JoomPlace'><a target='_blank' title='JoomPlace' href='http://www.joomplace.com/e-learning/surveyforce-deluxe.html' rel="nofollow">Joomla <?php echo $word; ?></a></span> SurveyForce Deluxe Software</div><br/><?php
         }
     }
-
-     
-
 }
