@@ -1,171 +1,164 @@
 <?php
-
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 
-        /** Libchart - PHP chart library
-        *       
-        * Copyright (C) 2005-2006 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
-        *       
-        * This library is free software; you can redistribute it and/or
-        * modify it under the terms of the GNU Lesser General Public
-        * License as published by the Free Software Foundation; either
-        * version 2.1 of the License, or (at your option) any later version.
-        * 
-        * This library is distributed in the hope that it will be useful,
-        * but WITHOUT ANY WARRANTY; without even the implied warranty of
-        * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-        * Lesser General Public License for more details.
-        * 
-        * You should have received a copy of the GNU Lesser General Public
-        * License along with this library; if not, write to the Free Software
-        * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-        * 
-        */
-        
-        /**
-        * Automatic axis boundaries and ticks calibration
-        *
-        * @author   Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
-        */
+/** Libchart - PHP chart library
+ *
+ * Copyright (C) 2005-2006 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ */
 
-        class Axis
-        {
-                /**
-                * Creates a new axis formatter
-                *
-                * @access       public
-                * @param        integer         minimum value on the axis
-                * @param        integer         maximum value on the axis
-                */
-                
-                function Axis($min, $max)
-                {
-                        $this->min = $min;
-                        $this->max = $max;
+/**
+ * Automatic axis boundaries and ticks calibration
+ *
+ * @author   Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+ */
+class Axis
+{
 
-                        $this->guide = 10;
-                }
+    /**
+     * Creates a new axis formatter
+     *
+     * @access       public
+     * @param        integer         minimum value on the axis
+     * @param        integer         maximum value on the axis
+     */
+    function Axis($min, $max)
+    {
+        $this->min = $min;
+        $this->max = $max;
 
-                /**
-                * Computes value between two ticks
-                *
-                * @access       private
-                */
+        $this->guide = 10;
+    }
 
-                function quantizeTics()
-                {
-                        // Approximate number of decades, in [1..10[
+    /**
+     * Computes value between two ticks
+     *
+     * @access       private
+     */
+    function quantizeTics()
+    {
+        // Approximate number of decades, in [1..10[
 
-                        $norm = $this->delta / $this->magnitude;
+        $norm = $this->delta / $this->magnitude;
 
-                        // Approximate number of tics per decade
+        // Approximate number of tics per decade
 
-                        $posns = $this->guide / $norm;
+        $posns = $this->guide / $norm;
 
-                        if ($posns > 20)
-                                $tics = 0.05;           // e.g. 0, .05, .10, ...
-                        else
-                        if ($posns > 10)
-                                $tics = 0.2;            // e.g.  0, .1, .2, ...
-                        else
-                        if ($posns > 5)
-                                $tics = 0.4;            // e.g.  0, 0.2, 0.4, ...
-                        else
-                        if ($posns > 3)
-                                $tics = 0.5;            // e.g. 0, 0.5, 1, ...
-                        else
-                        if ($posns > 2)
-                                $tics = 1;              // e.g. 0, 1, 2, ...
-                        else
-                        if ($posns > 0.25)
-                                $tics = 2;              // e.g. 0, 2, 4, 6 
-                        else
-                                $tics = ceil($norm);
-                        
-                        $this->tics = $tics * $this->magnitude;
-                }
+        if ($posns > 20)
+            $tics = 0.05;           // e.g. 0, .05, .10, ...
+        else
+        if ($posns > 10)
+            $tics = 0.2;            // e.g.  0, .1, .2, ...
+        else
+        if ($posns > 5)
+            $tics = 0.4;            // e.g.  0, 0.2, 0.4, ...
+        else
+        if ($posns > 3)
+            $tics = 0.5;            // e.g. 0, 0.5, 1, ...
+        else
+        if ($posns > 2)
+            $tics = 1;              // e.g. 0, 1, 2, ...
+        else
+        if ($posns > 0.25)
+            $tics = 2;              // e.g. 0, 2, 4, 6
+        else
+            $tics = ceil($norm);
 
-                /**
-                * Computes automatic boundaries on the axis
-                *
-                * @access       public
-                */
+        $this->tics = $tics * $this->magnitude;
+    }
 
-                function computeBoundaries()
-                {
-                        // Range
+    /**
+     * Computes automatic boundaries on the axis
+     *
+     * @access       public
+     */
+    function computeBoundaries()
+    {
+        // Range
 
-                        $this->delta = abs($this->max - $this->min);
+        $this->delta = abs($this->max - $this->min);
 
-                        // Check for null distribution
-                        
-                        if($this->delta == 0)
-                                $this->delta = 1;
-                        
-                        // Order of magnitude of range
+        // Check for null distribution
 
-                        $this->magnitude = pow(10, floor(log10($this->delta)));
-                        
-                        $this->quantizeTics();
+        if ($this->delta == 0)
+            $this->delta = 1;
 
-                        $this->displayMin = floor($this->min / $this->tics) * $this->tics;
-                        $this->displayMax = ceil($this->max / $this->tics) * $this->tics;
-                        $this->displayDelta = $this->displayMax - $this->displayMin;
-                
-                        // Check for null distribution
-                        
-                        if($this->displayDelta == 0)
-                                $this->displayDelta = 1;
-                }
+        // Order of magnitude of range
 
-                /**
-                * Set boundaries on the axis. Theses values override the automatic values.
-                *
-                * @access       public
-                */
-                
-                function setBoundaries($sampleCount, $yMinValue, $yMaxValue)
-                {
-                        $this->sampleCount = $sampleCount;
-                        $this->yMinValue = $yMinValue;
-                        $this->yMaxValue = $yMaxValue;
-                }
+        $this->magnitude = pow(10, floor(log10($this->delta)));
 
-                /**
-                * Get the lower boundary on the axis
-                *
-                * @access       public
-                * @return       integer         lower boundary on the axis
-                */
+        $this->quantizeTics();
 
-                function getLowerBoundary()
-                {
-                        return $this->displayMin;
-                }
+        $this->displayMin = floor($this->min / $this->tics) * $this->tics;
+        $this->displayMax = ceil($this->max / $this->tics) * $this->tics;
+        $this->displayDelta = $this->displayMax - $this->displayMin;
 
-                /**
-                * Get the upper boundary on the axis
-                *
-                * @access       public
-                * @return       integer         upper boundary on the axis
-                */
+        // Check for null distribution
 
-                function getUpperBoundary()
-                {
-                        return $this->displayMax;
-                }
+        if ($this->displayDelta == 0)
+            $this->displayDelta = 1;
+    }
 
-                /**
-                * Get the value between two ticks
-                *
-                * @access       public
-                * @return       integer         value between two ticks
-                */
+    /**
+     * Set boundaries on the axis. Theses values override the automatic values.
+     *
+     * @access       public
+     */
+    function setBoundaries($sampleCount, $yMinValue, $yMaxValue)
+    {
+        $this->sampleCount = $sampleCount;
+        $this->yMinValue = $yMinValue;
+        $this->yMaxValue = $yMaxValue;
+    }
 
-                function getTics()
-                {
-                        return $this->tics;
-                }
-        }
+    /**
+     * Get the lower boundary on the axis
+     *
+     * @access       public
+     * @return       integer         lower boundary on the axis
+     */
+    function getLowerBoundary()
+    {
+        return $this->displayMin;
+    }
+
+    /**
+     * Get the upper boundary on the axis
+     *
+     * @access       public
+     * @return       integer         upper boundary on the axis
+     */
+    function getUpperBoundary()
+    {
+        return $this->displayMax;
+    }
+
+    /**
+     * Get the value between two ticks
+     *
+     * @access       public
+     * @return       integer         value between two ticks
+     */
+    function getTics()
+    {
+        return $this->tics;
+    }
+}
+
 ?>
