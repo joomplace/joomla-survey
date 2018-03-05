@@ -17,7 +17,7 @@ class SurveyforceControllerReports extends JControllerAdmin {
         parent::__construct($config);
     }
 
-    public function getModel($name = 'Reports', $prefix = 'SurveyforceModel') {
+    public function getModel($name = 'Reports', $prefix = 'SurveyforceModel', $config = array()) {
         $model = parent::getModel($name, $prefix, array('ignore_request' => true));
         return $model;
     }
@@ -431,7 +431,8 @@ class SurveyforceControllerReports extends JControllerAdmin {
 					$rows[$ri]->questions_data[$qi]->answer_imp = array();
 					$j = 0;
 					while ( $j < count($ans_data) ) {
-						$rows[$ri]->questions_data[$qi]->answer_imp[$j]->num = $j;
+                        $rows[$ri]->questions_data[$qi]->answer_imp[$j] = new stdClass();
+					    $rows[$ri]->questions_data[$qi]->answer_imp[$j]->num = $j;
 						$rows[$ri]->questions_data[$qi]->answer_imp[$j]->ftext = $ans_data[$j]->isf_name;
 						$rows[$ri]->questions_data[$qi]->answer_imp[$j]->ans_count = $ans_data[$j]->ans_count;
 						$j ++;
@@ -456,6 +457,7 @@ class SurveyforceControllerReports extends JControllerAdmin {
 						$rows[$ri]->questions_data[$qi]->answer = array();
 						$j = 0;
 						while ( $j < count($ans_data) ) {
+                            $rows[$ri]->questions_data[$qi]->answer[$j] = new stdClass();
 							$rows[$ri]->questions_data[$qi]->answer[$j]->num = $j;
 							$rows[$ri]->questions_data[$qi]->answer[$j]->ftext = $ans_data[$j]->ftext;
 							$rows[$ri]->questions_data[$qi]->answer[$j]->ans_count = $ans_data[$j]->ans_count;
@@ -479,7 +481,8 @@ class SurveyforceControllerReports extends JControllerAdmin {
 						$rows[$ri]->questions_data[$qi]->answer = array();
 						$j = 0;
 						while ( $j < count($ans_data) ) {
-							$rows[$ri]->questions_data[$qi]->answer[$j]->num = $j;
+                            $rows[$ri]->questions_data[$qi]->answer[$j] = new stdClass();
+						    $rows[$ri]->questions_data[$qi]->answer[$j]->num = $j;
 							$rows[$ri]->questions_data[$qi]->answer[$j]->ftext = $ans_data[$j]->ftext;
 							$rows[$ri]->questions_data[$qi]->answer[$j]->ans_count = $ans_data[$j]->ans_count;
 							$j ++;
@@ -516,6 +519,7 @@ class SurveyforceControllerReports extends JControllerAdmin {
 								$jj = 0;
 								$tmp = array();
 								while ( $jj < count($ans_data) ) {
+                                    $tmp[$jj] = new stdClass();
 									$tmp[$jj]->num = $jj;
 									$tmp[$jj]->ftext = $ans_data[$jj]->ans_txt;
 									$tmp[$jj]->ans_count = $ans_data[$jj]->ans_count;
@@ -551,7 +555,8 @@ class SurveyforceControllerReports extends JControllerAdmin {
 							$rows[$ri]->questions_data[$qi]->answer = array();
 							$j = 0;
 							while ( $j < count($ans_data) ) {
-								$rows[$ri]->questions_data[$qi]->answer[$j]->num = $j;
+                                $rows[$ri]->questions_data[$qi]->answer[$j] = new stdClass();
+							    $rows[$ri]->questions_data[$qi]->answer[$j]->num = $j;
 								$rows[$ri]->questions_data[$qi]->answer[$j]->ftext = $ans_data[$j]->ans_txt;
 								$rows[$ri]->questions_data[$qi]->answer[$j]->ans_count = $ans_data[$j]->ans_count;
 								$j ++;
@@ -588,11 +593,13 @@ class SurveyforceControllerReports extends JControllerAdmin {
 								. "\n GROUP BY b.stext ORDER BY b.ordering";
 							$database->SetQuery( $query );
 							$ans_data = $database->loadObjectList();
+                            $rows[$ri]->questions_data[$qi]->answer[$j] = new stdClass();
 							$rows[$ri]->questions_data[$qi]->answer[$j]->full_ans = array();
 							$jj = 0;
 							$rows[$ri]->questions_data[$qi]->answer[$j]->ftext = $f_data[$j]->ftext;
 							while ( $jj < count($ans_data) ) {
-								$rows[$ri]->questions_data[$qi]->answer[$j]->full_ans[$jj]->ftext = $ans_data[$jj]->stext;
+                                $rows[$ri]->questions_data[$qi]->answer[$j]->full_ans[$jj] = new stdClass();
+							    $rows[$ri]->questions_data[$qi]->answer[$j]->full_ans[$jj]->ftext = $ans_data[$jj]->stext;
 								$rows[$ri]->questions_data[$qi]->answer[$j]->full_ans[$jj]->ans_count = $ans_data[$jj]->ans_count;
 								$jj ++;
 							}
@@ -627,11 +634,13 @@ class SurveyforceControllerReports extends JControllerAdmin {
 
 							$database->SetQuery( $query );
 							$ans_data = $database->loadObjectList();
+                            $rows[$ri]->questions_data[$qi]->answer[$j] = new stdClass();
 							$rows[$ri]->questions_data[$qi]->answer[$j]->full_ans = array();
 							$jj = 0;
 							$rows[$ri]->questions_data[$qi]->answer[$j]->ftext = $f_data[$j]->ftext;
 							while ( $jj < count($ans_data) ) {
-								$rows[$ri]->questions_data[$qi]->answer[$j]->full_ans[$jj]->ftext = $ans_data[$jj]->ftext;
+                                $rows[$ri]->questions_data[$qi]->answer[$j]->full_ans[$jj] = new stdClass();
+							    $rows[$ri]->questions_data[$qi]->answer[$j]->full_ans[$jj]->ftext = $ans_data[$jj]->ftext;
 								$rows[$ri]->questions_data[$qi]->answer[$j]->full_ans[$jj]->ans_count = $ans_data[$jj]->ans_count;
 								$jj ++;
 							}
@@ -645,7 +654,6 @@ class SurveyforceControllerReports extends JControllerAdmin {
 			$ri ++;
 		}
 
-
 		$text_to_csv = "";
 		$cur_survey = -1;
 		for ($ij=0, $n=count($rows); $ij < $n; $ij++) {
@@ -654,8 +662,8 @@ class SurveyforceControllerReports extends JControllerAdmin {
 				$text_to_csv .= JText::_('COM_SF_SURVEY_INFORMATION').':,'."\n";
 				$text_to_csv .= JText::_('COM_SF_NAME').':,';
 				$text_to_csv .= SurveyforceHelper::SF_processCSVField($row->survey_data[0]->sf_name).","."\n";
-				$text_to_csv .= JText::_('COM_SF_DESCRIPTION').',';
-				$text_to_csv .= SurveyforceHelper::SF_processCSVField($row->survey_data[0]->sf_descr).","."\n";
+				$text_to_csv .= JText::_('COM_SF_DESCRIPTION').':,';
+				$text_to_csv .= SurveyforceHelper::SF_processCSVField($row->survey_data[0]->sf_descr, false).","."\n";
 			}
 			$cur_survey = $row->survey_id;
 			$text_to_csv .= "\n".JText::_('COM_SF_ANSWERS').':,' . "\n";
@@ -748,6 +756,11 @@ class SurveyforceControllerReports extends JControllerAdmin {
 		$text_to_csv = html_entity_decode($text_to_csv, ENT_QUOTES, "utf-8");
 		header("Content-Length: ".strlen(ltrim($text_to_csv)));
 		header("Content-Disposition: inline; filename=report.csv");
+
+        //add BOM to fix UTF-8 in Excel
+        $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) );
+        $text_to_csv = $bom.$text_to_csv;
+
 		echo $text_to_csv;
 		die;
 	}
