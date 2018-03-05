@@ -6,7 +6,7 @@ function pagination_go(limit, id) {
     jQuery("#survey_container").html('<center>' + mes_loading + '</center>');
     jQuery.ajax({
         type: "POST",
-        url: "index.php?no_html=1&tmpl=component&option=com_surveyforce&task=ajax_action",
+        url: "index.php?no_html=1&tmpl=component&option=com_surveyforce&task=survey.SF_ajaxAction",
         data: "limit=" + limit + "&count=20&survey=" + id + "&action=result&user_id=" + user_unique_id + "&start_id=" + start_id + "&pagination=1",
         success: function(msg) {
             jQuery("#survey_container").html(msg);
