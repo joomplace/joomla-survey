@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.1" type="plugin" group="system" method="upgrade">
-	<name>System - SurveyForce Alpha User Points</name>
+	<name>PLG_SISTEM_SF_ALPHAUSERPOINTS</name>
 	<author>Joomplace.com</author>
-	<creationDate>September 2017</creationDate>
+	<creationDate>March 2018</creationDate>
 	<copyright>(C) JoomPlace, www.joomplace.com</copyright>
 	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
- 	<authorEmail>support@joomplace.com</authorEmail> 
-	<authorUrl>www.joomplace.com</authorUrl> 
+	<authorEmail>support@joomplace.com</authorEmail>
+	<authorUrl>www.joomplace.com</authorUrl>
 	<version>3.2.5</version>
-	<description>JOOMLASURVEYFORCE ALPHA USER POINTS PLUGIN</description>
+	<description>PLG_SISTEM_SF_ALPHAUSERPOINTS_XML_DESCRIPTION</description>
 	<files>
 		<folder>fields</folder>
 		<filename plugin="sf_alphauserpoints">sf_alphauserpoints.php</filename>
 	</files>
 	<languages>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_sf_alphauserpoints.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_sf_alphauserpoints.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="comment" type="text" default="Completed '{survey_title}' survey" size="60" label="SF_PARAM_COMMENT_LABEL" description="SF_PARAM_COMMENT_DESCR"/>
-				<field name="points_rule" type="list" default="always" label="SF_PARAM_POINTSRULE_LABEL" description="SF_PARAM_POINTSRULE_DESCR">
-					<option value="always">SF_PARAM_POINTSRULE_OPT_ALWAYS</option>
-					<option value="onsuccess">SF_PARAM_POINTSRULE_OPT_ONSUCCESS</option>
+				<field name="note_rule" type="note" label="PLG_SISTEM_SF_ALPHAUSERPOINTS_NOTE_RULE_LABEL" />
+				<field name="comment" type="text" default="Completed '{survey_title}' survey" size="60"
+					   label="PLG_SISTEM_SF_ALPHAUSERPOINTS_COMMENT_LABEL"
+					   description="PLG_SISTEM_SF_ALPHAUSERPOINTS_COMMENT_DESC" />
+				<field name="points_rule" type="list" default="always"
+					   label="PLG_SISTEM_SF_ALPHAUSERPOINTS_POINTSRULE_LABEL"
+					   description="PLG_SISTEM_SF_ALPHAUSERPOINTS_POINTSRULE_DESC">
+					<option value="always">PLG_SISTEM_SF_ALPHAUSERPOINTS_POINTSRULE_OPTION_ALWAYS</option>
+					<option value="onsuccess">PLG_SISTEM_SF_ALPHAUSERPOINTS_POINTSRULE_OPTION_ONSUCCESS</option>
 				</field>
-				<field name="fixed_points" type="hidden" default="1" label="SF_PARAM_FIXEDPOINTS_LABEL" description="SF_PARAM_FIXEDPOINTS_DESCR">
-					<option value="0">SF_NO</option>
-					<option value="1">SF_YES</option>
+				<field name="fixed_points" type="hidden" default="1"
+					   label="PLG_SISTEM_SF_ALPHAUSERPOINTS_FIXEDPOINTS_LABEL"
+					   description="PLG_SISTEM_SF_ALPHAUSERPOINTS_FIXEDPOINTS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
-				<field name="add_points_once" type="radio" default="0" label="SF_PARAM_POINTSONETIME_LABEL" description="SF_PARAM_POINTSONETIME_DESCR">
-					<option value="0">SF_NO</option>
-					<option value="1">SF_YES</option>
+				<field name="add_points_once" type="radio" default="0"
+					   label="PLG_SISTEM_SF_ALPHAUSERPOINTS_POINTSONETIME_LABEL"
+					   description="PLG_SISTEM_SF_ALPHAUSERPOINTS_POINTSONETIME_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
-				<field name="points" type="text" size="5" default="1" label="SF_PARAM_POINTS_LABEL" description="SF_PARAM_POINTS_DESCR"/>
+				<field name="points" type="text" size="5" default="1"
+					   label="PLG_SISTEM_SF_ALPHAUSERPOINTS_POINTS_LABEL"
+					   description="PLG_SISTEM_SF_ALPHAUSERPOINTS_POINTS_DESC" />
 			</fieldset>
 			<fieldset addfieldpath="/plugins/system/sf_alphauserpoints/fields" name="surveys">
-				<field name="pps" type="pps" size="5" default="1" label="Points per survey" description="Specify points amount per survey"/>
+				<field name="pps" type="pps" size="5" default="1"
+					   label="PLG_SISTEM_SF_ALPHAUSERPOINTS_PPS_LABEL"
+					   description="PLG_SISTEM_SF_ALPHAUSERPOINTS_PPS_DESC" />
 			</fieldset>
 		</fields>
-    </config>
-	
+	</config>
 </extension>
