@@ -57,8 +57,8 @@ class SurveyforceControllerRemind_users extends JControllerForm {
 		$Users_to_remind = count($UsersList);
 
         $config = JFactory::getConfig();
-		$mailfrom = $config->mailfrom;
-		$fromname = $config->fromname;
+		$mailfrom = !empty($config->mailfrom) ? $config->mailfrom: 'noreply@'.$_SERVER['SERVER_NAME'];
+		$fromname = !empty($config->fromname) ? $config->fromname: 'SurveyForce';
 
 		$message 			= $Send_email[0]->email_body;
 		$subject 			= stripslashes( $Send_email[0]->email_subject);
@@ -70,6 +70,7 @@ class SurveyforceControllerRemind_users extends JControllerForm {
 		$database->execute();
 		$send_rem = 0;
 		$counter = 0;
+        $sendError = 0;
 		foreach ($UsersList as $user_row) {
 			if ($mail_max && $send_rem == $mail_max) {
 				echo "<script>var st_but = getObj_frame('Start_button');"
@@ -91,11 +92,16 @@ class SurveyforceControllerRemind_users extends JControllerForm {
 			$message_user = str_replace('#link#', $link, $message);
 			$message_user = str_replace('#name#', $user_name, $message_user);
 			$jmail = JFactory::getMailer();
-			$jmail->sendMail( $email_reply , $fromname, $user_row->email, $subject, nl2br($message_user), 1 ); //1 - in HTML mode
-
+            
+			$sendResult = $jmail->sendMail( $email_reply , $fromname, $user_row->email, $subject, nl2br($message_user), 1 ); //1 - in HTML mode
+            if(!$sendResult) {
+                $sendError++;
+            }
+            
 			$query = "UPDATE `#__survey_force_users` SET `is_reminded` = `is_reminded` + 1 WHERE `id` ='".$user_row->id."'";
 			$database->SetQuery($query);
 			$database->execute();
+            $error_message = $sendError > 0 ? ' <span style="color:red;">'.$sendError.' '.JText::_('COM_SURVEYFORCE_USERS_INVITED_ERRORS').'</span>' : '';
 			if (($mail_pause && $mail_count) && $counter == ($mail_count - 1) && $Users_count != $ii){
 				$counter = -1;
 				for($jj = $mail_pause; $jj > 0; $jj--) {
@@ -106,7 +112,7 @@ class SurveyforceControllerRemind_users extends JControllerForm {
 					. "div_log.style.width = '".intval(($ii)*600/$Users_count)."px';"
 					. "}"
 					. " if (div_log_txt) {"
-					. "div_log_txt.innerHTML =  '" . ($ii) . ' '.JText::_('COM_SURVEYFORCE_USERS_REMINDED_PAUSE')." $jj " .JText::_('COM_SURVEYFORCE_SECONDS')."';"
+					. "div_log_txt.innerHTML =  '" . ($ii) . ' '.JText::_('COM_SURVEYFORCE_USERS_REMINDED_PAUSE')." $jj " .JText::_('COM_SURVEYFORCE_SECONDS').$error_message."';"
 					. "}"
 					. "</script>";
 					@flush();
@@ -122,7 +128,7 @@ class SurveyforceControllerRemind_users extends JControllerForm {
 					. "div_log.style.width = '".intval(($ii)*600/$Users_count)."px';"
 					. "}"
 					. " if (div_log_txt) {"
-					. "div_log_txt.innerHTML = '" . ($ii) . ' '.JText::_('COM_SURVEYFORCE_USERS_REMINDED')."';"
+					. "div_log_txt.innerHTML = '" . ($ii) . ' '.JText::_('COM_SURVEYFORCE_USERS_REMINDED').$error_message."';"
 					. "}"
 					. "</script>";
 				@flush();
