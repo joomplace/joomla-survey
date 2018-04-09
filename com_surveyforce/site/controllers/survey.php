@@ -2053,7 +2053,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 								$send = $mailer->Send();
 								if ( $send !== true ) {
-									echo 'Error sending email: ' . $send->__toString();
+									echo 'Error sending email';
 								} else {
 
 								}
