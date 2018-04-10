@@ -32,9 +32,10 @@ class SurveyforceTableQuestion extends JTable {
 
 
 		$app = JFactory::getApplication();
+        $issave2copy = $app->input->get('task') == 'save2copy';
 
 		// Alter the title for save as copy
-		if ($app->input->get('task') == 'save2copy')
+		if ($issave2copy)
 		{
 			$this->id = '';
 		}
@@ -100,6 +101,7 @@ class SurveyforceTableQuestion extends JTable {
 		$data = array();
 		$data['rules_ar'] = $rules_ar;
 		$data['qid'] = $row->id;
+		$data['issave2copy'] = $issave2copy;
 
 		if ($jform['sf_qtype']) {
 

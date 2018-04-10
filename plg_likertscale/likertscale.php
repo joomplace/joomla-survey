@@ -96,9 +96,11 @@ class plgSurveyLikertscale {
 		{
 			$database->setQuery( "SELECT * FROM #__survey_force_fields WHERE `quest_id` = '".$_POST['sf_likert_scale']."'" );
 			$preDefinedFields =  $database->loadObjectList();
+			if (!$data['issave2copy']){
+				$database->setQuery( "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = ".$data['qid'] );
+				$database->execute();
+			}
 
-			$database->setQuery( "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = ".$data['qid'] );
-			$database->execute();
 
 			foreach ( $preDefinedFields as $pd_field)
 			{
@@ -140,7 +142,7 @@ class plgSurveyLikertscale {
 					unset($old_sf_hid_field_scale_ids[$i]);
 			}
 
-			if(count($old_sf_hid_field_scale_ids)){
+			if(count($old_sf_hid_field_scale_ids) && !$data['issave2copy']) {
 				$query = "DELETE FROM `#__survey_force_scales` WHERE `quest_id` = '".$data['qid']."' AND id IN ( ".implode(', ', $old_sf_hid_field_scale_ids)." )";
 				$database->setQuery($query);
 				$database->execute();
@@ -150,7 +152,7 @@ class plgSurveyLikertscale {
 
 				$s_row = $sf_hid_fields_scale[$i];
 				$new_field = JTable::getInstance('Scales', 'SurveyforceTable', array());
-				if ($sf_hid_field_scale_ids[$i] > 0 ) {
+				if ($sf_hid_field_scale_ids[$i] > 0 && !$data['issave2copy']) {
 					$new_field->id = $sf_hid_field_scale_ids[$i];
 				}
 				$new_field->quest_id = $data['qid'];
@@ -175,7 +177,7 @@ class plgSurveyLikertscale {
 					unset($old_sf_hid_field_ids[$i]);
 			}
 
-			if(count($old_sf_hid_field_ids)){
+			if(count($old_sf_hid_field_ids) && !$data['issave2copy']){
 				$query = "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = '".$data['qid']."' AND id IN ( ".implode(', ', $old_sf_hid_field_ids)." )";
 				$database->setQuery($query);
 				$database->execute();
@@ -185,7 +187,7 @@ class plgSurveyLikertscale {
 
 				$f_row = $sf_hid_fields[$i];
 				$new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
-				if ($sf_hid_field_ids[$i] > 0 ) {
+				if ($sf_hid_field_ids[$i] > 0 && !$data['issave2copy']) {
 					$new_field->id = $sf_hid_field_ids[$i];
 				}
 				$new_field->quest_id = $data['qid'];
