@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `#__survey_force_survs` (
 `id` int(11) NOT NULL auto_increment,
 `sf_name` varchar(250) NOT NULL default '',
 `sf_descr` text NOT NULL,
-`sf_image` varchar(50) NOT NULL default '',
+`sf_image` varchar(250) NOT NULL default '',
 `sf_cat` int(11) NOT NULL default '0',
 `sf_lang` int(11) NOT NULL default '0',
 `sf_author` int(11) NOT NULL default '0',
