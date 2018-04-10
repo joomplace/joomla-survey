@@ -1185,7 +1185,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 		$text = strip_tags( $text );
 		$text = strtr( $text, array_flip($this->get_html_translation_table_my( ) ) );
-		$text = preg_replace( "/&#([0-9]+);/me", "chr('\\1')", $text );
+        $text = preg_replace_callback("/&#([0-9]+);/m", function($matches){ return chr($matches[1]);}, $text);
 
 		return $text;
 	}
@@ -1452,7 +1452,6 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 		$field_text = str_replace( "\n", ' ', $field_text );
 		$field_text = str_replace( "\r", ' ', $field_text );
 		$field_text = strtr( $field_text, array_flip($this->get_html_translation_table_my( ) ) );
-		//$field_text = preg_replace( "/&#([0-9]+);/me", "chr('\\1')", $field_text );
         $field_text = preg_replace_callback("/&#([0-9]+);/m", function($matches){ return chr($matches[1]);}, $field_text);
 		$field_text = '"'.$field_text.'"';
 		return $field_text;
@@ -1467,7 +1466,6 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 		$field_text = str_replace( "\n", ' ', $field_text );
 		$field_text = str_replace( "\r", ' ', $field_text );
 		$field_text = strtr( $field_text, array_flip($this->get_html_translation_table_my( ) ) );
-		//$field_text = preg_replace( "/&#([0-9]+);/me", "chr('\\1')", $field_text );
         $field_text = preg_replace_callback("/&#([0-9]+);/m", function($matches){ return chr($matches[1]);}, $field_text);
         return $field_text;
 	}
