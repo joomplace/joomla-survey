@@ -166,7 +166,7 @@ $sortFields = $this->getSortFields();
 
                 if(count($this->sections)){
                     foreach ($this->sections as $j => $section) {
-					if(count($this->items[$section->id])){ ?>
+					if(isset($this->items[$section->id]) && count($this->items[$section->id])){ ?>
                    
                     <tr class="row<?php echo $j % 2; ?>" sortable-group-id="1">
                         <td class="center">
@@ -178,13 +178,16 @@ $sortFields = $this->getSortFields();
                         <td class="nowrap has-context" colspan="4"> 
                             <a href="index.php?option=com_surveyforce&view=section&id=<?php echo $section->id;?>&surv_id=<?php echo $this->surv_id;?>"><?php echo $section->sf_name; ?></a>
                         </td>
-                        <td class="nowrap has-context" colspan="4">
+                        <td></td>
+                        <td class="center">
                             
                             <?php $disabled = $saveOrder ? '' : 'disabled="disabled"'; ?>
                             <input type="text" name="section_order[]" size="5" value="<?php echo $section->ordering; ?>" class="width-20 text-area-order" <?php echo $disabled;?>/>
                             <input type="hidden" name="section_ids[]" value="<?php echo $section->id;?>">
 
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <?php 
                     if(isset($this->items[$section->id]) && count($this->items[$section->id])){
@@ -269,7 +272,7 @@ $sortFields = $this->getSortFields();
 
                             <td class="has-context">
                                 <div class="center">
-                                    <?php echo $item->sf_qtype; ?>
+                                    <?php echo JText::_($item->sf_qtype); ?>
                                 </div>
                             </td>
                             <td class="has-context">
