@@ -2595,6 +2595,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
    /* This function draw a pseudo-3D pie chart */
    function drawPieGraph($Data,$DataDescription,$XPos,$YPos,$Radius=100,$DrawLabels=PIE_NOLABEL,$EnhanceColors=TRUE,$Skew=60,$SpliceHeight=20,$SpliceDistance=0,$Decimals=0)
     {
+       
      /* Validate the Data and DataDescription array */
      $this->validateDataDescription("drawPieGraph",$DataDescription,FALSE);
      $this->validateData("drawPieGraph",$Data);
@@ -2630,8 +2631,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
      /* Calculate all polygons */
      $Angle    = 0; $CDev = 5;
-     $TopPlots = ""; $BotPlots = "";
-     $aTopPlots = ""; $aBotPlots = "";
+     $TopPlots = array(); $BotPlots = array();
+     $aTopPlots = array(); $aBotPlots = array();
+     
      foreach($iValues as $Key => $Value)
       {
        $XCenterPos = cos(($Angle-$CDev+($Value*$SpliceRatio+$SpliceDistanceRatio)/2) * 3.1418 / 180 ) * $SpliceDistance + $XPos;
@@ -2713,7 +2715,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
        foreach($iValues as $Key => $Value)
         {
          $C_GraphLo = $this->AllocateColor($this->Picture,$this->Palette[$Key]["R"],$this->Palette[$Key]["G"],$this->Palette[$Key]["B"],-10);
-         $Plots = ""; $Plot = 0;
+         $Plots = array(); $Plot = 0;
          foreach($TopPlots[$Key] as $Key2 => $Value2)
           {
            $Plot++;
@@ -2721,7 +2723,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
             $Plots[] = $Value2;
            else
             $Plots[] = $Value2+$i;
-          }
+          }          
          imagefilledpolygon($this->Picture,$Plots,(count($Plots)+1)/2,$C_GraphLo);
 
          $Index       = count($Plots);

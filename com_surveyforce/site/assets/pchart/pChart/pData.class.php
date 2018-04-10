@@ -54,14 +54,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
    var $DataDescription;
 
    function pData()
-    {
-     $this->Data                           = "";
-     $this->DataDescription                = "";
+    {       
+     $this->Data                           = array();
+     $this->DataDescription                = array();
      $this->DataDescription["Position"]    = "Name";
      $this->DataDescription["Format"]["X"] = "number";
      $this->DataDescription["Format"]["Y"] = "number";
      $this->DataDescription["Unit"]["X"]   = NULL;
-     $this->DataDescription["Unit"]["Y"]   = NULL;
+     $this->DataDescription["Unit"]["Y"]   = NULL;     
     }
 
    function ImportFromCSV($FileName,$Delimiter=",",$DataColumns=-1,$HasHeader=FALSE,$DataName=-1)
