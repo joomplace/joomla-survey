@@ -2051,9 +2051,16 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								$mailer->setSubject($subject);
 								$mailer->setBody($body);
 
-								$send = $mailer->Send();
+								try {
+									$send = $mailer->Send();
+								} catch (phpmailerException $e){
+									$error = $e->errorMessage();
+								} catch (Exception $e) {
+									$error = $e->getMessage();
+								}
+
 								if ( $send !== true ) {
-									echo 'Error sending email: ' . $send->__toString();
+									echo 'Error sending email: ' . $error;
 								} else {
 
 								}
