@@ -22,18 +22,43 @@ class plgSurveyPagebreak {
         return true;
     }
 
-    public function onSaveQuestion(&$data) {
+    public function onSaveQuestion($data) {
 
-        $database = JFactory::getDbo();
-        $sf_survey = $data['item']->sf_survey;
-        
-        $query = "SELECT MAX(ordering) FROM #__survey_force_quests WHERE sf_survey = {$sf_survey}";
-        $database->SetQuery($query);
-        $max_ord = $database->LoadResult();
+        $sf_survey = 0;
+        if(isset($data) && is_array($data) && isset($data['item']) && is_object($data['item']) && isset($data['item']->sf_survey)){
+            $sf_survey = (int)$data['item']->sf_survey;
+        }
+        if(!$sf_survey){
+            $sf_survey = JFactory::getApplication()->input->getInt('surv_id', 0);
+        }
+        if(!$sf_survey){
+            return false;
+        }
 
-        $query = "INSERT INTO #__survey_force_quests (sf_survey, sf_qtype, sf_compulsory, sf_qtext, ordering, published, is_final_question ) VALUES ($sf_survey, 8, 0, 'Page Break', " . ($max_ord + 1) . ", 1, 0) ";
-        $database->setQuery($query);
-        $database->query();
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+
+        $query->select('MAX(`ordering`)')
+            ->from($db->qn('#__survey_force_quests'))
+            ->where($db->qn('sf_survey') .'='. $db->q($sf_survey));
+        $db->setQuery($query);
+        $max_ord = (int)$db->LoadResult();
+
+        $query->clear();
+        $columns = array('sf_survey', 'sf_qtype', 'sf_compulsory', 'sf_qtext', 'ordering', 'published', 'is_final_question');
+        $values = array($sf_survey, 8, 0, 'Page Break', ($max_ord + 1), 1, 0);
+        for($i=0; $i<count($values); $i++){
+            $values[$i] = $db->q($values[$i]);
+        }
+
+        $query->insert($db->qn('#__survey_force_quests'))
+            ->columns($db->qn($columns))
+            ->values(implode(',', $values));
+        $db->setQuery($query);
+        if($db->execute()){
+            return true;
+        }
+
     }
 
     public function onGetScriptJs() {
