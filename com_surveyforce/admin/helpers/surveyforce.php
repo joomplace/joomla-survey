@@ -358,18 +358,23 @@ class SurveyforceHelper
 	}
 
 
-	function SF_processCSVField($field_text)
+	function SF_processCSVField($field_text, $plus_double_quotes = true)
 	{
 		$field_text = strip_tags($field_text);
 		$field_text = str_replace('&#039;', "'", $field_text);
 		$field_text = str_replace('&#39;', "'", $field_text);
 		$field_text = str_replace('&quot;', '"', $field_text);
 		$field_text = str_replace('"', '""', $field_text);
-		$field_text = str_replace("\n", ' ', $field_text);
-		$field_text = str_replace("\r", ' ', $field_text);
+		$field_text = str_replace("\\n", ' ', $field_text);
+		$field_text = str_replace("\\r", ' ', $field_text);
 		$field_text = strtr($field_text, array_flip(self::get_html_translation_table_my()));
-		$field_text = preg_replace("/&#([0-9]+);/me", "chr('\\1')", $field_text);
-		$field_text = '"' . $field_text . '"';
+        $field_text = preg_replace_callback("/&#([0-9]+);/m",
+            function ($m) {
+                return "chr('\\1')";
+            }, $field_text);
+        if($plus_double_quotes) {
+            $field_text = '"' . $field_text . '"';
+        }
 		return $field_text;
 	}
 
