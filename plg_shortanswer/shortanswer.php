@@ -21,8 +21,147 @@ class plgSurveyShortanswer {
         return true;
     }
     
-     public static function onGetAdminOptions($data) {
-        return false;
+     public static function onGetAdminOptions($data, $lists) {
+
+         $database = JFactory::getDBO();
+         $row = $data['item'];
+         $q_om_type = $row->sf_qtype;
+         $sf_num_options = $row->sf_num_options;
+         $sessions = JFactory::getSession();
+         $query = $database->getQuery(true);
+         $id = (isset($data['id'])) ? $data['id'] : '';
+
+         $is_return = $sessions->get('is_return_sf') > 0 ? true : false;
+
+
+         $lists['sf_fields_rule'] = array();
+         $query = "SELECT b.ftext, c.sf_qtext, c.id as next_quest_id, a.priority, d.ftext as alt_ftext  "
+             . "\n FROM #__survey_force_rules as a, #__survey_force_fields as b, #__survey_force_quests as c, #__survey_force_fields as d"
+             . "\n WHERE a.quest_id = '" . $row->id . "' and a.answer_id = b.id and a.next_quest_id = c.id and a.alt_field_id = d.id";
+         $database->SetQuery($query);
+         $result = $database->LoadObjectList();
+         $lists['sf_fields_rule'] = ($result == null ? array() : $result);
+
+         $lists['sf_fields'] = array();
+         $query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '" . $row->id . "' AND is_main = 0 ORDER BY ordering";
+         $database->SetQuery($query);
+         $lists['sf_fields'] = $database->LoadObjectList();
+         if ($is_return) {
+             $lists['sf_fields'] = array();
+             $sf_fields = $sessions->get('sf_fields_sf');
+             $sf_field_ids = $sessions->get('sf_field_ids_sf');
+             for ($i = 0, $n = count($sf_fields); $i < $n; $i++) {
+                 $tmp = new stdClass();
+                 $tmp->id = $sf_field_ids[$i];
+                 $tmp->ftext = $sf_fields[$i];
+                 $lists['sf_fields'][] = $tmp;
+             }
+         }
+         $list_fields = JHtmlSelect::genericlist($lists['sf_fields'], 'sf_field_list', 'class="text_area" id="sf_field_list" size="1" ', 'ftext', 'ftext', 0);
+         $lists['sf_list_fields'] = $list_fields;
+
+         $lists['sf_alt_fields'] = array();
+         $query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '" . $row->id . "' AND is_main = 1 ORDER BY ordering";
+         $database->SetQuery($query);
+         $lists['sf_alt_fields'] = $database->LoadObjectList();
+         if ($is_return) {
+             $lists['sf_alt_fields'] = array();
+             $sf_alt_fields = $sessions->get('sf_alt_fields_sf');
+             $sf_alt_field_ids = $sessions->get('sf_alt_field_ids_sf');
+             for ($i = 0, $n = count($sf_alt_fields); $i < $n; $i++) {
+                 $tmp = new stdClass();
+                 $tmp->id = $sf_alt_field_ids[$i];
+                 $tmp->ftext = $sf_alt_fields[$i];
+                 $lists['sf_alt_fields'][] = $tmp;
+             }
+         }
+         $list_fields = JHtmlSelect::genericlist($lists['sf_alt_fields'], 'sf_alt_field_list', 'class="text_area" id="sf_alt_field_list" size="1" ', 'ftext', 'ftext', 0);
+         $lists['sf_alt_field_list'] = $list_fields;
+
+         $sf_fields = $sf_fields_full = array();
+         $query = "SELECT * FROM #__survey_force_fields WHERE quest_id = '" . $row->id . "' and is_main = 0 ORDER BY ordering";
+         $database->SetQuery($query);
+         $sf_fields = $database->LoadObjectList();
+         $ii = 0;
+         foreach ($sf_fields as $qrow) {
+             $sf_fields_full[$ii]= new stdClass();
+             $sf_fields_full[$ii]->id = $qrow->id;
+             $sf_fields_full[$ii]->quest_id = $qrow->quest_id;
+             $sf_fields_full[$ii]->ftext = $qrow->ftext;
+             $sf_fields_full[$ii]->alt_field_id = $qrow->alt_field_id;
+             $database->SetQuery("SELECT ftext FROM #__survey_force_fields WHERE is_main = 1 and quest_id = '" . $qrow->quest_id . "' and `id` = '" . $qrow->alt_field_id . "'");
+             $sf_fields_full[$ii]->alt_field_full = $database->LoadResult();
+             $sf_fields_full[$ii]->is_main = $qrow->is_main;
+             $sf_fields_full[$ii]->is_true = $qrow->is_true;
+             $ii++;
+         }
+
+         $lists['sf_fields'] = $sf_fields_full;
+         if ($is_return) {
+             $lists['sf_fields'] = array();
+             $sf_fields = $sessions->get('sf_fields_sf');
+             $sf_field_ids = $sessions->get('sf_field_ids_sf');
+             $sf_alt_fields = $sessions->get('sf_alt_fields_sf');
+             $sf_alt_field_ids = $sessions->get('sf_alt_field_ids_sf');
+             for ($i = 0, $n = count($sf_fields); $i < $n; $i++) {
+                 $tmp = new stdClass();
+                 $tmp->ftext = $sf_fields[$i];
+                 $tmp->id = $sf_field_ids[$i];
+                 $tmp->alt_field_full = $sf_alt_fields[$i];
+                 $tmp->alt_field_id = $sf_alt_field_ids[$i];
+                 $lists['sf_fields'][] = $tmp;
+             }
+         }
+
+         $lists['sf_fields_rule'] = array();
+         $query = "SELECT b.ftext, c.sf_qtext, c.id as next_quest_id, a.priority, d." . 'f' . "text as alt_ftext "
+             . "\n FROM  #__survey_force_fields as b, #__survey_force_quests as c, #__survey_force_rules as a LEFT JOIN " . "#__survey_force_fields as d " . " ON a.alt_field_id = d.id "
+             . "\n WHERE a.quest_id = '" . $row->id . "' and a.answer_id <> 9999997 and a.answer_id = b.id and a.next_quest_id = c.id ";
+         $database->setQuery($query);
+         $result = $database->LoadObjectList();
+         $lists['sf_fields_rule'] = ($result == null ? array() : $result);
+         $database->getQuery(true);
+         $query = "SELECT a.*, c.sf_qtext, c.sf_qtype, c.id AS qid,  d.ftext AS aftext, e.stext AS astext, b.ftext AS qoption, b.id AS bid, d.id AS fdid, e.id AS sdid FROM  #__survey_force_fields AS b, #__survey_force_quests AS c, #__survey_force_quest_show AS a LEFT JOIN #__survey_force_fields AS d ON a.ans_field = d.id LEFT JOIN #__survey_force_scales AS e ON a.ans_field = e.id WHERE a.quest_id = '" . $row->id . "' AND a.answer = b.id AND a.quest_id_a = c.id ";
+         $database->setQuery($query);
+         $result = $database->LoadObjectList();
+         $lists['quest_show'] = ($result == null ? array() : $result);
+
+         $query = "SELECT id AS value, sf_qtext AS text"
+             . "\n FROM #__survey_force_quests WHERE id <> '" . $id . "' AND sf_qtype <> 8 "
+             . ($row->sf_survey ? "\n and sf_survey = '" . $row->sf_survey . "'" : '')
+             . "\n ORDER BY ordering, id "
+         ;
+         $database->setQuery($query);
+         $result = $database->LoadObjectList();
+         $quests = ($result == null ? array() : $result);
+         $i = 0;
+         while ($i < count($quests)) {
+             $quests[$i]->text = strip_tags($quests[$i]->text);
+             if (strlen($quests[$i]->text) > 55)
+                 $quests[$i]->text = mb_substr($quests[$i]->text, 0, 55) . '...';
+             $quests[$i]->text = $quests[$i]->value . ' - ' . $quests[$i]->text;
+             $i++;
+         }
+         $lists['quests'] = JHtmlSelect::genericlist($quests, 'sf_quest_list', 'class="text_area" id="sf_quest_list" size="1" onchange="javascript: showOptions(this.value);" ', 'value', 'text', 0);
+
+
+         $query = "SELECT next_quest_id "
+             . "\n FROM #__survey_force_rules WHERE quest_id = '" . $row->id . "' and answer_id = 9999997 ";
+         $database->setQuery($query);
+         $squest = (int) $database->loadResult();
+         $quest = JHtmlSelect::genericlist($quests, 'sf_quest_list2', 'class="text_area" id="sf_quest_list2" size="1" ', 'value', 'text', $squest);
+         $lists['quests2'] = $quest;
+         $lists['checked'] = '';
+         if ($squest)
+             $lists['checked'] = ' checked = "checked" ';
+
+         ob_start();
+         include_once(JPATH_SITE . "/plugins/survey/shortanswer/admin/js/shortanswer.js.php");
+         include_once(JPATH_SITE . "/plugins/survey/shortanswer/admin/options/shortanswer.php");
+         $options = ob_get_clean();
+
+
+         return $options;
      }
 
     public function onSaveQuestion(&$data) {
