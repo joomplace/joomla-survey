@@ -102,5 +102,22 @@ class SurveyforceModelSection extends JModelAdmin {
         return $id;
 
     }
+    
+    public function delete($sids) {
+        $result = false;
+        if(parent::delete($sids)) {
+            if (count($sids) > 1) {
+                $toQuery = ' IN (' . implode(',', ArrayHelper::toInteger($sids)) . ')';
+            } else {
+                $toQuery = '=' . $sids[0];
+            }
+            $db = JFactory::getDbo();
+            $db->setQuery("UPDATE `#__survey_force_quests` SET `sf_section_id` = 0 WHERE `sf_section_id`".$toQuery);
+            $db->execute();
+            $result = true;
+        }
+        
+        return $result;
+    }
 
 }
