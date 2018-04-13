@@ -8,6 +8,8 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\Utilities\ArrayHelper;
+
 jimport('joomla.application.component.modeladmin');
 
 class SurveyforceModelSection extends JModelAdmin {
