@@ -13,10 +13,19 @@ JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.multiselect');
 JHtml::_('dropdown.init');
 JHtml::_('formbehavior.chosen', 'select');
+JHTML::_('jquery.framework');
 ?>
 <?php echo $this->loadTemplate('menu'); ?>
 <script type="text/javascript">
-   
+    
+    jQuery(document).ready(function(){
+        jQuery('#jform_sf_survey_id').on('change', function(){
+            jQuery('#sf_quest').load('?option=com_surveyforce&view=section&id='+jQuery('input[name="id"]').val()+'&surv_id='+jQuery(this).val()+'&task=section.ajaxQuestions',function() {
+                jQuery('#sf_quest').chosen('destroy');
+                jQuery('#sf_quest').chosen();
+            });
+        });
+    })
     Joomla.submitbutton = function(task)
     {
         if (task == 'section.cancel' || document.formvalidator.isValid(document.id('section-form'))) {
