@@ -66,7 +66,7 @@ class SurveyforceControllerInvite_users extends JControllerForm
         $UsersList = $database->loadObjectList();
         $Users_to_invite = count($UsersList);
 
-        $config = JFactory::getConfig();
+        $config = new JConfig();
         $mailfrom = !empty($config->mailfrom) ? $config->mailfrom: 'noreply@'.$_SERVER['SERVER_NAME'];
         $fromname = !empty($config->fromname) ? $config->fromname: 'SurveyForce';
 
