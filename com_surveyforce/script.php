@@ -30,7 +30,7 @@ class com_surveyforceInstallerScript
 				$db = JFactory::getDbo();
                 $sql = "UPDATE `#__survey_force_user_answers` ua LEFT JOIN `#__survey_force_quests` q ON ua.`quest_id`=q.`id` SET ua.`answer`=(@temp:=ua.`answer`), ua.`answer`=ua.`ans_field`, ua.`ans_field`=@temp WHERE q.`sf_qtype`=9";
                 $db->setQuery($sql);
-				$db->setQuery($query);
+                $db->execute();
 			}
 		}
 	}
