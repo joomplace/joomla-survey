@@ -804,7 +804,6 @@ class plgSurveyRanking {
 
         $query = "SELECT `ans_field` FROM #__survey_force_user_answers WHERE quest_id = '".$question->id."' AND start_id = '".$start_data->id."' ORDER BY id";
         $database->SetQuery( $query );
-        $alt_ids = $database->loadObjectList();
         $alt_ids = $database->loadColumn();
         if(count($alt_ids)) {
             $values = implode(',', array_map(array($database, 'q'),$alt_ids));
