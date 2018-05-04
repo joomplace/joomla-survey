@@ -26,8 +26,9 @@ class SurveyforceController extends JControllerLegacy
         $task   = $this->input->get('task');
         $itemid = $this->input->get('Itemid', 0, 'INT');
 
+        //seems not needed
         if (empty($itemid)) {
-            $itemid = !empty($this->input->post->get('Itemid', 0, 'INT')) ? $this->input->post->get('Itemid', 0, 'INT') : $this->input->get->get('Itemid', 0, 'INT');
+            $itemid = $this->input->post->get('Itemid', 0, 'INT') ? $this->input->post->get('Itemid', 0, 'INT') : $this->input->get->get('Itemid', 0, 'INT');
         }
 
         $this->input->set('Itemid', $itemid);
