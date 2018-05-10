@@ -59,8 +59,8 @@ class SurveyforceControllerRemind_users extends JControllerForm
         $Users_to_remind = count($UsersList);
 
         $config = JFactory::getConfig();
-        $mailfrom = !empty($config->mailfrom) ? $config->mailfrom: 'noreply@'.$_SERVER['SERVER_NAME'];
-        $fromname = !empty($config->fromname) ? $config->fromname: 'SurveyForce';
+        $mailfrom = !empty($config->get('mailfrom')) ? $config->get('mailfrom'): 'noreply@'.$_SERVER['SERVER_NAME'];
+        $fromname = !empty($config->get('fromname')) ? $config->get('fromname'): 'SurveyForce';
 
         $message = $Send_email[0]->email_body;
         $subject = stripslashes($Send_email[0]->email_subject);
