@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="system" method="upgrade">
+	<name>PLG_SISTEM_SF_ALTAUSERPOINTS</name>
+	<author>Joomplace.com</author>
+	<creationDate>October 2017</creationDate>
+	<copyright>(C) JoomPlace, www.joomplace.com</copyright>
+	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
+ 	<authorEmail>support@joomplace.com</authorEmail> 
+	<authorUrl>www.joomplace.com</authorUrl> 
+	<version>3.0.4</version>
+	<description>PLG_SISTEM_SF_ALTAUSERPOINTS_XML_DESCRIPTION</description>
+	<files>
+		<folder>fields</folder>
+		<filename plugin="sf_altauserpoints">sf_altauserpoints.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_sf_altauserpoints.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_sf_altauserpoints.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="comment" type="text" default="Completed '{survey_title}' survey" size="60"
+					   label="PLG_SISTEM_SF_ALTAUSERPOINTS_COMMENT_LABEL"
+					   description="PLG_SISTEM_SF_ALTAUSERPOINTS_COMMENT_DESC" />
+				<field name="points_rule" type="list" default="always"
+					   label="PLG_SISTEM_SF_ALTAUSERPOINTS_POINTSRULE_LABEL"
+					   description="PLG_SISTEM_SF_ALTAUSERPOINTS_POINTSRULE_DESC">
+					<option value="always">PLG_SISTEM_SF_ALTAUSERPOINTS_POINTSRULE_OPTION_ALWAYS</option>
+					<option value="onsuccess">PLG_SISTEM_SF_ALTAUSERPOINTS_POINTSRULE_OPTION_ONSUCCESS</option>
+				</field>
+				<field name="fixed_points" type="hidden" default="1"
+					   label="PLG_SISTEM_SF_ALTAUSERPOINTS_FIXEDPOINTS_LABEL"
+					   description="PLG_SISTEM_SF_ALTAUSERPOINTS_FIXEDPOINTS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="add_points_once" type="radio" default="0"
+					   label="PLG_SISTEM_SF_ALTAUSERPOINTS_POINTSONETIME_LABEL"
+					   description="PLG_SISTEM_SF_ALTAUSERPOINTS_POINTSONETIME_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="points" type="text" size="5" default="1"
+					   label="PLG_SISTEM_SF_ALTAUSERPOINTS_POINTS_LABEL"
+					   description="PLG_SISTEM_SF_ALTAUSERPOINTS_POINTS_DESC" />
+			</fieldset>
+			<fieldset addfieldpath="/plugins/system/sf_altauserpoints/fields" name="surveys">
+				<field name="pps" type="pps" size="5" default="1"
+					   label="PLG_SISTEM_SF_ALTAUSERPOINTS_PPS_LABEL"
+					   description="PLG_SISTEM_SF_ALTAUSERPOINTS_PPS_DESC" />
+			</fieldset>
+		</fields>
+    </config>
+</extension>
