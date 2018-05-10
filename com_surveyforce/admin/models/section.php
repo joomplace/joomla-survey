@@ -8,6 +8,8 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\Utilities\ArrayHelper;
+
 jimport('joomla.application.component.modeladmin');
 
 class SurveyforceModelSection extends JModelAdmin {
@@ -56,18 +58,26 @@ class SurveyforceModelSection extends JModelAdmin {
         return $result;
     }
 
-    public function getQuestions(){
-
+    public function getQuestions($survey_id = null, $section_id = null){
         $db = JFactory::getDBO();
 
         $quest_choosen = array();
-        $section_id = JFactory::getApplication()->input->get('id');
+        if(empty($section_id))
+            $section_id = JFactory::getApplication()->input->get('id');
+        
+ 
         if($section_id){
             $db->setQuery("SELECT `id` FROM `#__survey_force_quests` WHERE `sf_section_id` = '".$section_id."'");
             $quest_choosen = $db->loadColumn();
+            if(empty($survey_id)) {
+                $item = $this->getItem();
+                $survey_id = $item->sf_survey_id;
+            }
+        } elseif(empty($survey_id)) {
+            $survey_id = JFactory::getApplication()->input->get('surv_id');
         }
-
-        $db->setQuery("SELECT `id` as `value`, `sf_qtext` as `text` FROM `#__survey_force_quests`");
+        
+        $db->setQuery("SELECT `id` as `value`, `sf_qtext` as `text` FROM `#__survey_force_quests` WHERE `sf_survey`=".$survey_id);
         $questions = $db->loadObjectList();
 
         if(count($questions)){
@@ -101,6 +111,23 @@ class SurveyforceModelSection extends JModelAdmin {
 
         return $id;
 
+    }
+    
+    public function delete($sids) {
+        $result = false;
+        if(parent::delete($sids)) {
+            if (count($sids) > 1) {
+                $toQuery = ' IN (' . implode(',', ArrayHelper::toInteger($sids)) . ')';
+            } else {
+                $toQuery = '=' . $sids[0];
+            }
+            $db = JFactory::getDbo();
+            $db->setQuery("UPDATE `#__survey_force_quests` SET `sf_section_id` = 0 WHERE `sf_section_id`".$toQuery);
+            $db->execute();
+            $result = true;
+        }
+        
+        return $result;
     }
 
 }

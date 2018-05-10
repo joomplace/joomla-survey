@@ -41,5 +41,14 @@ class SurveyforceControllerSection extends JControllerAdmin
 
        $this->setRedirect('index.php?option=com_surveyforce&view=section&id='.$section_id.'&surv_id='.$surv_id, 'Item successfully saved');
     }
+    
+    public function ajaxQuestions(){
+        $surv_id = JFactory::getApplication()->input->get('surv_id');
+        $section_id = JFactory::getApplication()->input->get('id');
+        $model = $this->getModel('Section');
+        $questions = $model->getQuestions($surv_id, $section_id);
+        echo $questions['questions'];
+        die();
+	}
 
 }

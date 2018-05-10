@@ -41,7 +41,7 @@ class SurveyforceTableSection extends JTable {
     	$row->sf_name = $post['jform']['sf_name'];
     	$row->addname = $post['jform']['addname'];
     	$row->ordering = $ordering;
-    	$row->sf_survey_id = $post['surv_id'];
+    	$row->sf_survey_id = $post['jform']['sf_survey_id'];
 
     	if($isNew){
     		$database->insertObject('#__survey_force_qsections', $row, 'id');

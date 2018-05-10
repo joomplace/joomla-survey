@@ -13,10 +13,19 @@ JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.multiselect');
 JHtml::_('dropdown.init');
 JHtml::_('formbehavior.chosen', 'select');
+JHTML::_('jquery.framework');
 ?>
 <?php echo $this->loadTemplate('menu'); ?>
 <script type="text/javascript">
-   
+    
+    jQuery(document).ready(function(){
+        jQuery('#jform_sf_survey_id').on('change', function(){
+            jQuery('#sf_quest').load('?option=com_surveyforce&view=section&id='+jQuery('input[name="id"]').val()+'&surv_id='+jQuery(this).val()+'&task=section.ajaxQuestions',function() {
+                jQuery('#sf_quest').chosen('destroy');
+                jQuery('#sf_quest').chosen();
+            });
+        });
+    })
     Joomla.submitbutton = function(task)
     {
         if (task == 'section.cancel' || document.formvalidator.isValid(document.id('section-form'))) {
@@ -28,11 +37,21 @@ JHtml::_('formbehavior.chosen', 'select');
     }
 
 </script>
+<?php
 
+if($this->item->sf_survey_id) {
+    $surv_id = $this->item->sf_survey_id;
+} elseif($this->surv_id) {
+    $surv_id = $this->surv_id;
+} else {
+    $surv_id = '';
+}
+
+?>
 <form action="<?php echo JRoute::_('index.php?option=com_surveyforce&layout=edit&id='.(int) $this->item->id); ?>" enctype="multipart/form-data" method="post" name="adminForm" id="section-form" class="form-validate">
     
     <input type="hidden" name="id" value="<?php echo ($this->item->id) ? $this->item->id : ''; ?>" />
-    <input type="hidden" name="surv_id" value="<?php echo ($this->surv_id) ? $this->surv_id : ''; ?>" />
+    <input type="hidden" name="surv_id" value="<?php echo $surv_id; ?>" />
     <div class="row-fluid">	   
         <div id="j-main-container" class="span7 form-horizontal">
             <fieldset class="adminform">
@@ -52,7 +71,7 @@ JHtml::_('formbehavior.chosen', 'select');
                 <div class="control-group form-inline">
                     <?php echo $this->form->getLabel('sf_survey_id'); ?>
                     <div class="controls">
-                        <?php echo $this->form->getInput('sf_survey_id'); ?>
+                        <?php echo $this->form->getInput('sf_survey_id', null, $surv_id); ?>
                     </div>
                 </div>
 				<div class="control-group form-inline">
