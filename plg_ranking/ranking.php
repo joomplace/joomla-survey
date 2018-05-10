@@ -798,7 +798,6 @@ class plgSurveyRanking {
 			. "\n and is_main = 0 ORDER BY ordering";
 		$database->SetQuery( $query );
 		$tmp_data = $database->loadObjectList();
-
         if (!$tmp_data) {
             return $result;
         }
@@ -806,10 +805,14 @@ class plgSurveyRanking {
         $query = "SELECT `ans_field` FROM #__survey_force_user_answers WHERE quest_id = '".$question->id."' AND start_id = '".$start_data->id."' ORDER BY id";
         $database->SetQuery( $query );
         $alt_ids = $database->loadColumn();
-        $values = implode(',', $alt_ids);
-        $query = "SELECT `ftext` FROM #__survey_force_fields WHERE id IN (".$values.") and is_main = 1 ORDER BY FIELD(id,".$values.")";
-        $database->SetQuery( $query );
-        $alt_ftext = $database->loadColumn();
+        if(count($alt_ids)) {
+            $values = implode(',', array_map(array($database, 'q'),$alt_ids));
+            $query = "SELECT `ftext` FROM #__survey_force_fields WHERE id IN (".$values.") and is_main = 1 ORDER BY FIELD(id,".$values.")";
+            $database->SetQuery( $query );
+            $alt_ftext = $database->loadColumn();   
+        } else {
+            $alt_ftext = array();
+        }
 
 		$j = 0;
 		while ( $j < count($tmp_data) ) {
@@ -817,7 +820,7 @@ class plgSurveyRanking {
 			$result['answer'][$j]['num'] = $j;
 			$result['answer'][$j]['f_id'] = $tmp_data[$j]->id;
 			$result['answer'][$j]['f_text'] = $tmp_data[$j]->ftext;
-			$result['answer'][$j]['alt_text'] = $alt_ftext[$j];
+			$result['answer'][$j]['alt_text'] = !empty($alt_ftext[$j]) ? $alt_ftext[$j] : '';
 			foreach ($ans_inf_data as $ans_data) {
 				if ($ans_data->answer == $tmp_data[$j]->alt_field_id) {
 					$result['answer'][$j]['f_text'] = $tmp_data[$j]->ftext .($ans_data->ans_txt != '' ?' ('.$ans_data->ans_txt.')':'');
