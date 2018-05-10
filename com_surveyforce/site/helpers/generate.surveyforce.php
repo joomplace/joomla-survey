@@ -237,7 +237,7 @@ class sf_ImageGenerator extends SF_Object {
 					$fields = ($this->database->LoadObjectList() == null? array(): $this->database->LoadObjectList());
 					$tmp = new stdClass();
 					$tmp->id = 0;
-					$tmp->stext = JText::_('SURVEY_NO_ANSWER');
+					$tmp->stext = JText::_('COM_SURVEYFORCE_SURVEY_NO_ANSWER');
 					$fields[] = $tmp;
 	
 					$tmp = null;
@@ -299,7 +299,7 @@ class sf_ImageGenerator extends SF_Object {
 					$fields = ($this->database->LoadObjectList() == null? array(): $this->database->LoadObjectList());
 					$tmp = new stdClass();
 					$tmp->id = 0;
-					$tmp->ftext = JText::_('SURVEY_NO_ANSWER');
+					$tmp->ftext = JText::_('COM_SURVEYFORCE_SURVEY_NO_ANSWER');
 					$fields[] = $tmp;
 					
 					$query = "SELECT sf_qtext from #__survey_force_quests WHERE published = 1 AND id = $quest_id ORDER BY id";
@@ -339,7 +339,7 @@ class sf_ImageGenerator extends SF_Object {
 					$fields = ($this->database->LoadObjectList() == null? array(): $this->database->LoadObjectList());
 					$tmp = new stdClass();
 					$tmp->id = 0;
-					$tmp->ftext = JText::_('SURVEY_NO_ANSWER');
+					$tmp->ftext = JText::_('COM_SURVEYFORCE_SURVEY_NO_ANSWER');
 					$fields[] = $tmp;
 					
 					$query = "SELECT answer from #__survey_force_user_answers WHERE survey_id = $survey_id AND `start_id` IN ('".implode("','", $start_ids)."') AND quest_id = $quest_id ";
@@ -383,7 +383,7 @@ class sf_ImageGenerator extends SF_Object {
 					$fields = ($this->database->LoadObjectList() == null? array(): $this->database->LoadObjectList());
 					$tmp = new stdClass();
 					$tmp->id = 0;
-					$tmp->stext = ($qtype !=9?JText::_('SURVEY_NO_ANSWER'):JText::_('SURVEY_NOT_RANKED'));
+					$tmp->stext = ($qtype !=9?JText::_('COM_SURVEYFORCE_SURVEY_NO_ANSWER'):JText::_('COM_SURVEYFORCE_SURVEY_NOT_RANKED'));
 					$fields[] = $tmp;
 	
 					$tmp = null;
@@ -444,7 +444,8 @@ class sf_ImageGenerator extends SF_Object {
 	# answers - array with label of user answer of section(question)
 	# maintitle - title for sections
 	# max_value - absolute number of given answers from all users (percent = number/max_value *100%)
-	function createImage(&$sectionsz, &$titlesz, &$answersz, $maintitle, $max_value){	
+	function createImage(&$sectionsz, &$titlesz, &$answersz, $maintitle, $max_value){
+        $this->checkGraphSize();
 		$html = '<div class="sf_graphs_container" style="font-family: Tahoma;">';
 		if (count($sectionsz) > 1) {
 			$html .= '<div class="sf_graph_container">'.$maintitle.'<br/>';
