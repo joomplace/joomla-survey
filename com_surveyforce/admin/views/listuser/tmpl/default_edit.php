@@ -106,7 +106,7 @@ JHtml::_('formbehavior.chosen', 'select');
 		cell2.innerHTML = new_user_name + '<input type="hidden" name="sf_hid_names[]" value="' + new_user_name + '">';
 		cell3.innerHTML = new_user_lastname + '<input type="hidden" name="sf_hid_lastnames[]" value="' + new_user_lastname + '">';
 		cell4.innerHTML = new_user_email + '<input type="hidden" name="sf_hid_emails[]" value="' + new_user_email + '">';
-		cell5.innerHTML = '<a href="" onClick="javascript:Delete_tbl_row(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"><img src="<?php echo JURI::root()?>administrator/components/com_surveyforce/images/publish_x.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"></a>';
+		cell5.innerHTML = '<a href="" onClick="javascript:Delete_tbl_row(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"><img src="<?php echo JURI::root()?>administrator/components/com_surveyforce/assets/images/publish_x.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"></a>';
 		row.appendChild(cell1);
 		row.appendChild(cell2);
 		row.appendChild(cell3);
