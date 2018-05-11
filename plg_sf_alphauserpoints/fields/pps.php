@@ -1,7 +1,9 @@
 <?php
 /**
- * Goals component for Joomla 3.0
- * @package Goals
+ * JoomlaSurveyForce system plugin for Joomla
+ * @version $Id: sf_alphauserpoints.php 2018-03-15 12:03:15
+ * @package JoomlaSurveyForce
+ * @subpackage sf_alphauserpoints.php
  * @author JoomPlace Team
  * @Copyright Copyright (C) JoomPlace, www.joomplace.com
  * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
