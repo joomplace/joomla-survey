@@ -23,16 +23,6 @@ class com_surveyforceInstallerScript
 	function update($parent)
 	{
 		echo '<font style="font-size:2em; color:#55AA55;" >' . JText::_('COM_SURVEYFORCE_UPDATE_TEXT') . '</font><br/><br/>';
-		if(file_exists(JPATH_ADMINISTRATOR .'/components/com_surveyforce/surveyforce.xml')){
-			$xml = JFactory::getXML(JPATH_ADMINISTRATOR .'/components/com_surveyforce/surveyforce.xml');
-			$this->version_from = $version = preg_split( '/(\s|\.)/', $xml->version );
-			if($version[0]<=3 && $version[1]<=2 && $version[2]<6 && $xml->version != "3.2.5.001"){
-				$db = JFactory::getDbo();
-                $sql = "UPDATE `#__survey_force_user_answers` ua LEFT JOIN `#__survey_force_quests` q ON ua.`quest_id`=q.`id` SET ua.`answer`=(@temp:=ua.`answer`), ua.`answer`=ua.`ans_field`, ua.`ans_field`=@temp WHERE q.`sf_qtype`=9";
-                $db->setQuery($sql);
-                $db->execute();
-			}
-		}
 	}
 
 	function preflight($type, $parent)	// before install/update
