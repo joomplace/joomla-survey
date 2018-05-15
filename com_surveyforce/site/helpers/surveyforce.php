@@ -532,7 +532,7 @@ class SurveyforceHelper
 
 		if (($survey->published) && (($survey->sf_date_expired == '0000-00-00 00:00:00' && $survey->sf_date_started == '0000-00-00 00:00:00') || (strtotime($survey->sf_date_expired) >= $now && strtotime($survey->sf_date_started) <= $now))) 
 		{
-
+                        /*
 			$query = " SELECT sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_survey = {$survey->id} ORDER BY ordering, id ";
 			$database->setQuery($query);
 			$q_data = $database->loadColumn();
@@ -541,7 +541,7 @@ class SurveyforceHelper
 				if ($survey->sf_auto_pb == 0 && $q_data[$i] != 8 && isset($q_data[$i + 1]) && $q_data[$i + 1] != 8)
 					$survey->sf_image = '';
 			}
-
+                        */
 			$sf_special = false;
 			if ((JFactory::getUser()->id) && ($survey->sf_special))
 			{
