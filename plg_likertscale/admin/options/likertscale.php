@@ -85,6 +85,8 @@ else
 	<tr>
 		<th width="20px" align="center">#</th>
 		<th class="title" width="200px"><?php echo JText::_('COM_SURVEYFORCE_SCALE_OPTIONS'); ?></th>
+        <th width="20px" align="center" class="title"></th>
+		<th width="200px" align="center" class="title"></th>
 		<th width="20px" align="center" class="title"></th>
 		<th width="20px" align="center" class="title"></th>
 		<th width="20px" align="center" class="title"></th>
@@ -100,17 +102,22 @@ else
 			$other_option = $frow;
 			continue;
 		}
+        $frowText = explode('[[[right]]]', $frow->ftext);
 		?>
 		<input type="hidden" name="old_sf_hid_field_scale_ids[]" value="<?php echo $frow->id?>"/>
 		<tr class="<?php echo "row$k"; ?>">
 			<td align="center"><?php echo $ii?></td>
-			<td align="left" onDblClick="edit_name(event, 'sf_hid_fields_scale[]', 'sf_hid_field_scale_ids[]');"><input type="hidden" name="sf_hid_fields_scale[]" value="<?php echo $frow->stext?>"/><input type="hidden" name="sf_hid_field_scale_ids[]" value="<?php echo $frow->id?>"/>
-				<?php echo $frow->stext?>
+			<td align="left" onDblClick="AnswerOptionsEditName(event, 'sf_hid_fields[]', 'sf_hid_field_ids[]');"><input type="hidden" name="sf_hid_fields[]" value="<?php echo $frow->ftext?>"/><input type="hidden" name="sf_hid_field_ids[]" value="<?php echo $frow->id?>"/>
+				<?php echo $frowText[0]?>
 
 			</td>
-			<td><a href="javascript: void(0);" onClick="javascript:Delete_tbl_row(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"><img src="<?php echo JURI::root()?>administrator/components/com_surveyforce/assets/images/publish_x.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"></a></td>
-			<td><?php if ($ii > 1) { ?><a href="javascript: void(0);" onClick="javascript:Up_tbl_row(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"><img src="<?php echo JURI::root()?>administrator/components/com_surveyforce/assets/images/uparrow.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"></a><?php } ?></td>
-			<td><?php if ($ii < $ind_last) { ?><a href="javascript: void(0);" onClick="javascript:Down_tbl_row(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_MOVE_DOWN'); ?>"><img src="<?php echo JURI::root()?>administrator/components/com_surveyforce/assets/images/downarrow.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_MOVE_DOWN'); ?>"></a><?php } ?></td>
+			<td>-</td>
+			<td align="left" onDblClick="AnswerOptionsEditName(event, 'sf_hid_fields[]', 'sf_hid_field_ids[]',1);">
+				<?php echo !empty($frowText[1])? $frowText[1] : ''?>
+			</td>
+			<td><a href="javascript: void(0);" onClick="javascript:AnswerOptionsDeleteTblRow(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"><img src="<?php echo JURI::root()?>administrator/components/com_surveyforce/assets/images/publish_x.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"></a></td>
+			<td><?php if ($ii > 1) { ?><a href="javascript: void(0);" onClick="javascript:AnswerOptionsUpTblRow(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"><img src="<?php echo JURI::root()?>administrator/components/com_surveyforce/assets/images/uparrow.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"></a><?php } ?></td>
+			<td><?php if ($ii < $ind_last) { ?><a href="javascript: void(0);" onClick="javascript:AnswerOptionsDownTblRow(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_MOVE_DOWN'); ?>"><img src="<?php echo JURI::root()?>administrator/components/com_surveyforce/assets/images/downarrow.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_MOVE_DOWN'); ?>"></a><?php } ?></td>
 			<td></td>
 		</tr>
 		<?php
@@ -118,8 +125,9 @@ else
 	} ?>
 </table>
 <div style="text-align:left; padding-left:30px ">
-	<input id="new_field" class="text_area" style="width:205px " type="text" name="new_field">
-	<input class="btn" type="button" name="add_new_field" style="width:70px " value="<?php echo JText::_('COM_SURVEYFORCE_ADD'); ?>" onClick="javascript:Add_new_tbl_field('new_field', 'qfld_tbl', 'sf_hid_fields_scale[]', 'sf_hid_field_scale_ids[]');">
+    <input id="new_field2" class="text_area" style="width:205px " type="text" name="new_field2" placeholder="Left">
+    <input id="new_field3" class="text_area" style="width:205px " type="text" name="new_field3" placeholder="Right">
+	<input class="btn" type="button" name="add_new_field2" style="width:70px " value="<?php echo JText::_('COM_SURVEYFORCE_ADD'); ?>" onClick="javascript:AnswerOptionsAddTblField('new_field2','new_field3', 'qfld_tbl2', 'sf_hid_fields[]', 'sf_hid_field_ids[]');">
 </div>
 
 

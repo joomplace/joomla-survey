@@ -568,7 +568,8 @@ class sf_ImageGenerator {
         if (count($sectionsz) >= 1) {
             $html .= '<div class="sf_graph_container">' . $maintitle . '<br/>';
             foreach ($sectionsz as $i => $section) {
-                $html .= $titlesz[$i] . '<br/>';
+                $title = explode('[[[right]]]', $titlesz[$i]);
+                $html .=  $title[0].(!empty($title[1]) ? ' - '.$title[1] : ''). '<br/>';
                 $options = array();
                 $numbers = array();
                 

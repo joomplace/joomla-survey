@@ -546,6 +546,382 @@ function showOptions(val) {
 	sf_is_loading = false;
 }
 
+function AnswerOptionsAnalyzeCat() {
+	var element = getObj('inp_tmp');
+	if (element) {
+		var parent = element.parentNode;
+        var inpu_value = element.value;
+        parent.removeChild(element);
+        if(parent.getElementsByTagName("input").length==0) {
+            var leftTd = parent.parentNode.getElementsByTagName("td")[1];
+            var right=true;
+            var inputs = leftTd.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                if(inputs[i].name == 'sf_hid_fields[]') {
+                    var sf_hid_input = inputs[i];
+                    break;
+                }
+            }
+            var input_values = sf_hid_input.value.split('[[[right]]]');
+            if(inpu_value.length>0) {
+                var right_value = '[[[right]]]'+inpu_value;
+            } else {
+                var right_value='';
+            }
+            var newValue = input_values[0]+right_value;
+            sf_hid_input.value = newValue;
+            var span = document.createTextNode(inpu_value);
+            parent.appendChild(span);
+        } else {
+            var inputs = parent.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                if(inputs[i].name == 'sf_hid_fields[]') {
+                    var sf_hid_input = inputs[i];
+                    break;
+                }
+            }
+            var input_values = sf_hid_input.value.split('[[[right]]]');
+            if(input_values[1].length>0) {
+                var right_value = '[[[right]]]'+input_values[1];
+            } else {
+                var right_value='';
+            }
+            var newValue = inpu_value+right_value;
+            
+            var right=false;
+        
+        
+            var cat_id_sss = '0';
+
+            if (parent.hasChildNodes()) {
+                var children = parent.childNodes;
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].nodeName.toLowerCase() == 'input') {
+                        if (children[i].name == field_id) {
+                            cat_id_sss = children[i].value;
+                        }
+                    }
+                }
+            }
+            var input_cat2 = document.createElement("input");
+            input_cat2.type = "hidden";
+            input_cat2.name = field_name;
+            input_cat2.value = newValue;
+            var input_id2 = document.createElement("input");
+            input_id2.type = "hidden";
+            input_id2.name = field_id;
+            input_id2.value = cat_id_sss;
+
+            var span = document.createTextNode(inpu_value);
+            parent.innerHTML = '';
+            parent.appendChild(input_cat2);
+            parent.appendChild(input_id2);
+
+            parent.appendChild(span);
+        }
+        
+
+	}
+
+}
+
+function AnswerOptionsEditName(e, field, field2, right=false) { 
+	AnswerOptionsAnalyzeCat()
+	field_name = field;
+	field_id = field2;
+	if (!e) {
+		e = window.event;
+	}
+	var cat2 = e.target ? e.target : e.srcElement;
+    if(right) {
+        if(cat2.nodeName == 'TD') {
+            var leftTd = cat2.parentNode.getElementsByTagName("td")[1];
+            //remove childs
+            while (cat2.firstChild) {
+                cat2.removeChild(cat2.firstChild);
+            }
+            var rightTd = cat2;
+            cat2 = leftTd;
+        }
+    } else {
+        
+    }
+	Redeclare_element_inputs2(cat2);
+	var cat_name_value = '';
+	var found = false;
+	if (cat2.hasChildNodes()) {
+		var children = cat2.childNodes;
+		var children_count = children.length;
+		for (var i = 0; i < children_count; i++) {
+			if (children[i].nodeName.toLowerCase() == 'input') {
+				if (children[i].name == field_name) {
+					cat_name_value = children[i].value;
+					found = true;
+				}
+			}
+		}
+		if (!found)
+			return;
+        if(!right) {
+            for (var i = 0; i < children.length; i++) {
+                if (children[i].nodeName.toLowerCase() != 'input') {
+                        cat2.removeChild(cat2.childNodes[i]);
+
+                }
+            }
+        }
+	}
+    cat_name_value = cat_name_value.split('[[[right]]]');
+    var cat_name_value_left = cat_name_value[0];
+    var cat_name_value_right = cat_name_value[1];
+	var input_cat3 = document.createElement("input");
+	input_cat3.type = "text";
+	input_cat3.id = "inp_tmp";
+	input_cat3.name = "inp_tmp";
+    if(right) {
+        if(typeof cat_name_value_right !== "undefined") {
+            input_cat3.value = cat_name_value_right;
+        }
+    } else {
+        input_cat3.value = cat_name_value_left;
+    }
+    
+	input_cat3.setAttribute("style", "z-index:5000");
+	if (window.addEventListener) {
+		input_cat3.addEventListener('dblclick', AnswerOptionsAnalyzeCat, false);
+	} else {
+		input_cat3.attachEvent('ondblclick', AnswerOptionsAnalyzeCat);
+	}
+
+    if(right && cat2.nodeName == 'TD') {
+        rightTd.appendChild(input_cat3);
+    } else {
+        cat2.appendChild(input_cat3);
+    }
+
+}
+
+function AnswerOptionsReAnalizeTblRows(start_index, tbl_id) {
+	start_index = 1;
+	var tbl_elem = getObj(tbl_id);
+
+	if (tbl_elem.rows[start_index]) {
+		var count = start_index;
+		var row_k = 1 - start_index % 2;//0;
+		for (var i = start_index; i < tbl_elem.rows.length; i++) {
+			tbl_elem.rows[i].cells[0].innerHTML = count;
+			if (i > 1) {
+				tbl_elem.rows[i].cells[5].innerHTML = '<a href="javascript: void(0);" onClick="javascript:AnswerOptionsUpTblRow(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"><img src="<?php echo JURI::root() ?>administrator/components/com_surveyforce/assets/images/uparrow.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"></a>';
+			} else {
+				tbl_elem.rows[i].cells[5].innerHTML = '';
+			}
+			if (i < (tbl_elem.rows.length - 1)) {
+				tbl_elem.rows[i].cells[6].innerHTML = '<a href="javascript: void(0);" onClick="javascript:AnswerOptionsDownTblRow(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_MOVE_DOWN'); ?>"><img src="<?php echo JURI::root() ?>administrator/components/com_surveyforce/assets/images/downarrow.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_MOVE_DOWN'); ?>"></a>';
+				;
+			} else {
+				tbl_elem.rows[i].cells[6].innerHTML = '';
+			}
+			tbl_elem.rows[i].className = 'row' + row_k;
+			count++;
+			row_k = 1 - row_k;
+		}
+	}
+
+}
+
+function AnswerOptionsDeleteTblRow(element) {
+	var del_index = element.parentNode.parentNode.sectionRowIndex;
+	var tbl_id = element.parentNode.parentNode.parentNode.parentNode.id;
+	element.parentNode.parentNode.parentNode.deleteRow(del_index);
+	AnswerOptionsReAnalizeTblRows(del_index - 1, tbl_id);
+}
+
+function AnswerOptionsUpTblRow(element) {
+	if (element.parentNode.parentNode.sectionRowIndex > 1) {
+		var sec_indx = element.parentNode.parentNode.sectionRowIndex;
+		var table = element.parentNode.parentNode.parentNode;
+		var tbl_id = table.parentNode.id;
+		var cell2_tmp = element.parentNode.parentNode.cells[1].innerHTML;
+		var td_value = element.parentNode.parentNode.cells[1].childNodes[0].value;
+		var td_id = element.parentNode.parentNode.cells[1].childNodes[1].value;
+
+		var name1 = element.parentNode.parentNode.cells[1].childNodes[0].name;
+		var name2 = element.parentNode.parentNode.cells[1].childNodes[1].name;
+		element.parentNode.parentNode.parentNode.deleteRow(element.parentNode.parentNode.sectionRowIndex);
+		// nel'zya prosto skopirovat' staryi innerHTML, t.k. ne sozdadutsya DOM elementy (for IE, Opera compatible).
+		var row = table.insertRow(sec_indx - 1);
+		var cell1 = document.createElement("td");
+		var cell2 = document.createElement("td");
+		var cell3 = document.createElement("td");
+		var cell4 = document.createElement("td");
+        var cell5 = document.createElement("td");
+        var cell6 = document.createElement("td");
+
+		var input_hidden = document.createElement("input");
+		var input_hidden2 = document.createElement("input");
+		var span = document.createElement("span");
+
+		cell1.align = 'center';
+		cell1.innerHTML = 0;
+		cell2.align = 'left';
+
+		input_hidden.type = "hidden";
+		input_hidden.value = td_value;
+		input_hidden.name = name1;
+		input_hidden.setAttribute('name', name1);
+
+		input_hidden2.type = "hidden";
+		input_hidden2.value = td_id;
+		input_hidden2.name = name2;
+		input_hidden2.setAttribute('name', name2);
+        var rightLeft = td_value.split('[[[right]]]');
+		span.innerHTML = rightLeft[0];
+		cell2.appendChild(input_hidden);
+		cell2.appendChild(input_hidden2);
+		cell2.appendChild(span);
+        cell3.innerHTML= '-';
+        if(rightLeft[1]) {
+            cell4.innerHTML= rightLeft[1];
+        } else {
+            cell4.innerHTML= '';
+        }
+		cell5.innerHTML = '<a href="javascript: void(0);" onClick="javascript:AnswerOptionsDeleteTblRow(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"><img src="<?php echo JURI::root() ?>administrator/components/com_surveyforce/assets/images/publish_x.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"></a>';
+		cell6.innerHTML = '<a href="javascript: void(0);" onClick="javascript:AnswerOptionsUpTblRow(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"><img src="<?php echo JURI::root() ?>administrator/components/com_surveyforce/assets/images/uparrow.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"></a>';
+		row.appendChild(cell1);
+		row.appendChild(cell2);
+		row.appendChild(cell3);
+		row.appendChild(cell4);
+        row.appendChild(cell5);
+        row.appendChild(cell6);
+		row.appendChild(document.createElement("td"));
+		row.appendChild(document.createElement("td"));
+
+		AnswerOptionsReAnalizeTblRows(sec_indx - 2, tbl_id);
+	}
+}
+
+
+
+function AnswerOptionsDownTblRow(element) {
+	if (element.parentNode.parentNode.sectionRowIndex < element.parentNode.parentNode.parentNode.rows.length - 1) {
+		var sec_indx = element.parentNode.parentNode.sectionRowIndex;
+		var table = element.parentNode.parentNode.parentNode;
+		var tbl_id = table.parentNode.id;
+		var cell2_tmp = element.parentNode.parentNode.cells[1].innerHTML;
+		var td_value = element.parentNode.parentNode.cells[1].childNodes[0].value;
+		var td_id = element.parentNode.parentNode.cells[1].childNodes[1].value;
+
+		var name1 = element.parentNode.parentNode.cells[1].childNodes[0].name;
+		var name2 = element.parentNode.parentNode.cells[1].childNodes[1].name;
+
+		element.parentNode.parentNode.parentNode.deleteRow(element.parentNode.parentNode.sectionRowIndex);
+		var row = table.insertRow(sec_indx + 1);
+		var cell1 = document.createElement("td");
+		var cell2 = document.createElement("td");
+		var cell3 = document.createElement("td");
+		var cell4 = document.createElement("td");
+        var cell5 = document.createElement("td");
+        var cell6 = document.createElement("td");
+
+		var input_hidden = document.createElement("input");
+		var input_hidden2 = document.createElement("input");
+		var span = document.createElement("span");
+
+		input_hidden.type = "hidden";
+		input_hidden.name = name1;
+		input_hidden.value = td_value;
+
+		input_hidden2.type = "hidden";
+		input_hidden2.name = name2;
+		input_hidden2.value = td_id;
+
+		cell1.align = 'center';
+		cell1.innerHTML = 0;
+		cell2.align = 'left';
+
+        var rightLeft = td_value.split('[[[right]]]');
+		span.innerHTML = rightLeft[0];
+		cell2.appendChild(input_hidden);
+		cell2.appendChild(input_hidden2);
+		cell2.appendChild(span);
+        cell3.innerHTML= '-';
+        if(rightLeft[1]) {
+            cell4.innerHTML= rightLeft[1];
+        } else {
+            cell4.innerHTML= '';
+        }
+		cell5.innerHTML = '<a href="javascript: void(0);" onClick="javascript:AnswerOptionsDeleteTblRow(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"><img src="<?php echo JURI::root() ?>administrator/components/com_surveyforce/assets/images/publish_x.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"></a>';
+		cell6.innerHTML = '<a href="javascript: void(0);" onClick="javascript:AnswerOptionsUpTblRow(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"><img src="<?php echo JURI::root() ?>administrator/components/com_surveyforce/assets/images/uparrow.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"></a>';
+		row.appendChild(cell1);
+		row.appendChild(cell2);
+		row.appendChild(cell3);
+		row.appendChild(cell4);
+        row.appendChild(cell5);
+        row.appendChild(cell6);
+		row.appendChild(document.createElement("td"));
+		row.appendChild(document.createElement("td"));
+		AnswerOptionsReAnalizeTblRows(sec_indx, tbl_id);
+	}
+}
+
+function AnswerOptionsAddTblField(elem_field, elem_field2, tbl_id, field_name, field_name2) {
+    var new_element_txt2 = getObj(elem_field2).value;
+	var new_element_txt = getObj(elem_field).value;
+	if (TRIM_str(new_element_txt) == '') {
+		alert("<?php echo JText::_('COM_SURVEYFORCE_PLEASE_ENTER_TEXT_TO_FIELD'); ?>");
+		return;
+	}
+	getObj(elem_field).value = '';
+    getObj(elem_field2).value = '';
+	var tbl_elem = getObj(tbl_id);
+	var row = tbl_elem.insertRow(tbl_elem.rows.length);
+	var cell1 = document.createElement("td");
+	var cell2 = document.createElement("td");
+	var cell3 = document.createElement("td");
+	var cell4 = document.createElement("td");
+	var cell5 = document.createElement("td");
+	var cell6 = document.createElement("td");
+    var cell7 = document.createElement("td");
+    var cell8 = document.createElement("td");
+	var input_hidden = document.createElement("input");
+	var input_hidden2 = document.createElement("input");
+	var span = document.createElement("span");
+	input_hidden.type = "hidden";
+	input_hidden.name = field_name;
+    if(new_element_txt2.length>0) {
+        new_element_txt2 = '[[[right]]]'+ new_element_txt2;
+    } else {
+        new_element_txt2 = '';
+    }
+	input_hidden.value = new_element_txt + new_element_txt2;
+
+	input_hidden2.type = "hidden";
+	input_hidden2.name = field_name2;
+	input_hidden2.value = 0;
+	cell1.align = 'center';
+	cell1.innerHTML = 0;
+	cell2.setAttribute("ondblclick", "javascript:AnswerOptionsEditName(event, '" + field_name + "','" + field_name2 + "');");
+	span.innerHTML = new_element_txt;
+	cell2.appendChild(input_hidden);
+	cell2.appendChild(input_hidden2);
+	cell2.appendChild(span);
+    cell3.innerHTML= '-';
+    cell4.innerHTML= new_element_txt2;
+    cell4.setAttribute("ondblclick", "javascript:AnswerOptionsEditName(event, '" + field_name + "','" + field_name2 + "',1);");
+	cell5.innerHTML = '<a href="javascript: void(0);" onClick="javascript:AnswerOptionsDeleteTblRow(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"><img src="<?php echo JURI::root() ?>administrator/components/com_surveyforce/assets/images/publish_x.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"></a>';
+	cell6.innerHTML = '<a href="javascript: void(0);" onClick="javascript:AnswerOptionsUpTblRow(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"><img src="<?php echo JURI::root() ?>administrator/components/com_surveyforce/assets/images/uparrow.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_MOVE_UP'); ?>"></a>';
+	cell6.innerHTML = '';
+	row.appendChild(cell1);
+	row.appendChild(cell2);
+	row.appendChild(cell3);
+	row.appendChild(cell4);
+	row.appendChild(cell5);
+	row.appendChild(cell6);
+    row.appendChild(cell7);
+    row.appendChild(cell8);
+	ReAnalize_tbl_Rows3(tbl_elem.rows.length - 2, tbl_id);
+}
+
 jQuery(document).ready(function() {
 
 	if (jQuery('#sf_quest_list3').get(0).options.length > 0)

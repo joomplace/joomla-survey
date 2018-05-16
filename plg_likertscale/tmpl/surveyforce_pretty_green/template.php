@@ -87,6 +87,13 @@ EOFTMPL;
 
 		$return_str = '';
         if($scount){
+            $hasLeft = false;
+            foreach($mfield as $key => $value) {
+                if(strstr($value['mfield_text'], '[[[right]]]')) {
+                    $hasLeft = true;
+                    break;
+                }
+            }
 			$return_str = '<form name="quest_form' . SF_LikertscaleTemplate::$question->id . '">';
 			$return_str.= '<table id="quest_table" class="likert_scale_table" cellpadding="3" cellspacing="0">';
 			$return_str.= '<tr><td class="ls_factor_name">'.$factor_name.'</td>';
@@ -94,7 +101,9 @@ EOFTMPL;
 			for ($j = 0; $j < $scount; $j++) {
 				$return_str.= '<td class="ls_scale_field">'.$sdata[$j]['sfield_text'].'</td>';
 			}
-
+            if($hasLeft) {
+                $return_str.= '<td class="ls_factor_name">'.$factor_name.'</td>';
+            }
 			$return_str.='</tr>';
 
 			$k = 1;
@@ -104,8 +113,9 @@ EOFTMPL;
 			$checked = '';
 			//question option rows
 			for ($i = 0; $i < $mcount; $i++) {
+                $mfieldText = explode('[[[right]]]',$mfield[$i]['mfield_text']);
 				//question option text
-				$return_str.= '<tr class="sectiontableentry'.$k.'"><td class="ls_quest_field"><div id="qoption_'.SF_LikertscaleTemplate::$question->id.'_'.$mfield[$i]['mfield_id'].'">'.$mfield[$i]['mfield_text'].'</div></td>';
+				$return_str.= '<tr class="sectiontableentry'.$k.'"><td class="ls_quest_field"><div id="qoption_'.SF_LikertscaleTemplate::$question->id.'_'.$mfield[$i]['mfield_id'].'">'.$mfieldText[0].'</div></td>';
 				//get row number for answers for this otpion
 				if ($ans_count > 0) {
 					for($ii = 0; $ii < $ans_count; $ii++) {
@@ -126,6 +136,9 @@ EOFTMPL;
 						<label class="jb_survey_label" for="quest_radio_' . SF_LikertscaleTemplate::$question->id . '_' . $mfield[$i]['mfield_id'] .'_'.$j. '">' . $sdata[$j]['sfield_text'] . '</label>
 						</td>';
 				}
+                if($hasLeft) {
+                    $return_str.= '<td class="ls_quest_field">'.(!empty($mfieldText[1]) ? $mfieldText[1] : '').'</td>';
+                }
 				$return_str.='</tr>';
 				$k = 3 - $k;
 			}
