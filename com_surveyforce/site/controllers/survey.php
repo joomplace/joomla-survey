@@ -1707,7 +1707,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								if ($other_id == (isset($ttt[0]) ? $ttt[0] : '0'))
 									$atxt_id = $atxt_id2;
 								$query = "INSERT INTO #__survey_force_user_answers (start_id, survey_id, quest_id, answer, ans_field, next_quest_id, sf_time) "
-									. "\n VALUES ('" . $start_id . "', '" . $survey_id . "', '" . $quest_id . "', '" . (isset($ttt[0]) ? $ttt[0] : '0') . "', '" . (isset($ttt[1]) ? $ttt[1] : '0') . "', '" . $atxt_id . "', '" . $survey_time . "')";
+									. "\n VALUES ('" . $start_id . "', '" . $survey_id . "', '" . $quest_id . "', '" . (isset($ttt[1]) ? $ttt[1] : '0') . "', '" . (isset($ttt[0]) ? $ttt[0] : '0') . "', '" . $atxt_id . "', '" . $survey_time . "')";
 								$database->setQuery($query);
 								$database->query();
 								$atxt_id = 0;
