@@ -1,11 +1,13 @@
 <?php
 /**
-* Goals component for Joomla 3.0
-* @package Goals
-* @author JoomPlace Team
-* @Copyright Copyright (C) JoomPlace, www.joomplace.com
-* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
-*/
+ * JoomlaSurveyForce system plugin for Joomla
+ * @version $Id: sf_altauserpoints.php
+ * @package JoomlaSurveyForce
+ * @subpackage sf_altauserpoints.php
+ * @author JoomPlace Team
+ * @Copyright Copyright (C) JoomPlace, www.joomplace.com
+ * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+ */
 defined('JPATH_BASE') or die;
 
 jimport('joomla.html.html');
