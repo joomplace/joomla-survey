@@ -113,7 +113,7 @@ class SurveyforceModelSection extends JModelAdmin {
 
     }
     
-    public function delete($sids) {
+    public function delete(&$sids) {
         $result = false;
         if(parent::delete($sids)) {
             if (count($sids) > 1) {

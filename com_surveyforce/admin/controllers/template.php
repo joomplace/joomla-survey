@@ -11,9 +11,8 @@ defined('_JEXEC') or die('Restricted access');
 
 class SurveyforceControllerTemplate extends JControllerAdmin
 {
-	public function getModel($name = 'Template', $prefix = 'SurveyforceModel') {
-		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
-		return $model;
+	public function getModel($name = 'Template', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true)) {
+        return parent::getModel($name, $prefix, $config);
 	}
 
 	public function cancel()
