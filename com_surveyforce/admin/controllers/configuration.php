@@ -21,9 +21,8 @@ class SurveyforceControllerConfiguration extends JControllerForm {
         return JFactory::getUser()->authorise('core.edit', 'com_surveyforce');
     }
     
-    public function getModel($name = 'Configuration', $prefix = 'SurveyforceModel') {
-        $model = parent::getModel($name, $prefix, array('ignore_request' => true));
-        return $model;
+    public function getModel($name = 'Configuration', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true)) {
+        return parent::getModel($name, $prefix, $config);
     }
 
     public function save($key = null, $urlVar = null) {

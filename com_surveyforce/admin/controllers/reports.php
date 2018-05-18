@@ -17,9 +17,8 @@ class SurveyforceControllerReports extends JControllerAdmin {
         parent::__construct($config);
     }
 
-    public function getModel($name = 'Reports', $prefix = 'SurveyforceModel', $config = array()) {
-        $model = parent::getModel($name, $prefix, array('ignore_request' => true));
-        return $model;
+    public function getModel($name = 'Reports', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true)) {
+        return parent::getModel($name, $prefix, $config);
     }
 
     public function add() {

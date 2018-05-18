@@ -12,9 +12,8 @@ defined('_JEXEC') or die('Restricted access');
 class SurveyforceControllerUsers extends JControllerForm
 {
 
-	public function getModel($name = 'Users', $prefix = 'SurveyforceModel') {
-        $model = parent::getModel($name, $prefix, array('ignore_request' => true));
-        return $model;
+	public function getModel($name = 'Users', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true)) {
+        return parent::getModel($name, $prefix, $config);
     }
 
 	public function cancel(){

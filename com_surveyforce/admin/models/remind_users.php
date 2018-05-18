@@ -32,7 +32,7 @@ class SurveyforceModelRemind_users extends JModelAdmin {
         return $form;
     }
 
-    public function getItem() {
+    public function getItem($pk = null) {
 
         $pk = JFactory::getApplication()->input->get('cid');
 

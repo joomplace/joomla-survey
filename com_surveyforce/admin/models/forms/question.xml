@@ -10,7 +10,7 @@
 		
         <field name="sf_qtext" type="editor" buttons="true" hide="pagebreak,readmore,testimonial"
                        class="inputbox"
-                       filter="safehtml"
+                       filter="raw"
                        label="COM_SURVEYFORCE_QUESTION_TEXT2" required="true" />
 		
 		

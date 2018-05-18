@@ -19,10 +19,8 @@ class SurveyforceControllerAuthors extends JControllerAdmin
 		parent::__construct($config);
 	}
 
-	public function getModel($name = 'Authors', $prefix = 'SurveyforceModel')
-	{
-		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
-		return $model;
+	public function getModel($name = 'Authors', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true)) {
+        return parent::getModel($name, $prefix, $config);
 	}
 
 	public function usersList()
