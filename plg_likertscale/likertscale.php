@@ -88,19 +88,21 @@ class plgSurveyLikertscale {
 
 		$database = JFactory::getDbo();
 		$mainframe = JFactory::getApplication();
+		$jinput = $mainframe->input;
 		$rules_ar = $data['rules_ar'];
 
 		$field_order = 0;
 		// _scales
-		if ( !empty($_POST['is_likert_predefined']) && !empty($_POST['sf_likert_scale']) )
+		if ( $jinput->get('is_likert_predefined', '') && $jinput->get('sf_likert_scale', '') )
 		{
-			$database->setQuery( "SELECT * FROM #__survey_force_fields WHERE `quest_id` = '".$_POST['sf_likert_scale']."'" );
+			$sf_likert_scale = $jinput->get('sf_likert_scale');
+
+		    $database->setQuery( "SELECT * FROM #__survey_force_fields WHERE `quest_id` = '".$sf_likert_scale."'" );
 			$preDefinedFields =  $database->loadObjectList();
 			if (!$data['issave2copy']){
 				$database->setQuery( "DELETE FROM `#__survey_force_fields` WHERE `quest_id` = ".$data['qid'] );
 				$database->execute();
 			}
-
 
 			foreach ( $preDefinedFields as $pd_field)
 			{
@@ -114,8 +116,7 @@ class plgSurveyLikertscale {
 				$new_field->store();
 			}
 
-
-			$database->setQuery( "SELECT * FROM #__survey_force_scales WHERE `quest_id` = '".$_POST['sf_likert_scale']."'" );
+			$database->setQuery( "SELECT * FROM #__survey_force_scales WHERE `quest_id` = '".$sf_likert_scale."'" );
 			$preDefinedScales =  $database->loadObjectList();
 
 			$database->setQuery( "DELETE FROM `#__survey_force_scales` WHERE `quest_id` = ".$data['qid'] );
@@ -132,9 +133,9 @@ class plgSurveyLikertscale {
 		}
 		else
 		{
-			$sf_hid_fields_scale = (!empty($_POST['sf_hid_fields_scale'])) ? $_POST['sf_hid_fields_scale'] : array();
-			$sf_hid_field_scale_ids = JFactory::getApplication()->input->get('sf_hid_field_scale_ids', '', 'array', array(0));
-			$old_sf_hid_field_scale_ids = JFactory::getApplication()->input->get('old_sf_hid_field_scale_ids', '', 'array', array(0));
+            $sf_hid_fields_scale = $jinput->get('sf_hid_fields_scale', array(), 'array');
+            $sf_hid_field_scale_ids = $jinput->get('sf_hid_field_scale_ids', array(0), 'array');
+            $old_sf_hid_field_scale_ids = $jinput->get('old_sf_hid_field_scale_ids', array(0), 'array');
 			$old_sf_hid_field_scale_ids = @array_merge(array(0 => 0), $old_sf_hid_field_scale_ids);
 
 			for ($i = 0, $n = count($old_sf_hid_field_scale_ids); $i < $n; $i++) {
@@ -167,9 +168,9 @@ class plgSurveyLikertscale {
 
 			$field_order = 0;
 			// FIELDS
-			$sf_hid_fields = (!empty($_POST['sf_hid_fields'])) ? $_POST['sf_hid_fields'] : array();
-			$sf_hid_field_ids = JFactory::getApplication()->input->get('sf_hid_field_ids', '', 'array', array(0));
-			$old_sf_hid_field_ids = JFactory::getApplication()->input->get('old_sf_hid_field_ids', '', 'array', array(0));
+            $sf_hid_fields = $jinput->get('sf_hid_fields', array(), 'array');
+            $sf_hid_field_ids = $jinput->get('sf_hid_field_ids', array(0), 'array');
+            $old_sf_hid_field_ids = $jinput->get('old_sf_hid_field_ids', array(0), 'array');
 			$old_sf_hid_field_ids = @array_merge(array(0 => 0), $old_sf_hid_field_ids);
 
 			for ($i = 0, $n = count($old_sf_hid_field_ids); $i < $n; $i++) {

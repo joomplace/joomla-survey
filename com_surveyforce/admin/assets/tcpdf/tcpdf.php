@@ -9169,7 +9169,7 @@ class TCPDF {
 						$maxval =(pow(2, $info['bpc']) - 1);
 						for ($i = 0; $i < $count_info; ++$i) {
 							if (($info['trns'][$i] != 0) AND ($info['trns'][$i] != $maxval)) {
-								// this is not a binary type mask @TODO: create a SMask
+
 								$trns = '';
 								break;
 							} elseif (empty($trns) AND ($info['trns'][$i] == 0)) {
@@ -13539,7 +13539,6 @@ class TCPDF {
 		if (!$this->tsa_timestamp) {
 			return $signature;
 		}
-		//@TODO: implement this feature
 		return $signature;
 	}
 
@@ -24246,7 +24245,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			case 'text':
 			case 'tspan': {
 				if (isset($this->svgtextmode['text-anchor']) AND !empty($this->svgtext)) {
-					// @TODO: unsupported feature
+
 				}
 				// only basic support - advanced features must be implemented
 				$this->svgtextmode['invisible'] = $invisible;

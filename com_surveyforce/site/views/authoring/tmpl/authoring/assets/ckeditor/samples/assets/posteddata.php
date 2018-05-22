@@ -7,6 +7,7 @@
 
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
+$post = \JFactory::getApplication()->input->post;
 ?>
 <html>
 <head>
@@ -28,9 +29,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		</thead>
 <?php
 
-if (!empty($_POST))
+if (!empty($post))
 {
-	foreach ( $_POST as $key => $value )
+	foreach ( $post as $key => $value )
 	{
 		if ( ( !is_string($value) && !is_numeric($value) ) || !is_string($key) )
 			continue;

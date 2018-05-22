@@ -14,12 +14,12 @@ class SurveyforceControllerAdd_template extends JControllerForm
 
 	public function cancel()
 	{
-		$this->setRedirect('index.php?option=com_surveyforce&view=templates');
+        $this->setRedirect('index.php?option=com_surveyforce&view=templates');
 	}
 
     public function add(){
 
-        $file = $_FILES['jform'];
+        $file =  \JFactory::getApplication()->input->files->get('jform');
 		if ( $file['type']['package_file'] == 'application/zip' )
 		{
 			jimport('joomla.filesystem.file');

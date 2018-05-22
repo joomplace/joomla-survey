@@ -2529,7 +2529,7 @@ class TCPDF_STATIC {
 		}
 		//
 		$alt = array_unique($alt);
-		//var_dump($alt);exit;//DEBUG
+
 		foreach ($alt as $path) {
 			$ret = @file_get_contents($path);
 			if ($ret !== false) {

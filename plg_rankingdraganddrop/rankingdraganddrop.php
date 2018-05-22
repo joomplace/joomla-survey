@@ -296,6 +296,7 @@ class plgSurveyRankingdraganddrop {
 
         $database = JFactory::getDbo();
         $mainframe = JFactory::getApplication();
+        $jinput = $mainframe->input;
         $query = $database->getQuery(true);
         $query->select('*');
         $query->from($database->quoteName('#__survey_force_quests'));
@@ -328,18 +329,17 @@ class plgSurveyRankingdraganddrop {
         $rules_ar = array();
         $rules_count = 0;
 
-        $sf_hid_rule = JRequest::getVar('sf_hid_rule', array(), 'default', 'array', JREQUEST_ALLOWRAW);
-        $sf_hid_rule_alt = JRequest::getVar('sf_hid_rule_alt', array());
-        $sf_hid_rule_quest = JRequest::getVar('sf_hid_rule_quest', array());
-
+        $sf_hid_rule = $jinput->get('sf_hid_rule', array(), 'array');
+        $sf_hid_rule_alt = $jinput->get('sf_hid_rule_alt', array(), 'array');
+        $sf_hid_rule_quest = $jinput->get('sf_hid_rule_quest', array(), 'array');
 
         $query = "DELETE FROM #__survey_force_quest_show WHERE quest_id = '" . $qid . "'";
         $database->setQuery($query);
         $database->query();
 
-        $sf_hid_rule2_id = JRequest::getVar('sf_hid_rule2_id', array());
-        $sf_hid_rule2_alt_id = JRequest::getVar('sf_hid_rule2_alt_id', array());
-        $sf_hid_rule2_quest_ids = JRequest::getVar('sf_hid_rule2_quest_id', array());
+        $sf_hid_rule2_id = $jinput->get('sf_hid_rule2_id', array(), 'array');
+        $sf_hid_rule2_alt_id = $jinput->get('sf_hid_rule2_alt_id', array(), 'array');
+        $sf_hid_rule2_quest_ids = $jinput->get('sf_hid_rule2_quest_ids', array(), 'array');
 
         if (is_array($sf_hid_rule2_quest_ids) && count($sf_hid_rule2_quest_ids)) {
             foreach ($sf_hid_rule2_quest_ids as $ij => $sf_hid_rule2_quest_id) {
@@ -350,7 +350,7 @@ class plgSurveyRankingdraganddrop {
             }
         }
 
-        $priority = JRequest::getVar('priority', array());
+        $priority = $jinput->get('priority', array(), 'array');
         if (is_array($sf_hid_rule) && count($sf_hid_rule)) {
             foreach ($sf_hid_rule as $f_rule) {
                 $rules_ar[$rules_count]->rul_txt = $database->quote($f_rule);
@@ -366,13 +366,13 @@ class plgSurveyRankingdraganddrop {
 
         $ii = 0;
 
-        $sf_fields = JFactory::getApplication()->input->get('sf_fields', array(), 'array');
-        $sf_field_ids = JFactory::getApplication()->input->get('sf_field_ids', array(0), 'array');
-        $old_sf_field_ids = JFactory::getApplication()->input->get('old_sf_field_ids', array(), 'array');
+        $sf_fields = $jinput->get('sf_fields', array(), 'array');
+        $sf_field_ids = $jinput->get('sf_field_ids', array(0), 'array');
+        $old_sf_field_ids = $jinput->get('old_sf_field_ids', array(), 'array');
 
-        $sf_alt_fields = JFactory::getApplication()->input->get('sf_alt_fields', array(), 'array');
-        $sf_alt_field_ids = JFactory::getApplication()->input->get('sf_alt_field_ids', array(), 'array');
-        $old_sf_alt_field_ids = JFactory::getApplication()->input->get('old_sf_alt_field_ids', array(), 'array');
+        $sf_alt_fields = $jinput->get('sf_alt_fields', array(), 'array');
+        $sf_alt_field_ids = $jinput->get('sf_alt_field_ids', array(), 'array');
+        $old_sf_alt_field_ids = $jinput->get('old_sf_alt_field_ids', array(), 'array');
 
         for ($i = 0, $n = count($old_sf_field_ids); $i < $n; $i++) {
             if (in_array($old_sf_field_ids[$i], $sf_field_ids))
@@ -482,8 +482,9 @@ class plgSurveyRankingdraganddrop {
                 }
             }
         }
-        $super_rule = intval(JRequest::getVar('super_rule', 0));
-        $sf_quest_list2 = intval(JRequest::getVar('sf_quest_list2', 0));
+
+        $super_rule = $jinput->getInt('super_rule', 0);
+        $sf_quest_list2 = $jinput->getInt('sf_quest_list2', 0);
 
         if ($super_rule && $sf_quest_list2) {
             $values = array($database->quote($qid), $database->quote($sf_quest_list2),

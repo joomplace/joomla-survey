@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Survey Force Deluxe component for Joomla 3
  * @package Survey Force Deluxe
@@ -12,30 +11,21 @@ jimport('joomla.application.component.view');
 
 class SurveyforceViewSamples extends JViewLegacy {
 
-    
     function display($tpl = null) {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         $submenu = 'samples';
         SurveyforceHelper::showTitle($submenu);       
         SurveyforceHelper::getCSSJS();      
-        
-        
+
         $this->is_sample2 = $this->get('Sample2');
         $this->is_sample1 = $this->get('Sample1');
 
-
-        
-
         if (count($errors = $this->get('Errors'))) {
-            JError::raiseError(500, implode('<br />', $errors));
+            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
             return false;
         }
-       
-       
 
         parent::display($tpl);
     }
-  
-   
 
 }

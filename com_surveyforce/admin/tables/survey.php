@@ -38,7 +38,9 @@ class SurveyforceTableSurvey extends JTable
 
 
 	public function store($updateNulls = false) {
-	
+
+	    $jform = \JFactory::getApplication()->input->get('jform', array(), 'array');
+
 		/*
 		$asset = JTable::getInstance('Asset');
 		$asset->loadByName($this->_getAssetName());
@@ -52,7 +54,7 @@ class SurveyforceTableSurvey extends JTable
 		$asset->parent_id = $this->_getAssetParentId();
 		$asset->title = $this->_getAssetTitle();
 		
-		$rules_form = $_POST['jform']['rules'];
+		$rules_form = $jform['rules'];
 		$output2 = array();
 		foreach ($rules_form as $key => $actions) {
 			$output1 = array();
@@ -75,8 +77,10 @@ class SurveyforceTableSurvey extends JTable
 		}
 		*/
 
-		$this->sf_author = $_POST['jform']['sf_author'];
-		if(!$this->sf_author) $this->sf_author = JFactory::getUser()->id;
+		$this->sf_author = $jform['sf_author'];
+		if(!$this->sf_author){
+		    $this->sf_author = JFactory::getUser()->id;
+        }
 		
 		return parent::store($updateNulls);
 	}

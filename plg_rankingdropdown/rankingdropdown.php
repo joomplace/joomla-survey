@@ -279,11 +279,12 @@ class plgSurveyRankingdropdown {
 
         $database = JFactory::getDbo();
         $mainframe = JFactory::getApplication();
+        $jinput = $mainframe->input;
 
         $field_order = 0;
-        $sf_hid_fields_rank = (!empty($_POST['sf_hid_fields_rank'])) ? $_POST['sf_hid_fields_rank'] : array();
-        $sf_hid_field_rank_ids = JFactory::getApplication()->input->get('sf_hid_field_rank_ids', '', 'array', array(0));
-        $old_sf_hid_field_rank_ids = JFactory::getApplication()->input->get('old_sf_hid_field_rank_ids', '', 'array', array(0));
+        $sf_hid_fields_rank = $jinput->get('sf_hid_fields_rank', array(), 'array');
+        $sf_hid_field_rank_ids = $jinput->get('sf_hid_field_rank_ids', array(0), 'array');
+        $old_sf_hid_field_rank_ids = $jinput->get('old_sf_hid_field_rank_ids', array(0), 'array');
         $old_sf_hid_field_rank_ids = @array_merge(array(0 => 0), $old_sf_hid_field_rank_ids);
 
         for ($i = 0, $n = count($old_sf_hid_field_rank_ids); $i < $n; $i++) {
@@ -319,9 +320,9 @@ class plgSurveyRankingdropdown {
 
         $field_order = 0;
         // FIELDS
-        $sf_hid_fields = (!empty($_POST['sf_hid_fields'])) ? $_POST['sf_hid_fields'] : array();
-        $sf_hid_field_ids = JFactory::getApplication()->input->get('sf_hid_field_ids', '', 'array', array(0));
-        $old_sf_hid_field_ids = JFactory::getApplication()->input->get('old_sf_hid_field_ids', '', 'array', array(0));
+        $sf_hid_fields = $jinput->get('sf_hid_fields', array(), 'array');
+        $sf_hid_field_ids = $jinput->get('sf_hid_field_ids', array(0), 'array');
+        $old_sf_hid_field_ids = $jinput->get('old_sf_hid_field_ids', array(0), 'array');
         $old_sf_hid_field_ids = @array_merge(array(0 => 0), $old_sf_hid_field_ids);
 
         for ($i = 0, $n = count($old_sf_hid_field_ids); $i < $n; $i++) {

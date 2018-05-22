@@ -2,12 +2,12 @@
 <extension version="3.0" type="plugin" group="survey" method="upgrade">
 	<name>SurveyForce Pickmany</name>
 	<author>JoomPlace Team</author>
-	<creationDate>September 2017</creationDate>
+	<creationDate>May 2018</creationDate>
 	<copyright>(C) JoomPlace, www.joomplace.com</copyright>
 	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
 	<authorEmail>support@joomplace.com</authorEmail>
 	<authorUrl>www.joomplace.com</authorUrl>
-	<version>3.2.5</version>
+	<version>3.2.6</version>
 	<isapplication>false</isapplication>
 	<isbrowsable>false</isbrowsable>
 	<description>Added PickMany question type</description>

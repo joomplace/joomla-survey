@@ -2,7 +2,7 @@
 <extension type="package" version="3.x" method="upgrade">
   <name>Joomla Survey Force Deluxe Package</name>
   <author>Joomplace Team</author>
-  <creationDate>September 2017</creationDate>
+  <creationDate>May 2018</creationDate>
   <packagename>survey</packagename>
   <authorEmail>support@joomplace.com</authorEmail>
   <authorUrl>www.joomplace.com</authorUrl>

@@ -22,11 +22,15 @@ class SurveyforceControllerSet_default extends JControllerForm
 
     public function save(){
         
-        unset($_SESSION['qid']);
-    	$data = $_POST;
+        if(isset($_SESSION['qid'])) {
+            unset($_SESSION['qid']);
+        }
+
+        $jinput = \JFactory::getApplication()->input;
+    	$data = $jinput->post;
  		
-    	$quest_id = JFactory::getApplication()->input->get('id', '');
-    	$sf_qtype = JFactory::getApplication()->input->get('sf_qtype');
+    	$quest_id = $jinput->getInt('id', 0);
+    	$sf_qtype = $jinput->get('sf_qtype');
 
     	$database = JFactory::getDBO();
 

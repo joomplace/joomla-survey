@@ -32,7 +32,7 @@ public function onContentPrepare( $context, &$row, &$params, $page=0 ) {
 		return true;
 	}
 	
-	$option = JRequest::getVar('option', '', 'default');
+	$option = \JFactory::getApplication()->input->get('option', '');
 	if ($option == 'com_surveyforce'){
 		return true;
 	}
@@ -71,7 +71,7 @@ function botSurveyCode_replacer( &$matches ) {
 		$template_name = $database->loadResult();
 
 		$my = JFactory::getUser();
-		$Itemid = JRequest::getInt('Itemid');
+		$Itemid = \JFactory::getApplication()->input->getInt('Itemid', 0);
 		include_once( $dir_ry ."helpers/surveyforce.php") ;
 
 		SurveyforceHelper::SF_load_template($template_name);

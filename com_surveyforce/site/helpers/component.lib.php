@@ -294,8 +294,8 @@ class mosAdminMenus
 
 		foreach ($imgFiles as $file)
 		{
-			$ff_ 	= $folderPath.DS.$file;
-			$ff 	= $folderPath.DS.$file;
+			$ff_ 	= $folderPath.DIRECTORY_SEPARATOR.$file;
+			$ff 	= $folderPath.DIRECTORY_SEPARATOR.$file;
 			$i_f 	= $imagePath .'/'. $file;
 
 			if ( is_dir( $i_f ) && $file <> 'CVS' && $file <> '.svn') {
@@ -392,7 +392,7 @@ class mosAdminMenus
  	*/
 	function menutypes()
 	{
-		JError::raiseNotice( 0, 'mosAdminMenus::menutypes method deprecated' );
+        JFactory::getApplication()->enqueueMessage('mosAdminMenus::menutypes method deprecated', 'Notice');
 	}
 
 	/**
@@ -402,7 +402,7 @@ class mosAdminMenus
  	*/
 	function menuItem( $item )
 	{
-		JError::raiseNotice( 0, 'mosAdminMenus::menuItem method deprecated' );
+        JFactory::getApplication()->enqueueMessage('mosAdminMenus::menuItem method deprecated', 'Notice');
 	}
 }
 }
@@ -431,7 +431,7 @@ class mosCache
 
 
 // Register legacy classes for autoloading
-JLoader::register('JTableCategory' , JPATH_LIBRARIES.DS.'joomla'.DS.'database'.DS.'table'.DS.'category.php');
+JLoader::register('JTableCategory' , JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'table'.DIRECTORY_SEPARATOR.'category.php');
 
 /**
  * Legacy class, use {@link JTableCategory} instead
@@ -534,7 +534,7 @@ class mosCommonHTML
  	 */
 	function ContentLegend( )
 	{
-		JHTML::addIncludePath( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_content'.DS.'html' );
+		JHTML::addIncludePath( JPATH_ADMINISTRATOR.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_content'.DIRECTORY_SEPARATOR.'html' );
 		JHTML::_('grid.legend');
 	}
 
@@ -765,7 +765,7 @@ class mosCommonHTML
 
 
 // Register legacy classes for autoloading
-JLoader::register('JTableContent'  , JPATH_LIBRARIES.DS.'joomla'.DS.'database'.DS.'table'.DS.'content.php');
+JLoader::register('JTableContent'  , JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'table'.DIRECTORY_SEPARATOR.'content.php');
 
 /**
  * Legacy class, use {@link JTableContent} instead
@@ -817,7 +817,7 @@ class mosContent extends JTableContent
 
 
 // Register legacy classes for autoloading
-JLoader::register('JTable', JPATH_LIBRARIES.DS.'joomla'.DS.'database'.DS.'table.php');
+JLoader::register('JTable', JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'table.php');
 
 /**
  * Legacy class, derive from {@link JTable} instead
@@ -881,10 +881,6 @@ class mosDBTable extends JTable
 		$this->publish( $cid, $publish, $user_id );
 	}
 
-	/**
-	 * Legacy Method, make sure you use {@link JRequest::get()} or {@link JRequest::getVar()} instead
-	 * @deprecated As of 1.5
-	 */
 	function filter( $ignoreList=null )
 	{
 		$ignore = is_array( $ignoreList );
@@ -938,11 +934,7 @@ class mosDBTable extends JTable
 }
 }
 
-/**
- * Legacy function, always use {@link JRequest::getVar()} instead
- *
- * @deprecated	As of version 1.5
- */
+
 if (!function_exists('mosStripslashes')) {
 function mosStripslashes( &$value )
 {
@@ -1108,11 +1100,7 @@ function mosCreateMail( $from='', $fromname='', $subject, $body ) {
 	return $mail;
 }
 }
-/**
- * Legacy function, use {@link JUtility::sendMail()} instead
- *
- * @deprecated	As of version 1.5
- */
+
 if (!function_exists('mosMail')) {
 function mosMail($from, $fromname, $recipient, $subject, $body, $mode=0, $cc=NULL, $bcc=NULL, $attachment=NULL, $replyto=NULL, $replytoname=NULL ) {
 
@@ -1132,15 +1120,11 @@ function mosMail($from, $fromname, $recipient, $subject, $body, $mode=0, $cc=NUL
 	$mailer->Send();
 }
 }
-/**
- * Legacy function, use {@link JUtility::sendAdminMail()} instead
- *
- * @deprecated	As of version 1.5
- */
+
 if (!function_exists('mosSendAdminMail')) {
-function mosSendAdminMail( $adminName, $adminEmail, $email, $type, $title, $author ) {
-	JUtility::sendAdminMail( $adminName, $adminEmail, $email, $type, $title, $author );
-}
+    function mosSendAdminMail( $adminName, $adminEmail, $email, $type, $title, $author ) {
+        \JFactory::getMailer()->sendAdminMail($adminName, $adminEmail, $email, $type, $title, $author, $url = null);
+    }
 }
 /**
  * Legacy function, use {@link JUserHelper::genRandomPassword()} instead
@@ -1390,7 +1374,7 @@ function mosLoadComponent( $name )
 	// set up some global variables for use by the frontend component
 	global $mainframe, $database;
 	$name = JFilterInput::clean($name, 'cmd');
-	$path = JPATH_SITE.DS.'components'.DS.'com_'.$name.DS.$name.'.php';
+	$path = JPATH_SITE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_'.$name.DIRECTORY_SEPARATOR.$name.'.php';
 	if (file_exists($path)) {
 		include $path;
 	}
@@ -1616,18 +1600,12 @@ function SortArrayObjects( &$a, $k, $sort_direction=1 )
 	JArrayHelper::sortObjects($a, $k, $sort_direction);
 }
 }
-/**
- * Legacy function, {@link JRequest::getVar()}
- *
- * @deprecated	As of version 1.5
- */
+
 if (!function_exists('josGetArrayInts')) {
-function josGetArrayInts( $name, $type=NULL ) {
-
-	$array	=  JRequest::getVar($name, array(), 'default', 'array' );
-
-	return $array;
-}
+    function josGetArrayInts( $name, $type=NULL ) {
+        $array	=  \JFactory::getApplication()->input->get($name, array(), 'array');
+        return $array;
+    }
 }
 /**
  * Legacy function, {@link JSession} transparently checks for spoofing attacks
@@ -1640,7 +1618,8 @@ function josSpoofCheck( $header=false, $alternate=null )
 	// Lets make sure they saw the html form
 	$check = true;
 	$hash	= josSpoofValue($alternate);
-	$valid	= JRequest::getBool( $hash, 0, 'post' );
+	$valid	= \JFactory::getApplication()->input->get($hash, 0, 'BOOL');
+
 	if (!$valid) {
 		$check = false;
 	}
@@ -1663,11 +1642,7 @@ function josSpoofCheck( $header=false, $alternate=null )
 	}
 }
 }
-/**
- * Legacy function, use {@link JUtility::getToken()} instead
- *
- * @deprecated	As of version 1.5
- */
+
 if (!function_exists('josSpoofValue')) {
 function josSpoofValue($alt = NULL)
 {
@@ -2098,7 +2073,7 @@ class mosHTML
 
 
 // Register legacy classes for autoloading
-JLoader::register('JInstaller'     , JPATH_LIBRARIES.DS.'joomla'.DS.'installer'.DS.'installer.php');
+JLoader::register('JInstaller'     , JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'installer'.DIRECTORY_SEPARATOR.'installer.php');
 
 /**
  * Legacy class, use JInstaller instead
@@ -2125,7 +2100,7 @@ class mosInstaller extends JInstaller
 }
 }
 // Register legacy classes for autoloading
-JLoader::register('JApplication' , JPATH_LIBRARIES.DS.'joomla'.DS.'application'.DS.'application.php');
+JLoader::register('JApplication' , JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'application'.DIRECTORY_SEPARATOR.'application.php');
 
 /**
  * Legacy class, derive from {@link JApplication} instead
@@ -2239,7 +2214,7 @@ class mosMainFrame extends JApplication
 
 
 // Register legacy classes for autoloading
-JLoader::register('JDispatcher' , JPATH_LIBRARIES.DS.'joomla'.DS.'event'.DS.'dispatcher.php');
+JLoader::register('JDispatcher' , JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'event'.DIRECTORY_SEPARATOR.'dispatcher.php');
 
 /**
  * Legacy class, use {@link JDispatcher} instead
@@ -2297,7 +2272,7 @@ class mosMambotHandler extends JDispatcher
 }
 
 // Register legacy classes for autoloading
-JLoader::register('JTableMenu', JPATH_LIBRARIES.DS.'joomla'.DS.'database'.DS.'table'.DS.'menu.php');
+JLoader::register('JTableMenu', JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'table'.DIRECTORY_SEPARATOR.'menu.php');
 
 /**
  * Legacy class, use {@link JTableMenu} instead
@@ -2349,7 +2324,7 @@ class mosMenu extends JTableMenu
 
 
 // Register legacy classes for autoloading
-JLoader::register('JToolbarHelper' , JPATH_ADMINISTRATOR.DS.'includes'.DS.'toolbar.php');
+JLoader::register('JToolbarHelper' , JPATH_ADMINISTRATOR.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'toolbar.php');
 
 /**
  * Legacy class, use {@link JToolbarHelper} instead
@@ -2420,7 +2395,7 @@ class mosMenuBar extends JToolbarHelper
 
 
 // Register legacy classes for autoloading
-JLoader::register('JTableModule'   , JPATH_LIBRARIES.DS.'joomla'.DS.'database'.DS.'table'.DS.'module.php');
+JLoader::register('JTableModule'   , JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'table'.DIRECTORY_SEPARATOR.'module.php');
 
 /**
  * Legacy class, use {@link JTableModule} instead
@@ -2529,7 +2504,7 @@ class patFactory
 }
 }
 // Register legacy classes for autoloading
-JLoader::register('JProfiler', JPATH_LIBRARIES.DS.'joomla'.DS.'error'.DS.'profiler.php');
+JLoader::register('JProfiler', JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'error'.DIRECTORY_SEPARATOR.'profiler.php');
 
 
  /**
@@ -2568,7 +2543,7 @@ class mosProfiler extends JProfiler
 }
 
 // Register legacy classes for autoloading
-JLoader::register('JTableSession', JPATH_LIBRARIES.DS.'joomla'.DS.'database'.DS.'table'.DS.'session.php');
+JLoader::register('JTableSession', JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'table'.DIRECTORY_SEPARATOR.'session.php');
 
 /**
  * Legacy class, use {@link JTableSession} instead
@@ -2972,7 +2947,7 @@ class mosToolBar {
 
 
 // Register legacy classes for autoloading
-JLoader::register('JTableUser', JPATH_LIBRARIES.DS.'joomla'.DS.'database'.DS.'table'.DS.'user.php');
+JLoader::register('JTableUser', JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'table'.DIRECTORY_SEPARATOR.'user.php');
 
 /**
  * Legacy class, use {@link JTableUser} instead
@@ -3075,7 +3050,7 @@ if (!class_exists('mosPageNav')) {
 
 
 // Register legacy classes for autoloading
-JLoader::register('JPagination', JPATH_LIBRARIES.DS.'joomla'.DS.'html'.DS.'pagination.php');
+JLoader::register('JPagination', JPATH_LIBRARIES.DIRECTORY_SEPARATOR.'joomla'.DIRECTORY_SEPARATOR.'html'.DIRECTORY_SEPARATOR.'pagination.php');
 
 if (!class_exists('JPagination')) {
 	jimport('joomla.html.pagination'); 

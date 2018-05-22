@@ -18,7 +18,7 @@ class SurveyforceViewInsert_survey extends JViewLegacy {
 
     public function display($tpl = null) {
 
-    	$eName	= JRequest::getVar('e_name');
+    	$eName	= JFactory::getApplication()->input->get('e_name', '');
     	$eName	= preg_replace( '#[^A-Z0-9\-\_\[\]]#i', '', $eName );
     	$this->eName = $eName;
 
@@ -26,10 +26,9 @@ class SurveyforceViewInsert_survey extends JViewLegacy {
     	$pagination = $this->get('Pagination');
     	$state		= $this->get('State');
     	        
-        if (count($errors = $this->get('Errors'))) 
-        {
-                JError::raiseError(500, implode('<br />', $errors));
-                return false;
+        if (count($errors = $this->get('Errors'))){
+            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+            return false;
         }
 	      
       	$this->items = $items;

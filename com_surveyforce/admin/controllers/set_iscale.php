@@ -11,24 +11,15 @@ defined('_JEXEC') or die('Restricted access');
 
 class SurveyforceControllerSet_iscale extends JControllerForm
 {
-
 	public function cancel(){
-		
 		$qid = $_SESSION['qid'];
 		unset($_SESSION['qid']);
-
 		$this->setRedirect('index.php?option=com_surveyforce&view=question&layout=edit&id='.$qid);
-
 	}
 
     public function save(){
-        
         unset($_SESSION['qid']);
-    	$data = $_POST;
- 		
-    	
-
+    	$data = \JFactory::getApplication()->input->post;
         $this->setRedirect('index.php?option=com_surveyforce&view=question&layout=edit&id='.$quest_id);
-	    
 	}
 }

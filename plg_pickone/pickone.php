@@ -71,14 +71,15 @@ class plgSurveyPickone {
 
         $database = JFactory::getDbo();
         $mainframe = JFactory::getApplication();
+        $jinput = $mainframe->input;
         $rules_ar = $data['rules_ar'];
 
         $field_order = 0;
-        $other_option_cb = intval(JFactory::getApplication()->input->get('other_option_cb', 0));
+        $other_option_cb = $jinput->getInt('other_option_cb', 0);
 
-        $sf_hid_fields = (!empty($_POST['sf_hid_fields'])) ? $_POST['sf_hid_fields'] : array();
-        $sf_hid_field_ids = JFactory::getApplication()->input->get('sf_hid_field_ids', '', 'array', array(0));
-        $old_sf_hid_field_ids = JFactory::getApplication()->input->get('old_sf_hid_field_ids', '', 'array', array(0));
+        $sf_hid_fields = $jinput->get('sf_hid_fields', array(), 'array');
+        $sf_hid_field_ids = $jinput->get('sf_hid_field_ids', array(0), 'array');
+        $old_sf_hid_field_ids = $jinput->get('old_sf_hid_field_ids', array(0), 'array');
         $old_sf_hid_field_ids = @array_merge(array(0 => 0), $old_sf_hid_field_ids);
 
         for ($i = 0, $n = count($old_sf_hid_field_ids); $i < $n; $i++) {
@@ -121,8 +122,8 @@ class plgSurveyPickone {
 
         if ($other_option_cb == 2) {
 
-            $other_text = $_POST['other_option'];
-            $other_id = JFactory::getApplication()->input->get('other_op_id', 0);
+            $other_text = $jinput->get('other_option');
+            $other_id = $jinput->getInt('other_op_id', 0);
 
             $new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
             if ($other_id > 0  && !$data['issave2copy']) {
