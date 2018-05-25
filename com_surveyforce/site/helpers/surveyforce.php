@@ -475,7 +475,7 @@ class SurveyforceHelper
 		elseif ($survey->sf_pub_control > 0)
 		{
 			$ip = $_SERVER["REMOTE_ADDR"];
-			$cookie = isset($_COOKIE[md5('survey' . $survey->id)]) ? $_COOKIE[md5('survey' . $survey->id)] : '';
+            $cookie = \JFactory::getApplication()->input->cookie->get(md5('survey' . $survey->id), '');
 
 			if ($survey->sf_pub_control == 1)
 			{
@@ -8649,7 +8649,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		elseif ($row->sf_qtype == 2)
 		{
 			$field_order = 0;
-			$other_option_cb = intval(mosGetParam($_POST, 'other_option_cb', 0));
+            $other_option_cb = \JFactory::getApplication()->input->getInt('other_option_cb', 0);
 
             $sf_hid_fields = $jinput->get('sf_hid_fields', array(), 'array');
             $sf_hid_field_ids = $jinput->get('sf_hid_field_ids', array(0), 'array');

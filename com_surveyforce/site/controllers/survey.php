@@ -680,7 +680,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
             $image_file['name'] = str_replace(array(" ", "(", ")"), array("_", "", ""), $image_file['name']);
 
-			if(!JFile::move($_FILES['image_file']['tmp_name'], JPATH_SITE.'/images/com_surveyforce/'.$image_file['name'])){
+			if(!JFile::move($image_file['tmp_name'], JPATH_SITE.'/images/com_surveyforce/'.$image_file['name'])){
 				return false;
 			}
 
@@ -915,7 +915,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 			if (($my->id < 1 || ($my->id > 0 && $survey->sf_anonymous)) && ($survey->sf_pub_control > 0) && ($survey->sf_pub_voting == 1) && !$invited_survey) {
 				$ip = $_SERVER["REMOTE_ADDR"];
-				$cookie = isset($_COOKIE[md5('survey' . $survey_id)]) ? $_COOKIE[md5('survey' . $survey_id)] : '';
+                $cookie = \JFactory::getApplication()->input->cookie->get(md5('survey' . $survey_id), '');
 
 				if ($survey->sf_pub_control == 1) {
 					$query = "SELECT id FROM `#__survey_force_user_starts` WHERE survey_id = {$survey_id} AND user_id = '0' AND `sf_ip_address` = '{$ip}' AND is_complete = 1 ORDER BY id DESC";
@@ -1022,7 +1022,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 					$usr_data = $database->loadObject();
 				} elseif (($my->id < 1 || ($my->id > 0 && $survey->sf_anonymous)) && $survey->sf_pub_control > 0) {
 					$ip = $_SERVER["REMOTE_ADDR"];
-					$cookie = isset($_COOKIE[md5('survey' . $survey_id)]) ? $_COOKIE[md5('survey' . $survey_id)] : '';
+                    $cookie = \JFactory::getApplication()->input->cookie->get(md5('survey' . $survey_id), '');
 
 					if ($survey->sf_pub_voting == 2) {
 						if ($survey->sf_pub_control == 1) {
