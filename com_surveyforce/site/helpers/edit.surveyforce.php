@@ -203,14 +203,15 @@ class SurveyforceEditHelper extends SurveyforceHelper
 	function SF_uploadImage($option)
 	{
 
-		$userfile_name = (isset($_FILES['userfile']['name']) ? $_FILES['userfile']['name'] : "");
-		$directory = 'surveyforce';
-		if (isset($_FILES['userfile']))
-		{
-			$base_Dir = JPATH_ROOT . "/media/com_surveyforce/";;
+        $userfile = \JFactory::getApplication()->input->files->get('userfile');
 
-			if (empty($userfile_name))
-			{
+		$directory = 'surveyforce';
+		if ($userfile)
+		{
+            $userfile_name = isset($userfile['name']) ? $userfile['name'] : '';
+		    $base_Dir = JPATH_ROOT . "/media/com_surveyforce/";;
+
+			if (!$userfile_name){
 				echo "<script>alert('" . JText::_('COM_SF_PLEASE_SELECT_AN_IMAGE_TO_UPLOAD') . "'); document.location.href='index.php?no_html=1&amp;option=com_surveyforce&amp;task=uploadimage&amp;directory=" . $directory . "&t=" . $css . "';</script>";
 			}
 
@@ -231,7 +232,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 				mosErrorAlert(JText::_('COM_SF_THE_FILE_MUST_BE_GIF'));
 			}
 
-			if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $base_Dir . $_FILES['userfile']['name']) || !mosChmod($base_Dir . $_FILES['userfile']['name']))
+			if (!move_uploaded_file($userfile['tmp_name'], $base_Dir . $userfile['name']) || !mosChmod($base_Dir . $userfile['name']))
 			{
 				mosErrorAlert(JText::_('COM_SF_UPLOAD_OF') . ' ' . $userfile_name . ' ' . JText::_('COM_SF_FAILED'));
 			}

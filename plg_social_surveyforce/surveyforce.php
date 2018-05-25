@@ -10,9 +10,8 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-if(!defined('DS')){ define('DS', DIRECTORY_SEPARATOR); }
 
-require_once( JPATH_BASE . DS . 'components' . DS . 'com_community' . DS . 'libraries' . DS . 'core.php');
+require_once( JPATH_BASE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_community' . DIRECTORY_SEPARATOR . 'libraries' . DIRECTORY_SEPARATOR . 'core.php');
 
 if(!class_exists('plgCommunitySurveyforce'))
 {
@@ -26,7 +25,7 @@ if(!class_exists('plgCommunitySurveyforce'))
 	    {
 			parent::__construct($subject, $config);
 
-			$this->_path	= JPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_surveyforce';
+			$this->_path	= JPATH_ROOT . DIRECTORY_SEPARATOR . 'administrator' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_surveyforce';
 			JPlugin::loadLanguage('plg_surveyforce', JPATH_ADMINISTRATOR);
 	    }
 
@@ -38,9 +37,9 @@ if(!class_exists('plgCommunitySurveyforce'))
 			$user		= CFactory::getRequestUser();
 
 			// Attach surveyforce.js to this page so that the editor can load up nicely.
-			$document->addScript( JURI::base() . 'components'.DS.'com_surveyforce'.DS.'assets'.DS.'js'.DS.'surveyforce.js' );
-			$document->addStyleSheet( JURI::base() . 'components'.DS.'com_surveyforce'.DS.'assets'.DS.'css'.DS.'surveywindow.css' );
-			$document->addStyleSheet( JURI::base() . 'plugins'.DS.'community'.DS.'surveyforce'.DS.'surveyforce'.DS.'style.css' );
+			$document->addScript( JURI::base() . 'components'.DIRECTORY_SEPARATOR.'com_surveyforce'.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.'surveyforce.js' );
+			$document->addStyleSheet( JURI::base() . 'components'.DIRECTORY_SEPARATOR.'com_surveyforce'.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'css'.DIRECTORY_SEPARATOR.'surveywindow.css' );
+			$document->addStyleSheet( JURI::base() . 'plugins'.DIRECTORY_SEPARATOR.'community'.DIRECTORY_SEPARATOR.'surveyforce'.DIRECTORY_SEPARATOR.'surveyforce'.DIRECTORY_SEPARATOR.'style.css' );
 
 			// Test if surveyforce exists
 			if( !file_exists( $this->_path ) )
@@ -150,7 +149,7 @@ if(!class_exists('plgCommunitySurveyforce'))
 			$rows = $db->loadObjectList();
 
 			if($db->getErrorNum()) {
-				JError::raiseError( 500, $db->stderr());
+                JFactory::getApplication()->enqueueMessage($db->stderr(), 'error');
 		    }
 
 			return $rows;

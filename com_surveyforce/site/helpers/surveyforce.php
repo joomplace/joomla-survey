@@ -443,7 +443,7 @@ class SurveyforceHelper
 	{
 		$database = JFactory::getDbo();
 		$app = JFactory::getApplication();
-		$template = JRequest::getInt('survey_template', 0);
+		$template = $app->input->getInt('survey_template', 0);
 
 		$database->setQuery('SELECT * FROM #__survey_force_survs WHERE id=' . $survey_id);
 
@@ -475,7 +475,7 @@ class SurveyforceHelper
 		elseif ($survey->sf_pub_control > 0)
 		{
 			$ip = $_SERVER["REMOTE_ADDR"];
-			$cookie = isset($_COOKIE[md5('survey' . $survey->id)]) ? $_COOKIE[md5('survey' . $survey->id)] : '';
+            $cookie = \JFactory::getApplication()->input->cookie->get(md5('survey' . $survey->id), '');
 
 			if ($survey->sf_pub_control == 1)
 			{
@@ -1058,7 +1058,7 @@ class SurveyforceHelper
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_ListUsers($database);
 		
-		$post = JFactory::getApplication()->input->getArray($_POST);		
+		$post = JFactory::getApplication()->input->post;
 		
 		if (!$row->bind($post))
 		{
@@ -1084,8 +1084,8 @@ class SurveyforceHelper
 		}
 		
 		$list_id = $row->id;
-		$is_add_man = intval(mosGetParam($_POST, 'is_add_manually', 0));
-		$is_add_lms = intval(mosGetParam($_POST, 'is_add_lms', 0));
+		$is_add_man = intval(mosGetParam($post, 'is_add_manually', 0));
+		$is_add_lms = intval(mosGetParam($post, 'is_add_lms', 0));
 		if ($is_add_man && count($cid) > 0)
 		{
 			$query = "SELECT `name`, `username`, `email` FROM `#__users` WHERE `id` IN (" . implode(',', $cid) . ") ";
@@ -1113,7 +1113,7 @@ class SurveyforceHelper
 		}
 		if ($is_add_lms)
 		{
-			$lms_groups = mosGetParam($_POST, 'lms_groups', array());
+			$lms_groups = mosGetParam($post, 'lms_groups', array());
 			if (count($lms_groups) > 0)
 			{
 				$query = "SELECT lms_usertype_id FROM #__lms_users WHERE user_id = '" . JFactory::getUser()->id . "'";
@@ -1295,12 +1295,14 @@ class SurveyforceHelper
 
 	public function SF_saveCategory($option)
 	{
-		$database = JFactory::getDbo();
+        $post = \JFactory::getApplication()->input->post;
+        $database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Cat($database);
-		$_POST['sf_catname'] = self::SF_processGetField($_POST['sf_catname']);
-		$_POST['sf_catdescr'] = nl2br(trim(self::SF_processGetField($_POST['sf_catdescr'])));
 
-		if (!$row->bind($_POST))
+        $post->set('sf_catname', self::SF_processGetField($post->get('sf_catname')));
+        $post->set('sf_catdescr', self::SF_processGetField($post->get('sf_catdescr')));
+
+		if (!$row->bind($post))
 		{
 			echo "<script> alert('" . $row->getError() . "'); window.history.go(-1); </script>\n";
 			exit();
@@ -1353,7 +1355,7 @@ class SurveyforceHelper
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Cat($database);
-		$row->bind($_POST);
+		$row->bind(\JFactory::getApplication()->input->post);
 		$row->checkin();
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=categories"));
 	}
@@ -4951,9 +4953,10 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	public function SF_saveIScale($option)
 	{
-		$database = JFactory::getDbo();
+		$post = \JFactory::getApplication()->input->post;
+	    $database = JFactory::getDbo();
 		$row = new mos_Survey_Force_IScale($database);
-		if (!$row->bind($_POST))
+		if (!$row->bind($post))
 		{
 			echo "<script> alert('" . $row->getError() . "'); window.history.go(-1); </script>\n";
 			exit();
@@ -4977,7 +4980,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$database->setQuery($query);
 		$database->execute();
 		$f_order = 0;
-		foreach ($_POST['sf_hid_fields'] as $f_row)
+		foreach ($post->get('sf_hid_fields') as $f_row)
 		{
 			$new_field = new mos_Survey_Force_IScaleField($database);
 			$new_field->iscale_id = $is_id;
@@ -5033,9 +5036,10 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	public function SF_cancelIScale($option)
 	{
-		$database = JFactory::getDbo();
+        $post = \JFactory::getApplication()->input->post;
+        $database = JFactory::getDbo();
 		$row = new mos_Survey_Force_IScale($database);
-		$row->bind($_POST);
+		$row->bind($post);
 		$row->checkin();
 
 		if (JFactory::getApplication()->input->get('task') == 'cancel_iscale_A')
@@ -6585,9 +6589,10 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	public function SF_saveEmail($option)
 	{
-		$database = JFactory::getDbo();
+        $post = \JFactory::getApplication()->input->post;
+        $database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Email($database);
-		if (!$row->bind($_POST))
+		if (!$row->bind($post))
 		{
 			echo "<script> alert('" . $row->getError() . "'); window.history.go(-1); </script>\n";
 			exit();
@@ -6637,9 +6642,10 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	public function SF_cancelEmail($option)
 	{
-		$database = JFactory::getDbo();
+        $post = \JFactory::getApplication()->input->post;
+        $database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Email($database);
-		$row->bind($_POST);
+		$row->bind($post);
 		$row->checkin();
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=emails"));
 	}
@@ -6699,8 +6705,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			. "	else if (parent.document.all) { return parent.document.all[name]; }"
 			. "	else if (parent.document.layers) { return parent.document.layers[name]; }}</script>";
 
-		$list_id = intval(mosGetParam($_GET, 'list', 0));
-		$email_id = intval(mosGetParam($_GET, 'email', 0));
+        $list_id = \JFactory::getApplication()->input->getInt('list', 0);
+        $email_id = \JFactory::getApplication()->input->getInt('email', 0);
 
 		$query = "SELECT * FROM #__survey_force_emails WHERE id ='" . $email_id . "'";
 		$database->setQuery($query);
@@ -6829,7 +6835,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	public function SF_startRemind($option)
 	{
-		$database = JFactory::getDbo();
+		$jinput = \JFactory::getApplication()->input;
+	    $database = JFactory::getDbo();
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
 		$mail_pause = intval($sf_config->get('sf_mail_pause'));
 		$mail_count = intval($sf_config->get('sf_mail_count'));
@@ -6843,8 +6850,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			. "	else if (parent.document.all) { return parent.document.all[name]; }"
 			. "	else if (parent.document.layers) { return parent.document.layers[name]; }}</script>";
 
-		$list_id = intval(mosGetParam($_GET, 'list', 0));
-		$email_id = intval(mosGetParam($_GET, 'email', 0));
+        $list_id = $jinput->getInt('list', 0);
+        $email_id = $jinput->getInt('email', 0);
 
 		$query = "SELECT * FROM #__survey_force_emails WHERE id ='" . $email_id . "'";
 		$database->setQuery($query);
@@ -6959,9 +6966,10 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	function SF_cancelSurvey($option)
 	{
-		$database = JFactory::getDbo();
+        $post = \JFactory::getApplication()->input->post;
+	    $database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Survey($database);
-		$row->bind($_POST);
+		$row->bind($post);
 		$row->checkin();
 		mosRedirect(SFRoute("index.php?option=com_surveyforce") . '?task=surveys');
 	}
@@ -6999,11 +7007,12 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	function SF_saveSurvey($option)
 	{
-		$database = JFactory::getDbo();
+        $post = \JFactory::getApplication()->input->post;
+	    $database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Survey($database);
-		@$_POST['sf_name'] = self::SF_processGetField(@$_POST['sf_name']);
+        @$post->set('sf_name', self::SF_processGetField(@$post->get('sf_name')));
 
-		if (!$row->bind($_POST))
+		if (!$row->bind($post))
 		{
 			echo "<script> alert('" . $row->getError() . "'); window.history.go(-1); </script>\n";
 			exit();
@@ -8386,10 +8395,12 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	function SF_saveQuestion($option)
 	{
-		$database = JFactory::getDbo();
+        $database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Question($database);
+		$jinput = \JFactory::getApplication()->input;
+		$post = $jinput->post;
 
-		if (!$row->bind($_POST))
+		if (!$row->bind($post))
 		{
 			echo "<script> alert('" . $row->getError() . "'); window.history.go(-1); </script>\n";
 			exit();
@@ -8439,11 +8450,10 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 		$rules_ar = array();
 		$rules_count = 0;
-//	$sf_hid_rule = mosGetParam( $_REQUEST, 'sf_hid_rule', array() );
-		$sf_hid_rule = JRequest::getVar('sf_hid_rule', array(), 'default', 'array', JREQUEST_ALLOWRAW);
-		$sf_hid_rule_alt = mosGetParam($_REQUEST, 'sf_hid_rule_alt', array());
-		$sf_hid_rule_quest = mosGetParam($_REQUEST, 'sf_hid_rule_quest', array());
 
+		$sf_hid_rule = $jinput->get('sf_hid_rule', array(), 'array');
+        $sf_hid_rule_alt = $jinput->get('sf_hid_rule_alt', array(), 'array');
+        $sf_hid_rule_quest = $jinput->get('sf_hid_rule_quest', array(), 'array');
 
 		$query = "DELETE FROM #__survey_force_quest_show WHERE quest_id = '" . $qid . "'";
 		$database->setQuery($query);
@@ -8482,8 +8492,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		if ($row->sf_qtype == 1)
 		{
 			$new_scale = array();
-			$is_likert_predef = intval(mosGetParam($_POST, 'is_likert_predefined', 0));
-			$likert_id = intval(mosGetParam($_POST, 'sf_likert_scale', 0));
+            $is_likert_predef = $jinput->getInt('is_likert_predefined', 0);
+            $likert_id = $jinput->getInt('sf_likert_scale', 0);
 			if ($is_likert_predef && $likert_id)
 			{
 				$query = "DELETE FROM #__survey_force_scales WHERE quest_id = '" . $qid . "'";
@@ -8526,9 +8536,9 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			else
 			{
 				$field_order = 0;
-				$scale = JRequest::getVar('sf_hid_fields_scale', array(), 'default', 'array', JREQUEST_ALLOWRAW);
-				$scale_id = mosGetParam($_POST, 'sf_hid_fields_scale_ids', array(0));
-				$old_scale_id = mosGetParam($_POST, 'old_sf_hid_field_scale_ids', array(0));
+				$scale = $jinput->get('sf_hid_fields_scale', array(), 'array');
+                $scale_id = $jinput->get('sf_hid_fields_scale_ids', array(0), 'array');
+                $old_scale_id = $jinput->get('old_sf_hid_field_scale_ids', array(0), 'array');
 				$old_scale_id = @array_merge(array(0 => 0), $old_scale_id);
 				for ($i = 0, $n = count($old_scale_id); $i < $n; $i++)
 				{
@@ -8579,10 +8589,10 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			}
 
 			$field_order = 0;
-			$sf_hid_fields = (!empty($_POST['sf_hid_fields'])) ? $_POST['sf_hid_fields'] : array();
-			$sf_hid_field_ids = mosGetParam($_POST, 'sf_hid_field_ids', array(0));
-			$old_sf_hid_field_ids = mosGetParam($_POST, 'old_sf_hid_field_ids', array(0));
-			$old_sf_hid_field_ids = @array_merge(array(0 => 0), $old_sf_hid_field_ids);
+            $sf_hid_fields = $jinput->get('sf_hid_fields', array(), 'array');
+            $sf_hid_field_ids = $jinput->get('sf_hid_field_ids', array(0), 'array');
+            $old_sf_hid_field_ids = $jinput->get('old_sf_hid_field_ids', array(0), 'array');
+            $old_sf_hid_field_ids = @array_merge(array(0 => 0), $old_sf_hid_field_ids);
 
 			for ($i = 0, $n = count($old_sf_hid_field_ids); $i < $n; $i++)
 			{
@@ -8611,7 +8621,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 				$new_field->alt_field_id = 0;
 				$new_field->is_main = 1;
 				$new_field->ordering = $field_order;
-				$new_field->is_true = 1;//(only for pickone)($f_row == $_POST['sf_fields'])?1:0;#(only for pickone)
+				$new_field->is_true = 1;//(only for pickone)($f_row == $jinput->get('sf_fields'))?1:0;#(only for pickone)
 				if (!$new_field->check())
 				{
 					echo "<script> alert('" . $new_field->getError() . "'); window.history.go(-1); </script>\n";
@@ -8639,11 +8649,11 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		elseif ($row->sf_qtype == 2)
 		{
 			$field_order = 0;
-			$other_option_cb = intval(mosGetParam($_POST, 'other_option_cb', 0));
+            $other_option_cb = \JFactory::getApplication()->input->getInt('other_option_cb', 0);
 
-			$sf_hid_fields = (!empty($_POST['sf_hid_fields'])) ? $_POST['sf_hid_fields'] : array();
-			$sf_hid_field_ids = mosGetParam($_POST, 'sf_hid_field_ids', array(0));
-			$old_sf_hid_field_ids = mosGetParam($_POST, 'old_sf_hid_field_ids', array(0));
+            $sf_hid_fields = $jinput->get('sf_hid_fields', array(), 'array');
+            $sf_hid_field_ids = $jinput->get('sf_hid_field_ids', array(0), 'array');
+            $old_sf_hid_field_ids = $jinput->get('old_sf_hid_field_ids', array(0), 'array');
 			$old_sf_hid_field_ids = @array_merge(array(0 => 0), $old_sf_hid_field_ids);
 			for ($i = 0, $n = count($old_sf_hid_field_ids); $i < $n; $i++)
 			{
@@ -8670,7 +8680,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 				$new_field->alt_field_id = 0;
 				$new_field->is_main = 1;
 				$new_field->ordering = $field_order;
-				$new_field->is_true = 1;//(only for pickone)($f_row == $_POST['sf_fields'])?1:0;#(only for pickone)
+				$new_field->is_true = 1;//(only for pickone)($f_row == $jinput->get('sf_fields'))?1:0;#(only for pickone)
 				if (!$new_field->check())
 				{
 					echo "<script> alert('" . $new_field->getError() . "'); window.history.go(-1); </script>\n";
@@ -8695,9 +8705,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 			if ($other_option_cb == 2)
 			{
-				$other_text = $_POST['other_option'];
-
-				$other_id = mosGetParam($_POST, 'other_op_id', 0);
+				$other_text = $jinput->get('other_option');
+				$other_id = $jinput->getInt('other_op_id', 0);
 				$new_field = new mos_Survey_Force_Field($database);
 				if ($other_id > 0)
 				{
@@ -8733,11 +8742,10 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		elseif ($row->sf_qtype == 3)
 		{
 			$field_order = 0;
-			$other_option_cb = intval(mosGetParam($_POST, 'other_option_cb', 0));
-
-			$sf_hid_fields = (!empty($_POST['sf_hid_fields'])) ? $_POST['sf_hid_fields'] : array();
-			$sf_hid_field_ids = mosGetParam($_POST, 'sf_hid_field_ids', array(0));
-			$old_sf_hid_field_ids = mosGetParam($_POST, 'old_sf_hid_field_ids', array(0));
+			$other_option_cb = $jinput->getInt('other_option_cb', 0);
+            $sf_hid_fields = $jinput->get('sf_hid_fields', array(), 'array');
+            $sf_hid_field_ids = $jinput->get('sf_hid_field_ids', array(0), 'array');
+            $old_sf_hid_field_ids = $jinput->get('old_sf_hid_field_ids', array(0), 'array');
 			$old_sf_hid_field_ids = @array_merge(array(0 => 0), $old_sf_hid_field_ids);
 			for ($i = 0, $n = count($old_sf_hid_field_ids); $i < $n; $i++)
 			{
@@ -8767,7 +8775,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 				$new_field->alt_field_id = 0;
 				$new_field->is_main = 1;
 				$new_field->ordering = $field_order;
-				$new_field->is_true = 1;//(only for pickone)($f_row == $_POST['sf_fields'])?1:0;#(only for pickone)
+				$new_field->is_true = 1;//(only for pickone)($f_row == $jinput->get('sf_fields'))?1:0;#(only for pickone)
 				if (!$new_field->check())
 				{
 					echo "<script> alert('" . $new_field->getError() . "'); window.history.go(-1); </script>\n";
@@ -8792,8 +8800,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 			if ($other_option_cb == 2)
 			{
-				$other_text = $_POST['other_option'];
-				$other_id = mosGetParam($_POST, 'other_op_id', 0);
+				$other_text = $jinput->get('other_option');
+				$other_id = $jinput->getInt('other_op_id', 0);
 				$new_field = new mos_Survey_Force_Field($database);
 				if ($other_id > 0)
 				{
@@ -8830,13 +8838,12 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		{
 			$ii = 0;
 
-			$sf_fields = JRequest::getVar('sf_fields', array(), 'default', 'array', JREQUEST_ALLOWRAW);
-			$sf_field_ids = mosGetParam($_POST, 'sf_field_ids', array(0));
-			$old_sf_field_ids = mosGetParam($_POST, 'old_sf_field_ids', array(0));
-
-			$sf_alt_fields = JRequest::getVar('sf_alt_fields', array(), 'default', 'array', JREQUEST_ALLOWRAW);
-			$sf_alt_field_ids = mosGetParam($_POST, 'sf_alt_field_ids', array(0));
-			$old_sf_alt_field_ids = mosGetParam($_POST, 'old_sf_alt_field_ids', array(0));
+            $sf_fields = $jinput->get('sf_fields', array(), 'array');
+            $sf_field_ids = $jinput->get('sf_field_ids', array(0), 'array');
+            $old_sf_field_ids = $jinput->get('old_sf_field_ids', array(0), 'array');
+            $sf_alt_fields = $jinput->get('sf_alt_fields', array(), 'array');
+            $sf_alt_field_ids = $jinput->get('sf_alt_field_ids', array(0), 'array');
+            $old_sf_alt_field_ids = $jinput->get('old_sf_alt_field_ids', array(0), 'array');
 
 			for ($i = 0, $n = count($old_sf_field_ids); $i < $n; $i++)
 			{
@@ -8956,23 +8963,23 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 		elseif ($row->sf_qtype == 9)
 		{
-			$other_option_cb = intval(mosGetParam($_POST, 'other_option_cb', 0));
-			$other_text = $_POST['other_option'];
-			$other_id = mosGetParam($_POST, 'other_op_id', 0);
+			$other_option_cb = $jinput->getInt('other_option_cb', 0);
+			$other_text = $jinput->get('other_option');
+			$other_id = $jinput->getInt('other_op_id', 0);
 
 			$field_order = 0;
-			$rank = JRequest::getVar('sf_hid_rank', array(), 'default', 'array', JREQUEST_ALLOWRAW);
-			$rank_id = mosGetParam($_POST, 'sf_hid_rank_id', array(0));
-			$old_rank_id = mosGetParam($_POST, 'old_sf_hid_rank_id', array(0));
+            $rank = $jinput->get('sf_hid_rank', array(), 'array');
+            $rank_id = $jinput->get('sf_hid_rank_id', array(0), 'array');
+            $old_rank_id = $jinput->get('old_sf_hid_rank_id', array(0), 'array');
 			for ($i = 0, $n = count($old_rank_id); $i < $n; $i++)
 			{
 				if (in_array($old_rank_id[$i], $rank_id))
 					unset($old_rank_id[$i]);
 			}
 
-			$sf_hid_fields = (!empty($_POST['sf_hid_fields'])) ? $_POST['sf_hid_fields'] : array();
-			$sf_hid_field_ids = mosGetParam($_POST, 'sf_hid_field_ids', array(0));
-			$old_sf_hid_field_ids = mosGetParam($_POST, 'old_sf_hid_field_ids', array(0));
+            $sf_hid_fields = $jinput->get('sf_hid_fields', array(), 'array');
+            $sf_hid_field_ids = $jinput->get('sf_hid_field_ids', array(0), 'array');
+            $old_sf_hid_field_ids = $jinput->get('old_sf_hid_field_ids', array(0), 'array');
 			for ($i = 0, $n = count($old_sf_hid_field_ids); $i < $n; $i++)
 			{
 				if (in_array($old_sf_hid_field_ids[$i], $sf_hid_field_ids))
@@ -9041,7 +9048,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 				$new_field->alt_field_id = 0;
 				$new_field->is_main = 1;
 				$new_field->ordering = $field_order;
-				$new_field->is_true = 1;//(only for pickone)($f_row == $_POST['sf_fields'])?1:0;#(only for pickone)
+				$new_field->is_true = 1;//(only for pickone)($f_row == $jinput->get('sf_fields'))?1:0;#(only for pickone)
 				if (!$new_field->check())
 				{
 					echo "<script> alert('" . $new_field->getError() . "'); window.history.go(-1); </script>\n";
@@ -9125,8 +9132,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 				}
 			}
 		}
-		$super_rule = intval(mosGetParam($_REQUEST, 'super_rule', 0));
-		$sf_quest_list2 = intval(mosGetParam($_REQUEST, 'sf_quest_list2', 0));
+		$super_rule = $jinput->getInt('super_rule', 0);
+		$sf_quest_list2 = $jinput->getInt('sf_quest_list2', 0);
 
 		if ($super_rule && $sf_quest_list2)
 		{
@@ -9149,13 +9156,13 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			}
 		}
 
-		$insert_pb = intval(mosGetParam($_REQUEST, 'insert_pb', 1));
-		$q_id = intval(mosGetParam($_REQUEST, 'id', 0));
+		$insert_pb = $jinput->getInt('insert_pb', 1);
+		$q_id = $jinput->getInt('id', 0);
 		if ($q_id == 0 && $insert_pb == 1)
 		{
 			$sf_survey = intval(JFactory::getApplication()->getUserStateFromRequest("surv_id", 'surv_id', $row->sf_survey));
-			$sf_survey = intval(mosGetParam($_REQUEST, 'surv_id', JFactory::getSession()->get('list_surv_id', $row->sf_survey)));
-			$query = "INSERT INTO #__survey_force_quests (sf_survey, sf_qtype, sf_compulsory, sf_qtext, ordering, published, is_final_question) VALUES ({$sf_survey}, 8, 0, 'Page Break', " . ($max_ord + 2) . ", " . $row->published . ", " . (int) $_POST['is_final_question'] . ")";
+			$sf_survey = $jinput->getInt('surv_id', JFactory::getSession()->get('list_surv_id', $row->sf_survey));
+			$query = "INSERT INTO #__survey_force_quests (sf_survey, sf_qtype, sf_compulsory, sf_qtext, ordering, published, is_final_question) VALUES ({$sf_survey}, 8, 0, 'Page Break', " . ($max_ord + 2) . ", " . $row->published . ", " . $jinput->getInt('is_final_question') . ")";
 			$database->setQuery($query);
 			$database->execute();
 		}
@@ -9175,19 +9182,21 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	function SF_cancelQuestion($option)
 	{
-		$database = JFactory::getDbo();
+        $post = \JFactory::getApplication()->input->post;
+        $database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Question($database);
-		$row->bind($_POST);
+		$row->bind($post);
 		$row->checkin();
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=questions"));
 	}
 
 	function SF_orderQuestion($id, $inc, $option)
 	{
-		$database = JFactory::getDbo();
-		$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
-		$survid = intval(mosGetParam($_REQUEST, 'surv_id', 0));
+		$jinput = \JFactory::getApplication()->input;
+	    $database = JFactory::getDbo();
+		$limit = $jinput->getInt('limit', 0);
+		$limitstart = $jinput->getInt('limitstart', 0);
+		$survid = $jinput->getInt('surv_id', 0);
 		$msg = '';
 		$row = new mos_Survey_Force_Question($database);
 		$row->load($id);
@@ -9307,8 +9316,11 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Sections($database);
-		@$_POST['sf_name'] = self::SF_processGetField(@$_POST['sf_name']);
-		if (!$row->bind($_POST))
+
+        $post = \JFactory::getApplication()->input->post;
+        @$post->set('sf_name', self::SF_processGetField(@$post->get('sf_name')));
+
+		if (!$row->bind($post))
 		{
 			echo "<script> alert('" . $row->getError() . "'); window.history.go(-1); </script>\n";
 			exit();
@@ -9345,7 +9357,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 		else
 		{
-			mosRedirect(SFRoute("index.php?option=com_surveyforce&task=questions&surv_id=" . (int) JRequest::getVar('sf_survey_id')));
+			mosRedirect(SFRoute("index.php?option=com_surveyforce&task=questions&surv_id=" . JFactory::getApplication()->input->getInt('sf_survey_id', 0)));
 		}
 	}
 
@@ -9996,7 +10008,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	function SF_saveDefault($quest_id = 0, $option)
 	{
 		unset($_SESSION['qid']);
-		$data = $_POST;
+		$data = \JFactory::getApplication()->input->post;
 		$sf_qtype = JFactory::getApplication()->input->get('sf_qtype');
 
 		$query = "SELECT sf_survey FROM `#__survey_force_quests` WHERE `id` = $quest_id ";

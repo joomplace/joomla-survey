@@ -22,17 +22,17 @@ class SurveyforceViewListuser extends JViewLegacy {
         SurveyforceHelper::showTitle($submenu);
         SurveyforceHelper::getCSSJS();
 
-      
         $this->state = $this->get('State');
         $this->item = $this->get('Item');
         $this->form = $this->get('Form');
         
-        if(JFactory::getApplication()->input->getInt('id'))
+        if(JFactory::getApplication()->input->getInt('id')) {
             $tpl = 'edit';
-      
+        }
+
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
-            JError::raiseError(500, implode("\n", $errors));
+            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
             return false;
         }
 

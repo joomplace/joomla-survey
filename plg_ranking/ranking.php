@@ -81,6 +81,7 @@ class plgSurveyRanking {
 
         $database = JFactory::getDbo();
         $mainframe = JFactory::getApplication();
+        $jinput = $mainframe->input;
         $query = $database->getQuery(true);
         $query->select('*');
         $query->from($database->quoteName('#__survey_force_quests'));
@@ -112,22 +113,20 @@ class plgSurveyRanking {
 			$database->query();
         }
 
-
         $rules_ar = array();
         $rules_count = 0;
 
-        $sf_hid_rule = JRequest::getVar('sf_hid_rule', array(), 'default', 'array', JREQUEST_ALLOWRAW);
-        $sf_hid_rule_alt = JRequest::getVar('sf_hid_rule_alt', array());
-        $sf_hid_rule_quest = JRequest::getVar('sf_hid_rule_quest', array());
-
+        $sf_hid_rule = $jinput->get('sf_hid_rule', array(), 'array');
+        $sf_hid_rule_alt = $jinput->get('sf_hid_rule_alt', array(), 'array');
+        $sf_hid_rule_quest = $jinput->get('sf_hid_rule_quest', array(), 'array');
 
         $query = "DELETE FROM #__survey_force_quest_show WHERE quest_id = '" . $qid . "'";
         $database->setQuery($query);
         $database->query();
 
-        $sf_hid_rule2_id = JRequest::getVar('sf_hid_rule2_id', array());
-        $sf_hid_rule2_alt_id = JRequest::getVar('sf_hid_rule2_alt_id', array());
-        $sf_hid_rule2_quest_ids = JRequest::getVar('sf_hid_rule2_quest_id', array());
+        $sf_hid_rule2_id = $jinput->get('sf_hid_rule2_id', array(), 'array');
+        $sf_hid_rule2_alt_id = $jinput->get('sf_hid_rule2_alt_id', array(), 'array');
+        $sf_hid_rule2_quest_ids = $jinput->get('sf_hid_rule2_quest_ids', array(), 'array');
 
         if (is_array($sf_hid_rule2_quest_ids) && count($sf_hid_rule2_quest_ids)) {
             foreach ($sf_hid_rule2_quest_ids as $ij => $sf_hid_rule2_quest_id) {
@@ -138,7 +137,7 @@ class plgSurveyRanking {
             }
         }
 
-        $priority = JRequest::getVar('priority', array());
+        $priority = $jinput->get('priority', array(), 'array');
         if (is_array($sf_hid_rule) && count($sf_hid_rule)) {
             foreach ($sf_hid_rule as $f_rule) {
                 $rules_ar[$rules_count]->rul_txt = $database->quote($f_rule);
@@ -150,14 +149,14 @@ class plgSurveyRanking {
                 $rules_count++;
             }
         }
-		
-        $sf_fields = JRequest::getVar('sf_fields', array(), 'default', 'array', JREQUEST_ALLOWRAW);
-        $sf_field_ids = JRequest::getVar('sf_field_ids', array(0));
-        $old_sf_field_ids = JRequest::getVar('old_sf_field_ids', array(0));
 
-        $sf_alt_fields = JRequest::getVar('sf_alt_fields', array(), 'default', 'array', JREQUEST_ALLOWRAW);
-        $sf_alt_field_ids = JRequest::getVar('sf_alt_field_ids', array(0));
-        $old_sf_alt_field_ids = JRequest::getVar('old_sf_alt_field_ids', array(0));
+        $sf_fields = $jinput->get('sf_fields', array(), 'array');
+        $sf_field_ids = $jinput->get('sf_field_ids', array(0), 'array');
+        $old_sf_field_ids = $jinput->get('old_sf_field_ids', array(0), 'array');
+
+        $sf_alt_fields = $jinput->get('sf_alt_fields', array(), 'array');
+        $sf_alt_field_ids = $jinput->get('sf_alt_field_ids', array(0), 'array');
+        $old_sf_alt_field_ids = $jinput->get('old_sf_alt_field_ids', array(0), 'array');
 
 		$delAltItems =  array_diff($old_sf_alt_field_ids, $sf_alt_field_ids);
 		$delItems = array_diff($old_sf_field_ids, $sf_field_ids);
@@ -312,15 +311,15 @@ class plgSurveyRanking {
                 }
             }
         }
-        $super_rule = intval(JRequest::getVar('super_rule', 0));
-        $sf_quest_list2 = intval(JRequest::getVar('sf_quest_list2', 0));
+
+        $super_rule = $jinput->getInt('super_rule', 0);
+        $sf_quest_list2 = $jinput->getInt('sf_quest_list2', 0);
 
         if ($super_rule && $sf_quest_list2) {
             $values = array($database->quote($qid), $database->quote($sf_quest_list2),
                 $database->quote(9999997), $database->quote(9999997), $database->quote(1000)
             );
             $columns = array('quest_id', 'next_quest_id', 'answer_id', 'alt_field_id', 'priority');
-
 
             $new_rule = $database->getQuery(true);
             $new_rule->insert('#__survey_force_rules');

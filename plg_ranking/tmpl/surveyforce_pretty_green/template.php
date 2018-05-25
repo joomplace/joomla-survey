@@ -92,7 +92,6 @@ EOFTMPL;
 			$mfield_id = SF_RankingTemplate::$iscale['mfield'][$i]['mfield_id'];
 			if ($ans_count > 0) {
 				for ($ii = 0; $ii < $ans_count; $ii++) {
-					var_dump(SF_RankingTemplate::$iscale['answers'][$ii]['a_quest_id'].'-'.$mfield_id);
 					if (SF_RankingTemplate::$iscale['answers'][$ii]['a_quest_id'] == $mfield_id)
 						$jj = $ii;
 				}

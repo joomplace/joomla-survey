@@ -20,26 +20,24 @@ class SurveyforceViewIscale extends JViewLegacy {
     public function display($tpl = null) {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
 
-     
         $this->state = $this->get('State');
         $this->item = $this->get('Item');
-        
         $this->form = $this->get('Form');
         
-        if ($this->item->id)
-        {
+        if ($this->item->id){
             $this->fields = $this->get('Fields');
             $submenu = "edit_importance_scale";
         }
-        else
+        else {
             $submenu = "new_importance_scale";
+        }
         
         $this->edit_title = SurveyforceHelper::showTitle($submenu);
         SurveyforceHelper::getCSSJS();
 
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
-            JError::raiseError(500, implode("\n", $errors));
+            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
             return false;
         }
 

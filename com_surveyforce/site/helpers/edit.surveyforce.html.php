@@ -50,7 +50,7 @@ function SF_showTop( $HeadPicture, $HeadTitle, $toolbar, $additionBottomRight, $
 	JHtml::_('behavior.modal', 'a.modal');
 	$sf_config = JComponentHelper::getParams('com_surveyforce');
 
-	$Itemid = JRequest::getVar('Itemid');
+	$Itemid = JFactory::getApplication()->input->getInt('Itemid', 0);
 
 	?>
 	<link rel="stylesheet" href="<?php echo JURI::root()?>components/com_surveyforce/assets/css/style.css" />
