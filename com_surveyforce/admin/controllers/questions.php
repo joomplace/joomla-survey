@@ -212,74 +212,57 @@ class SurveyforceControllerQuestions extends JControllerAdmin {
 	public function copyto(){
 		
 		$input = JFactory::getApplication()->input;
-		$sf = $input->get('sf_id',0);
-		$ids = $input->get('questions','','string');	
+		$sf = $input->get('sf_id', 0, 'INT');
+		$ids = $input->get('questions', '', 'string');
 		
-			$db = JFactory::getDbo();
-			$query = $db->getQuery(true);
-			$query->select('*')
-				->from('#__survey_force_quests')
-				->where('`id` IN ('.$ids.')');
-			$db->setQuery($query);
-			$questions = $db->loadObjectList('id');
-			
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		$query->select('*')
+			->from($db->qn('#__survey_force_quests'))
+			->where($db->qn('id') .' IN ('.$ids.')');
+		$db->setQuery($query);
+		$questions = $db->loadObjectList('id');
+
+		foreach($questions as $qkey => $quest){
 			$query->clear();
+			$quest->id = '';
+			$quest->sf_survey = $sf;
+			$db->insertObject('#__survey_force_quests',$quest);
+			$quest->id = $db->insertid();
 
-			foreach($questions as $qkey => $quest){
-				$query->clear();
-				$quest->id = '';
-				$quest->sf_survey = $sf;
-				$db->insertObject('#__survey_force_quests',$quest);
-				$quest->id = $db->insertid();
-				$answers = array();
-				if($quest->sf_qtype= 9 && $quest->sf_qtype= 6){
-					$query->select('*')
-						->from('#__survey_force_fields')
-						->where('quest_id = "'.$qkey.'"');
-					$db->setQuery($query);
-					$answers = $db->loadObjectList('id');
-					$query->clear();
-					foreach($answers as $ans){
-							$ans->id = '';
-							$ans->quest_id = $quest->id;
-							$db->insertObject('#__survey_force_fields',$ans);
-					}
-					$db->setQuery("UPDATE #__survey_force_fields AS a , #__survey_force_fields AS b SET a.alt_field_id = b.id
-							WHERE a.quest_id=b.quest_id AND a.ordering=b.ordering AND a.is_main=1");
-					$db->query();
-					
-				}else{
-					$query->select('*')
-						->from('#__survey_force_fields')
-						->where('quest_id = "'.$qkey.'"');
-					$db->setQuery($query);
-					$answers = $db->loadObjectList('id');
-					$query->clear();
-					foreach($answers as $ans){
-						$ans->id = '';
-						$ans->quest_id = $quest->id;
-						$db->insertObject('#__survey_force_fields',$ans);
-					}
-				}
-				
-				$answers = array();
-				$query->select('*')
-					->from('#__survey_force_scales')
-					->where('quest_id = "'.$qkey.'"');
-				$db->setQuery($query);
-				$answers = $db->loadObjectList('id');
-				$query->clear();
-				foreach($answers as $ans){
-					$ans->id = '';
-					$ans->quest_id = $quest->id;
-					$db->insertObject('#__survey_force_scales',$ans);
-				}
-
+            $query->clear();
+            $query->select('*')
+                ->from($db->qn('#__survey_force_fields'))
+                ->where($db->qn('quest_id') .'='. $db->q($qkey));
+            $db->setQuery($query);
+            $answers = $db->loadObjectList('id');
+            foreach($answers as $ans){
+                $query->clear();
+                $ans->id = '';
+                $ans->quest_id = $quest->id;
+                $db->insertObject('#__survey_force_fields',$ans);
             }
-		
-			
+
+			if($quest->sf_qtype == 9 || $quest->sf_qtype == 6){
+                $db->setQuery("UPDATE `#__survey_force_fields` AS `a` , `#__survey_force_fields` AS `b` SET `a`.`alt_field_id`=`b`.`id` WHERE `a`.`quest_id`=`b`.`quest_id` AND `a`.`ordering`=`b`.`ordering` AND `a`.`is_main`='1'");
+                $db->execute();
+			}
+
+            $query->clear();
+			$query->select('*')
+				->from($db->qn('#__survey_force_scales'))
+				->where($db->qn('quest_id') .'='. $db->q($qkey));
+			$db->setQuery($query);
+			$answers = $db->loadObjectList('id');
+			$query->clear();
+			foreach($answers as $ans){
+				$ans->id = '';
+				$ans->quest_id = $quest->id;
+				$db->insertObject('#__survey_force_scales',$ans);
+			}
+		}
+
 		JFactory::getApplication()->redirect('index.php?option=com_surveyforce&view=questions'.(($sf)?'&surv_id='.$sf:''));
-	
 	}
 
 }
