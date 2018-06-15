@@ -50,11 +50,16 @@ class SurveyforceViewReports extends JViewLegacy {
 
     protected function addToolBar() {
 
-		JToolBarHelper::custom('reports.pdf_sum', 'print.png', 'print_f2.png', 'PDF (sum)', false);
-		JToolBarHelper::custom('reports.pdf_sum_perc', 'print.png', 'print_f2.png', 'PDF (sum %)', false);
-		JToolBarHelper::custom('reports.csv_sum', 'print.png', 'print_f2.png', 'CSV (sum)', false);
-		JToolBarHelper::spacer(20);
-		JToolBarHelper::deleteList(JText::_('COM_SURVEYFORCE_DELETE_REPORT'), 'reports.delete');
+        $canDo = JHelperContent::getActions('com_surveyforce', 'component');
+        if ($canDo->get('core.manage')) {
+            JToolBarHelper::custom('reports.pdf_sum', 'print.png', 'print_f2.png', 'PDF (sum)', false);
+            JToolBarHelper::custom('reports.pdf_sum_perc', 'print.png', 'print_f2.png', 'PDF (sum %)', false);
+            JToolBarHelper::custom('reports.csv_sum', 'print.png', 'print_f2.png', 'CSV (sum)', false);
+        }
+        if ($canDo->get('core.delete')) {
+            JToolBarHelper::deleteList(JText::_('COM_SURVEYFORCE_DELETE_REPORT'), 'reports.delete');
+            JToolbar::getInstance('toolbar')->appendButton('Link', 'trash', JText::_('COM_SURVEYFORCE_CLEANUP_BUTTON'), 'index.php?option=com_surveyforce&task=cleanup.display');
+        }
     }
 
     protected function getSortFields() {
