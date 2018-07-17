@@ -701,7 +701,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 			if($post->get('sf_date_started') != "0000-00-00 00:00:00"){
 				$sf_date_started = date("Y-m-d H:i:s", strtotime($post->get('sf_date_started')));
 			}
-            $sf_date_expired = $post['sf_date_expired'];
+            $sf_date_expired = $post->get('sf_date_expired');
 			if($post->get('sf_date_expired') != "0000-00-00 00:00:00"){
 				$sf_date_expired = date("Y-m-d H:i:s", strtotime($post->get('sf_date_expired')));
 			}
