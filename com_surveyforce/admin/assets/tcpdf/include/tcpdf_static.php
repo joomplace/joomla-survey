@@ -498,9 +498,17 @@ class TCPDF_STATIC {
 			$version = PHP_VERSION;
 			define('PHP_VERSION_ID', (($version[0] * 10000) + ($version[2] * 100) + $version[4]));
 		}
-		if (PHP_VERSION_ID < 50300) {
-			@set_magic_quotes_runtime($mqr);
-		}
+        $magic_quotes = get_magic_quotes_runtime();
+        if ($magic_quotes) {
+            if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+                set_magic_quotes_runtime(false);
+            } else {
+                //Doesn't exist in PHP 5.4, but we don't need to check because
+                //get_magic_quotes_runtime always returns false in 5.4+
+                //so it will never get here
+                ini_set('magic_quotes_runtime', false);
+            }
+        }
 	}
 
 	/**
