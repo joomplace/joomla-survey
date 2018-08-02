@@ -313,7 +313,7 @@ class SurveyforceModelAuthoring extends JModelItem
 			$cid = array_merge($cid, $this->database->loadColumn());
 		}
 
-		$document =& JFactory::getDocument();
+		$document = JFactory::getDocument();
 		$document->addStyleSheet(JURI::root() . 'components/com_surveyforce/assets/css/surveyforce.css');
 		$document->addStyleSheet(JURI::root() . 'components/com_surveyforce/assets/css/bootstrap.min.css');
 		$document->addScript(JURI::root() . "components/com_surveyforce/assets/js/jquery-1.9.1.custom.min.js");
@@ -329,7 +329,7 @@ class SurveyforceModelAuthoring extends JModelItem
 
 			if (!$a_id || true)
 			{
-				$document =& JFactory::getDocument();
+				$document = JFactory::getDocument();
 				$document->addStyleSheet(JURI::root() . 'templates/system/css/system.css');
 				$document->addStyleSheet(JURI::root() . 'templates/system/css/general.css');
 				$_REQUEST['tmpl'] = 'component';

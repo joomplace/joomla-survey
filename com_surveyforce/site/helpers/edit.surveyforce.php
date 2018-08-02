@@ -172,7 +172,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 		}
 	}
 
-	function clearPreviews()
+	public static function clearPreviews()
 	{
 		$database = JFactory::getDbo();
 		$query = "SELECT `start_id` FROM `#__survey_force_previews` WHERE `time` < '" . (strtotime(JFactory::getDate()) - 4000) . "'";
@@ -200,7 +200,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 		}
 	}
 
-	function SF_uploadImage($option)
+	public static function SF_uploadImage($option)
 	{
 
         $userfile = \JFactory::getApplication()->input->files->get('userfile');

@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 class survey_force_html 
 {
-	function processTemplate($template, $sf_config, $survey, $show_description) {
+	public static function processTemplate($template, $sf_config, $survey, $show_description) {
 		
 		$template = str_replace('{SURVEY_NAME}', $survey->sf_name, $template);	
 			
@@ -52,7 +52,7 @@ class survey_force_html
 		return $template;
 	}
 	
-	function get_progress_bar($sf_config) {
+	public static function get_progress_bar($sf_config) {
 		
 		$str = '<div id="progress" style="display:none">
 					<div style="border: 1px solid '.$sf_config->get('color_border').'; width:100%; background-color: '.$sf_config->get('color_uncompleted').'; height:15px;text-align:left;">
@@ -64,19 +64,19 @@ class survey_force_html
 		return $str;
 	}
 	
-	function get_error_message_top() {
+	public static function get_error_message_top() {
 		$str = '<span id="error_messagebox" style="visibility:hidden;">Error text here</span>';
 		
 		return $str;
 	}
 	
-	function get_error_message_bottom() {
+	public static function get_error_message_bottom() {
 		$str = '<span id="error_messagebox2" style="visibility:hidden;">Error text here</span>';
 		
 		return $str;
 	}
 	
-	function get_container($text, $show_description=1) {
+	public static function get_container($text, $show_description=1) {
 		$str = ' <div id="survey_container" ><div id="start_div">';
 		if (!$show_description) { 
 			$str .= '<script language="javascript" type="text/javascript">sf_StartSurveyOn();</script>';
@@ -88,12 +88,12 @@ class survey_force_html
 		return $str;
 	}
 	
-	function get_button($button, $i=0) {
+	public static function get_button($button, $i=0) {
 		$str = '<span class="'.$button.'_bt_container" id="'.$button.'_'.$i.'" style="display:none;"></span>';
 		return $str;
 	}
 	
-	function Survey_blocked($sf_config, $message = '')
+	public static function Survey_blocked($sf_config, $message = '')
 	{
 		global $mosConfig_live_site;
 	?>		
@@ -130,7 +130,7 @@ class survey_force_html
 	<?php
 	}
 
-	function PreLoadSurvey( $survey, $sf_config, $is_invited = 0, $invite_num = '', $rules = array(), $preview = 0 )
+	public static function PreLoadSurvey( $survey, $sf_config, $is_invited = 0, $invite_num = '', $rules = array(), $preview = 0 )
 	{
 		global $mosConfig_live_site, $my;
 		
@@ -1794,7 +1794,7 @@ function SF_getElement(data, name, i) {
 
 	}
 	
-	function showCategory($cat, $rows, $sf_config) {
+	public static function showCategory($cat, $rows, $sf_config) {
 		
 		surveyforce_template_class::showCategoryView($cat, $rows);
 		

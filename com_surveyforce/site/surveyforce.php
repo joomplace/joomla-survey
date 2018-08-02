@@ -23,7 +23,7 @@ $lang->load(COMPONENT_OPTION, JPATH_SITE, $tag, true);
 
 JLoader::register('SurveyforceHelper', JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'surveyforce.php');
 JLoader::register('SurveyforceTemplates', JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'templates.php');
-JLoader::register('survey_force_front_html', JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'surveyforce.html.php');
+JLoader::register('survey_force_html', JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'surveyforce.html.php');
 JLoader::register('survey_force_front_html', JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'edit.surveyforce.html.php');
 
 $controller = JControllerLegacy::getInstance('Surveyforce');

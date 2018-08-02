@@ -84,7 +84,7 @@ class SurveyforceHelper
 	 *
 	 * @return  INT
 	 */
-	public function SF_GetUserType($survey_id = 0, $question_id = 0)
+	public static function SF_GetUserType($survey_id = 0, $question_id = 0)
 	{
 		$database = JFactory::getDbo();
 
@@ -872,7 +872,7 @@ class SurveyforceHelper
 		}
 	}
 
-	public function SF_ListSurveys($option, $is_i = false)
+	public static function SF_ListSurveys($option, $is_i = false)
 	{
 		$database = JFactory::getDbo();
 		$catid = intval(JFactory::getApplication()->getUserStateFromRequest("catid", 'catid', 0));
@@ -939,7 +939,7 @@ class SurveyforceHelper
 			survey_force_front_html::SF_showSurvsList($rows, $lists, $pageNav, $option, $is_i);
 	}
 
-	public function SF_editUsergroup($id, $option)
+	public static function SF_editUsergroup($id, $option)
 	{
 		$database = JFactory::getDbo();
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
