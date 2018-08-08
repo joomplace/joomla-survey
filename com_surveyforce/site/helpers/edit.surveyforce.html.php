@@ -260,7 +260,7 @@ function ShowToolbar($toolbar) {
 
 class survey_force_front_html {
 	
-	function SF_uploadImage( $option ) {
+	public static function SF_uploadImage( $option ) {
 		
 		$css = mosGetParam($_REQUEST,'t','');
 		?>
@@ -291,7 +291,7 @@ class survey_force_front_html {
 <?php
 	} 
 
-	function SF_showCatsList( &$rows, &$pageNav, $option ) {
+	public static function SF_showCatsList( &$rows, &$pageNav, $option ) {
 		
 		?>
 		<script type="text/javascript" language="javascript">
@@ -384,7 +384,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_editCategory( &$row, &$lists, $option ) {
+	public static function SF_editCategory( &$row, &$lists, $option ) {
 
 		?>
 		<script language="javascript" type="text/javascript">
@@ -450,7 +450,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_showSurvsList( &$rows, &$lists, &$pageNav, $option, $is_i = false ) {
+	public static function SF_showSurvsList( &$rows, &$lists, &$pageNav, $option, $is_i = false ) {
 
 		$Itemid = JFactory::getApplication()->input->get("Itemid");
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
@@ -680,7 +680,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_editSurvey( &$row, &$lists, $option ) {
+	public static function SF_editSurvey( &$row, &$lists, $option ) {
 		if ($row->id && SurveyforceHelper::SF_GetUserType($row->id) != 1)
 			mosRedirect( JRoute::_("index.php?option=com_surveyforce&task=surveys"));
 
@@ -993,7 +993,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_moveSurvey_Select( $option, $cid, $CategoryList, $items ) {
+	public static function SF_moveSurvey_Select( $option, $cid, $CategoryList, $items ) {
 		global $Itemid, $Itemid_s;
 		
 		?>
@@ -1054,7 +1054,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_showQuestsList( &$rows, &$lists, &$pageNav, $option ) {
+	public static function SF_showQuestsList( &$rows, &$lists, &$pageNav, $option ) {
 		$owner = SurveyforceHelper::SF_GetUserType($lists['survid']) == 1;
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
 
@@ -1324,7 +1324,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_editSection( &$row, &$lists, $option ) {
+	public static function SF_editSection( &$row, &$lists, $option ) {
 		?>
 		<script type="text/javascript" src="/media/system/js/core.js"></script>
 		<script type="text/javascript" src="components/com_surveyforce/oassets/js/verlib_mini.js"></script>
@@ -1405,7 +1405,7 @@ class survey_force_front_html {
 	
 	}
 	
-	function SF_editQ_PluginShow( &$row, $lists, $questionHTML, $type ) {
+	public static function SF_editQ_PluginShow( &$row, $lists, $questionHTML, $type ) {
 		$owner = SurveyforceHelper::SF_GetUserType($lists['survid']) == 1;
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
 		
@@ -1561,7 +1561,7 @@ class survey_force_front_html {
 		<?php
 	}
 
-	function SF_moveQ_Select( $option, $cid, $sec, $SurveyList, $items ) {
+	public static function SF_moveQ_Select( $option, $cid, $sec, $SurveyList, $items ) {
 		global  $Itemid,$Itemid_s;
 		
 		?>
@@ -1629,7 +1629,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_showSetDefault( &$row, &$lists, $option ) {
+	public static function SF_showSetDefault( &$row, &$lists, $option ) {
 		global  $Itemid,$Itemid_s;
 
 		mosCommonHTML::loadCalendar();
@@ -1673,7 +1673,7 @@ class survey_force_front_html {
 	<?php
 	}
 
-	function SF_editIScale( &$row, &$lists, $option ) {
+	public static function SF_editIScale( &$row, &$lists, $option ) {
 		global  $Itemid, $Itemid_s;
 
 		
@@ -1907,7 +1907,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_showListUsers( &$rows, &$lists, &$pageNav, $option ) {
+	public static function SF_showListUsers( &$rows, &$lists, &$pageNav, $option ) {
 		global  $Itemid,$Itemid_s;
 		
 		?>
@@ -2059,7 +2059,7 @@ class survey_force_front_html {
 		<?php
 	}
 
-	function SF_editUser( $list, $option ) {
+	public static function SF_editUser( $list, $option ) {
 		?>
 		<script language="javascript" type="text/javascript">
 			<!--
@@ -2140,7 +2140,7 @@ class survey_force_front_html {
 		<?php
 	}
 
-	function SF_editListUsers( &$rows, &$lists, &$sf_config, $pageNav, $option ) {
+	public static function SF_editListUsers( &$rows, &$lists, &$sf_config, $pageNav, $option ) {
 		global  $Itemid,$Itemid_s;
 
 		?>
@@ -2295,7 +2295,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_show_Users( &$rows, &$lists, &$pageNav, $option ) {
+	public static function SF_show_Users( &$rows, &$lists, &$pageNav, $option ) {
 		global  $Itemid, $Itemid_s;
 		
 		?>
@@ -2398,7 +2398,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_ViewReports( &$rows, &$lists, &$pageNav, $option ) {
+	public static function SF_ViewReports( &$rows, &$lists, &$pageNav, $option ) {
 		global  $Itemid, $Itemid_s;
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
 		
@@ -2575,7 +2575,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_ViewRepResult( $option, $start_data, $survey_data, $questions_data ) {
+	public static function SF_ViewRepResult( $option, $start_data, $survey_data, $questions_data ) {
 		global  $Itemid,$Itemid_s;
 		
 		?>
@@ -2720,7 +2720,7 @@ class survey_force_front_html {
 		</div><?php
 	}
 	
-	function SF_ViewRepSurv_List( $option, $survey_data, $questions_data, $is_list = 0, $list_id = 0){
+	public static function SF_ViewRepSurv_List( $option, $survey_data, $questions_data, $is_list = 0, $list_id = 0){
 		global  $Itemid,$Itemid_s;
 		
 		?>
@@ -3015,7 +3015,7 @@ class survey_force_front_html {
 <?php
 	}
 	
-	function SF_showCrossReport( $lists, $option ) {
+	public static function SF_showCrossReport( $lists, $option ) {
 		global  $Itemid,$Itemid_s;
 		mosCommonHTML::loadCalendar();
 		
@@ -3113,7 +3113,7 @@ class survey_force_front_html {
 <?php
 	}
 	
-	function SF_showIReport( &$rows, &$lists, &$pageNav, $option, $is_i = false ) {
+	public static function SF_showIReport( &$rows, &$lists, &$pageNav, $option, $is_i = false ) {
 		global  $Itemid,$Itemid_s;
 		
 		
@@ -3235,7 +3235,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function show_results( $rows, $lists, $option ) {
+	public static function show_results( $rows, $lists, $option ) {
 		global  $Itemid,$Itemid_s;
 	?>
 		<div class="contentpane surveyforce">
@@ -3271,7 +3271,7 @@ class survey_force_front_html {
 	<?php
 	}
 	
-	function SF_showEmailsList( &$rows, &$pageNav, $option ) {
+	public static function SF_showEmailsList( &$rows, &$pageNav, $option ) {
 		global  $Itemid,$Itemid_s;
 		
 		?>
@@ -3378,7 +3378,7 @@ class survey_force_front_html {
 		<?php
 	}
 	
-	function SF_editEmail( &$row, &$lists, $option ) {
+	public static function SF_editEmail( &$row, &$lists, $option ) {
 		global  $Itemid,$Itemid_s;
 
 		
@@ -3460,7 +3460,7 @@ class survey_force_front_html {
 		<?php
 	}
 
-	function SF_inviteUsers( &$row, &$lists, $option ) {
+	public static function SF_inviteUsers( &$row, &$lists, $option ) {
 		global $task, $Itemid,$Itemid_s, $my;
 		?>
 		<script language="javascript" type="text/javascript">
@@ -3559,7 +3559,7 @@ class survey_force_front_html {
 
 	}
 
-	function SF_remindUsers( &$row, &$lists, $option ) {
+	public static function SF_remindUsers( &$row, &$lists, $option ) {
 		global $task, $Itemid,$Itemid_s, $my;
 ?>
 	<script language="javascript" type="text/javascript">

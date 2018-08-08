@@ -25,7 +25,7 @@ class SFPageNav {
 
 	var $viewall = false;
 
-	function SFPageNav( $total, $limitstart, $limit ) {
+	function __construct( $total, $limitstart, $limit ) {
 		$this->total 		= (int) $total;
 		$this->limitstart 	= (int) max( $limitstart, 0 );
 		$this->limit 		= (int) max( $limit, 1 );

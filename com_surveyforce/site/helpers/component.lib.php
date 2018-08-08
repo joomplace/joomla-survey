@@ -487,7 +487,7 @@ class mosCategory extends JTableCategory
 if (!class_exists('mosAbstractTasker')) {
 class mosAbstractTasker
 {
-	function mosAbstractTasker()
+	function __construct()
 	{
 		jexit( 'mosAbstractTasker deprecated, use JController instead' );
 	}
@@ -511,7 +511,7 @@ class mosEmpty
 if (!class_exists('MENU_Default')) {
 class MENU_Default
 {
-	function MENU_Default()
+	function __construct()
 	{
 		JToolBarHelper::publishList();
 		JToolBarHelper::unpublishList();
@@ -695,7 +695,7 @@ class mosCommonHTML
  	 *
  	 * @deprecated	As of version 1.5
  	 */
-	function loadCalendar()
+	public static function loadCalendar()
 	{
 		JHTML::_('behavior.calendar');
 	}
@@ -1754,7 +1754,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function makeOption( $value, $text='', $value_name='value', $text_name='text' )
+	public static function makeOption( $value, $text='', $value_name='value', $text_name='text' )
 	{
 		return JHTML::_('select.option', $value, $text, $value_name, $text_name);
 	}
@@ -1764,7 +1764,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function selectList( &$arr, $tag_name, $tag_attribs, $key, $text, $selected=NULL, $idtag=false, $flag=false )
+	public static function selectList( &$arr, $tag_name, $tag_attribs, $key, $text, $selected=NULL, $idtag=false, $flag=false )
 	{
 		return JHTML::_('select.genericlist', $arr, $tag_name, $tag_attribs, $key, $text, $selected, $idtag, $flag );
 	}
@@ -1774,7 +1774,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function integerSelectList( $start, $end, $inc, $tag_name, $tag_attribs, $selected, $format="" )
+	public static function integerSelectList( $start, $end, $inc, $tag_name, $tag_attribs, $selected, $format="" )
 	{
 		return JHTML::_('select.integerlist', $start, $end, $inc, $tag_name, $tag_attribs, $selected, $format) ;
 	}
@@ -1784,7 +1784,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function radioList( &$arr, $tag_name, $tag_attribs, $selected=null, $key='value', $text='text', $idtag=false )
+	public static function radioList( &$arr, $tag_name, $tag_attribs, $selected=null, $key='value', $text='text', $idtag=false )
 	{
 		return JHTML::_('select.radiolist', $arr, $tag_name, $tag_attribs, $key, $text,  $selected, $idtag) ;
 	}
@@ -1794,7 +1794,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function yesnoRadioList( $tag_name, $tag_attribs, $selected, $yes='yes', $no='no', $id=false )
+	public static function yesnoRadioList( $tag_name, $tag_attribs, $selected, $yes='yes', $no='no', $id=false )
 	{
 		return JHTML::_('select.booleanlist',  $tag_name, $tag_attribs, $selected, $yes, $no, $id ) ;
 	}
@@ -1804,7 +1804,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function writableCell( $folder, $relative=1, $text='', $visible=1 )
+	public static function writableCell( $folder, $relative=1, $text='', $visible=1 )
 	{
 		$writeable 		= '<b><font color="green">'. JText::_('COM_SF_WRITABLE') .'</font></b>';
 		$unwriteable 	= '<b><font color="red">'. JText::_('COM_SF_UNWRITABLE') .'</font></b>';
@@ -1831,7 +1831,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function monthSelectList( $tag_name, $tag_attribs, $selected )
+	public static function monthSelectList( $tag_name, $tag_attribs, $selected )
 	{
 		$arr = array(
 			mosHTML::makeOption( '01', JText::_( 'COM_SF_JANUARY_SHORT' ) ),
@@ -1856,7 +1856,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function treeSelectList( &$src_list, $src_id, $tgt_list, $tag_name, $tag_attribs, $key, $text, $selected )
+	public static function treeSelectList( &$src_list, $src_id, $tgt_list, $tag_name, $tag_attribs, $key, $text, $selected )
 	{
 
 		// establish the hierarchy of the menu
@@ -1895,7 +1895,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function yesnoSelectList( $tag_name, $tag_attribs, $selected, $yes='COM_SF_YES', $no='COM_SF_NO' )
+	public static function yesnoSelectList( $tag_name, $tag_attribs, $selected, $yes='COM_SF_YES', $no='COM_SF_NO' )
 	{
 		$arr = array(
 			mosHTML::makeOption( 0, JText::_( $no ) ),
@@ -1910,7 +1910,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function idBox( $rowNum, $recId, $checkedOut=false, $name='cid' )
+	public static function idBox( $rowNum, $recId, $checkedOut=false, $name='cid' )
 	{
 		return JHTML::_('grid.id', $rowNum, $recId, $checkedOut, $name);
 	}
@@ -1920,7 +1920,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function sortIcon( $text, $base_href, $field, $state='none' )
+	public static function sortIcon( $text, $base_href, $field, $state='none' )
 	{
 		$alts = array(
 			'none' 	=> JText::_('COM_SF_NO_SORTING'),
@@ -1955,7 +1955,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function CloseButton ( &$params, $hide_js=NULL )
+	public static function CloseButton ( &$params, $hide_js=NULL )
 	{
 
 		// displays close button in Pop-up window
@@ -1982,7 +1982,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function BackButton ( &$params, $hide_js=NULL )
+	public static function BackButton ( &$params, $hide_js=NULL )
 	{
 
 		// Back Button
@@ -2001,7 +2001,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function cleanText ( &$text ) {
+	public static function cleanText ( &$text ) {
 		return JFilterOutput::cleanText($text);
 	}
 
@@ -2010,7 +2010,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function PrintIcon( &$row, &$params, $hide_js, $link, $status=NULL )
+	public static function PrintIcon( &$row, &$params, $hide_js, $link, $status=NULL )
 	{
 
 		if ( $params->get( 'print' )  && !$hide_js ) {
@@ -2054,7 +2054,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function emailCloaking( $mail, $mailto=1, $text='', $email=1 )
+	public static function emailCloaking( $mail, $mailto=1, $text='', $email=1 )
 	{
 		return JHTML::_('email.cloak', $mail, $mailto, $text, $email);
 	}
@@ -2064,7 +2064,7 @@ class mosHTML
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function keepAlive()
+	public static function keepAlive()
 	{
 		echo JHTML::_('behavior.keepalive');
 	}
@@ -3065,7 +3065,7 @@ if (!class_exists('JPagination')) {
 */
 class mosPageNav extends JPagination
 {
-	function mosPageNav( $total, $limitstart, $limit ) {
+	function __construct( $total, $limitstart, $limit ) {
 		parent::__construct($total, $limitstart, $limit);
 	}
 
