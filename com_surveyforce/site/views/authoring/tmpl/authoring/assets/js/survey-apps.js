@@ -3659,12 +3659,14 @@ var refreshAnswersList = function() {
                 js = c.responseText;
                 if ("no login" == js) return parent.location.reload(), window.close(), !1;
                 var a = $("#survey_id").val() ? $("#survey_id").val() : 0;
+                var data = {
+                    json: JSON.stringify(questionsStack)
+                };
+                data[encodeURIComponent($('#token input').attr('name'))] = 1;
                 $.ajax({
-                    url: "index.php?option=com_surveyforce&task=survey.saveQuestions&tmpl=component&surv_id=" + a + "&" + $('#token input').serialize(),
-                    type: "POST",
-                    data: {
-                        json: JSON.stringify(questionsStack)
-                    },
+                    url: "index.php?option=com_surveyforce&task=survey.saveQuestions&tmpl=component&surv_id=" + a,
+                    method: "POST",
+                    data: data,
                     dataType: 'json',
                     success: function(a) {
                         eval(js);

@@ -33,7 +33,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 		$my = JFactory::getUser();
 
 		$surv_id = JFactory::getApplication()->input->get('surv_id', 0);
-		$json = json_decode(JFactory::getApplication()->input->get('json', ''), true);
+        $json = json_decode(JFactory::getApplication()->input->get('json', '', "STRING"), true);
 
 		//sort questions
 		$sort_questions = array(); $old_sections = array();
@@ -691,47 +691,50 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 		if(count($post)){
 
-			$row = new stdClass;
-			$row->id = $post->get('survey_id');
-			$row->sf_name = $post->get('sf_name');
-			$row->sf_descr = $post->get('sf_descr');
-			$row->sf_image = (isset($filename)) ? $filename : '';
-			$row->sf_cat = $post->get('sf_cat');
-            $sf_date_started = $post->get('sf_date_started');
-			if($post->get('sf_date_started') != "0000-00-00 00:00:00"){
-				$sf_date_started = date("Y-m-d H:i:s", strtotime($post->get('sf_date_started')));
-			}
-            $sf_date_expired = $post['sf_date_expired'];
-			if($post->get('sf_date_expired') != "0000-00-00 00:00:00"){
-				$sf_date_expired = date("Y-m-d H:i:s", strtotime($post->get('sf_date_expired')));
-			}
-			$row->sf_date_started = $sf_date_started;
-			$row->sf_date_expired = $sf_date_expired;
-			$row->sf_author = $my->id;
-			$row->sf_public = $post->get('sf_public', '') ? 1 : 0;
-			$row->sf_invite = $post->get('sf_invite', '') ? 1 : 0;
-			$row->sf_reg = $post->get('sf_reg', '') ? 1 : 0;
-			$row->published = $post->get('published', '') ? 1 : 0;
-			$row->sf_fpage_type = $post->get('sf_fpage_type');
-			$row->sf_fpage_text = $post->get('sf_fpage_text');
-			$row->sf_special = $post->get('sf_special', 0);
-			$row->sf_auto_pb = $post->get('sf_auto_pb', '') ? 1 : 0;
-			$row->sf_progressbar = $post->get('sf_progressbar', '') ? 1 : 0;
-			$row->sf_progressbar_type = $post->get('sf_progressbar_type');
-			$row->sf_enable_descr = $post->get('sf_enable_descr', '') ? 1 : 0;
-			$row->sf_reg_voting = $post->get('sf_reg_voting');
-			$row->sf_inv_voting = $post->get('sf_inv_voting');
-			$row->sf_template = $post->get('sf_template');
-			$row->sf_pub_voting = $post->get('sf_pub_voting');
-			$row->sf_pub_control = $post->get('sf_pub_control');
-			$row->surv_short_descr = $post->get('surv_short_descr');
-			$row->sf_after_start = $post->get('sf_after_start');
-			$row->sf_redirect_enable = $post->get('sf_redirect_enable', '') ? 1 : 0;
-			$row->sf_redirect_url = $post->get('sf_redirect_url');
-			$row->sf_redirect_delay = $post->get('sf_redirect_delay');
-			$row->sf_prev_enable = $post->get('sf_prev_enable', '') ? 1 : 0;
-			$row->sf_random = $post->get('sf_random');
-			$row->sf_step = $post->get('sf_step');
+            $row = new stdClass;
+            $row->id = $post->get('survey_id');
+            $row->sf_name = $post->get('sf_name', "New Survey", "STRING");
+            $row->sf_descr = $post->get('sf_descr', "", "STRING");
+            $row->sf_image = (isset($filename)) ? $filename : '';
+            $row->sf_cat = $post->get('sf_cat');
+
+            $sf_date_started = $post->get('sf_date_started',"0000-00-00 00:00:00","STRING");
+            if($sf_date_started != "0000-00-00 00:00:00"){
+                $sf_date_started = date("Y-m-d H:i:s", strtotime($sf_date_started));
+            }
+
+            $sf_date_expired = $post->get('sf_date_expired', "0000-00-00 00:00:00", "STRING");
+            if($sf_date_expired != "0000-00-00 00:00:00"){
+                $sf_date_expired = date("Y-m-d H:i:s", strtotime($sf_date_expired));
+            }
+
+            $row->sf_date_started = $sf_date_started;
+            $row->sf_date_expired = $sf_date_expired;
+            $row->sf_author = $my->id;
+            $row->sf_public = $post->get('sf_public', '') ? 1 : 0;
+            $row->sf_invite = $post->get('sf_invite', '') ? 1 : 0;
+            $row->sf_reg = $post->get('sf_reg', '') ? 1 : 0;
+            $row->published = $post->get('published', '') ? 1 : 0;
+            $row->sf_fpage_type = $post->get('sf_fpage_type');
+            $row->sf_fpage_text = $post->get('sf_fpage_text', '', "STRING");
+            $row->sf_special = $post->get('sf_special', 0);
+            $row->sf_auto_pb = $post->get('sf_auto_pb', '') ? 1 : 0;
+            $row->sf_progressbar = $post->get('sf_progressbar', '') ? 1 : 0;
+            $row->sf_progressbar_type = $post->get('sf_progressbar_type');
+            $row->sf_enable_descr = $post->get('sf_enable_descr', '') ? 1 : 0;
+            $row->sf_reg_voting = $post->get('sf_reg_voting');
+            $row->sf_inv_voting = $post->get('sf_inv_voting');
+            $row->sf_template = $post->get('sf_template');
+            $row->sf_pub_voting = $post->get('sf_pub_voting');
+            $row->sf_pub_control = $post->get('sf_pub_control');
+            $row->surv_short_descr = $post->get('surv_short_descr', '', "STRING");
+            $row->sf_after_start = $post->get('sf_after_start');
+            $row->sf_redirect_enable = $post->get('sf_redirect_enable', '') ? 1 : 0;
+            $row->sf_redirect_url = $post->get('sf_redirect_url');
+            $row->sf_redirect_delay = $post->get('sf_redirect_delay', 0, "INT");
+            $row->sf_prev_enable = $post->get('sf_prev_enable', '') ? 1 : 0;
+            $row->sf_random = $post->get('sf_random');
+            $row->sf_step = $post->get('sf_step');
 
 			$database->updateObject("#__survey_force_survs", $row, "id");
 		}
@@ -811,7 +814,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								$query = "SELECT a.id FROM #__survey_force_user_starts AS a, #__survey_force_invitations AS b WHERE b.invite_num = '" . $invite_num . "' AND b.id = a.invite_id ORDER BY a.id DESC";
 								$database->setQuery($query);
 								$inv_start_id = $database->loadResult();
-								$ret_str .= get_graph_results($survey_id, $inv_start_id);
+								$ret_str .= $this->get_graph_results($survey_id, $inv_start_id);
 							}
 							$ret_str .= "\t" . '<task>invite_complete</task>' . "\n";
 							$ret_str .= "\t" . '<is_final_question>0</is_final_question>' . "\n";
@@ -1415,7 +1418,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								$query = "SELECT a.id FROM #__survey_force_user_starts AS a, #__survey_force_invitations AS b WHERE b.invite_num = '" . $invite_num . "' AND b.id = a.invite_id ORDER BY a.id DESC";
 								$database->setQuery($query);
 								$inv_start_id = $database->loadResult();
-								$ret_str .= get_graph_results($survey_id, $inv_start_id);
+								$ret_str .= $this->get_graph_results($survey_id, $inv_start_id);
 							}
 							$ret_str .= "\t" . '<task>invite_complete</task>' . "\n";
 							$ret_str .= "\t" . '<is_final_question>0</is_final_question>' . "\n";
@@ -2296,7 +2299,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								$query = "SELECT a.id FROM #__survey_force_user_starts AS a, #__survey_force_invitations AS b WHERE b.invite_num = '" . $invite_num . "' AND b.id = a.invite_id ORDER BY a.id DESC";
 								$database->setQuery($query);
 								$inv_start_id = $database->loadResult();
-								$ret_str .= get_graph_results($survey_id, $inv_start_id);
+								$ret_str .= $this->get_graph_results($survey_id, $inv_start_id);
 							}
 							$ret_str .= "\t" . '<task>invite_complete</task>' . "\n";
 							return $ret_str;
