@@ -16,7 +16,7 @@ class plgSurveyPickone {
     var $_name = 'pickone';
     var $_type = 'survey';
 
-    public function plgSurveyPickone() {
+    public function __construct() {
         return true;
     }
 
