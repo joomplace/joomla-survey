@@ -39,6 +39,16 @@ class SurveyforceTemplates {
 
         $template = str_replace('{SURVEY_BODY}', SurveyforceTemplates::get_container($survey->sf_descr, $show_description), $template);
 
+        $user_email_html = '';
+        if(!(int)JFactory::getUser()->id){
+            $user_email_html = '<tr id="tr_survey_user_email"><td colspan="3" align="center">
+                    <span class="survey_start_user_email_lbl">' . JText::_('COM_SURVEYFORCE_START_USER_EMAIL') . '</span>&nbsp;
+                    <input type="email" name="survey_start_user_email" id="survey_start_user_email" class="survey_start_user_email_input" />
+                    <br /><br />
+			    </td></tr>';
+        }
+        $template = str_replace('{SURVEY_USER_EMAIL}', $user_email_html, $template);
+
         $count = mb_substr_count($template, '{START_BUTTON}');
         for ($i = 0; $i < $count; $i++) {
             $template = preg_replace('/\{START_BUTTON\}/', '<span class="start_bt_container" id="start_' . $i . '">' . surveyforce_template_class::SF_GetStartButton() . '</span>', $template, 1);

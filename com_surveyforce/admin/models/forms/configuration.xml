@@ -83,6 +83,16 @@
         </field>
         <field name="sf_an_mail_other_emails" type="text" default="" label="COM_SURVEYFORCE_SEND_EMAIL_WHEN_USER"
                readonly="false"  />
+        <field
+            name="sf_mail_to_user"
+            type="radio"
+            default="0"
+            label="COM_SURVEYFORCE_SF_EMAIL_TO_USER_LABEL"
+            description="COM_SURVEYFORCE_SF_EMAIL_TO_USER_DESC"
+            class="btn-group">
+              <option value='1'>COM_SURVEYFORCE_YES</option>
+              <option value='0'>COM_SURVEYFORCE_NO</option>
+        </field>
         <field name="sf_an_mail_subject" type="text" default="" label="COM_SURVEYFORCE_SUBJECT" readonly="false"  />
         <field name="sf_an_mail_text" type="textarea" default="" label="COM_SURVEYFORCE_TEXT_BEFORE_USER_RESULTS" readonly="false"  />
 

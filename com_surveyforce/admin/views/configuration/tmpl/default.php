@@ -208,6 +208,7 @@ JHtml::_('formbehavior.chosen', 'select');
                             <?php echo $this->form->getInput('sf_an_mail'); ?>
                         </div>
                     </div>
+                    <?php echo $this->form->renderField('sf_mail_to_user'); ?>
                     <div class="control-group form-inline">
                         <?php echo $this->form->getLabel('sf_an_mail_others') ?>
                         <div class="controls" >

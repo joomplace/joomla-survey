@@ -734,7 +734,8 @@ if (isset($survey->error) && $survey->error) {
                     return;
                 }
     <?php } ?>
-            sf_MakeRequest('action=start&survey=<?php echo $survey->id ?>' + invited_url);
+            var userMail = document.getElementById('survey_start_user_email') ? '&useremail=' + document.getElementById('survey_start_user_email').value : '';
+            sf_MakeRequest('action=start&survey=<?php echo $survey->id ?>' + userMail + invited_url);
         }
 
         function sf_escape(txt) {
@@ -1027,6 +1028,7 @@ if (isset($survey->error) && $survey->error) {
                 for (i = 0; i < finish_count; i++) {
                     sf_getObj('finish_' + i).style.display = 'none';
                 }
+                document.getElementById('tr_survey_user_email').style.display = 'none';
             } catch (e) {
             }
 

@@ -61,6 +61,7 @@ if (!class_exists('surveyforce_template_class')) {
 			<tr><td id="sf_error_message" colspan="3" align="center">
 				{ERROR_MESSAGE_BOTTOM}
 			</td></tr>
+			{SURVEY_USER_EMAIL}
 			<tr><td colspan="3" align="center" id="td_survey_task">
 					{START_BUTTON}{PREV_BUTTON}{NEXT_BUTTON}{FINISH_BUTTON}
 			</td></tr>

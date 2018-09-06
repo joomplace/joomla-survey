@@ -55,7 +55,8 @@ if (!class_exists('surveyforce_template_class')) {
 			</tr>		
 			<tr><td id="sf_survey_body" colspan="3" valign="top">
 				{SURVEY_BODY}
-			</td></tr>						
+			</td></tr>		
+			{SURVEY_USER_EMAIL}				
 			</table>
 			</div>	
 EOF_RES;

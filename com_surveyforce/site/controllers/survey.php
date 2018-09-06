@@ -765,6 +765,11 @@ class SurveyforceControllerSurvey extends JControllerForm {
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
 		$invite_num = $session->get('invite_num', '');
 
+        $survey_user_email = trim(JFactory::getApplication()->input->getString('useremail', ''));
+        if($survey_user_email && filter_var($survey_user_email, FILTER_VALIDATE_EMAIL)){
+            JFactory::getApplication()->setUserState('com_surveyforce.survey_user_email', $survey_user_email);
+        }
+
 		$now = strtotime(JFactory::getDate());
 		$special = false;
 		$surv_usertype = 0;
@@ -2014,7 +2019,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 
 					if (!$preview) {
-						if ($sf_config->get('sf_an_mail') || $sf_config->get('sf_an_mail_others')) {
+						if ($sf_config->get('sf_an_mail') || $sf_config->get('sf_an_mail_others') || $sf_config->get('sf_mail_to_user')) {
 
 							$message = $this->get_user_result($start_id);
 							$message = $sf_config->get('sf_an_mail_text') . " \n\n " . $message;
@@ -2025,11 +2030,25 @@ class SurveyforceControllerSurvey extends JControllerForm {
 							if (!count($emails))
 								$emails = array();
 
-
 							if ($sf_config->get('sf_an_mail') && isset($fpage->email) && $fpage->email) {
 								$emails[] = $fpage->email;
 							}
 
+							//Send e-mail to the user which finished the survey
+                            if ($sf_config->get('sf_mail_to_user')) {
+                                if((int)$my->id && isset($my->email) && filter_var($my->email, FILTER_VALIDATE_EMAIL)){
+                                    $emails[] = $my->email;
+                                }
+                                else{
+                                    $survey_user_email = JFactory::getApplication()->getUserState('com_surveyforce.survey_user_email', '');
+                                    if($survey_user_email){
+                                        if(filter_var($survey_user_email, FILTER_VALIDATE_EMAIL)) {
+                                            $emails[] = $survey_user_email;
+                                        }
+                                        JFactory::getApplication()->setUserState('com_surveyforce.survey_user_email', '');
+                                    }
+                                }
+                            }
 
 							if (count($emails)){
 
