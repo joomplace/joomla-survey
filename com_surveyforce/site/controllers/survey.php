@@ -33,8 +33,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 		$my = JFactory::getUser();
 
 		$surv_id = JFactory::getApplication()->input->get('surv_id', 0);
-		$json = json_decode(JFactory::getApplication()->input->get('json', ''), true);
-
+        $json = json_decode(JFactory::getApplication()->input->get('json', '', "STRING"), true);
 		//sort questions
 		$sort_questions = array(); $old_sections = array();
 		if(count($json)){
@@ -655,7 +654,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 	public function saveSurvey()
 	{
         \JSession::checkToken() or jexit(\JText::_('JINVALID_TOKEN'));
-		
+        
 		$database = JFactory::getDbo();
 		$my = JFactory::getUser();
 		jimport('joomla.filesystem.file');
@@ -668,7 +667,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
         $post = \JFactory::getApplication()->input->post;
 		$image_file = \JFactory::getApplication()->input->files->get('image_file');
-		
+
 		if($image_file && $image_file['name'] != ''){
 			if(!preg_match('/image.*/', $image_file['type'])){
 				return false;
@@ -693,44 +692,48 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 			$row = new stdClass;
 			$row->id = $post->get('survey_id');
-			$row->sf_name = $post->get('sf_name');
-			$row->sf_descr = $post->get('sf_descr');
+			$row->sf_name = $post->get('sf_name', "New Survey", "STRING");
+			$row->sf_descr = $post->get('sf_descr', "", "STRING");
 			$row->sf_image = (isset($filename)) ? $filename : '';
 			$row->sf_cat = $post->get('sf_cat');
-            $sf_date_started = $post->get('sf_date_started');
-			if($post->get('sf_date_started') != "0000-00-00 00:00:00"){
-				$sf_date_started = date("Y-m-d H:i:s", strtotime($post->get('sf_date_started')));
+
+            $sf_date_started = $post->get('sf_date_started',"0000-00-00 00:00:00","STRING");
+			if($sf_date_started != "0000-00-00 00:00:00"){
+				$sf_date_started = date("Y-m-d H:i:s", strtotime($sf_date_started));
 			}
-            $sf_date_expired = $post['sf_date_expired'];
-			if($post->get('sf_date_expired') != "0000-00-00 00:00:00"){
-				$sf_date_expired = date("Y-m-d H:i:s", strtotime($post->get('sf_date_expired')));
+
+            $sf_date_expired = $post->get('sf_date_expired', "0000-00-00 00:00:00", "STRING");
+			if($sf_date_expired != "0000-00-00 00:00:00"){
+				$sf_date_expired = date("Y-m-d H:i:s", strtotime($sf_date_expired));
 			}
+
 			$row->sf_date_started = $sf_date_started;
 			$row->sf_date_expired = $sf_date_expired;
 			$row->sf_author = $my->id;
-			$row->sf_public = $post->get('sf_public', '') ? 1 : 0;
-			$row->sf_invite = $post->get('sf_invite', '') ? 1 : 0;
-			$row->sf_reg = $post->get('sf_reg', '') ? 1 : 0;
+            $row->sf_public = $post->get('sf_public', '') ? 1 : 0;
+            $row->sf_invite = $post->get('sf_invite', '') ? 1 : 0;
+            $row->sf_allow_continue = $post->get('sf_allow_continue', '') ? 1 : 0;
+            $row->sf_reg = $post->get('sf_reg', '') ? 1 : 0;
 			$row->published = $post->get('published', '') ? 1 : 0;
-			$row->sf_fpage_type = $post->get('sf_fpage_type');
-			$row->sf_fpage_text = $post->get('sf_fpage_text');
-			$row->sf_special = $post->get('sf_special', 0);
-			$row->sf_auto_pb = $post->get('sf_auto_pb', '') ? 1 : 0;
-			$row->sf_progressbar = $post->get('sf_progressbar', '') ? 1 : 0;
-			$row->sf_progressbar_type = $post->get('sf_progressbar_type');
-			$row->sf_enable_descr = $post->get('sf_enable_descr', '') ? 1 : 0;
-			$row->sf_reg_voting = $post->get('sf_reg_voting');
-			$row->sf_inv_voting = $post->get('sf_inv_voting');
-			$row->sf_template = $post->get('sf_template');
-			$row->sf_pub_voting = $post->get('sf_pub_voting');
-			$row->sf_pub_control = $post->get('sf_pub_control');
-			$row->surv_short_descr = $post->get('surv_short_descr');
-			$row->sf_after_start = $post->get('sf_after_start');
-			$row->sf_redirect_enable = $post->get('sf_redirect_enable', '') ? 1 : 0;
+            $row->sf_fpage_type = $post->get('sf_fpage_type');
+			$row->sf_fpage_text = $post->get('sf_fpage_text', '', "STRING");
+            $row->sf_special = $post->get('sf_special', 0);
+            $row->sf_auto_pb = $post->get('sf_auto_pb', '') ? 1 : 0;
+            $row->sf_progressbar = $post->get('sf_progressbar', '') ? 1 : 0;
+            $row->sf_progressbar_type = $post->get('sf_progressbar_type');
+            $row->sf_enable_descr = $post->get('sf_enable_descr', '') ? 1 : 0;
+            $row->sf_reg_voting = $post->get('sf_reg_voting');
+            $row->sf_inv_voting = $post->get('sf_inv_voting');
+            $row->sf_template = $post->get('sf_template');
+            $row->sf_pub_voting = $post->get('sf_pub_voting');
+            $row->sf_pub_control = $post->get('sf_pub_control');
+			$row->surv_short_descr = $post->get('surv_short_descr', '', "STRING");
+            $row->sf_after_start = $post->get('sf_after_start');
+            $row->sf_redirect_enable = $post->get('sf_redirect_enable', '') ? 1 : 0;
 			$row->sf_redirect_url = $post->get('sf_redirect_url');
-			$row->sf_redirect_delay = $post->get('sf_redirect_delay');
-			$row->sf_prev_enable = $post->get('sf_prev_enable', '') ? 1 : 0;
-			$row->sf_random = $post->get('sf_random');
+			$row->sf_redirect_delay = $post->get('sf_redirect_delay', 0, "INT");
+            $row->sf_prev_enable = $post->get('sf_prev_enable', '') ? 1 : 0;
+            $row->sf_random = $post->get('sf_random');
 			$row->sf_step = $post->get('sf_step');
 
 			$database->updateObject("#__survey_force_survs", $row, "id");
@@ -763,6 +766,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 		$invite_num = $session->get('invite_num', '');
 
 		$now = strtotime(JFactory::getDate());
+
 		$special = false;
 		$surv_usertype = 0;
 		$surv_user_id = 0;
@@ -789,7 +793,81 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 		if (!$preview) {
 			if (($survey->published) && (($survey->sf_date_expired == '0000-00-00 00:00:00' && $survey->sf_date_started == '0000-00-00 00:00:00') || (strtotime($survey->sf_date_expired) >= $now && strtotime($survey->sf_date_started) <= $now))) {
-				if (($my->id) && ($survey->sf_reg)) {
+                if ($survey->sf_allow_continue) {
+                        $ip_user = $_SERVER["REMOTE_ADDR"];
+                        $cookie_user = \JFactory::getApplication()->input->cookie->get(md5('survey' . $survey_id), '');
+
+                        if ($invite_num && $survey->sf_invite) {
+                            $query_inv = "SELECT user_id, id FROM #__survey_force_invitations WHERE invite_num = '" . $invite_num . "'";
+                            $database->setQuery($query_inv);
+                            $inv_info = $database->loadObject();
+                            $invite_id = $inv_info ? $inv_info->id : 0 ;
+                            $surv_usertype = 2;
+                        } elseif ($my->id) {
+                            $surv_usertype = 1;
+                        } elseif ($survey->sf_public) {
+                            $surv_usertype = 0;
+                        }
+
+                        switch ($surv_usertype) {
+                            case 0:
+                                $query_start_id = "SELECT id FROM #__survey_force_user_starts WHERE sf_ip_address ='" . $ip_user . "' AND is_complete = 0 AND survey_id='" . $survey_id . "'AND unique_id ='" . $cookie_user . "' ORDER BY id DESC";
+                                break;
+                            case 1:
+                                $query_start_id = "SELECT id FROM #__survey_force_user_starts WHERE user_id = " . $my->id . " AND is_complete = 0 AND survey_id=" . $survey_id . " ORDER BY id DESC";
+                                break;
+                            case 2:
+                                $query_start_id = "SELECT id FROM #__survey_force_user_starts WHERE invite_id = " . $invite_id . " AND is_complete = 0 AND survey_id=" . $survey_id . " ORDER BY id DESC";
+                                break;
+                        }
+
+                        $database->SetQuery($query_start_id);
+                        $start_id_survey = $database->loadResult();
+
+                        if (!empty($start_id_survey)) {
+
+                            $query_chain = "SELECT * FROM #__survey_force_user_chain WHERE start_id =".$start_id_survey." AND survey_id =".$survey_id." ORDER BY id DESC";
+                            $database->SetQuery($query_chain);
+                            $user_chain_info = $database->loadObject();
+
+                            $user_str_chain = $user_chain_info->sf_chain;
+                            list($questions, $progress) = SurveyforceHelper::SF_getNextQuestion($user_str_chain, $start_id_survey, $survey->sf_progressbar_type);
+
+                            if ($questions) {
+
+                                $ret_str .= "\t" . '<user_id>' . $cookie_user . '</user_id>' . "\n";
+                                $ret_str .= "\t" . '<start_id>' . $start_id_survey . '</start_id>' . "\n";
+                                $ret_str .= "\t" . '<is_resume>0</is_resume>' . "\n";
+
+                                $arr_quest_exp = explode(',',$questions);
+                                $n = count($arr_quest_exp);
+                                $query = " SELECT * FROM #__survey_force_quests WHERE published = 1 AND sf_survey = '" . $survey_id . "' " . ($auto_pb ? " AND sf_qtype <> 8 " : '') . " AND id IN (".$questions.")ORDER BY sf_section_id, ordering, id ";
+                                $database->setQuery($query);
+                                $q_data = $database->loadObjectList('id');
+
+                                for ($i = 0; $i < $n; $i++) {
+                                    $ret_str .= "\t" . '<is_final_question>' .$q_data[$arr_quest_exp[$i]]->is_final_question . '</is_final_question>' . "\n";
+                                    $ret_str .= "\t" . '<question_data>' . "\n";
+                                    $ret_str .= SurveyforceHelper::SF_GetQuestData($q_data[$arr_quest_exp[$i]], $start_id_survey, $survey);
+                                    $ret_str .= "\t" . '</question_data>' . "\n";
+                                    $last_page_quest_id = $q_data[$arr_quest_exp[$i]]->id;
+                                }
+
+                                $page_task = 'start';
+
+                                $ret_str .= "\t" . '<task>' . $page_task . '</task>' . "\n";
+                                $ret_str .= "\t" . '<quest_count>' . $n . '</quest_count>' . "\n";
+                                $ret_str .= "\t" . '<is_prev>' . $survey->sf_prev_enable . '</is_prev>' . "\n";
+                                $ret_str .= "\t" . '<progress_bar>' . $progress . '%</progress_bar>' . "\n";
+                                $ret_str .= "\t" . '<progress_bar_txt><![CDATA[' . JText::_('COM_SURVEYFORCE_PROGRESS') . ' ' . (int) $progress . '%]]></progress_bar_txt>' . "\n";
+                                return $ret_str;
+                            }
+                        }
+                }
+
+
+
+			    if (($my->id) && ($survey->sf_reg)) {
 					//null;
 				} elseif (($my->id) && ($survey->sf_friend) && $sf_config->get('sf_enable_jomsocial_integration') && in_array($my->id, $friends)) {
 					//null;
@@ -811,7 +889,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								$query = "SELECT a.id FROM #__survey_force_user_starts AS a, #__survey_force_invitations AS b WHERE b.invite_num = '" . $invite_num . "' AND b.id = a.invite_id ORDER BY a.id DESC";
 								$database->setQuery($query);
 								$inv_start_id = $database->loadResult();
-								$ret_str .= get_graph_results($survey_id, $inv_start_id);
+								$ret_str .= $this->get_graph_results($survey_id, $inv_start_id);
 							}
 							$ret_str .= "\t" . '<task>invite_complete</task>' . "\n";
 							$ret_str .= "\t" . '<is_final_question>0</is_final_question>' . "\n";
@@ -948,7 +1026,6 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 			if (!$preview) {
 				if ($invite_num != '') {
-
 					if ($survey->sf_inv_voting == 2) {
 						$query = "SELECT id FROM #__survey_force_user_starts WHERE survey_id = {$survey_id} AND usertype = '" . $surv_usertype . "' AND invite_id = " . $surv_invite_id . " AND user_id = '" . $surv_user_id . "'  AND is_complete = 1 ORDER BY id DESC";
 						$database->setQuery($query);
@@ -984,9 +1061,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 					$database->setQuery($query);
 					$usr_data = $database->loadObject();
 				} elseif ($my->id > 0) {
-
 					if (!$special && ($survey->sf_reg_voting == 2 || ($survey->sf_friend_voting == 2 && $sf_config->get('sf_enable_jomsocial_integration') && in_array($my->id, $friends)) )) {
-
 						$query = "SELECT id FROM #__survey_force_user_starts WHERE survey_id = {$survey_id} AND user_id = '" . $my->id . "' AND is_complete = 1 ORDER BY id DESC";
 						$database->setQuery($query);
 						$usr_starts = $database->loadAssoc();
@@ -1390,6 +1465,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 		$auto_pb = $survey->sf_auto_pb;
 
 		$now =strtotime(JFactory::getDate());
+
 		if (!$preview) {
 			if (($survey->published) && (($survey->sf_date_expired == '0000-00-00 00:00:00' && $survey->sf_date_started == '0000-00-00 00:00:00') || (strtotime($survey->sf_date_expired) >= $now && strtotime($survey->sf_date_started) <= $now))) {
 				if (($my->id) && ($survey->sf_reg)) {
@@ -1415,7 +1491,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								$query = "SELECT a.id FROM #__survey_force_user_starts AS a, #__survey_force_invitations AS b WHERE b.invite_num = '" . $invite_num . "' AND b.id = a.invite_id ORDER BY a.id DESC";
 								$database->setQuery($query);
 								$inv_start_id = $database->loadResult();
-								$ret_str .= get_graph_results($survey_id, $inv_start_id);
+								$ret_str .= $this->get_graph_results($survey_id, $inv_start_id);
 							}
 							$ret_str .= "\t" . '<task>invite_complete</task>' . "\n";
 							$ret_str .= "\t" . '<is_final_question>0</is_final_question>' . "\n";
@@ -2296,7 +2372,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								$query = "SELECT a.id FROM #__survey_force_user_starts AS a, #__survey_force_invitations AS b WHERE b.invite_num = '" . $invite_num . "' AND b.id = a.invite_id ORDER BY a.id DESC";
 								$database->setQuery($query);
 								$inv_start_id = $database->loadResult();
-								$ret_str .= get_graph_results($survey_id, $inv_start_id);
+								$ret_str .= $this->get_graph_results($survey_id, $inv_start_id);
 							}
 							$ret_str .= "\t" . '<task>invite_complete</task>' . "\n";
 							return $ret_str;

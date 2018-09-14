@@ -477,6 +477,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				                    	</div>
 				                    </div>
 				                    <div style="clear:both"><br/></div>
+                                    <div class="control-group form-inline">
+                                        <label class="control-label"><?php echo JText::_('COM_SURVEYFORCE_SF_FOR_ALLOW_USER_TO');?>:</label>
+                                        <div class="controls">
+                                            <input type="checkbox" name="sf_allow_continue" id="sf_allow_continue" class="css-checkbox" <?php if($survey->sf_allow_continue) echo 'checked="checked"'?> />
+                                            <label class="css-label cb0" for="sf_allow_continue"></label>
+                                        </div>
+                                    </div>
+                                    <div style="clear:both"><br/></div>
 				                    <div class="control-group form-inline">
 				                    	<label class="control-label"><?php echo JText::_('COM_SURVEYFORCE_SF_FOR_USER_IN_LISTS');?>:</label>
 				                    	<div class="controls">

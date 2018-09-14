@@ -1,0 +1,1 @@
+ALTER TABLE `#__survey_force_survs` ADD `sf_allow_continue` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' AFTER `sf_inv_voting`;

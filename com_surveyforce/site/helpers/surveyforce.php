@@ -84,7 +84,7 @@ class SurveyforceHelper
 	 *
 	 * @return  INT
 	 */
-	public function SF_GetUserType($survey_id = 0, $question_id = 0)
+	public static function SF_GetUserType($survey_id = 0, $question_id = 0)
 	{
 		$database = JFactory::getDbo();
 
@@ -201,6 +201,120 @@ class SurveyforceHelper
 
 		return $db->loadResult();
 	}
+
+	public static function SF_getNextQuestion($chain, $start_user_id, $type_progress_bar)
+    {
+        $db = JFactory::getDbo();
+
+        $pattern = "~\d(\*)\d~";
+        $arr_const = explode("*#*", $chain);
+        $key_on_delete = array_search('#', $arr_const);
+
+        if ($key_on_delete) {
+            unset($arr_const[$key_on_delete]);
+        }
+
+        if (preg_match($pattern, $chain)) { //есть списки вопросов на одной странице
+            foreach ($arr_const as &$v) {
+                if (strpos($v, "*") !== false) {
+                    $v = str_replace("*", ",", $v);
+                    $list_quest[]= $v;
+                } else {
+                    $quest[]= $v;
+                }
+            }
+
+            if (count($list_quest)) {
+                $query = $db->getQuery(true);
+                for ($i = 0; $i < count($list_quest); $i++) {
+                    $query->select('DISTINCT'.$db->quoteName('c.quest_id'))
+                        ->from($db->quoteName('#__survey_force_user_answers','c'))
+                        ->where($db->quoteName('c.start_id') . '='.$start_user_id.'')
+                        ->where($db->quoteName('c.quest_id'). ' IN (' . $list_quest[$i] . ')');
+                    $db->setQuery($query);
+                    $arr_temp = $db->loadColumn();
+                    if (count($arr_temp) == count(explode(',', $list_quest[$i]))) {
+                        $arr_list_quest[] = $list_quest[$i];
+                    }
+                }
+            }
+
+            if (count($quest)) {
+                $list_quest_one_page = implode(',', $quest);
+                $query_l = $db->getQuery(true);
+                $query_l->select('DISTINCT'.$db->quoteName('c.quest_id'))
+                    ->from($db->quoteName('#__survey_force_user_answers','c'))
+                    ->where($db->quoteName('c.start_id') . '='.$start_user_id.'')
+                    ->where($db->quoteName('c.quest_id'). ' IN (' . $list_quest_one_page . ')');
+                $db->setQuery($query_l);
+                $arr_list_one_page = $db->loadColumn();
+            }
+
+            $arr_answ = array_merge($arr_list_quest, $arr_list_one_page);
+            $key_on_delete_1 = array_search('', $arr_answ);
+
+            if ($key_on_delete_1) {
+                unset($arr_answ[$key_on_delete_1]);
+            }
+
+            list ($rez, $prog) = self::SF_check_isset_answ($arr_const, $arr_answ, $type_progress_bar);
+            return array($rez, $prog);
+
+        } else {
+
+            $list_query = implode(",", $arr_const);
+            $query = $db->getQuery(true);
+            $query->select('DISTINCT'.$db->quoteName('c.quest_id'))
+                ->from($db->quoteName('#__survey_force_user_answers','c'))
+                ->where($db->quoteName('c.start_id') . '='.$start_user_id.'')
+                ->where($db->quoteName('c.quest_id'). ' IN (' . $list_query . ')');
+            $db->setQuery($query);
+            $arr_list_quest = $db->loadColumn();
+
+            list ($rez, $prog) = self::SF_check_isset_answ($arr_const, $arr_list_quest, $type_progress_bar);
+            return array($rez, $prog);
+
+        }
+    }
+
+    public static function SF_check_isset_answ($arr_const, $arr_answ, $type_progress_bar)
+    {
+        if ($arr_answ[0] != '') {
+            switch ($type_progress_bar) {
+                case 1:
+                    $count_question_const = self::getCountQuestion($arr_const);
+                    $count_question_answ = self::getCountQuestion($arr_answ);
+                    $coutn_prog = floor(100*($count_question_answ/$count_question_const));
+                    break;
+                case 0:
+                    $count_default_page = count($arr_const);
+                    $count_answ_page = count($arr_answ);
+                    $coutn_prog = floor(100*($count_answ_page/$count_default_page));
+                    break;
+            }
+            $diff = array_diff($arr_const, $arr_answ);
+            return array(array_shift($diff), $coutn_prog);
+        } else {
+            return array(false, 0);
+        }
+    }
+
+    public static function getCountQuestion($arr)
+    {
+        $n = 0;
+        foreach ($arr as $v) {
+            if (strpos($v, ",") !== false){
+                $count_sub_quest[] = count(explode(',', $v));
+            } else {
+                $n++;
+            }
+        }
+        if (!empty($count_sub_quest)) {
+            $sum_sub_quest = array_sum($count_sub_quest);
+        }
+        $all_count_quest = $sum_sub_quest + $n;
+        return $all_count_quest;
+    }
 
 	public function getNotifyUserEmails()
 	{
@@ -872,7 +986,7 @@ class SurveyforceHelper
 		}
 	}
 
-	public function SF_ListSurveys($option, $is_i = false)
+	public static function SF_ListSurveys($option, $is_i = false)
 	{
 		$database = JFactory::getDbo();
 		$catid = intval(JFactory::getApplication()->getUserStateFromRequest("catid", 'catid', 0));
@@ -939,7 +1053,7 @@ class SurveyforceHelper
 			survey_force_front_html::SF_showSurvsList($rows, $lists, $pageNav, $option, $is_i);
 	}
 
-	public function SF_editUsergroup($id, $option)
+	public static function SF_editUsergroup($id, $option)
 	{
 		$database = JFactory::getDbo();
 		$sf_config = JComponentHelper::getParams('com_surveyforce');

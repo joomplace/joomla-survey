@@ -213,6 +213,13 @@ SurveyforceHelper::addFileUploadFull('index.php?option=com_surveyforce&task=imag
 		</div>
 	</div>
 
+    <div class="control-group form-inline">
+        <?php echo $this->form->getLabel('sf_allow_continue'); ?>
+        <div class="controls">
+            <?php echo $this->form->getInput('sf_allow_continue'); ?>
+        </div>
+    </div>
+
 	<div class="control-group form-inline">
 		<?php echo $this->form->getLabel('sf_inv_voting'); ?>
 		<div class="controls">
