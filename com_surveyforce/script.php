@@ -68,6 +68,7 @@ class com_surveyforceInstallerScript
 				'sf_progressbar_type' => "TINYINT( 1 ) DEFAULT '0' NOT NULL AFTER `sf_progressbar`",
 				'sf_reg_voting' => "TINYINT( 4 ) DEFAULT '0' NOT NULL",
 				'sf_inv_voting' => "TINYINT( 4 ) DEFAULT '1' NOT NULL",
+                'sf_allow_continue' => "TINYINT(1) UNSIGNED DEFAULT '0' NOT NULL",
 				'sf_template' => "INT( 11 ) DEFAULT '1' NOT NULL",
 				'sf_pub_voting' => "TINYINT( 4 ) DEFAULT '0' NOT NULL",
 				'sf_pub_control' => "TINYINT( 4 ) DEFAULT '0' NOT NULL",
