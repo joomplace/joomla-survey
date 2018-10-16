@@ -71,12 +71,12 @@ class SurveyforceModelReport extends JModelAdmin {
         $database = JFactory::getDbo();
         
         $query = "SELECT * FROM #__survey_force_survs WHERE id = '" . $survey_id . "' "
-                . (!in_array(8, $my->groups)? " AND sf_author = '{$my->id}' " : ' ');
+//                . (!in_array(8, $my->groups)? " AND sf_author = '{$my->id}' " : ' ');
+            . (!isset($my->groups[8]) ? " AND sf_author = '{$my->id}' " : ' ');
         $database->SetQuery($query);
         $survey_data = $database->LoadObject();
         
         return $survey_data;
-        
     }
     
     public function getQuestionHTML($question, $start_data){
