@@ -634,7 +634,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 					$pdf->SetFontSize(8);
 					$pdf->setFont($fontFamily, 'B');
 					$pdf->setFont($fontFamily, 'I');
-					$pdf->MultiCell(0, 0, $main_quest, 0, 'J', 0, 1, '', '', true, 0);
+					$pdf->MultiCell(0, 0, $main_quest, 0, 'C', 0, 1, '', '', true, 0);
 					$pdf->Ln(0.5);
 
 					$query = "SELECT  sf_qtext   FROM #__survey_force_quests  WHERE published = 1 AND id = {$key}";
@@ -642,7 +642,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 					$quest = $pdf_doc->cleanText($database->loadResult())."\n";
 					$pdf->setFont($fontFamily, 'I');
-					$pdf->MultiCell(60, 0, $quest , 0, 'J', 0, 1, '' , '', true, 0);
+					$pdf->MultiCell(60, 0, $quest , 0, 'L', 0, 1, '' , '', true, 0);
 					$pdf->Ln(0.5);
 
 					$cur_y = $pdf->GetY();
@@ -1112,6 +1112,11 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 					$csv_data .= "\n\n";
 				}
 				$filedata = $this->SF_processField($csv_data);
+
+                //add BOM to fix UTF-8 in Excel
+                $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) );
+                $filedata = $bom.$filedata;
+
 				@ob_end_clean();
 				header("Content-type: application/csv");
 				header("Content-Length: ".strlen(ltrim($filedata)));
