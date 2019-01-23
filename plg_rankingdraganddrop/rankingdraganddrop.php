@@ -18,7 +18,7 @@ class plgSurveyRankingdraganddrop {
 	var $_name = 'rankingdraganddrop';
 	var $_type = 'survey';
 
-	public function plgSurveyRankingdraganddrop() {
+	public function __construct() {
         return true;
     }
 

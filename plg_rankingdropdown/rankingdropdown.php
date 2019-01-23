@@ -18,7 +18,7 @@ class plgSurveyRankingdropdown {
     var $_name = 'rankingdropdown';
     var $_type = 'survey';
 
-    public function plgSurveyRankingdropdown() {
+    public function __construct() {
         return true;
     }
 

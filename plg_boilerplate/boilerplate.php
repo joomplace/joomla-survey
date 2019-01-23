@@ -18,7 +18,7 @@ class plgSurveyBoilerplate {
     var $_name = 'boilerplate';
     var $_type = 'survey';
 
-    public function plgSurveyBoilerplate() {
+    public function __construct() {
         return true;
     }
 
