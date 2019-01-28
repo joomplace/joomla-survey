@@ -2797,6 +2797,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$questions = $database->loadAssocList();
 
 		require ( JPATH_ROOT . '/components/com_surveyforce/helpers/generate.php' );
+		JLoader::register('mos_Survey_Force_Config', JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'surveyforce.class.php');
 
 		$sf_config = new mos_Survey_Force_Config( );
 		$prefix = $sf_config->get('sf_result_type') == 'Bar' ? 'b' : 'p';

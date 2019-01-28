@@ -260,7 +260,9 @@ class sf_ImageGenerator {
 
         $database = JFactory::getDbo();
 
-
+        if(is_array($quest_id) && !empty($quest_id['id'])){
+            $quest_id = $quest_id['id'];
+        }
 
         if ($quest_id && $survey_id && $start_id) {
             $query = "SELECT sf_qtype from #__survey_force_quests WHERE published = 1 AND id = '" . $quest_id . "'";

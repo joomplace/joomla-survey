@@ -1,11 +1,10 @@
 <?php
-
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
         /** Libchart - PHP chart library
         *       
-        * Copyright (C) 2005-2006 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * Copyright (C) 2005-2006 Jean-Marc TrÃ©meaux (jm.tremeaux at gmail.com)
         *       
         * This library is free software; you can redistribute it and/or
         * modify it under the terms of the GNU Lesser General Public
@@ -33,7 +32,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
         /**
         * Base chart class
         *
-        * @author   Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * @author   Jean-Marc TrÃ©meaux (jm.tremeaux at gmail.com)
         * @abstract
         */
 
@@ -80,7 +79,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 * @param        Point           sampling point to add
                 */
                 
-                function addPoint($point)
+                function addPoint($i=null, $point=null, $number=null)
                 {
                         array_push($this->point, $point);
                 }
@@ -115,7 +114,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 * @access       private
                 */
                 
-                function printTitle()
+                function printTitle($n=null)
                 {
                         $this->text->printCentered($this->img, ($this->labelMarginTop + $this->margin) / 2, $this->textColor, $this->title, $this->text->fontCondensedBold);
                 }
