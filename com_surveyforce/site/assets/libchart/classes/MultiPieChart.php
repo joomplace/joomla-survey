@@ -32,7 +32,7 @@ class MultiPieChart extends PieChart {
 		$this->labelBoxHeight = 15;
 	}	
 	
-	function addPoint($i, $point)
+	function addPoint($i=null, $point=null, $number = NULL)
 	{
 		if ( !isset($this->points[$i]) )
 			$this->points[$i] = array();
@@ -101,7 +101,7 @@ class MultiPieChart extends PieChart {
 		}
 	}
 		
-	function computeLabelMargin($n)
+	function computeLabelMargin($n=null)
 	{
 		$graphWidth = $this->width - $this->margin * 2 - $this->labelMarginLeft - $this->labelMarginCenter - $this->labelMarginRight;
 		
@@ -125,7 +125,7 @@ class MultiPieChart extends PieChart {
 		$this->pieLegendWidth = round($graphWidth * $this->pieRatio);
 	}
 	
-	function printTitle($n)
+	function printTitle($n=null)
 	{
 			if ($n == 1)
 				$this->text->printCentered2($this->img, 4 + ($this->labelMarginTop + $this->margin) / 2, $this->textColor, $this->title, $this->text->fontCondensedBold);
@@ -134,7 +134,7 @@ class MultiPieChart extends PieChart {
 				
 	}
 	
-	function renderSection($n) {
+	function renderSection($n=null) {
 	
 		//$this->computeBound();
 		$this->computeLabelMargin($n);

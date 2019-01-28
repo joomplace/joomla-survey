@@ -1,11 +1,10 @@
 <?php
-
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
         /** Libchart - PHP chart library
         *       
-        * Copyright (C) 2005-2006 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * Copyright (C) 2005-2006 Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
         *       
         * This library is free software; you can redistribute it and/or
         * modify it under the terms of the GNU Lesser General Public
@@ -26,7 +25,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
         /**
         * Pie chart
         *
-        * @author   Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * @author   Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
         */
 
         class PieChart extends Chart
@@ -152,7 +151,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 * @access       private
                 */
                 
-                function computeLabelMargin()
+                function computeLabelMargin($n=null)
                 {
                         $graphWidth = $this->width - $this->margin * 2 - $this->labelMarginLeft - $this->labelMarginCenter - $this->labelMarginRight;
                         

@@ -35,7 +35,7 @@ class MultiVerticalChart extends VerticalChart {
 	* @access       protected
 	*/
                 
-	function computeLabelMargin($n)
+	function computeLabelMargin($n=null)
 	{
 	//$this->axis = new Axis($this->yMinValue, $this->yMaxValue);
 	$this->axis = new Axis(0, 90);
@@ -76,7 +76,7 @@ class MultiVerticalChart extends VerticalChart {
 	* @access       private
 	*/
                 
-	function printTitle($n)
+	function printTitle($n=null)
 	{
 	
 			if ($n == 1)
@@ -92,7 +92,7 @@ class MultiVerticalChart extends VerticalChart {
 	* @param        Point           sampling point to add
 	*/
                 
-	function addPoint($i, $point, $number)
+	function addPoint($i=null, $point=null, $number=null)
 	{
 		if ( !isset($this->points[$i]) )
 			$this->points[$i] = array();
@@ -112,7 +112,7 @@ class MultiVerticalChart extends VerticalChart {
 		array_push($this->numbers[$i], $number);
 	}
 	
-	function renderSection($n) {
+	function renderSection($n=null) {
 		
 		$this->computeBound();
 		$this->CalcBottomMargin();
