@@ -1529,8 +1529,8 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								while ($i < count($tmp_data)) {
 									$ttt = explode('-', $tmp_data[$i]);
 									//print_r($ttt);die();
-									$query = "SELECT * FROM #__survey_force_rules WHERE quest_id = '" . $quest_id . "' AND ( (answer_id = " . (!empty($ttt[0]) ? $ttt[0] : '0') . " AND alt_field_id = " . (isset($ttt[1]) ? $ttt[1] : '0') . " ) OR (answer_id = 9999997 AND alt_field_id = 9999997) ) ORDER BY priority DESC, id DESC LIMIT 0,1 ";
-									$database->setQuery($query);
+                                    $query = "SELECT * FROM `#__survey_force_rules` WHERE `quest_id` = '".$quest_id."' AND ((`answer_id`='".(!empty($ttt[0]) ? $ttt[0] : '0')."' AND `alt_field_id`='".(isset($ttt[1]) ? $ttt[1] : '0')."') OR (`answer_id`='9999997' AND `alt_field_id`='9999997')) ORDER BY `priority` DESC, `id` DESC LIMIT 0,1 ";
+                                    $database->setQuery($query);
 									$rule_data = null;
 									$rule_data = $database->loadObject();
 									if ($rule_data != null && $rule_data->priority > $priority) {
@@ -1559,7 +1559,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								$priority = 0;
 								while ($i < count($tmp_data)) {
 									$ttt = explode('!!--!!', $tmp_data[$i]);
-									$query = "SELECT * FROM #__survey_force_rules WHERE quest_id = '" . $quest_id . "' AND ( (answer_id = " . (!empty($ttt[0]) ? $ttt[0] : '0') . " AND alt_field_id = " . (!empty($ttt[1]) ? $ttt[1] : '0') . ") OR (answer_id = 9999997 AND alt_field_id = 9999997) ) ORDER BY priority DESC, id DESC LIMIT 0,1 ";
+									$query = "SELECT * FROM `#__survey_force_rules` WHERE `quest_id`='".$quest_id."' AND ((`answer_id`='".(!empty($ttt[0]) ? $ttt[0] : '0')."' AND `alt_field_id`='".(!empty($ttt[1]) ? $ttt[1] : '0')."') OR (`answer_id`='9999997' AND `alt_field_id`='9999997')) ORDER BY `priority` DESC, `id` DESC LIMIT 0,1 ";
 									$database->setQuery($query);
 									$rule_data = null;
 									$rule_data = $database->loadObject();
@@ -1580,7 +1580,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 								}
 								else
 									$answer_id = $answer;
-								$query = "SELECT * FROM #__survey_force_rules WHERE quest_id = '" . $quest_id . "' AND ( answer_id = " . intval($answer_id) . " OR answer_id = 9999997 )";
+								$query = "SELECT * FROM `#__survey_force_rules` WHERE `quest_id`='".$quest_id."' AND (`answer_id`='".intval($answer_id)."' OR `answer_id`='9999997' )";
 								$database->setQuery($query);
 								$rule_data = null;
 								$rule_data = $database->loadObject();
@@ -1608,7 +1608,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 									$answer_str = str_replace('!!,!!', ',', $answer);
 								}
 								if ( empty($answer_str) ) $answer_str = 0;
-								$query = "SELECT * FROM #__survey_force_rules WHERE quest_id = '" . $quest_id . "' AND answer_id IN ( " . $answer_str . ", 9999997 ) ORDER BY priority DESC, id DESC LIMIT 0,1 ";
+								$query = "SELECT * FROM `#__survey_force_rules` WHERE `quest_id`='".$quest_id."' AND `answer_id` IN (".$answer_str.", '9999997') ORDER BY `priority` DESC, `id` DESC LIMIT 0,1 ";
 								$database->setQuery($query);
 								$rule_data = null;
 								$rule_data = $database->loadObject();
