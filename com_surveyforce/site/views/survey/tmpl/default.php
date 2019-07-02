@@ -871,7 +871,7 @@ if (isset($survey->error) && $survey->error) {
                         }
                         answer = answer.substring(0, answer.length - 6)
                     }
-                    if (answer == '' && questions[n].compulsory == 1) {
+                    if (answer.trim() == '' && questions[n].compulsory == 1) {
                         try {
                             sf_getObj('quest_div' + questions[n].cur_quest_id).className = 'ls_not_selected';
                         } catch (e) {
