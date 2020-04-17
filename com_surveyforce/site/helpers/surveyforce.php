@@ -1053,13 +1053,29 @@ class SurveyforceHelper
 		survey_force_front_html::SF_editListUsers($row, $lists, $sf_config, $pageNav, $option);
 	}
 
-	public function SF_saveUsergroup(&$cid, $option)
+	public static function SF_saveUsergroup(&$cid, $option)
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_ListUsers($database);
-		
-		$post = JFactory::getApplication()->input->post;
-		
+
+        $jinput = JFactory::getApplication()->input;
+
+		$post = $jinput->post->getArray();
+        $post = $jinput->getArray(array(
+            'listname' => 'STRING',
+            'survey_id' => 'INT',
+            'is_add_manually' => 'INT',
+            'limit' => 'INT',
+            'cid' => 'ARRAY',
+            'option' => 'STRING',
+            'task' => 'STRING',
+            'boxchecked' => 'INT',
+            'hidemainmenu' => 'INT',
+            'id' => 'INT',
+            'Itemid' => 'INT',
+            'sf_author_id' => 'INT'
+        ), $post);
+
 		if (!$row->bind($post))
 		{
 			echo "<script> alert('" . $row->getError() . "'); window.history.go(-1); </script>\n";
@@ -1170,12 +1186,13 @@ class SurveyforceHelper
 				}
 			}
 		}
-		if (JFactory::getApplication()->input->get('task') == 'save_list')
-			mosRedirect(SFRoute("index.php?option=com_surveyforce&task=usergroups"));
-		elseif (JFactory::getApplication()->input->get('task') == 'apply_list')
-			mosRedirect(SFRoute("index.php?option=com_surveyforce&task=edit_list&id=" . $list_id));
-		elseif (JFactory::getApplication()->input->get('task') == 'save_user')
-			mosRedirect(SFRoute("index.php?option=com_surveyforce&task=view_users&list_id=" . $list_id));
+		if ($jinput->get('task') == 'save_list') {
+            mosRedirect(SFRoute("index.php?option=com_surveyforce&task=usergroups"));
+        } elseif ($jinput->get('task') == 'apply_list') {
+            mosRedirect(SFRoute("index.php?option=com_surveyforce&task=edit_list&id=" . $list_id));
+        } elseif ($jinput->get('task') == 'save_user') {
+            mosRedirect(SFRoute("index.php?option=com_surveyforce&task=view_users&list_id=" . $list_id));
+        }
 	}
 
 	public function SF_addUser2Group($option)
