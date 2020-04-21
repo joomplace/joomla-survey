@@ -3671,9 +3671,9 @@ var refreshAnswersList = function() {
                     success: function(a) {
                         eval(js);
                         sfParseJSON(a);
-                        $(".viewport").css("opacity", 1)
+                        $(".viewport").css("opacity", 1);
                     }
-                })
+                });
             }
         };
         "undefined" == typeof FormData ? (b.setContentTypeHeader(c), c.send(b.buildBody())) : c.send(b);
