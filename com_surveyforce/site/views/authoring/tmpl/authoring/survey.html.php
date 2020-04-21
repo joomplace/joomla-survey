@@ -910,7 +910,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
         
     <script src="<?php echo $base_url;?>components/com_surveyforce/views/authoring/tmpl/authoring/assets/js/plugins/select/bootstrap-select.min.js"></script>
     <script src="<?php echo $base_url;?>components/com_surveyforce/views/authoring/tmpl/authoring/assets/js/notifIt.js"></script>            
-    <script type="text/javascript" src="<?php echo $base_url;?>components/com_surveyforce/views/authoring/tmpl/authoring/assets/js/survey-apps.min.js"></script>
+    <script type="text/javascript" src="<?php echo $base_url;?>components/com_surveyforce/views/authoring/tmpl/authoring/assets/js/survey-apps.js"></script>
     <script type="text/javascript">
     	$(document).ready(function(){
 
