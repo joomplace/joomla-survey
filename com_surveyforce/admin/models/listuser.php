@@ -224,7 +224,7 @@ class SurveyforceModelListuser extends JModelAdmin {
 						. ($teacher_in_courses_str2 != '' ? " OR (group_id = 0 AND course_id IN ({$teacher_in_courses_str2}))" : '');
 					$database->SetQuery($query);
 
-					$lms_users = $database->LoadResultArray();
+					$lms_users = $database->loadColumn();
 					$query = "SELECT `name`, `username`, `email` FROM `#__users` WHERE `id` IN (" . implode(',', $lms_users) . ")";
 					$database->SetQuery($query);
 					$mos_users = $database->loadObjectList();
