@@ -18,7 +18,8 @@ jimport('joomla.application.component.controllerform');
  */
 class SurveyforceControllerSurvey extends JControllerForm {
 
-	public function getModel($name = 'survey', $prefix = '', $config = array('ignore_request' => true)) {
+	public function getModel($name = 'survey', $prefix = '', $config = array('ignore_request' => true))
+    {
 		$model = parent::getModel($name, $prefix, $config);
 		return $model;
 	}
@@ -2021,18 +2022,24 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 							$subject = '[SURVEY] ' . $sf_config->get('sf_an_mail_subject');
 
-							$emails = explode(',', $sf_config->get('sf_an_mail_other_emails'));
-							if (!count($emails))
-								$emails = array();
-
-
-							if ($sf_config->get('sf_an_mail') && isset($fpage->email) && $fpage->email) {
+                            $emails = array();
+							if(!empty(trim($sf_config->get('sf_an_mail_other_emails')))) {
+                                $emails = explode(',', $sf_config->get('sf_an_mail_other_emails'));
+                            }
+                            if (!empty($emails)){
+                                for($i=0;$i<count($emails);$i++) {
+                                    if(empty(trim($emails[$i]))) {
+                                        unset($emails[$i]);
+                                    }
+                                }
+                                $emails = array_values($emails);
+                            }
+							if ($sf_config->get('sf_an_mail') && !empty($fpage->email)) {
 								$emails[] = $fpage->email;
 							}
 
 
-							if (count($emails)){
-
+							if (!empty($emails)){
 
 								$mailer = JFactory::getMailer();
 
@@ -2055,18 +2062,13 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 								try {
 									$send = $mailer->Send();
-								} catch (phpmailerException $e){
-									$error = $e->errorMessage();
 								} catch (Exception $e) {
 									$error = $e->getMessage();
 								}
 
-								if ( $send !== true ) {
+								if ($send !== true) {
 									echo 'Error sending email: ' . $error;
-								} else {
-
 								}
-
 							}
 						}
 					}
@@ -2211,7 +2213,9 @@ class SurveyforceControllerSurvey extends JControllerForm {
 			$i = 0;
 			if ($limit == 1) {
 				for ($i = 0; $i <= $count - 1; $i++) {
-					$fpage_text .= $imgs[$i];
+				    if(isset($imgs[$i])) {
+                        $fpage_text .= $imgs[$i];
+                    }
 				}
 			} else {
 				for ($i = $limit; $i <= $limit - 1 + $count; $i++) {
@@ -2711,7 +2715,9 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$message .= "<h3>" . JText::_('COM_SURVEYFORCE_SF_SURVEY_INFORMATION') . "</h3>";
 		$message .= '<strong>'.JText::_("COM_SURVEYFORCE_NAME") . '</strong>: ' . $survey_data[0]->sf_name . "<br/>";
 		$message .= '<strong>'.JText::_("COM_SURVEYFORCE_DESCRIPTION") . '</strong>: ' . strip_tags($survey_data[0]->sf_descr) . "<br/>";
-		$message .= '<strong>'.JText::_("COM_SURVEYFORCE_START_AT") . '</strong>: ' . JHtml::_('date',$survey_data[0]->sf_date_started,'Y-m-d H:i:s') . "<br/>";
+		if($survey_data[0]->sf_date_started != '0000-00-00 00:00:00') {
+            $message .= '<strong>' . JText::_("COM_SURVEYFORCE_START_AT") . '</strong>: ' . JHtml::_('date', $survey_data[0]->sf_date_started, 'Y-m-d H:i:s') . "<br/>";
+        }
 		$message .= '<strong>'.JText::_('COM_SURVEYFORCE_USER') . '</strong>: ';
 		switch ($start_data[0]->usertype) {
 			case '0': $message .= JText::_('COM_SURVEYFORCE_ANON');
