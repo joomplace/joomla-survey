@@ -62,12 +62,45 @@ class SurveyforceControllerAdd_template extends JControllerForm
                         }
                     }
 
+                    $pluginame =JFolder::folders(JPATH_SITE . '/plugins/survey/');
+                    if(!JFolder::exists($package_TempPath.$package_name.'/plugins')) {
+                        foreach ($pluginame as $nameplg) {
+                            $pluginametmpluser = JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/';
+                            $pluginametmpstandart = JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/surveyforce_standart/';
 
-                    JFolder::move($package_TempPath.$package_name.$folder, JPATH_COMPONENT_SITE.'/templates/'.$package_name);
+                           JFolder::copy($pluginametmpstandart, $pluginametmpluser, '', $force=true, $useStreams = true);
+                        }
+                    } else {
+                        $pluginametmp =JFolder::folders($package_TempPath.$package_name.'/plugins/');
+                        foreach($pluginametmp as $nameplg) {
+                           if (!JFolder::exists($package_TempPath . $package_name . '/plugins/' . $nameplg .
+                           '/' . $package_name. '/css')) {
+
+                                    JFolder::copy(JPATH_SITE . '/plugins/survey/' . $nameplg .
+                                        '/tmpl/surveyforce_standart/css/',
+                                        JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/css/','', $force=true, $useStreams = true);
+                                }
+                                if (!JFolder::exists($package_TempPath . $package_name . '/plugins/' . $nameplg . '/' . $package_name . '/images')) {
+                                    JFolder::copy(JPATH_SITE . '/plugins/survey/' . $nameplg .
+                                        '/tmpl/surveyforce_standart/images/',
+                                        JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/images/','', $force=true, $useStreams = true);
+                                }
+                                if (!JFolder::exists($package_TempPath . $package_name . '/plugins/' . $nameplg . '/' . $package_name . '/js')) {
+                                    JFolder::copy(JPATH_SITE . '/plugins/survey/' . $nameplg .
+                                        '/tmpl/surveyforce_standart/js/',
+                                        JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/js/','', $force=true, $useStreams = true);
+                                }
+
+                        JFolder::copy($package_TempPath . $package_name . '/plugins/' . $nameplg . '/' . $package_name,
+                            JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/','',
+                            $force=true, $useStreams = true);
+                }
+                }
+                    JFolder::copy($package_TempPath.$package_name.$folder, JPATH_COMPONENT_SITE.'/templates/'
+                        .$package_name);
                     if(JFolder::exists($package_TempPath.$package_name)) {
                         JFolder::delete($package_TempPath.$package_name);
                     }
-
 
                     $db = JFactory::getDBO();
                     $db->setQuery("DELETE FROM #__survey_force_templates WHERE sf_name = '".$db->escape($package_name)."'");
