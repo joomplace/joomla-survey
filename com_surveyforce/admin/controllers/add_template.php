@@ -63,40 +63,44 @@ class SurveyforceControllerAdd_template extends JControllerForm
                     }
 
                     $pluginame =JFolder::folders(JPATH_SITE . '/plugins/survey/');
+
+                    //check exist folder "plugins", if not - take from surveyforce_standart
                     if(!JFolder::exists($package_TempPath.$package_name.'/plugins')) {
                         foreach ($pluginame as $nameplg) {
                             $pluginametmpluser = JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/';
                             $pluginametmpstandart = JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/surveyforce_standart/';
-
-                           JFolder::copy($pluginametmpstandart, $pluginametmpluser, '', $force=true, $useStreams = true);
+                           JFolder::copy($pluginametmpstandart, $pluginametmpluser);
                         }
                     } else {
-                        $pluginametmp =JFolder::folders($package_TempPath.$package_name.'/plugins/');
-                        foreach($pluginametmp as $nameplg) {
+                        $pluginamesite =JFolder::folders($package_TempPath . $package_name .'/plugins/');
+                          foreach($pluginamesite as $nameplg) {
+                            if (JFolder::exists($package_TempPath . $package_name . '/plugins/' . $nameplg)) {
+                              JFolder::copy($package_TempPath . $package_name . '/plugins/' . $nameplg.'/',
+                                    JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name.'/');
+                            }
+                              //check for all folders in archive
+                                 if(JFolder::folders(JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' .
+                                     $package_name) != JFolder::folders(JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/surveyforce_standart')) {
                            if (!JFolder::exists($package_TempPath . $package_name . '/plugins/' . $nameplg .
-                           '/' . $package_name. '/css')) {
-
+                          '/css')) {
                                     JFolder::copy(JPATH_SITE . '/plugins/survey/' . $nameplg .
                                         '/tmpl/surveyforce_standart/css/',
-                                        JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/css/','', $force=true, $useStreams = true);
+                                         JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/css/');
                                 }
-                                if (!JFolder::exists($package_TempPath . $package_name . '/plugins/' . $nameplg . '/' . $package_name . '/images')) {
+                                 if (!JFolder::exists($package_TempPath . $package_name . '/plugins/' . $nameplg . '/images')) {
                                     JFolder::copy(JPATH_SITE . '/plugins/survey/' . $nameplg .
                                         '/tmpl/surveyforce_standart/images/',
-                                        JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/images/','', $force=true, $useStreams = true);
+                                         JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/images/');
                                 }
-                                if (!JFolder::exists($package_TempPath . $package_name . '/plugins/' . $nameplg . '/' . $package_name . '/js')) {
+                                 if (!JFolder::exists($package_TempPath . $package_name . '/plugins/' . $nameplg . '/js')) {
                                     JFolder::copy(JPATH_SITE . '/plugins/survey/' . $nameplg .
                                         '/tmpl/surveyforce_standart/js/',
-                                        JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/js/','', $force=true, $useStreams = true);
+                                         JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/js/');
                                 }
-
-                        JFolder::copy($package_TempPath . $package_name . '/plugins/' . $nameplg . '/' . $package_name,
-                            JPATH_SITE . '/plugins/survey/' . $nameplg . '/tmpl/' . $package_name . '/','',
-                            $force=true, $useStreams = true);
+                        }
+                    }
                 }
-                }
-                    JFolder::copy($package_TempPath.$package_name.$folder, JPATH_COMPONENT_SITE.'/templates/'
+                    JFolder::move($package_TempPath.$package_name.$folder, JPATH_COMPONENT_SITE.'/templates/'
                         .$package_name);
                     if(JFolder::exists($package_TempPath.$package_name)) {
                         JFolder::delete($package_TempPath.$package_name);
