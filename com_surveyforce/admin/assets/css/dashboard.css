@@ -661,3 +661,6 @@ a.menu_link:hover {
 #tm-navbar {
     margin-bottom: 18px !important;
 }
+#system-message-container {
+    float: none !important;
+}
