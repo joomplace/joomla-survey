@@ -69,9 +69,9 @@ $rows = $this->items;
 		}?>
 		</tbody>
 		<tfoot>
-			<tr><td colspan="3"><?php echo JText::_('COM_SURVEYFORCE_IF_YOU_HAVE_ZIP_FILE'); ?></td> </tr>
+			<tr><td colspan="4"><?php echo JText::_('COM_SURVEYFORCE_IF_YOU_HAVE_ZIP_FILE'); ?></td> </tr>
 			<tr>
-				<td colspan="3">
+				<td colspan="4">
 					<?php echo $this->pagination->getListFooter(); ?>
 				</td>
 			</tr>

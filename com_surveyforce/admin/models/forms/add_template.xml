@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fieldset>
-		<field name="package_file" type="file" class="input-xlarge" size="30"
+		<field
+			name="package_file"
+			type="file"
+			class="input-xlarge"
+			labelclass="control-label"
+			size="30"
 			label="COM_SURVEYFORCE_PACKAGE_FILE"
-			required="true" labelclass="control-label" accept="application/zip" />
+			required="true"
+			accept="application/zip" />
+
+		<field
+			name="archive_note"
+			type="note"
+			class="alert alert-info"
+			label="COM_SURVEYFORCE_ADD_TEMPLATE_ARCHIVE_NOTE_LABEL"
+			description="COM_SURVEYFORCE_ADD_TEMPLATE_ARCHIVE_NOTE_DESC" />
 	</fieldset>
 </form>
