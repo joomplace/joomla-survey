@@ -74,8 +74,10 @@ EOFTMPL;
         }
         
         public static function getJsCssTmpl(){
+            $url_fragments = explode(DIRECTORY_SEPARATOR, __DIR__);
+            $template_name = end($url_fragments);
             $document = JFactory::getDocument();
-            $document->addStyleSheet(JUri::base().'components/com_surveyforce/templates/surveyforce_standart/css/surveyforce.css');
+            $document->addStyleSheet(JUri::base().'components/com_surveyforce/templates/'.$template_name.'/css/surveyforce.css');
         }
 
         public static function SF_GetStartButton() {
