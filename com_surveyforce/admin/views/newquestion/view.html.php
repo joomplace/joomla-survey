@@ -24,20 +24,19 @@ class SurveyforceViewNewquestion extends JViewLegacy
 		$this->questions	= $this->getAllquestions();
                 
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+		if (!empty($errors = $this->get('Errors'))) {
+			JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
 			return false;
 		}
 				
 		parent::display($tpl);
     }
 	
-	public function getAllquestions(){
+	public function getAllquestions()
+	{
 		$db = JFactory::getDBO();
-		
 		$db->setQuery("SELECT * FROM `#__survey_force_qtypes`");
 		$questions = $db->loadObjectList();
-		
 		return $questions;
 	 }
 }

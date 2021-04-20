@@ -10,13 +10,15 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewEmails extends JViewLegacy {
+class SurveyforceViewEmails extends JViewLegacy
+{
 
     protected $items;
     protected $pagination;
     protected $state;
 
-    function display($tpl = null) {
+    function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         $submenu = 'emails';
 
@@ -24,13 +26,12 @@ class SurveyforceViewEmails extends JViewLegacy {
         SurveyforceHelper::showTitle($submenu);
         $this->addToolBar();
 
-
         $items = $this->get('Items');
         $pagination = $this->get('Pagination');
         $state = $this->get('State');
 
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -45,14 +46,16 @@ class SurveyforceViewEmails extends JViewLegacy {
     /**
      * Setting the toolbar
      */
-    protected function addToolBar() {
+    protected function addToolBar()
+    {
         JToolBarHelper::addNew('email.add');
         JToolBarHelper::editList('email.edit');
         JToolBarHelper::divider();
         JToolBarHelper::deleteList('', 'emails.delete');
     }
 
-    protected function getSortFields() {
+    protected function getSortFields()
+    {
         return array(
             'email_subject' => JText::_('COM_SURVEYFORCE_SUBJECT'),
             'email_body' => JText::_('COM_SURVEYFORCE_BODY'),

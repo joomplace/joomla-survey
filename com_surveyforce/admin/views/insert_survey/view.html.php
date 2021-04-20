@@ -10,14 +10,14 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewInsert_survey extends JViewLegacy {
-
+class SurveyforceViewInsert_survey extends JViewLegacy
+{
     protected $state;
     protected $item;
     protected $form;
 
-    public function display($tpl = null) {
-
+    public function display($tpl = null)
+    {
     	$eName	= \JFactory::getApplication()->input->get('e_name');
     	$eName	= preg_replace( '#[^A-Z0-9\-\_\[\]]#i', '', $eName );
     	$this->eName = $eName;
@@ -25,10 +25,9 @@ class SurveyforceViewInsert_survey extends JViewLegacy {
         $items 		= $this->get('Items');
     	$pagination = $this->get('Pagination');
     	$state		= $this->get('State');
-    	        
-        if (count($errors = $this->get('Errors'))) 
-        {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 	      

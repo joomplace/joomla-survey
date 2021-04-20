@@ -10,13 +10,14 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewListusers extends JViewLegacy {
-
+class SurveyforceViewListusers extends JViewLegacy
+{
     protected $items;
     protected $pagination;
     protected $state;
 
-    function display($tpl = null) {
+    function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         $submenu = 'users';
 
@@ -28,8 +29,8 @@ class SurveyforceViewListusers extends JViewLegacy {
         $pagination = $this->get('Pagination');
         $state = $this->get('State');
 
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
        
@@ -44,8 +45,8 @@ class SurveyforceViewListusers extends JViewLegacy {
     /**
      * Setting the toolbar
      */
-    protected function addToolBar() {
-
+    protected function addToolBar()
+    {
         JToolBarHelper::addNew('listuser.add');
         JToolBarHelper::editList('listuser.edit');        
         JToolBarHelper::divider();
@@ -55,7 +56,8 @@ class SurveyforceViewListusers extends JViewLegacy {
         JToolBarHelper::custom('listusers.remind_users', 'featured.png', 'featured_f2.png', 'COM_SURVEYFORCE_REMIND_USERS', false);
     }
 
-    protected function getSortFields() {
+    protected function getSortFields()
+    {
         return array(
             'survey_id' => JText::_('COM_SURVEYFORCE_NAME'),           
             'listname' => JText::_('JPUBLISHED'),

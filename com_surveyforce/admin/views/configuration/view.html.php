@@ -14,13 +14,14 @@ jimport('joomla.application.component.view');
 /**
  * HTML View class for the Surveyforce Deluxe Component
  */
-class SurveyforceViewConfiguration extends JViewLegacy {
-
+class SurveyforceViewConfiguration extends JViewLegacy
+{
     protected $state;
     protected $item;
     protected $form;
 
-    public function display($tpl = null) {
+    public function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
 
         $submenu = "configuration_admin";
@@ -29,12 +30,11 @@ class SurveyforceViewConfiguration extends JViewLegacy {
         $this->state = $this->get('State');
         $this->item = $this->get('Item');
         $this->form = $this->get('Form');
-//        $this->left_menu = SurveyforceHelper::getLeftMenu();
-
+//      $this->left_menu = SurveyforceHelper::getLeftMenu();
 
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -42,9 +42,8 @@ class SurveyforceViewConfiguration extends JViewLegacy {
         parent::display($tpl);
     }
 
-   
-
-    protected function addToolbar() {
+    protected function addToolbar()
+    {
         JToolBarHelper::apply('configuration.apply', 'JTOOLBAR_APPLY');       
     }
 

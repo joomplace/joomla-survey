@@ -10,14 +10,14 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewIscales extends JViewLegacy {
-
-     protected $items;
+class SurveyforceViewIscales extends JViewLegacy
+{
+    protected $items;
     protected $pagination;
     protected $state;
 
-    function display($tpl = null) {
-        
+    function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         $submenu = 'importance_scales';
         SurveyforceHelper::addSurveysSubmenu('iscales');
@@ -30,8 +30,8 @@ class SurveyforceViewIscales extends JViewLegacy {
         $pagination = $this->get('Pagination');
         $state = $this->get('State');
 
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
        
@@ -46,14 +46,15 @@ class SurveyforceViewIscales extends JViewLegacy {
     /**
      * Setting the toolbar
      */
-    protected function addToolBar() {
+    protected function addToolBar()
+    {
         JToolBarHelper::addNew('iscale.add');
         JToolBarHelper::editList('iscale.edit');
-       
         JToolBarHelper::deleteList('', 'iscales.delete');
     }
 
-    protected function getSortFields() {
+    protected function getSortFields()
+    {
         return array(
             'scale_name' => JText::_('COM_SURVEYFORCE_NAME'),           
             'id' => JText::_('JGRID_HEADING_ID')

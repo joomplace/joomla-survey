@@ -11,11 +11,8 @@ defined('_JEXEC') or die('Restricted access');
 class SurveyforceViewAuthors extends JViewLegacy
 {
 	protected $items;
-
 	protected $pagination;
-
 	protected $state;
-
 	protected $sidebar;
 
 	public function display($tpl = null)
@@ -56,11 +53,10 @@ class SurveyforceViewAuthors extends JViewLegacy
 			$pagination = $this->get('Pagination');
 		}
 
-		if (count($errors = $this->get('Errors')))
-		{
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
-			return false;
-		}
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
+            return false;
+        }
 
 		$this->items      = $items;
 		$this->state      = $state;

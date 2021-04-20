@@ -16,7 +16,8 @@ class SurveyforceViewDashboard extends JViewLegacy
 	protected $dashboardItems;
 	protected $version;
 
-    function display($tpl = null) {
+    function display($tpl = null)
+    {
         $submenu = 'about';
         SurveyforceHelper::showTitle($submenu);
 

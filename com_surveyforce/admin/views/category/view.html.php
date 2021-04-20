@@ -16,7 +16,8 @@ class SurveyforceViewCategory extends JViewLegacy {
     protected $item;
     protected $form;
 
-    public function display($tpl = null) {
+    public function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         
         $submenu = "category";
@@ -28,12 +29,10 @@ class SurveyforceViewCategory extends JViewLegacy {
         $this->state = $this->get('State');
         $this->item = $this->get('Item');
         $this->form = $this->get('Form');
-       
-
 
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -41,7 +40,8 @@ class SurveyforceViewCategory extends JViewLegacy {
         parent::display($tpl);
     }
 
-    protected function addToolbar() {
+    protected function addToolbar()
+    {
         JFactory::getApplication()->input->set('hidemainmenu', true);
         $user = JFactory::getUser();
         $isNew = ($this->item->id == 0);

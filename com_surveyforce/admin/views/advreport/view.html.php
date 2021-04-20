@@ -46,18 +46,17 @@ class SurveyforceViewAdvreport extends JViewLegacy {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         $this->addToolbar();
 
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
-			$this->setModel( JModelLegacy::getInstance('question', 'SurveyforceModel') );
-			$model = $this->getModel('question');
-			$this->surveys = $model->getSurveysList();
-			$this->surveys_csv = $this->surveys;
+        $this->setModel( JModelLegacy::getInstance('question', 'SurveyforceModel') );
+        $model = $this->getModel('question');
+        $this->surveys = $model->getSurveysList();
+        $this->surveys_csv = $this->surveys;
 
-	    if (count($this->surveys))
-	    {
+	    if (!empty($this->surveys)) {
 			$this->mquest_id = $this->getMQuestionsBySurvey($this->surveys[0]->value);
 			$this->cquest_id = $this->getCQuestionsBySurvey($this->surveys[0]->value);
 	    }

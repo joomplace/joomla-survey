@@ -10,13 +10,14 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewSurvey extends JViewLegacy {
-
+class SurveyforceViewSurvey extends JViewLegacy
+{
     protected $state;
     protected $item;
     protected $form;
 
-    public function display($tpl = null) {
+    public function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         
         $submenu = "survey";
@@ -27,8 +28,8 @@ class SurveyforceViewSurvey extends JViewLegacy {
         $this->form = $this->get('Form');
         
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -36,16 +37,17 @@ class SurveyforceViewSurvey extends JViewLegacy {
         parent::display($tpl);
     }
 
-    protected function addToolbar() {
+    protected function addToolbar()
+    {
         JFactory::getApplication()->input->set('hidemainmenu', true);
         $user = JFactory::getUser();
         $isNew = ($this->item->id == 0);
+
         JToolBarHelper::apply('survey.apply', 'JTOOLBAR_APPLY');
         JToolBarHelper::save('survey.save', 'JTOOLBAR_SAVE');
         JToolBarHelper::custom('survey.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
         JToolBarHelper::custom('survey.save2copy', 'save-copy.png', 'save-copy_f2.png', 'JTOOLBAR_SAVE_AS_COPY', false);
         JToolBarHelper::cancel('survey.cancel', 'JTOOLBAR_CANCEL');
-        
     }
 
 }

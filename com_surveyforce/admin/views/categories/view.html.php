@@ -16,7 +16,8 @@ class SurveyforceViewCategories extends JViewLegacy {
     protected $pagination;
     protected $state;
 
-    function display($tpl = null) {
+    function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         $submenu = 'categories';
         
@@ -25,13 +26,12 @@ class SurveyforceViewCategories extends JViewLegacy {
         SurveyforceHelper::getCSSJS();        
         $this->addToolBar();
 
-
         $items = $this->get('Items');
         $pagination = $this->get('Pagination');
         $state = $this->get('State');
 
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
        

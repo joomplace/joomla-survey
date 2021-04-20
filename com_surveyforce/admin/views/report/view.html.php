@@ -14,15 +14,16 @@ jimport('joomla.application.component.view');
 /**
  * HTML View class for the Surveyforce Deluxe Component
  */
-class SurveyforceViewReport extends JViewLegacy {
-
+class SurveyforceViewReport extends JViewLegacy
+{
     protected $state;
     protected $item;
     protected $form;
     protected $surveys;
     protected $ordering_list;
 
-    public function display($tpl = null) {
+    public function display($tpl = null)
+    {
         $app = JFactory::getApplication();
         $submenu = 'report_admin';
         SurveyforceHelper::showTitle($submenu);
@@ -33,8 +34,8 @@ class SurveyforceViewReport extends JViewLegacy {
         $this->form = $this->get('Form');
 
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -42,7 +43,8 @@ class SurveyforceViewReport extends JViewLegacy {
         parent::display($tpl);
     }
 
-    protected function addToolbar() {
+    protected function addToolbar()
+    {
 		JToolBarHelper::custom('report.pdf', 'print.png', 'print_f2.png', 'PDF', false);
         JToolBarHelper::back();
 		JToolBarHelper::spacer(20);
