@@ -9,9 +9,10 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewSamples extends JViewLegacy {
-
-    function display($tpl = null) {
+class SurveyforceViewSamples extends JViewLegacy
+{
+    function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         $submenu = 'samples';
         SurveyforceHelper::showTitle($submenu);       
@@ -20,8 +21,8 @@ class SurveyforceViewSamples extends JViewLegacy {
         $this->is_sample2 = $this->get('Sample2');
         $this->is_sample1 = $this->get('Sample1');
 
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 

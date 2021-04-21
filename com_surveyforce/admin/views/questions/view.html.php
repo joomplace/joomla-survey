@@ -10,14 +10,14 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewQuestions extends JViewLegacy {
-
+class SurveyforceViewQuestions extends JViewLegacy
+{
     protected $items;
     protected $pagination;
     protected $state;
 
-    function display($tpl = null) {
-		
+    function display($tpl = null)
+    {
         $document = JFactory::getDocument();
         $document->addScript('components/com_surveyforce/assets/js/js.js');
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
@@ -40,10 +40,9 @@ class SurveyforceViewQuestions extends JViewLegacy {
             }
         }
 
-        if(count($sections)){
+        if(!empty($sections)){
             foreach ($sections as $section) {
                 foreach ($items as $item) {
-                    
                     if($item->sf_section_id && $item->sf_section_id == $section->id){
                         $rows[$section->id][] = $item;
                     }
@@ -51,12 +50,12 @@ class SurveyforceViewQuestions extends JViewLegacy {
             }
         }
 
-        if(!count($sections)){
+        if(empty($sections)) {
             $rows[0] = $items;
         }
 
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -65,7 +64,6 @@ class SurveyforceViewQuestions extends JViewLegacy {
         $this->sections = $sections;
         $this->pagination = $pagination;
         $this->state = $state;
-        
 
         parent::display($tpl);
     }
@@ -73,8 +71,8 @@ class SurveyforceViewQuestions extends JViewLegacy {
     /**
      * Setting the toolbar
      */
-    protected function addToolBar() {
-
+    protected function addToolBar()
+    {
         $surv_id = JFactory::getApplication()->input->get('surv_id');
 
         $bar = JToolBar::getInstance('toolbar'); 
@@ -93,7 +91,8 @@ class SurveyforceViewQuestions extends JViewLegacy {
         $bar->appendButton( 'Custom', '<div id="toolbar-new" class="btn-group"><a class="btn btn-small" onclick="if (document.adminForm.boxcheckedsection.value==0){alert(\'Please first make a selection from the list\');}else{Joomla.submitbutton(\'sections.delete\');}"><i class="icon-delete"></i>'.JText::_('COM_SURVEYFORCE_REMOVE_SECTION').'</a></div>');
     }
 
-    protected function getSortFields() {
+    protected function getSortFields()
+    {
         return array(
             'sf_qtext' => JText::_('COM_SURVEYFORCE_TEXT'),
             'ordering' => JText::_('COM_SURVEYFORCE_ORDER'),

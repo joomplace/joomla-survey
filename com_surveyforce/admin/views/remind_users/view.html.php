@@ -10,14 +10,14 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewRemind_users extends JViewLegacy {
-
+class SurveyforceViewRemind_users extends JViewLegacy
+{
     protected $state;
     protected $item;
     protected $form;
 
-    public function display($tpl = null) {
-        
+    public function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');        
         
         $submenu = "remind_users";
@@ -28,8 +28,8 @@ class SurveyforceViewRemind_users extends JViewLegacy {
         $this->form = $this->get('Form');
         
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -37,10 +37,9 @@ class SurveyforceViewRemind_users extends JViewLegacy {
         parent::display($tpl);
     }
 
-    protected function addToolbar() {
-               
+    protected function addToolbar()
+    {
         JToolBarHelper::cancel('remind_users.cancel', 'JTOOLBAR_CANCEL');
-        
     }
 
 }

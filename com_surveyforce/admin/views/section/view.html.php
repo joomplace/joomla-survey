@@ -9,13 +9,14 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewSection extends JViewLegacy {
-
+class SurveyforceViewSection extends JViewLegacy
+{
     protected $state;
     protected $item;
     protected $form;
 
-    public function display($tpl = null) {
+    public function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         
         $submenu = "ADD NEW SECTION";
@@ -30,8 +31,8 @@ class SurveyforceViewSection extends JViewLegacy {
         $this->questions = $this->get('Questions');
             
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -39,8 +40,8 @@ class SurveyforceViewSection extends JViewLegacy {
         parent::display($tpl);
     }
 
-    protected function addToolbar() {
-
+    protected function addToolbar()
+    {
         JFactory::getApplication()->input->set('hidemainmenu', true);
         $user       = JFactory::getUser();
         $isNew      = ($this->item->id == 0);
@@ -48,7 +49,6 @@ class SurveyforceViewSection extends JViewLegacy {
         JToolBarHelper::apply('section.apply', 'JTOOLBAR_APPLY');
         JToolBarHelper::save('section.save', 'JTOOLBAR_SAVE');
         JToolBarHelper::cancel('section.cancel', 'JTOOLBAR_CANCEL');
-        
     }
 
 }

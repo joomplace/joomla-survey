@@ -26,8 +26,8 @@ class SurveyforceViewAdd_template extends JViewLegacy {
         $this->form = $this->get('Form');
 
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 

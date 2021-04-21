@@ -9,13 +9,13 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewSet_default extends JViewLegacy {
-
+class SurveyforceViewSet_default extends JViewLegacy
+{
     protected $lists;
     protected $form;
 
-    public function display($tpl = null) {
-
+    public function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         
         $submenu = "set_default";
@@ -26,19 +26,21 @@ class SurveyforceViewSet_default extends JViewLegacy {
         JPluginHelper::importPlugin('survey', $type);
         $className = 'plgSurvey' . ucfirst($type);
 
-        if (method_exists($className, 'onGetDefaultForm'))
-                $form = $className::onGetDefaultForm($this->lists);
+        if (method_exists($className, 'onGetDefaultForm')) {
+            $form = $className::onGetDefaultForm($this->lists);
+        }
 
         $this->form = $form;
         $this->id = $this->lists['row']->id;
         $this->sf_qtype = $this->lists['sf_qtype'];
 
-		if (method_exists($className, 'onGetAdminOptions'))
-			$this->options = $className::onGetDefaultForm($this->lists);
+		if (method_exists($className, 'onGetAdminOptions')) {
+            $this->options = $className::onGetDefaultForm($this->lists);
+        }
 
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -46,13 +48,11 @@ class SurveyforceViewSet_default extends JViewLegacy {
         parent::display($tpl);
     }
 
-    protected function addToolbar($id) {
-        
+    protected function addToolbar($id)
+    {
     	$_SESSION['qid'] = $id;
-
         JToolBarHelper::save('set_default.save', 'JTOOLBAR_SAVE');
         JToolBarHelper::cancel('set_default.cancel', 'JTOOLBAR_CANCEL');
-        
     }
 
 }

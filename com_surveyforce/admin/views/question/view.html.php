@@ -14,16 +14,16 @@ jimport('joomla.application.component.view');
 /**
  * HTML View class for the Surveyforce Deluxe Component
  */
-class SurveyforceViewQuestion extends JViewLegacy {
-
+class SurveyforceViewQuestion extends JViewLegacy
+{
     protected $state;
     protected $item;
     protected $form;
     protected $surveys;
     protected $ordering_list;
 
-    public function display($tpl = null) {
-
+    public function display($tpl = null)
+    {
         $app = JFactory::getApplication();
         SurveyforceHelper::showTitle('QUESTION_ADMIN');
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
@@ -36,8 +36,9 @@ class SurveyforceViewQuestion extends JViewLegacy {
         $new_qtype_id = $app->getUserStateFromRequest( "question.new_qtype_id", 'new_qtype_id', 0 );
         $sf_survey = $app->getUserStateFromRequest( "question.sf_survey", 'sf_survey', 0 );
 
-		if ( !$sf_survey )
-			$sf_survey = $app->getUserStateFromRequest( "question.surv_id", 'surv_id', 0 );
+		if (!$sf_survey) {
+            $sf_survey = $app->getUserStateFromRequest( "question.surv_id", 'surv_id', 0 );
+        }
 
         if ($this->item->id) {
             $new_qtype_id = $this->item->sf_qtype;
@@ -61,7 +62,7 @@ class SurveyforceViewQuestion extends JViewLegacy {
 
         if ($data['quest_type'] == 'pagebreak') {
             if (method_exists($className, 'onSaveQuestion')) {
-                if(!$className::onSaveQuestion(null)){
+                if(!$className::onSaveQuestion(null)) {
                     $app->enqueueMessage('Error saving question.', 'error');
                 }
             }
@@ -71,12 +72,13 @@ class SurveyforceViewQuestion extends JViewLegacy {
         $model = JModelLegacy::getInstance("Question", "SurveyforceModel");
         $lists = $model->getLists($this->item->id);
 
-        if (method_exists($className, 'onGetAdminOptions'))
-                $this->options = $className::onGetAdminOptions($data, $lists);
+        if (method_exists($className, 'onGetAdminOptions')) {
+            $this->options = $className::onGetAdminOptions($data, $lists);
+        }
 
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
       
@@ -84,8 +86,8 @@ class SurveyforceViewQuestion extends JViewLegacy {
         parent::display($tpl);
     }
 
-    protected function addToolbar() {
-
+    protected function addToolbar()
+    {
         JFactory::getApplication()->input->set('hidemainmenu', true);
         
         JToolBarHelper::apply('question.apply', 'JTOOLBAR_APPLY');
@@ -95,7 +97,6 @@ class SurveyforceViewQuestion extends JViewLegacy {
         JToolBarHelper::cancel('question.cancel', 'JTOOLBAR_CANCEL');
         JToolBarHelper::divider();
         JToolBarHelper::help('JHELP_COMPONENTS_WEBLINKS_LINKS_EDIT');
-
     }
 
 }

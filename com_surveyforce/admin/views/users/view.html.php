@@ -9,14 +9,14 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewUsers extends JViewLegacy {
-
+class SurveyforceViewUsers extends JViewLegacy
+{
     protected $items;
     protected $pagination;
     protected $state;
 
-    function display($tpl = null) {
-        
+    function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         $submenu = 'users';
         SurveyforceHelper::showTitle($submenu);    
@@ -26,8 +26,8 @@ class SurveyforceViewUsers extends JViewLegacy {
         $pagination = $this->get('Pagination');
         $state = $this->get('State');
 
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
        
@@ -43,18 +43,17 @@ class SurveyforceViewUsers extends JViewLegacy {
     /**
      * Setting the toolbar
      */
-    protected function addToolBar() {
-
+    protected function addToolBar()
+    {
         JToolBarHelper::addNew('user.add');
         JToolBarHelper::editList('user.edit');
         JToolBarHelper::divider();
         JToolBarHelper::deleteList('', 'users.delete');
         JToolBarHelper::cancel('users.cancel', 'Cancel');
-
     }
 
-    protected function getSortFields() {
-
+    protected function getSortFields()
+    {
         return array(
             'name' => JText::_('COM_SURVEYFORCE_NAME'),           
             'lastname' => JText::_('COM_SURVEYFORCE_LASTNAME'),

@@ -10,14 +10,15 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewIscale extends JViewLegacy {
-
+class SurveyforceViewIscale extends JViewLegacy
+{
     protected $state;
     protected $fields;
     protected $item;
     protected $form;
 
-    public function display($tpl = null) {
+    public function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
 
         $this->state = $this->get('State');
@@ -27,8 +28,7 @@ class SurveyforceViewIscale extends JViewLegacy {
         if ($this->item->id){
             $this->fields = $this->get('Fields');
             $submenu = "edit_importance_scale";
-        }
-        else {
+        } else {
             $submenu = "new_importance_scale";
         }
         
@@ -36,8 +36,8 @@ class SurveyforceViewIscale extends JViewLegacy {
         SurveyforceHelper::getCSSJS();
 
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -45,10 +45,12 @@ class SurveyforceViewIscale extends JViewLegacy {
         parent::display($tpl);
     }
 
-    protected function addToolbar() {
+    protected function addToolbar()
+    {
         JFactory::getApplication()->input->set('hidemainmenu', true);
         $user = JFactory::getUser();
         $isNew = ($this->item->id == 0);
+
         JToolBarHelper::apply('iscale.apply', 'JTOOLBAR_APPLY');
         JToolBarHelper::save('iscale.save', 'JTOOLBAR_SAVE');
         JToolBarHelper::custom('iscale.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);

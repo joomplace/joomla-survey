@@ -9,14 +9,14 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewUser extends JViewLegacy {
-
+class SurveyforceViewUser extends JViewLegacy
+{
     protected $items;
     protected $state;
     protected $form;
 
-    function display($tpl = null) {
-
+    function display($tpl = null)
+    {
         $this->addTemplatePath(JPATH_BASE . '/components/com_surveyforce/helpers/html');
         $submenu = 'user';
         SurveyforceHelper::showTitle($submenu);      
@@ -29,10 +29,10 @@ class SurveyforceViewUser extends JViewLegacy {
         $this->users = $lists['users'];
         $this->reg_users = $lists['reg_users'];
 
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
-        }  
+        }
 
         $this->item = $item;
         $this->form = $form;
@@ -47,11 +47,12 @@ class SurveyforceViewUser extends JViewLegacy {
     /**
      * Setting the toolbar
      */
-    protected function addToolBar() {
-
+    protected function addToolBar()
+    {
         JFactory::getApplication()->input->set('hidemainmenu', true);
         $user = JFactory::getUser();
         $isNew = ($this->item->id == 0);
+
         JToolBarHelper::apply('user.apply', 'JTOOLBAR_APPLY');
         JToolBarHelper::save('user.save', 'JTOOLBAR_SAVE');
         JToolBarHelper::custom('user.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);        

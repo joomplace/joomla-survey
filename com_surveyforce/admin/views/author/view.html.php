@@ -31,13 +31,11 @@ class SurveyforceViewAuthor extends JViewLegacy
 		$this->form = $this->get('Form');
 		$this->item->date_added = ($this->item->date_added) ? $this->item->date_added : JFactory::getDate();
 
-
 		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
-			return false;
-		}
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
+            return false;
+        }
 
 		$this->addToolbar();
 		parent::display($tpl);

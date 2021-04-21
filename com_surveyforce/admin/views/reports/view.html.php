@@ -10,15 +10,16 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewReports extends JViewLegacy {
-
+class SurveyforceViewReports extends JViewLegacy
+{
     protected $items;
     protected $pagination;
     protected $state;
 
-//TODO: Choose from question
+    //TODO: Choose from question
 
-    function display($tpl = null) {
+    function display($tpl = null)
+    {
         $submenu = 'reports';
 
         SurveyforceHelper::addReportsSubmenu($submenu);
@@ -32,8 +33,8 @@ class SurveyforceViewReports extends JViewLegacy {
         $pagination = $this->get('Pagination');
         $state = $this->get('State');
 
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -48,8 +49,8 @@ class SurveyforceViewReports extends JViewLegacy {
         parent::display($tpl);
     }
 
-    protected function addToolBar() {
-
+    protected function addToolBar()
+    {
 		JToolBarHelper::custom('reports.pdf_sum', 'print.png', 'print_f2.png', 'PDF (sum)', false);
 		JToolBarHelper::custom('reports.pdf_sum_perc', 'print.png', 'print_f2.png', 'PDF (sum %)', false);
 		JToolBarHelper::custom('reports.csv_sum', 'print.png', 'print_f2.png', 'CSV (sum)', false);
@@ -57,7 +58,8 @@ class SurveyforceViewReports extends JViewLegacy {
 		JToolBarHelper::deleteList(JText::_('COM_SURVEYFORCE_DELETE_REPORT'), 'reports.delete');
     }
 
-    protected function getSortFields() {
+    protected function getSortFields()
+    {
         return array(
             'sf_ust.is_complete' => JText::_('COM_SURVEYFORCE_STATUS'),
             'sf_ust.usertype' => JText::_('COM_SURVEYFORCE_USERTYPE'),

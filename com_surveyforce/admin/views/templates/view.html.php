@@ -10,13 +10,14 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
-class SurveyforceViewTemplates extends JViewLegacy {
-
+class SurveyforceViewTemplates extends JViewLegacy
+{
     protected $items;
     protected $pagination;
     protected $state;
 
-    function display($tpl = null) {
+    function display($tpl = null)
+    {
         $submenu = 'templates';
         SurveyforceHelper::addConfigurationSubmenu($submenu);
         
@@ -29,8 +30,8 @@ class SurveyforceViewTemplates extends JViewLegacy {
         $pagination = $this->get('Pagination');
         $state = $this->get('State');
 
-        if (count($errors = $this->get('Errors'))) {
-            JFactory::getApplication()->enqueueMessage($this->get('Errors'), 'error');
+        if (!empty($errors = $this->get('Errors'))) {
+            JFactory::getApplication()->enqueueMessage(implode("\n", $errors), 'error');
             return false;
         }
 
@@ -42,7 +43,8 @@ class SurveyforceViewTemplates extends JViewLegacy {
         parent::display($tpl);
     }
 
-    protected function addToolBar() {
+    protected function addToolBar()
+    {
         JToolBarHelper::deleteList('', 'templates.delete');
 		JToolBarHelper::custom('templates.install_show', 'upload', 'upload', JText::_('Install'), false);
     }
