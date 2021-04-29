@@ -2262,7 +2262,7 @@ class mosMambotHandler extends JDispatcher
 	*/
 	function call($event)
 	{
-		$args = & func_get_args();
+		$args = func_get_args();
 		array_shift($args);
 
 		$retArray = $this->trigger( $event, $args );
