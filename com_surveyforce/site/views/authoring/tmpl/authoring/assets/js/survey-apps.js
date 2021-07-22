@@ -1607,6 +1607,20 @@ var $ = jQuery,
         }],
         name: "Years"
     }];
+var questOrdering = 0;
+function sfGenerateID()
+{
+    var id;
+    var idArray = new Array();
+    var letters = new Array("A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+    for(var n=0; n <= 9; n++){
+        var rnd = Math.round(Math.random() * letters.length);
+        idArray.push(letters[rnd]);
+    }
+
+    id = idArray.join("");
+    return id;
+}
 $(document).ready(function() {
     sf_createQuestions();
     $.fn.selectpicker && $(".selectpicker").selectpicker();
@@ -1662,6 +1676,7 @@ $(document).ready(function() {
         }
     })
 });
+var questionsStack = {};
 var sfPublishSurvey = function(a, b) {
         window.location.href = b + "index.php?option=com_surveyforce&view=survey&id=" + a;
         return !1
@@ -1693,6 +1708,7 @@ var sfPublishSurvey = function(a, b) {
         return !1
     },
     sf_createQuestions = function() {
+        var questionsStack = {};
         if (questionsStack) {
             $(".placeholder").remove();
             for (var a in questionsStack) {
@@ -1933,6 +1949,7 @@ var sfPublishSurvey = function(a, b) {
         return !0
     },
     sfSelectPage = function(a) {
+        currPage = a;
         $("#page" + currPage).hide();
         $("#page" + a).show();
         $(".viewport .tabs #tab" + currPage).removeClass("active");
