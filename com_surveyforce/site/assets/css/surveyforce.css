@@ -431,6 +431,7 @@ table.pick_many_table {
 td.pm_answer_cell {
     width: 20px;
     text-align:left;
+    vertical-align: top;
 }
 td.pm_quest_cell {
     text-align:left;
