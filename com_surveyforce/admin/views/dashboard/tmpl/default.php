@@ -56,14 +56,6 @@ JText::script('COM_SURVEYFORCE_BE_CONTROL_PANEL_BUT_CHECK_VERSION');
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo JText::_('COM_SURVEYFORCE_BE_CONTROL_PANEL_FORUM') . ':'; ?></td>
-			<td>
-				<a target="_blank" href="http://www.joomplace.com/forum/joomla-components/surveyforce-deluxe.html">
-					http://www.joomplace.com/forum/joomla-components/surveyforce-deluxe.html
-				</a>
-			</td>
-		</tr>
-		<tr>
 			<td colspan="2">
 				<table cellpadding="5" class="survf_control_panel_news_table">
 					<tr>
