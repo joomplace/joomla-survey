@@ -95,9 +95,7 @@ $document->addStyleSheet(JURI::root() . 'administrator/components/com_surveyforc
                         <a href="#" id="help" role="button" class="dropdown-toggle" data-toggle="dropdown"><?php echo JText::_('COM_SURVEYFORCE_MENU_HELP') ?><b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="help">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.joomplace.com/video-tutorials-and-documentation/survey-force-deluxe/index.html?administrators_guide.htm" target="_blank"><?php echo JText::_('COM_SURVEYFORCE_MENU_HELP') ?></a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.joomplace.com/forum/joomla-components/surveyforce-deluxe.html" target="_blank"><?php echo JText::_('COM_SURVEYFORCE_SUPPORT_FORUM') ?></a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.joomplace.com/support/helpdesk" target="_blank"><?php echo JText::_('COM_SURVEYFORCE_SUPPORT') ?></a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.joomplace.com/support/helpdesk/department/presale-questions" target="_blank"><?php echo JText::_('COM_SURVEYFORCE_FAQ') ?></a></li>
                         </ul>
                     </li>
                 </ul>
