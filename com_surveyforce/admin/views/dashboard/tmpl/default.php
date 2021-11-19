@@ -86,8 +86,11 @@ JText::script('COM_SURVEYFORCE_BE_CONTROL_PANEL_BUT_CHECK_VERSION');
 		</div>
 	</div>
 </div>
-
-
+<div class="admin_banners">
+    <div class="admin_banner admin_banner_support"><div><?php echo JText::_("COM_SURVEYFORCE_ADMIN_BANNER_SUPPORT"); ?><i class="icon-remove"></i></div></div>
+    <div class="admin_banner admin_banner_dev"><div><?php echo JText::_("COM_SURVEYFORCE_ADMIN_BANNER_DEVELOPMENT"); ?><i class="icon-remove"></i></div></div>
+    <div class="admin_banner admin_banner_free"><div><?php echo JText::_("COM_SURVEYFORCE_ADMIN_BANNER_FREE_EXTENSION"); ?><i class="icon-remove"></i></div></div>
+</div>
 <?php if ($this->messageTrigger) { ?>
 <div id="notification" class="jqd-survey-wrap clearfix" style="clear: both">
     <div class="jqd-survey">
@@ -95,3 +98,10 @@ JText::script('COM_SURVEYFORCE_BE_CONTROL_PANEL_BUT_CHECK_VERSION');
     </div>
 </div>
 <?php } ?>
+<script>
+    jQuery(function($){
+        $('.admin_banner .icon-remove').on('click', function(){
+            $(this).closest('.admin_banner').remove();
+        });
+    });
+</script>
