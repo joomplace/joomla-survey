@@ -170,8 +170,10 @@ class SurveyforceModelAuthoring extends JModelItem
 						$db->setQuery("SELECT * FROM `#__survey_force_fields` WHERE `quest_id` = '".$question->id."' AND `is_main` = 1 ORDER BY `ordering`");
 						$question->answers = $db->loadObjectList();
 
-						$db->setQuery("SELECT * FROM `#__survey_force_fields` WHERE `quest_id` = '".$question->id."' AND `is_main` = 0");
-						$question->answers[0]->sf_other = $db->loadObject();
+                        if(isset($question->answers[0])) {
+                            $db->setQuery("SELECT * FROM `#__survey_force_fields` WHERE `quest_id` = '" . $question->id . "' AND `is_main` = 0");
+                            $question->answers[0]->sf_other = $db->loadObject();
+                        }
 					break;
 					case '9':
 					case '6':
