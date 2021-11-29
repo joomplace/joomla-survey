@@ -43,7 +43,7 @@ class com_surveyforceInstallerScript
 			'Reports' =>  array('link'=>'reports', 'img'=>'icon-48-reports.png'),
 			'Configuration' =>  array('link'=>'configuration', 'img'=>'icon-48-config.png'),
 			'Sample surveys' =>  array('link'=>'samples', 'img'=>'icon-48-sample.png'),
-			'Help' =>  array('link'=>'http://www.joomplace.com/video-tutorials-and-documentation/survey-force-deluxe/index.html?administrators_guide.htm', 'img'=>'icon-48-help.png'),
+			'Help' =>  array('link'=>'https://www.joomplace.com/video-tutorials-and-documentation/survey-force-deluxe-3.0', 'img'=>'icon-48-help.png'),
 		);
 
 		foreach ($dashboard as $item_name => $params)
