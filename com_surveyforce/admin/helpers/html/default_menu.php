@@ -94,8 +94,8 @@ $document->addStyleSheet(JURI::root() . 'administrator/components/com_surveyforc
                     <li id="fat-menu" class="dropdown">
                         <a href="#" id="help" role="button" class="dropdown-toggle" data-toggle="dropdown"><?php echo JText::_('COM_SURVEYFORCE_MENU_HELP') ?><b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="help">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.joomplace.com/video-tutorials-and-documentation/survey-force-deluxe/index.html?administrators_guide.htm" target="_blank"><?php echo JText::_('COM_SURVEYFORCE_MENU_HELP') ?></a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.joomplace.com/support/helpdesk" target="_blank"><?php echo JText::_('COM_SURVEYFORCE_SUPPORT') ?></a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.joomplace.com/video-tutorials-and-documentation/survey-force-deluxe-3.0" target="_blank" rel="noopener noreferrer"><?php echo JText::_('COM_SURVEYFORCE_MENU_HELP') ?></a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.joomplace.com/support/helpdesk" target="_blank" rel="noopener noreferrer"><?php echo JText::_('COM_SURVEYFORCE_SUPPORT') ?></a></li>
                         </ul>
                     </li>
                 </ul>
