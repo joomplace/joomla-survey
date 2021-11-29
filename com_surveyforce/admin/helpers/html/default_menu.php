@@ -14,7 +14,7 @@ $document->addStyleSheet(JURI::root() . 'administrator/components/com_surveyforc
 <div id="tm-navbar" class="navbar navbar-static navbar-inverse">
     <div class="navbar-inner">
         <div class="container" style="width: auto;">
-            <a class="brand" href="<?php JRoute::_('index.php?option=com_surveyforce') ?>"><img class="tm-panel-logo" src="<?php echo JURI::root() ?>administrator/components/com_surveyforce/assets/images/joomplace-logo.png" /> <?php echo JText::_('COM_SURVEYFORCE_JOOMPLACE') ?></a>
+            <a class="brand" href="https://www.joomplace.com" target="_blank" rel="noopener noreferrer"><img class="tm-panel-logo" src="<?php echo JURI::root() ?>administrator/components/com_surveyforce/assets/images/joomplace-logo.png" /> <?php echo JText::_('COM_SURVEYFORCE_JOOMPLACE') ?></a>
             <ul class="nav" role="navigation">
                 <li class="dropdown">
                     <a id="control-panel" href="index.php?option=com_surveyforce&view=dashboard" role="button" class="dropdown-toggle"><?php echo JText::_('COM_SURVEYFORCE_CONTROL_PANEL') ?></a>
