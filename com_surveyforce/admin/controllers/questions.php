@@ -11,29 +11,35 @@ defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.controlleradmin');
 
-class SurveyforceControllerQuestions extends JControllerAdmin {
-
-    public function __construct($config = array()) {
+class SurveyforceControllerQuestions extends JControllerAdmin
+{
+    public function __construct($config = array())
+    {
         parent::__construct($config);
         $this->registerTask('uncompulsory', 'compulsory');        
     }
 
-    public function getModel($name = 'Questions', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true)) {
+    public function getModel($name = 'Questions', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true))
+    {
         return parent::getModel($name, $prefix, $config);
     }
 
-    public function add() {
+    public function add()
+    {
         $this->setRedirect('index.php?option=com_surveyforce&task=question.add');
     }
 
-    public function delete() {
+    public function delete()
+    {
         // Get items to remove from the request.
         $cid = JFactory::getApplication()->input->get('cid', array(), '', 'array');
         $tmpl = JFactory::getApplication()->input->get('tmpl');
-        if ($tmpl == 'component')
+
+        if ($tmpl == 'component') {
             $tmpl = '&tmpl=component';
-        else
+        } else {
             $tmpl = '';
+        }
 
         if (!is_array($cid) || count($cid) < 1) {
             JFactory::getApplication()->enqueueMessage(JText::_($this->text_prefix . '_NO_ITEM_SELECTED'), 'error');
@@ -56,7 +62,8 @@ class SurveyforceControllerQuestions extends JControllerAdmin {
         $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $tmpl.'&surv_id='.JFactory::getApplication()->input->get('surv_id'), false));
     }
 
-    public function compulsory() {
+    public function compulsory()
+    {
         $cid = JFactory::getApplication()->input->get('cid', array(), '', 'array');
         $surv_id = JFactory::getApplication()->input->get('surv_id', 0);
 
@@ -80,14 +87,15 @@ class SurveyforceControllerQuestions extends JControllerAdmin {
         $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=questions&surv_id=' . $surv_id, false));
     }
 
-    public function publish() {
+    public function publish()
+    {
         $surv_id = JFactory::getApplication()->input->get('surv_id', 0);
-
         parent::publish();
         $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=questions&surv_id=' . $surv_id, false));
     }
 
-    public function edit() {
+    public function edit()
+    {
         $cid = JFactory::getApplication()->input->get('cid', array(), '', 'array');
         $item_id = $cid['0'];
         $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&task=question.edit&id=' . $item_id, false));
@@ -111,8 +119,7 @@ class SurveyforceControllerQuestions extends JControllerAdmin {
 		// Save the ordering
 		$return = $model->saveorder($pks, $order, true);
 
-		if ($return)
-		{
+		if ($return) {
 			echo "1";
 		}
 
@@ -120,9 +127,12 @@ class SurveyforceControllerQuestions extends JControllerAdmin {
 		JFactory::getApplication()->close();
 	}
 	
-	public function move(){
-	
-		$cids = implode(',',JFactory::getApplication()->input->get('cid',array(),'array'));
+	public function move()
+    {
+        $input = JFactory::getApplication()->input;
+        $cids = implode(',', $input->get('cid', array(),'array'));
+        $surv_id = $input->getInt('surv_id', 0);
+        $surv_id_str = $surv_id>0 ? '&surv_id='.$surv_id : '';
 		
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
@@ -146,6 +156,10 @@ class SurveyforceControllerQuestions extends JControllerAdmin {
 					?>
 					</select>
 				</div>
+                <a class="btn btn-danger" style="margin-right: 10px;"
+                   href="<?php echo JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $surv_id_str, false)?>">
+                    <?php echo JText::_('COM_SURVEYFORCE_MOVE_CANCEL'); ?>
+                </a>
 				<button class="btn btn-default"><?php echo JText::_('COM_SURVEYFORCE_MOVE_SUBMIT'); ?></button>
 				<input type="hidden" name="questions" value="<?php echo $cids; ?>" />
 				<input type="hidden" name="task" value="questions.moveto" />
@@ -153,11 +167,10 @@ class SurveyforceControllerQuestions extends JControllerAdmin {
 			</form>
 			<?php
 		}
-	
 	}
 	
-	public function moveto(){
-	
+	public function moveto()
+    {
 		$input = JFactory::getApplication()->input;
 		$sf = $input->get('sf_id',0);
 		$ids = $input->get('questions','','string');
@@ -173,11 +186,14 @@ class SurveyforceControllerQuestions extends JControllerAdmin {
 		}
 		
 		JFactory::getApplication()->redirect('index.php?option=com_surveyforce&view=questions'.(($sf)?'&surv_id='.$sf:''));
-	
 	}
-	public function copy(){
-	
-		$cids = implode(',',JFactory::getApplication()->input->get('cid',array(),'array'));
+
+	public function copy()
+    {
+	    $input = JFactory::getApplication()->input;
+		$cids = implode(',', $input->get('cid', array(),'array'));
+        $surv_id = $input->getInt('surv_id', 0);
+        $surv_id_str = $surv_id>0 ? '&surv_id='.$surv_id : '';
 		
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
@@ -201,6 +217,10 @@ class SurveyforceControllerQuestions extends JControllerAdmin {
 					?>
 					</select>
 				</div>
+                <a class="btn btn-danger" style="margin-right: 10px;"
+                   href="<?php echo JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $surv_id_str, false)?>">
+                    <?php echo JText::_('COM_SURVEYFORCE_MOVE_CANCEL'); ?>
+                </a>
 				<button class="btn btn-default"><?php echo JText::_('COM_SURVEYFORCE_MOVE_SUBMIT'); ?></button>
 				<input type="hidden" name="questions" value="<?php echo $cids; ?>" />
 				<input type="hidden" name="task" value="questions.copyto" />
@@ -209,8 +229,9 @@ class SurveyforceControllerQuestions extends JControllerAdmin {
 			<?php
 		}
 	}
-	public function copyto(){
-		
+
+	public function copyto()
+    {
 		$input = JFactory::getApplication()->input;
 		$sf = $input->get('sf_id', 0, 'INT');
 		$ids = $input->get('questions', '', 'string');
