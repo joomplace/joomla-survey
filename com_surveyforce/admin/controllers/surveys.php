@@ -11,21 +11,24 @@ defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.controlleradmin');
 
-class SurveyforceControllerSurveys extends JControllerAdmin {
-
+class SurveyforceControllerSurveys extends JControllerAdmin
+{
     public function __construct($config = array()) {
         parent::__construct($config);
     }
 
-    public function getModel($name = 'Surveys', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true)) {
+    public function getModel($name = 'Surveys', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true))
+    {
         return parent::getModel($name, $prefix, $config);
     }
 
-    public function add() {
+    public function add()
+    {
         $this->setRedirect('index.php?option=com_surveyforce&task=survey.add');
     }
 
-    public function delete() {
+    public function delete()
+    {
         // Get items to remove from the request.
         $cid = JFactory::getApplication()->input->get('cid', array(), '', 'array');
         $tmpl = JFactory::getApplication()->input->get('tmpl');
@@ -55,7 +58,8 @@ class SurveyforceControllerSurveys extends JControllerAdmin {
         $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $tmpl, false));
     }
 
-    public function edit() {
+    public function edit()
+    {
         $cid = JFactory::getApplication()->input->get('cid', array(), '', 'array');
         $item_id = $cid['0'];
         $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&task=survey.edit&id=' . $item_id, false));
@@ -74,8 +78,8 @@ class SurveyforceControllerSurveys extends JControllerAdmin {
 		$this->setRedirect( JRoute::_(JUri::root()."index.php?option=com_surveyforce&view=survey&id={$cid}&preview=".$unique_id) );
 	}
 	
-	public function copy(){
-	
+	public function copy()
+    {
 		$cids = implode(',',JFactory::getApplication()->input->get('cid',array(),'array'));
 		
         $db = JFactory::getDbo();
@@ -100,6 +104,10 @@ class SurveyforceControllerSurveys extends JControllerAdmin {
 					?>
 					</select>
 				</div>
+                <a class="btn btn-danger" style="margin-right: 10px;"
+                   href="<?php echo JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false)?>">
+                    <?php echo JText::_('COM_SURVEYFORCE_MOVE_CANCEL'); ?>
+                </a>
 				<button class="btn btn-default"><?php echo JText::_('COM_SURVEYFORCE_MOVE_SUBMIT'); ?></button>
 				<input type="hidden" name="surveys" value="<?php echo $cids; ?>" />
 				<input type="hidden" name="task" value="surveys.copyto" />
@@ -108,22 +116,22 @@ class SurveyforceControllerSurveys extends JControllerAdmin {
 			<?php
 		}
 	}
-	public function copyto(){
-		
+
+	public function copyto()
+    {
 		$input = JFactory::getApplication()->input;
 		$sf = $input->get('cat_id',0);
-		
 		$ids = $input->get('surveys','','string');	
 		
-			$db = JFactory::getDbo();
-			$query = $db->getQuery(true);
-			$query->select('*')
-				->from('#__survey_force_survs')
-				->where('`id` IN ('.$ids.')');
-			$db->setQuery($query);
-			$surveys = $db->loadObjectList('id');
-			
-			$query->clear();
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('*')
+            ->from('#__survey_force_survs')
+            ->where('`id` IN ('.$ids.')');
+        $db->setQuery($query);
+        $surveys = $db->loadObjectList('id');
+
+        $query->clear();
 
 		foreach($surveys as $survey){
 			
@@ -230,12 +238,11 @@ class SurveyforceControllerSurveys extends JControllerAdmin {
             }
 
 			if(!empty($oldQuests)){
-			$db->setQuery("SELECT *, '' AS id FROM #__survey_force_rules WHERE quest_id IN (".implode(",", $oldQuests).")");			
-			$rules = $db->loadObjectList();					
+                $db->setQuery("SELECT *, '' AS id FROM #__survey_force_rules WHERE quest_id IN (".implode(",", $oldQuests).")");
+                $rules = $db->loadObjectList();
 			}		
 			
-			foreach($rules as $rule)
-			{				
+			foreach($rules as $rule) {
 				$rule->quest_id = $newQuestId[$rule->quest_id];
 				$rule->next_quest_id = $newQuestId[$rule->next_quest_id];
 				$rule->answer_id = $newAnswerId[$rule->answer_id];
@@ -243,13 +250,9 @@ class SurveyforceControllerSurveys extends JControllerAdmin {
 				$db->insertObject('#__survey_force_rules',$rule);
 				
 			}
-		
-			
         }
-		
-			
+
 		JFactory::getApplication()->redirect('index.php?option=com_surveyforce&view=surveys');
-	
 	}
 
 }
