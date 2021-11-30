@@ -11,23 +11,21 @@ defined('_JEXEC') or die('Restricted access');
 
 class SurveyforceControllerSet_default extends JControllerForm
 {
-
-	public function cancel($key = NULL){
-		
+	public function cancel($key = null)
+    {
 		$qid = $_SESSION['qid'];
 		unset($_SESSION['qid']);
-
 		$this->setRedirect('index.php?option=com_surveyforce&view=question&layout=edit&id='.$qid);
 	}
 
-    public function save(){
-        
+    public function save($key = null, $urlVar = null)
+    {
         if(isset($_SESSION['qid'])) {
             unset($_SESSION['qid']);
         }
 
-        $jinput = \JFactory::getApplication()->input;
-    	$data = $jinput->post;
+        $jinput = JFactory::getApplication()->input;
+        $data = unserialize($jinput->serialize())[1];
  		
     	$quest_id = $jinput->getInt('id', 0);
     	$sf_qtype = $jinput->get('sf_qtype');
@@ -36,11 +34,10 @@ class SurveyforceControllerSet_default extends JControllerForm
 
 		$query = "SELECT sf_survey FROM `#__survey_force_quests` WHERE `id` = $quest_id ";
 		$database->SetQuery($query);
-		$survey_id = $database->LoadResult(); 
+		$survey_id = $database->loadResult();
 		$data['survey_id'] = $survey_id;
 
-		if ( $quest_id > 0 && $survey_id > 0) {
-		
+		if ($quest_id > 0 && $survey_id > 0) {
 			$query = "DELETE FROM `#__survey_force_def_answers` WHERE `survey_id` = $survey_id AND quest_id = $quest_id ";
 			$database->SetQuery($query);
 			$database->execute();
@@ -49,8 +46,9 @@ class SurveyforceControllerSet_default extends JControllerForm
 			JPluginHelper::importPlugin('survey', $type);
         	$className = 'plgSurvey' . ucfirst($type);
 
-        	if (method_exists($className, 'onSaveDefault'))
-                $className::onSaveDefault($data); 
+        	if (method_exists($className, 'onSaveDefault')) {
+                $className::onSaveDefault($data);
+            }
 
             $this->setRedirect('index.php?option=com_surveyforce&view=question&layout=edit&id='.$quest_id);
 	    }
