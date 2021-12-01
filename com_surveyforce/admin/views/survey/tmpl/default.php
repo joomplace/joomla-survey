@@ -308,3 +308,44 @@ SurveyforceHelper::addFileUploadFull('index.php?option=com_surveyforce&task=imag
 <?php echo JHtml::_('form.token'); ?>
 </div>
 </form>
+<script>
+    //Remember selected tabs
+    jQuery(function($){
+        'use strict';
+
+        let params = (new URL(document.location)).searchParams,
+            id = params.get('id');
+
+        if(id === null) {
+            id = 0;
+        }
+
+        let surveyTabName = getCookie('surveyTab'+id);
+        if (surveyTabName) {
+            $('.nav-tabs li').each(function () {
+                $(this).removeClass('active');
+                if ($('a', this).attr('href') == '#' + surveyTabName) {
+                    $('a', this).trigger('click');
+                }
+            });
+        }
+
+        $('.nav-tabs a').on('click', function() {
+            if ($(this).hasClass('active')) {
+                return false;
+            }
+            tabSetCookie($(this).attr('href'));
+        });
+
+        function tabSetCookie(tabName) {
+            document.cookie = 'surveyTab' + id + '=' + tabName.split('#')[1];
+        }
+
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+    });
+</script>
