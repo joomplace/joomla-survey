@@ -94,9 +94,7 @@ JHtml::_('behavior.formvalidation');
 	</tbody>
 </table>
 
-
-<script language="javascript" type="text/javascript">
-	<!--
+<script type="text/javascript">
 
 	function ReAnalize_tbl_Rows( start_index, tbl_id ) {
 		start_index = 1;
@@ -119,8 +117,7 @@ JHtml::_('behavior.formvalidation');
 		}
 	}
 
-	function reAnalizeRows()
-	{
+	function reAnalizeRows() {
 		k = 0;
 		jQuery('#qfld_tbl > tbody').find('tr').each( function(){
 				row = jQuery(this);
@@ -140,15 +137,14 @@ JHtml::_('behavior.formvalidation');
 		});
 	}
 
-	function iconsBind()
-	{
-		jQuery('.icon-delete').click( function() {
+	function iconsBind() {
+		jQuery('.icon-delete').on("click", function() {
 			jQuery(this).parents('tr:first').remove();
 			reAnalizeRows();
 		});
 
-		jQuery(".icon-arrow-up,.icon-arrow-down").click(function(){
-			var row = jQuery(this).parents("tr:first");
+		jQuery(".icon-arrow-up,.icon-arrow-down").on("click", function(){
+            var row = jQuery(this).closest("tr");
 			if (jQuery(this).is(".icon-arrow-up")) {
 				row.insertBefore(row.prev());
 				reAnalizeRows();
@@ -159,8 +155,7 @@ JHtml::_('behavior.formvalidation');
 		});
 	}
 
-	function getObj(name)
-	{
+	function getObj(name) {
 		if (document.getElementById) {
 			return document.getElementById(name);
 		}
@@ -175,8 +170,6 @@ JHtml::_('behavior.formvalidation');
 	function TRIM_str(sStr) {
 		return (sStr.replace(/^[\s\xA0]+/, "").replace(/[\s\xA0]+$/, ""));
 	}
-
-
 
 	function Add_new_tbl_field(elem_field, tbl_id, field_name) {
 		var new_element_txt = jQuery('#'+elem_field).val();
@@ -229,21 +222,16 @@ JHtml::_('behavior.formvalidation');
 
 	iconsBind();
 
-	//-->
 </script>
-<div class="control-group form-inline">
+                    <div class="control-group form-inline">
+                        <input id="new_field" class="text_area" style="width:205px " type="text">
+                        <input class="btn" type="button" name="jform[add_new_field]" value="<?php echo JText::_('COM_SURVEYFORCE_ADD'); ?>" onClick="javascript:Add_new_tbl_field('new_field', 'qfld_tbl', 'sf_hid_fields[]');">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-	<input id="new_field" class="text_area" style="width:205px " type="text">
-	<input class="btn" type="button" name="jform[add_new_field]" value="<?php echo JText::_('COM_SURVEYFORCE_ADD'); ?>" onClick="javascript:Add_new_tbl_field('new_field', 'qfld_tbl', 'sf_hid_fields[]');">
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<input type="hidden" name="task" value="" />
-<?php echo JHtml::_('form.token'); ?>
-</div>
+        <input type="hidden" name="task" value="" />
+        <?php echo JHtml::_('form.token'); ?>
+    </div>
 </form>
