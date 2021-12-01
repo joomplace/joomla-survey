@@ -251,29 +251,36 @@ JHtml::_('formbehavior.chosen', 'select');
     jQuery(function($){
         'use strict';
 
-        var configurationTab = getCookie('configurationTab');
-        if(configurationTab){
-            $('.nav-tabs li').each(function() {
+        let params = (new URL(document.location)).searchParams,
+            id = params.get('id');
+
+        if(id === null) {
+            id = 0;
+        }
+
+        let configurationTabName = getCookie('configurationTab'+id);
+        if (configurationTabName) {
+            $('.nav-tabs li').each(function () {
                 $(this).removeClass('active');
-                if($('a', this).attr('href') == '#'+ configurationTab){
+                if ($('a', this).attr('href') == '#' + configurationTabName) {
                     $('a', this).trigger('click');
                 }
             });
         }
 
         $('.nav-tabs a').on('click', function() {
-            if( $(this).hasClass('active') ){
+            if ($(this).hasClass('active')) {
                 return false;
             }
             tabSetCookie($(this).attr('href'));
         });
 
-        function tabSetCookie(id){
-            document.cookie = 'configurationTab=' + id.split('#')[1];
+        function tabSetCookie(tabName) {
+            document.cookie = 'configurationTab' + id + '=' + tabName.split('#')[1];
         }
 
         function getCookie(name) {
-            var matches = document.cookie.match(new RegExp(
+            let matches = document.cookie.match(new RegExp(
                 "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
             ));
             return matches ? decodeURIComponent(matches[1]) : undefined;
