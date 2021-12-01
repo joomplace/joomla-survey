@@ -41,15 +41,19 @@ $sortFields = $this->getSortFields();
         }
         Joomla.tableOrdering(order, dirn, '');
     }
-	Joomla.submitbutton = function(task)
-	{
+
+	Joomla.submitbutton = function(task) {
 		if (task == 'surveys.preview') {
+            if(document.adminForm.boxchecked.value > 1) {
+                alert('<?php echo JText::_('COM_SURVEYFORCE_SURVEYS_PREVIEW_SELECT_ONE'); ?>');
+                return false;
+            }
 			document.adminForm.target = '_blank';
 			Joomla.submitform(task);
 			document.adminForm.target = '';
-		}
-		else
-			Joomla.submitform(task);
+		} else {
+            Joomla.submitform(task);
+        }
 	}
 </script>
 
