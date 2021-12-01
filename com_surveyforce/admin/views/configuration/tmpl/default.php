@@ -246,3 +246,37 @@ JHtml::_('formbehavior.chosen', 'select');
     <?php echo JHtml::_('form.token'); ?>
     </div>
 </form>
+<script>
+    //Remember selected tabs
+    jQuery(function($){
+        'use strict';
+
+        var configurationTab = getCookie('configurationTab');
+        if(configurationTab){
+            $('.nav-tabs li').each(function() {
+                $(this).removeClass('active');
+                if($('a', this).attr('href') == '#'+ configurationTab){
+                    $('a', this).trigger('click');
+                }
+            });
+        }
+
+        $('.nav-tabs a').on('click', function() {
+            if( $(this).hasClass('active') ){
+                return false;
+            }
+            tabSetCookie($(this).attr('href'));
+        });
+
+        function tabSetCookie(id){
+            document.cookie = 'configurationTab=' + id.split('#')[1];
+        }
+
+        function getCookie(name) {
+            var matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+    });
+</script>
