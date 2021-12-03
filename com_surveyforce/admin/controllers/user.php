@@ -11,65 +11,61 @@ defined('_JEXEC') or die('Restricted access');
 
 class SurveyforceControllerUser extends JControllerForm
 {
-	protected function getRedirectToItemAppend($cid = null){
+	protected function getRedirectToItemAppend($recordId = null, $urlVar = 'id')
+    {
 		$tmpl   = $this->input->get('tmpl');
         $layout = $this->input->get('layout', 'edit', 'string');
         $append = '';
 
         // Setup redirect info.
-        if ($tmpl)
-        {
+        if ($tmpl) {
             $append .= '&tmpl=' . $tmpl;
         }
 
-        if ($layout)
-        {
+        if ($layout) {
             $append .= '&layout=' . $layout;
         }
 
-        if ($recordId)
-        {
+        if ($recordId) {
             $append .= '&' . $urlVar . '=' . $recordId;
         }
 
-        if (JFactory::getApplication()->input->get('id'))
-        {
+        if (JFactory::getApplication()->input->get('id')) {
 			$append .= '&list_id='.JFactory::getApplication()->input->get('id');
 		}	
 		
-		if($cid) {
-			$append .= '&id='.$cid;		
+		if($recordId) {
+			$append .= '&id='.$recordId;
 		}
 		
 		return $append;
 	}
 	
-    public function add(){
+    public function add()
+    {
         parent::add();
     }
 
-    public function cancel(){
+    public function cancel($key = null)
+    {
         $jform = JFactory::getApplication()->input->get('jform', array(),'array');
 		unset($_SESSION['list_id']);
         $listid = $jform['list_id'];
         $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=users&id='.$listid, false));
     }
 
-    public function save($pk){
-
-    	parent::save($pk);
+    public function save($key = null, $urlVar = null)
+    {
+    	parent::save($key, $urlVar);
 		
 		$input = JFactory::getApplication()->input;
-		
 		$jform = $input->get('jform', array(),'array');
         unset($_SESSION['list_id']);
         $listid = $jform['list_id'];
-		
 		$task = $input->getCmd('task');
 		
 		if($task != 'save2new') {
 			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=users&id='.$listid, false));
 		}
-    	
     }
 }

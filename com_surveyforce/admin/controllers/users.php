@@ -11,23 +11,23 @@ defined('_JEXEC') or die('Restricted access');
 
 class SurveyforceControllerUsers extends JControllerForm
 {
-
-	public function getModel($name = 'Users', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true)) {
+	public function getModel($name = 'Users', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true))
+    {
         return parent::getModel($name, $prefix, $config);
     }
 
-	public function cancel(){
+	public function cancel($key = null)
+    {
 		$this->setRedirect('index.php?option=com_surveyforce&view=listusers');
 	}
 
-    public function add(){
-
+    public function add()
+    {
         parent::add();
-        
     }
 
-     public function delete() {
-
+     public function delete()
+     {
      	$listid = JFactory::getApplication()->input->get('listid');
         // Get items to remove from the request.
         $cid = JFactory::getApplication()->input->get('cid', array(), '', 'array');

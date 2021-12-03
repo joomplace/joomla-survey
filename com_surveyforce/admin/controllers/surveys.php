@@ -13,7 +13,8 @@ jimport('joomla.application.component.controlleradmin');
 
 class SurveyforceControllerSurveys extends JControllerAdmin
 {
-    public function __construct($config = array()) {
+    public function __construct($config = array())
+    {
         parent::__construct($config);
     }
 
@@ -32,10 +33,11 @@ class SurveyforceControllerSurveys extends JControllerAdmin
         // Get items to remove from the request.
         $cid = JFactory::getApplication()->input->get('cid', array(), '', 'array');
         $tmpl = JFactory::getApplication()->input->get('tmpl');
-        if ($tmpl == 'component')
+        if ($tmpl == 'component') {
             $tmpl = '&tmpl=component';
-        else
+        } else {
             $tmpl = '';
+        }
 
         if (!is_array($cid) || count($cid) < 1) {
             JFactory::getApplication()->enqueueMessage(JText::_($this->text_prefix . '_NO_ITEM_SELECTED'), 'error');
@@ -68,19 +70,20 @@ class SurveyforceControllerSurveys extends JControllerAdmin
 	public function preview()
 	{
 		$database = JFactory::getDbo();
-		$cid = (int) end( JFactory::getApplication()->input->get('cid', array(), 'array') );
+        $cids = JFactory::getApplication()->input->get('cid', array(), 'array');
+		$cid = (int) end($cids);
 
 		$unique_id = md5(uniqid(rand(), true));
 		$query = "INSERT INTO `#__survey_force_previews` SET `preview_id` = '".$unique_id."', `time` = '".strtotime(JFactory::getDate())."'";
 		$database->setQuery( $query );
-		$database->query( );
+		$database->execute();
 
 		$this->setRedirect( JRoute::_(JUri::root()."index.php?option=com_surveyforce&view=survey&id={$cid}&preview=".$unique_id) );
 	}
 	
 	public function copy()
     {
-		$cids = implode(',',JFactory::getApplication()->input->get('cid',array(),'array'));
+		$cids = implode(',', JFactory::getApplication()->input->get('cid', array(),'array'));
 		
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
@@ -121,17 +124,17 @@ class SurveyforceControllerSurveys extends JControllerAdmin
     {
 		$input = JFactory::getApplication()->input;
 		$sf = $input->get('cat_id',0);
-		$ids = $input->get('surveys','','string');	
+
+		$ids = $input->get('surveys','','string');
 		
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
+
         $query->select('*')
             ->from('#__survey_force_survs')
             ->where('`id` IN ('.$ids.')');
         $db->setQuery($query);
         $surveys = $db->loadObjectList('id');
-
-        $query->clear();
 
 		foreach($surveys as $survey){
 			
@@ -141,16 +144,13 @@ class SurveyforceControllerSurveys extends JControllerAdmin
 			$survey->sf_cat = $sf;
 			$db->insertObject('#__survey_force_survs',$survey);
 			$survey->id = $db->insertid();
-				
-			$db = JFactory::getDbo();
-		    $query = $db->getQuery(true);
-			
+
+            $query->clear();
 			$query->select('*')
                 ->from('#__survey_force_qsections')
                 ->where('sf_survey_id = "'.$old_id.'"');
             $db->setQuery($query);
 			$sections = $db->loadObjectList('id');
-            $query->clear();
 			
 			$oldSectId = 0;
 			$newSectId = array();
@@ -166,13 +166,11 @@ class SurveyforceControllerSurveys extends JControllerAdmin
 			}
 			
 			$query->clear();
-			
             $query->select('*')
                 ->from('#__survey_force_quests')
                 ->where('sf_survey = "'.$old_id.'"');
             $db->setQuery($query);
             $questions = $db->loadObjectList('id');
-            $query->clear();			          
 			
 			$oldQuests = array();
 			$oldQuestId = 0;
@@ -191,28 +189,28 @@ class SurveyforceControllerSurveys extends JControllerAdmin
 				$db->insertObject('#__survey_force_quests',$quest);
 				$quest->id = $db->insertid();			
 				
-				$newQuestId[$oldQuestId] = $quest->id; 
-				
+				$newQuestId[$oldQuestId] = $quest->id;
+
+                $query->clear();
 				$query->select('*')
 					->from('#__survey_force_fields')
 					->where('quest_id = "'.$qkey.'"');
 				$db->setQuery($query);
 				$answers = $db->loadObjectList('id');
-				$query->clear();
 
 				if($quest->sf_qtype= 9 && $quest->sf_qtype= 6){					
 					foreach($answers as $ans){
-							$oldAnswerId = $ans->id ;							
-							$ans->id = '';
-							$ans->quest_id = $quest->id;
-							$db->insertObject('#__survey_force_fields',$ans);
-							$newAnswerId[$oldAnswerId] = $db->insertid(); 
-							
+                        $oldAnswerId = $ans->id ;
+                        $ans->id = '';
+                        $ans->quest_id = $quest->id;
+                        $db->insertObject('#__survey_force_fields',$ans);
+                        $newAnswerId[$oldAnswerId] = $db->insertid();
 					}
+
 					$db->setQuery("UPDATE #__survey_force_fields AS a , #__survey_force_fields AS b SET a.alt_field_id = b.id
 							WHERE a.quest_id=b.quest_id AND a.ordering=b.ordering AND a.is_main=1 AND a.quest_id = ".$quest->id);
-					$db->query();					
-				}else{					
+					$db->execute();
+				} else {
 					foreach($answers as $ans){
 						$oldAnswerId = $ans->id;						
 						$ans->id = '';
@@ -223,12 +221,12 @@ class SurveyforceControllerSurveys extends JControllerAdmin
 				}
 				
 				$answers = array();
+                $query->clear();
 				$query->select('*')
 					->from('#__survey_force_scales')
 					->where('quest_id = "'.$qkey.'"');
 				$db->setQuery($query);
 				$answers = $db->loadObjectList('id');
-				$query->clear();
 				
 				foreach($answers as $ans){
 					$ans->id = '';
@@ -248,7 +246,6 @@ class SurveyforceControllerSurveys extends JControllerAdmin
 				$rule->answer_id = $newAnswerId[$rule->answer_id];
 				
 				$db->insertObject('#__survey_force_rules',$rule);
-				
 			}
         }
 

@@ -10,38 +10,39 @@
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.controllerform');
 
-class SurveyforceControllerIscale extends JControllerForm {
-
+class SurveyforceControllerIscale extends JControllerForm
+{
 	public function __construct($config)
 	{
-		$quest_id = JFactory::getApplication()->input->get('quest_id');
-		if ( !empty($quest_id) )
-			JFactory::getSession()->set('iscale_quest_id', $quest_id);
+		$quest_id = JFactory::getApplication()->input->getInt('quest_id', 0);
+		if (!empty($quest_id)) {
+            JFactory::getSession()->set('iscale_quest_id', $quest_id);
+        }
 
 		parent::__construct($config);
 	}
 
-    protected function allowEdit($data = array(), $key = 'id') {
-
+    protected function allowEdit($data = array(), $key = 'id')
+    {
         // Check specific edit permission then general edit permission.
         return JFactory::getUser()->authorise('core.edit', 'com_surveyforce');
     }
 
-	public function save()
+	public function save($key = null, $urlVar = null)
 	{
 		parent::save();
-		if ( JFactory::getSession()->get('iscale_quest_id') )
-		{
+
+		if (JFactory::getSession()->get('iscale_quest_id')) {
 			JFactory::getApplication()->redirect('index.php?option=com_surveyforce&view=question&layout=edit&id='.JFactory::getSession()->get('iscale_quest_id'));
 		}
 	}
 
-	public function cancel()
+	public function cancel($key = null)
 	{
-		if ( JFactory::getSession()->get('iscale_quest_id') )
-		{
+		if (JFactory::getSession()->get('iscale_quest_id')) {
 			JFactory::getApplication()->redirect('index.php?option=com_surveyforce&view=question&layout=edit&id='.JFactory::getSession()->get('iscale_quest_id'));
 		}
+
 		parent::cancel();
 	}
 

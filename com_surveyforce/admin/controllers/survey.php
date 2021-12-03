@@ -11,7 +11,6 @@ defined('_JEXEC') or die('Restricted access');
 
 class SurveyforceControllerSurvey extends JControllerForm
 {
-
 	protected $last_insert_id;
 
 	public function __construct()
@@ -20,7 +19,7 @@ class SurveyforceControllerSurvey extends JControllerForm
 		parent::__construct();
 	}
 
-	public function cancel()
+	public function cancel($key = null)
 	{
 		$this->setRedirect('index.php?option=com_surveyforce&view=surveys');
 	}
@@ -30,7 +29,8 @@ class SurveyforceControllerSurvey extends JControllerForm
 		$this->last_insert_id = $model->getState($model->getName() . '.id');
 	}
 
-	public function save(){
+	public function save($key = null, $urlVar = null)
+    {
 		$task = JFactory::getApplication()->input->get('task');
 		$data = JFactory::getApplication()->input->get('jform',array(),'Array');
 		$save = parent::save();
