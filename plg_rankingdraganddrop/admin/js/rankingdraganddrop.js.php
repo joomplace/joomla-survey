@@ -497,33 +497,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			}
 		}
 
-		Joomla.submitbutton = function(pressbutton) {
-			var form = document.adminForm;
-			if (pressbutton == 'cancel_quest') {
-				submitform( pressbutton );
-				return;
-			}
-			fillTextArea();
-			// do field validation
-			if (false && form.sf_qtext.value == ""){
-				alert( "<?php echo JText::_('COM_SURVEYFORCE_QUESTION_MUST_HAVE_TEXT'); ?>" );
-			} else {
-				submitform( pressbutton );
-			}
-		}
-		
-		function fillTextArea () {
-			var form = document.adminForm;
-			<?php 		
-			//print WYSIWYG editor function name to save content to textarea
-			
-			?>
-			
-			return true;
-		}
-
-
-
 		function Delete_row(element) {
 			var del_index = element.parentNode.parentNode.sectionRowIndex;
 			var tbl_id = element.parentNode.parentNode.parentNode.parentNode.id;
