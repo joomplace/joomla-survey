@@ -12,10 +12,8 @@ jimport('joomla.application.component.controlleradmin');
 
 class SurveyforceControllerRemind_users extends JControllerForm
 {
-
     public function remind_start()
     {
-
         $database = JFactory::getDBO();
         $app = JFactory::getApplication();
 
@@ -153,9 +151,8 @@ class SurveyforceControllerRemind_users extends JControllerForm
         die();
     }
 
-    public function cancel()
+    public function cancel($key = null)
     {
-
         $this->setRedirect('index.php?option=com_surveyforce&view=listusers');
     }
 }

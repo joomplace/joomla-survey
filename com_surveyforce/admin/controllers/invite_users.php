@@ -12,10 +12,8 @@ jimport('joomla.application.component.controlleradmin');
 
 class SurveyforceControllerInvite_users extends JControllerForm
 {
-
     public function invitation_start()
     {
-
         $database = JFactory::getDBO();
         $app = JFactory::getApplication();
 
@@ -153,9 +151,11 @@ class SurveyforceControllerInvite_users extends JControllerForm
             $counter++;
             sleep(1);
         }
+
         $query = "UPDATE `#__survey_force_listusers` SET `is_invited` = '1' WHERE `id` ='" . $list_id . "'";
         $database->SetQuery($query);
         $database->execute();
+
         echo "<script>var div_log = getObj_frame('div_invite_log'); if (div_log) {"
         . "div_log.innerHTML = '100%';"
         . "div_log.style.width = '600px';"
@@ -166,9 +166,8 @@ class SurveyforceControllerInvite_users extends JControllerForm
         die();
     }
 
-    public function cancel()
+    public function cancel($key = null)
     {
-
         $this->setRedirect('index.php?option=com_surveyforce&view=listusers');
     }
 }
