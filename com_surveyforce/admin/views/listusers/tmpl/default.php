@@ -101,20 +101,19 @@ $sortFields = $this->getSortFields();
 					<th width="1%" class="hidden-phone">
 						<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 					</th>
-					<th  class="nowrap center">
+					<th class="nowrap">
 						<?php echo JHtml::_('grid.sort', 'COM_SURVEYFORCE_LIST_OF_USERS', 'listname', $listDirn, $listOrder); ?> 
 					</th>
 					<th>
 						<?php echo JHtml::_('grid.sort', 'COM_SURVEYFORCE_USERS_COUNT', 'sf_catdescr', $listDirn, $listOrder); ?>
 					</th>
-					<th width="1%" class="nowrap center">
+					<th width="1%" class="nowrap">
 						<?php echo JHtml::_('grid.sort', 'COM_SURVEYFORCE_STARTS', 'published', $listDirn, $listOrder); ?>
 					</th>
-										
-					<th  class="nowrap center">
+					<th  class="nowrap">
 						<?php echo JHtml::_('grid.sort', 'COM_SURVEYFORCE_SURVEY', 'sf_author_id', $listDirn, $listOrder); ?>
 					</th>
-                                        <th>
+                    <th>
 						<?php echo JHtml::_('grid.sort', 'COM_SURVEYFORCE_AUTHOR', 'date_created', $listDirn, $listOrder); ?>
 					</th>
 					<th width="120" class="nowrap center">

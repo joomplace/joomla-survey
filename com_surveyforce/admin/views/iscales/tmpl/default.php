@@ -87,7 +87,7 @@ $sortFields = $this->getSortFields();
                     <th width="1%" class="nowrap center">
                         <?php echo JHtml::_('grid.sort', 'COM_SURVEYFORCE_ID', 'id', $listDirn, $listOrder); ?>
                     </th>
-                    <th class="nowrap center">
+                    <th class="nowrap">
                         <?php echo JHtml::_('grid.sort', 'COM_SURVEYFORCE_NAME', 'iscale_name', $listDirn, $listOrder); ?> 
                     </th>							
 
