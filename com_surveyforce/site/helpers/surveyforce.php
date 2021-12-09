@@ -569,12 +569,32 @@ class SurveyforceHelper
 
 			if ($survey->sf_invite)
 			{
-
 				$session = JFactory::getSession();
 				$invite_num = JFactory::getApplication()->input->getString('invite', '');
-				$session->set('invite_num', $invite_num);
-				return array('survey' => $survey, 'sf_config' => $sf_config, 'is_invited' => 1, 'invite_num' => $invite_num, 'rules' => $rules, 'preview' => $preview);
+                $session->set('invite_num', $invite_num);
 
+                $no_invited_error_access = false;
+                if(JFactory::getUser()->id) {
+                    if($survey->sf_reg || $survey->sf_public) {
+                        $no_invited_error_access = false;
+                    } else {
+                        $no_invited_error_access = true;
+                    }
+                } else {
+                    if($survey->sf_public) {
+                        $no_invited_error_access = false;
+                    } else {
+                        $no_invited_error_access = true;
+                    }
+                }
+
+                if($invite_num || $no_invited_error_access === false) {
+                    return array('survey' => $survey, 'sf_config' => $sf_config, 'is_invited' => 1, 'invite_num' => $invite_num, 'rules' => $rules, 'preview' => $preview);
+                } else {
+                    $survey->error = 'blocked';
+                    $survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_user_has_no_right_or_invitation');
+                    return array('survey' => $survey, 'sf_config' => $sf_config, 'is_invited' => 0, 'invite_num' => '', 'rules' => $rules, 'preview' => $preview);
+                }
 			}
 			elseif ($sf_special)
 			{
