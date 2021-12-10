@@ -192,7 +192,7 @@ $sortFields = $this->getSortFields();
                     if(isset($this->items[$section->id]) && count($this->items[$section->id])){
                         foreach ($this->items[$section->id] as $i => $item){
                             $ordering = ($listOrder == 'ordering');
-                            $canEdit = ( $user->authorise('core.edit', $extension . '.questions.' . $item->id) && $item->sf_qtype != 'Page Break');
+                            $canEdit = ( $user->authorise('core.edit', $extension . '.questions.' . $item->id) && $item->sf_qtype != 'COM_SURVEYFORCE_PAGE_BREAK');
                             $canCheckin = $user->authorise('core.admin', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
                             $canChange = $user->authorise('core.edit.state', $extension . '.questions.' . $item->id) && $canCheckin;
                         ?>
@@ -291,7 +291,7 @@ $sortFields = $this->getSortFields();
                 <?php if(isset($this->items[0]) && count($this->items[0])):?>
                 <?php foreach ($this->items[0] as $i => $item) :
                         $ordering = ($listOrder == 'ordering');
-                        $canEdit = ( $user->authorise('core.edit', $extension . '.questions.' . $item->id) && $item->sf_qtype != 'Page Break');
+                        $canEdit = ( $user->authorise('core.edit', $extension . '.questions.' . $item->id) && $item->sf_qtype != 'COM_SURVEYFORCE_PAGE_BREAK');
                         $canCheckin = $user->authorise('core.admin', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
                         $canChange = $user->authorise('core.edit.state', $extension . '.questions.' . $item->id) && $canCheckin;
                         ?>
