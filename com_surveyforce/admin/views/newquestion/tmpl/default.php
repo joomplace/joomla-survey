@@ -24,7 +24,7 @@ if (class_exists('JToolBar')) {
 }
 
 $i = 0;
-$countOfQuest = sizeof($this->questions);
+$countOfQuest = !empty($this->questions) ? count($this->questions) : 0;
 ?>
 <script language="javascript" type="text/javascript" src="<?php echo JURI::root();?>administrator/components/com_surveyforce/assets/js/thickbox/thickbox.js" ></script>
 <style type="text/css" >
@@ -110,6 +110,7 @@ foreach ($this->questions as $p => $question) {
 	<legend><?php echo JText::_('COM_SURVEYFORCE_SELECT_NEW_QUESTION_TYPE');?></legend>
 	<?php if (class_exists('JToolBar')) { echo $bar->render(); } ?>
 		<table width="100%" cellpadding="2" cellspacing="2" class="admintable">
+        <?php if(!empty($this->questions)): ?>
 		<?php while($i < count($this->questions)):?>
 			
 			<tr>
@@ -123,7 +124,8 @@ foreach ($this->questions as $p => $question) {
 				</td>
 			</tr>
 		<?php $i = $i + 2;?>
-		<?php endwhile;?>
+		<?php endwhile; ?>
+        <?php endif; ?>
 		</table>
 		<div id="question_type_description"></div>
 	</fieldset>
