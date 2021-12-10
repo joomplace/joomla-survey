@@ -663,6 +663,10 @@ a.menu_link:hover {
 }
 #system-message-container {
     float: none !important;
+    width: 100% !important;
+}
+.j-sidebar-container.j-sidebar-visible {
+    left: 1.2% !important;
 }
 
 /* admin banners start */

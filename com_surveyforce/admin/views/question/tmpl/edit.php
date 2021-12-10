@@ -182,4 +182,44 @@ $ordering_list = $this->ordering_list;
     <input type="hidden" name="return" value="<?php echo $input->getCmd('return'); ?>" />
     <?php echo JHtml::_('form.token'); ?>
 </form>
+<script>
+    //Remember selected tabs
+    jQuery(function($){
+        'use strict';
 
+        let params = (new URL(document.location)).searchParams,
+            id = params.get('id');
+
+        if(id === null) {
+            id = 0;
+        }
+
+        let questionTabName = getCookie('questionTab'+id);
+        if (questionTabName) {
+            $('.nav-tabs li').each(function () {
+                $(this).removeClass('active');
+                if ($('a', this).attr('href') == '#' + questionTabName) {
+                    $('a', this).trigger('click');
+                }
+            });
+        }
+
+        $('.nav-tabs a').on('click', function() {
+            if ($(this).hasClass('active')) {
+                return false;
+            }
+            tabSetCookie($(this).attr('href'));
+        });
+
+        function tabSetCookie(tabName) {
+            document.cookie = 'questionTab' + id + '=' + tabName.split('#')[1];
+        }
+
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+    });
+</script>
