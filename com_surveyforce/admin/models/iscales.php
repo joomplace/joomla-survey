@@ -53,7 +53,8 @@ class SurveyforceModelIscales extends JModelList {
         $query->delete('#__survey_force_iscales_fields');
         $query->where('iscale_id IN (' . implode(',', $cid) . ')');
         $db->setQuery($query);
-        $db->execute();  //Remove all 
+        $result = $db->execute();
+        return $result;
     }
 
 }

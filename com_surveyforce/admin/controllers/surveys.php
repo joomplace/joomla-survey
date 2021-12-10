@@ -9,7 +9,11 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-jimport('joomla.application.component.controlleradmin');
+use \Joomla\CMS\Factory;
+use \Joomla\CMS\Language\Text;
+use \Joomla\CMS\Router\Route;
+use \Joomla\Utilities\ArrayHelper;
+use \Joomla\CMS\Uri\Uri;
 
 class SurveyforceControllerSurveys extends JControllerAdmin
 {
@@ -18,7 +22,7 @@ class SurveyforceControllerSurveys extends JControllerAdmin
         parent::__construct($config);
     }
 
-    public function getModel($name = 'Surveys', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true))
+    public function getModel($name='Surveys', $prefix='SurveyforceModel', $config=array('ignore_request' => true))
     {
         return parent::getModel($name, $prefix, $config);
     }
@@ -30,73 +34,70 @@ class SurveyforceControllerSurveys extends JControllerAdmin
 
     public function delete()
     {
-        // Get items to remove from the request.
-        $cid = JFactory::getApplication()->input->get('cid', array(), '', 'array');
-        $tmpl = JFactory::getApplication()->input->get('tmpl');
-        if ($tmpl == 'component') {
+        $this->checkToken();
+        $cid = $this->input->get('cid', array(), 'array');
+        $tmpl = $this->input->get('tmpl', '');
+
+        if($tmpl == 'component') {
             $tmpl = '&tmpl=component';
         } else {
             $tmpl = '';
         }
 
         if (!is_array($cid) || count($cid) < 1) {
-            JFactory::getApplication()->enqueueMessage(JText::_($this->text_prefix . '_NO_ITEM_SELECTED'), 'error');
+            Factory::getApplication()->enqueueMessage(Text::_($this->text_prefix . '_NO_ITEM_SELECTED'), 'error');
         } else {
-            // Get the model.
             $model = $this->getModel();
+            $cid = ArrayHelper::toInteger($cid);
 
-            // Make sure the item ids are integers
-            jimport('joomla.utilities.arrayhelper');
-            JArrayHelper::toInteger($cid);
-
-            // Remove the items.
             if ($model->delete($cid)) {
-                $this->setMessage(JText::plural($this->text_prefix . '_N_ITEMS_DELETED', count($cid)));
+                $this->setMessage(Text::plural($this->text_prefix . '_N_ITEMS_DELETED', count($cid)));
             } else {
                 $this->setMessage($model->getError());
             }
         }
 
-        $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $tmpl, false));
+        $this->setRedirect(Route::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $tmpl, false));
     }
 
     public function edit()
     {
-        $cid = JFactory::getApplication()->input->get('cid', array(), '', 'array');
-        $item_id = $cid['0'];
-        $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&task=survey.edit&id=' . $item_id, false));
+        $cid = $this->input->get('cid', array(), 'array');
+        $item_id = !empty($cid['0']) ? (int)$cid['0'] : 0;
+        $this->setRedirect(Route::_('index.php?option=' . $this->option . '&task=survey.edit&id=' . $item_id, false));
     }
 
 	public function preview()
 	{
-		$database = JFactory::getDbo();
-        $cids = JFactory::getApplication()->input->get('cid', array(), 'array');
+		$database = Factory::getDbo();
+        $cids = $this->input->get('cid', array(), 'array');
 		$cid = (int) end($cids);
 
 		$unique_id = md5(uniqid(rand(), true));
-		$query = "INSERT INTO `#__survey_force_previews` SET `preview_id` = '".$unique_id."', `time` = '".strtotime(JFactory::getDate())."'";
-		$database->setQuery( $query );
+		$query = "INSERT INTO `#__survey_force_previews` SET `preview_id` = '".$unique_id."', `time` = '".strtotime(Factory::getDate())."'";
+		$database->setQuery($query);
 		$database->execute();
 
-		$this->setRedirect( JRoute::_(JUri::root()."index.php?option=com_surveyforce&view=survey&id={$cid}&preview=".$unique_id) );
+		$this->setRedirect(Route::_(Uri::root()."index.php?option=com_surveyforce&view=survey&id={$cid}&preview=".$unique_id));
 	}
 	
 	public function copy()
     {
-		$cids = implode(',', JFactory::getApplication()->input->get('cid', array(),'array'));
+        $cid = $this->input->get('cid', array(), 'array');
+		$cids = implode(',', $cid);
 		
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $query = $db->getQuery(true);
         $query->select('s.*');
         $query->from('`#__survey_force_cats` as s');
 		$db->setQuery($query);
 		$categories = $db->loadObjectList();
 		
-		if($categories && $cids){
+		if(!empty($categories) && !empty($cids)) {
 			?>
 			<form action="index.php" method="POST">
 				<label>
-					<?php echo JText::_('COM_SURVEYFORCE_COPY_TO'); ?>
+					<?php echo Text::_('COM_SURVEYFORCE_COPY_TO'); ?>
 				</label>
 				<div>
 					<select name="cat_id">
@@ -108,10 +109,10 @@ class SurveyforceControllerSurveys extends JControllerAdmin
 					</select>
 				</div>
                 <a class="btn btn-danger" style="margin-right: 10px;"
-                   href="<?php echo JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false)?>">
-                    <?php echo JText::_('COM_SURVEYFORCE_MOVE_CANCEL'); ?>
+                   href="<?php echo Route::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false)?>">
+                    <?php echo Text::_('COM_SURVEYFORCE_MOVE_CANCEL'); ?>
                 </a>
-				<button class="btn btn-default"><?php echo JText::_('COM_SURVEYFORCE_MOVE_SUBMIT'); ?></button>
+				<button class="btn btn-default"><?php echo Text::_('COM_SURVEYFORCE_MOVE_SUBMIT'); ?></button>
 				<input type="hidden" name="surveys" value="<?php echo $cids; ?>" />
 				<input type="hidden" name="task" value="surveys.copyto" />
 				<input type="hidden" name="option" value="com_surveyforce" />
@@ -122,12 +123,11 @@ class SurveyforceControllerSurveys extends JControllerAdmin
 
 	public function copyto()
     {
-		$input = JFactory::getApplication()->input;
-		$sf = $input->get('cat_id',0);
-
+		$input = Factory::getApplication()->input;
+		$sf = $input->getInt('cat_id',0);
 		$ids = $input->get('surveys','','string');
 		
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $query = $db->getQuery(true);
 
         $query->select('*')
@@ -249,7 +249,7 @@ class SurveyforceControllerSurveys extends JControllerAdmin
 			}
         }
 
-		JFactory::getApplication()->redirect('index.php?option=com_surveyforce&view=surveys');
+		Factory::getApplication()->redirect('index.php?option=com_surveyforce&view=surveys');
 	}
 
 }

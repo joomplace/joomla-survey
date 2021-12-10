@@ -138,7 +138,8 @@ class SurveyforceModelReports extends JModelList {
         $query->delete('#__survey_force_user_starts');
         $query->where('id IN (' . implode(',', $cid) . ')');
         $db->setQuery($query);
-        $db->execute();  //Remove all milistones
+        $result = $db->execute();
+        return $result;
     }
 
 }
