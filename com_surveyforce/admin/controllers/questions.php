@@ -206,7 +206,7 @@ class SurveyforceControllerQuestions extends JControllerAdmin
 			?>
 			<form action="index.php" method="POST">
 				<label>
-					<?php echo JText::_('COM_SURVEYFORCE_MOVE_TO'); ?>
+					<?php echo JText::_('COM_SURVEYFORCE_COPY_TO'); ?>
 				</label>
 				<div>
 					<select name="sf_id">
