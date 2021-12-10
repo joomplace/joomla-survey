@@ -89,7 +89,8 @@ class SurveyforceModelAuthors extends JModelList
 			->delete('#__survey_force_authors')
 			->where('id IN (' . implode(',', $cid) . ')');
 		$db->setQuery($query);
-		$db->execute(); //Remove all milistones
+        $result = $db->execute();
+        return $result;
 	}
 
 }

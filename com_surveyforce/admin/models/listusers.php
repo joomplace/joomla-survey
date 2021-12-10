@@ -43,8 +43,7 @@ class SurveyforceModelListusers extends JModelList {
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
         return $query;
     }
-    
-    
+
     function delete($cid) {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
@@ -57,9 +56,7 @@ class SurveyforceModelListusers extends JModelList {
         $query->delete('#__survey_force_users');
         $query->where('list_id IN (' . implode(',', $cid) . ')');
         $db->setQuery($query);
-        $db->execute();  //Remove all
+        $result = $db->execute();
+        return $result;
     }
-
-   
-
 }

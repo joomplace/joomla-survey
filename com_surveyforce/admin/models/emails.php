@@ -43,16 +43,12 @@ class SurveyforceModelEmails extends JModelList {
     }
 
     function delete($cid) {
-
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->delete('#__survey_force_emails');
         $query->where('id IN (' . implode(',', $cid) . ')');
         $db->setQuery($query);
-        $db->execute();  //Remove all milistones
-
+        $result = $db->execute();
+        return $result;
     }
-
-    
-
 }
