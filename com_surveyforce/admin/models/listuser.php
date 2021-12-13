@@ -83,13 +83,15 @@ class SurveyforceModelListuser extends JModelAdmin {
 				$loader = new DeCsvLoader();
 				$loader->setFileName($userfileTempName);
 				if (!$loader->load()) {
-					echo "<script> alert('" . JText::_('COM_SURVEYFORCE_IMPORT_FAILED') . ":" . $loader->getErrorMessage() . "'); window.history.go(-1); </script>\n";
-					exit();
-				}
+                    $msg = JText::_('COM_SURVEYFORCE_IMPORT_FAILED') . ":" . $loader->getErrorMessage();
+                    JFactory::getApplication()->redirect( "index.php?option=com_surveyforce&view=listuser&layout=edit", $msg, 'error');
+                    return false;
+                }
 
 				if (!SurveyforceHelper::SF_prepareImport($loader, $fieldDescriptors)) {
-					echo "<script> alert('" . JText::_('COM_SURVEYFORCE_IMPORT_FAILED') . "'); window.history.go(-1); </script>\n";
-					exit();
+                    $msg = JText::_('COM_SURVEYFORCE_IMPORT_FAILED');
+                    JFactory::getApplication()->redirect( "index.php?option=com_surveyforce&view=listuser&layout=edit", $msg, 'error');
+                    return false;
 				}
 
 				$requiredFieldNames = $fieldDescriptors->getRequiredFieldNames();
@@ -100,8 +102,9 @@ class SurveyforceModelListuser extends JModelAdmin {
 				while (!$loader->isEof()) {
 					$values = $loader->getNextValues();
 					if (!SurveyforceHelper::SF_prepareImportRow($loader, $fieldDescriptors, $values, $requiredFieldNames, $allFieldNames)) {
-						echo "<script> alert('" . $ii . JText::_('COM_SURVEYFORCE_ROW_IMPORT_FAILED') . "'); window.history.go(-1); </script>\n";
-						exit();
+						$msg = $ii . JText::_('COM_SURVEYFORCE_ROW_IMPORT_FAILED');
+                        JFactory::getApplication()->redirect( "index.php?option=com_surveyforce&view=listuser&layout=edit", $msg, 'error');
+                        return false;
 					}
 
 					$ii++;
@@ -123,13 +126,15 @@ class SurveyforceModelListuser extends JModelAdmin {
 				while (!$loader->isEof()) {
 					$values = $loader->getNextValues();
 					if (!SurveyforceHelper::SF_prepareImportRow($loader, $fieldDescriptors, $values, $requiredFieldNames, $allFieldNames)) {
-						echo "<script> alert('" . $ii . JText::_('COM_SURVEYFORCE_ROW_IMPORT_FAILED') . "'); window.history.go(-1); </script>\n";
-						exit();
+						$msg = $ii . JText::_('COM_SURVEYFORCE_ROW_IMPORT_FAILED');
+                        JFactory::getApplication()->redirect( "index.php?option=com_surveyforce&view=listuser&layout=edit", $msg, 'error');
+                        return false;
 					}
 					$row_user = $this->getTable('User');
 					if (!$row_user->bind($values)) {
-						echo "<script> alert('" . $row_user->getError() . "'); window.history.go(-1); </script>\n";
-						exit();
+						$msg = $row_user->getError();
+                        JFactory::getApplication()->redirect( "index.php?option=com_surveyforce&view=listuser&layout=edit", $msg, 'error');
+                        return false;
 					}
 					$row_user->list_id = $list_id;
 					if (!$row_user->check()) {
@@ -151,8 +156,9 @@ class SurveyforceModelListuser extends JModelAdmin {
 				foreach (array_keys($rows) as $k) {
 					$row_user = & $rows[$k];
 					if (!$row_user->store()) {
-						echo "<script> alert('" . $row_user->getError() . "'); window.history.go(-1); </script>\n";
-						exit();
+						$msg = $row_user->getError();
+                        JFactory::getApplication()->redirect( "index.php?option=com_surveyforce&view=listuser&layout=edit", $msg, 'error');
+                        return false;
 					}
 				}
 			}
@@ -177,8 +183,9 @@ class SurveyforceModelListuser extends JModelAdmin {
 					if (!$row_user->check()) {
 						continue;
 					} elseif (!$row_user->store()) {
-						echo "<script> alert('" . $row_user->getError() . "'); window.history.go(-1); </script>\n";
-						exit();
+						$msg = $row_user->getError();
+                        JFactory::getApplication()->redirect( "index.php?option=com_surveyforce&view=listuser&layout=edit", $msg, 'error');
+                        return false;
 					}
 				}
 			}
@@ -200,8 +207,9 @@ class SurveyforceModelListuser extends JModelAdmin {
 						if (!$row_user->check()) {
 							continue;
 						} elseif (!$row_user->store()) {
-							echo "<script> alert('" . $row_user->getError() . "'); window.history.go(-1); </script>\n";
-							exit();
+							$msg = $row_user->getError();
+                            JFactory::getApplication()->redirect( "index.php?option=com_surveyforce&view=listuser&layout=edit", $msg, 'error');
+                            return false;
 						}
 						$ind++;
 					}
@@ -238,8 +246,9 @@ class SurveyforceModelListuser extends JModelAdmin {
 						if (!$row_user->check()) {
 							continue;
 						} elseif (!$row_user->store()) {
-							echo "<script> alert('" . $row_user->getError() . "'); window.history.go(-1); </script>\n";
-							exit();
+							$msg = $row_user->getError();
+                            JFactory::getApplication()->redirect( "index.php?option=com_surveyforce&view=listuser&layout=edit", $msg, 'error');
+                            return false;
 						}
 					}
 				}
