@@ -631,12 +631,15 @@ class SurveyforceHelper
 		else
 		{
 			$survey->error = 'blocked';
-			if(!$survey->published)
-				$survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_not_published');
-			elseif(strtotime($survey->sf_date_started) <= $now){
+			if(!$survey->published) {
+                $survey->message = SurveyforceTemplates::Survey_blocked($sf_config, '_not_published');
+            }
+            elseif($survey->sf_date_started != '0000-00-00 00:00:00' && strtotime($survey->sf_date_started) <= $now) {
 				$survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_started');
-			}
-			else $survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_expired');
+			} else {
+                $survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_expired');
+            }
+
 			return array('survey' => $survey, 'sf_config' => $sf_config, 'is_invited' => 0, 'invite_num' => '', 'rules' => $rules, 'preview' => $preview);
 		}
 	}
@@ -771,12 +774,15 @@ class SurveyforceHelper
 		else
 		{
 			$survey->error = 'bloked';
-			if(!$survey->published)
-				$survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_not_published');
-			elseif(strtotime($survey->sf_date_started) <= $now){
-				$survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_started');
-			}
-			else $survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_expired');
+            if(!$survey->published) {
+                $survey->message = SurveyforceTemplates::Survey_blocked($sf_config, '_not_published');
+            }
+            elseif($survey->sf_date_started != '0000-00-00 00:00:00' && strtotime($survey->sf_date_started) <= $now) {
+                $survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_started');
+            } else {
+                $survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_expired');
+            }
+
 			return array('survey' => $survey, 'sf_config' => $sf_config, 'is_invited' => 0, 'invite_num' => '', 'rules' => $rules, 'preview' => $preview);
 		}
 	}
