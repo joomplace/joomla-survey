@@ -530,8 +530,10 @@ class SurveyforceHelper
 
 		$now = strtotime(JFactory::getDate());
 
-		if (($survey->published) && (($survey->sf_date_expired == '0000-00-00 00:00:00' && $survey->sf_date_started == '0000-00-00 00:00:00') || (strtotime($survey->sf_date_expired) >= $now && strtotime($survey->sf_date_started) <= $now))) 
-		{
+		if ($survey->published
+            && ((strtotime($survey->sf_date_expired) >= $now || $survey->sf_date_expired == '0000-00-00 00:00:00')
+                    && (strtotime($survey->sf_date_started) <= $now || $survey->sf_date_started == '0000-00-00 00:00:00'))
+        ) {
 
 			$query = " SELECT sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_survey = {$survey->id} ORDER BY ordering, id ";
 			$database->setQuery($query);
@@ -703,8 +705,10 @@ class SurveyforceHelper
 		$rules = $database->loadObjectList();
 
 		$now = strtotime(JFactory::getDate());
-		if (($survey->published) && (($survey->sf_date_expired == '0000-00-00 00:00:00' && $survey->sf_date_started == '0000-00-00 00:00:00') || (strtotime($survey->sf_date_expired) >= $now && strtotime($survey->sf_date_started) <= $now)))
-		{
+        if ($survey->published
+            && ((strtotime($survey->sf_date_expired) >= $now || $survey->sf_date_expired == '0000-00-00 00:00:00')
+                && (strtotime($survey->sf_date_started) <= $now || $survey->sf_date_started == '0000-00-00 00:00:00'))
+        ) {
 
 			$query = " SELECT sf_qtype FROM #__survey_force_quests WHERE published = 1 AND sf_survey = {$survey->id} ORDER BY ordering, id ";
 			$database->setQuery($query);

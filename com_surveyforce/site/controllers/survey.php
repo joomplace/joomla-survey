@@ -792,7 +792,10 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 
 		if (!$preview) {
-			if (($survey->published) && (($survey->sf_date_expired == '0000-00-00 00:00:00' && $survey->sf_date_started == '0000-00-00 00:00:00') || (strtotime($survey->sf_date_expired) >= $now && strtotime($survey->sf_date_started) <= $now))) {
+            if ($survey->published
+                && ((strtotime($survey->sf_date_expired) >= $now || $survey->sf_date_expired == '0000-00-00 00:00:00')
+                    && (strtotime($survey->sf_date_started) <= $now || $survey->sf_date_started == '0000-00-00 00:00:00'))
+            ) {
 				if (($my->id) && ($survey->sf_reg)) {
 					//null;
 				} elseif (($my->id) && ($survey->sf_friend) && $sf_config->get('sf_enable_jomsocial_integration') && in_array($my->id, $friends)) {
@@ -1395,7 +1398,10 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 		$now =strtotime(JFactory::getDate());
 		if (!$preview) {
-			if (($survey->published) && (($survey->sf_date_expired == '0000-00-00 00:00:00' && $survey->sf_date_started == '0000-00-00 00:00:00') || (strtotime($survey->sf_date_expired) >= $now && strtotime($survey->sf_date_started) <= $now))) {
+            if ($survey->published
+                && ((strtotime($survey->sf_date_expired) >= $now || $survey->sf_date_expired == '0000-00-00 00:00:00')
+                    && (strtotime($survey->sf_date_started) <= $now || $survey->sf_date_started == '0000-00-00 00:00:00'))
+            ) {
 				if (($my->id) && ($survey->sf_reg)) {
 
 				} elseif (($my->id) && ($survey->sf_friend) && $sf_config->get('sf_enable_jomsocial_integration') && in_array($my->id, $friends)) {
@@ -2279,7 +2285,10 @@ class SurveyforceControllerSurvey extends JControllerForm {
 
 		$now = strtotime(JFactory::getDate());
 		if (!$preview) {
-			if (($survey->published) && ($survey->sf_date_expired == '0000-00-00 00:00:00' && $survey->sf_date_started == '0000-00-00 00:00:00') || (strtotime($survey->sf_date_expired) >= $now && strtotime($survey->sf_date_started) <= $now)) {
+            if ($survey->published
+                && ((strtotime($survey->sf_date_expired) >= $now || $survey->sf_date_expired == '0000-00-00 00:00:00')
+                    && (strtotime($survey->sf_date_started) <= $now || $survey->sf_date_started == '0000-00-00 00:00:00'))
+            ) {
 				if ((JFactory::getUser()->id) && ($survey->sf_reg)) {
 
 				} elseif ((JFactory::getUser()->id) && ($survey->sf_friend) && $sf_config->get('sf_enable_jomsocial_integration') && in_array(JFactory::getUser()->id, $friends)) {
