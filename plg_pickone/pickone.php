@@ -122,7 +122,7 @@ class plgSurveyPickone {
 
         if ($other_option_cb == 2) {
 
-            $other_text = $jinput->get('other_option');
+            $other_text = $jinput->get('other_option', '', 'STRING');
             $other_id = $jinput->getInt('other_op_id', 0);
 
             $new_field = JTable::getInstance('Fields', 'SurveyforceTable', array());
