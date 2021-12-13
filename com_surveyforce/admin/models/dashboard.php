@@ -9,10 +9,8 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-jimport('joomla.application.component.modellist');
-
-class SurveyforceModelDashboard extends JModelList {
-
+class SurveyforceModelDashboard extends JModelList
+{
     public function __construct($config = array()) {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array();
@@ -20,7 +18,16 @@ class SurveyforceModelDashboard extends JModelList {
         parent::__construct($config);
     }
 
-    protected function getListQuery() {
+    protected function populateState($ordering = null, $direction = null)
+    {
+        parent::populateState($ordering, $direction);
+
+        $this->setState('list.start', 0);
+        $this->setState('list.limit', 0);
+    }
+
+    protected function getListQuery()
+    {
         $db = $this->_db;
         $query = $db->getQuery(true);
         $query->select('*');
@@ -30,13 +37,14 @@ class SurveyforceModelDashboard extends JModelList {
         return $query;
     }
 
-    public function getCurrDate() {
+    public function getCurrDate()
+    {
         $params = JComponentHelper::getParams('com_surveyforce');
+
         if (strtotime("+2 month", strtotime($params->get('curr_date'))) <= strtotime(JFactory::getDate())) {
             return true;
         } else {
             return false;
         }
     }
-
 }
