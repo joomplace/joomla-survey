@@ -64,12 +64,14 @@ $countOfQuest = !empty($this->questions) ? count($this->questions) : 0;
 		font-size: 16px;
 		padding: 10px;
 	}
+    .admintable input[type="radio"] {
+        margin: -2px 3px 0 0;
+    }
 </style>
 <?php 
 
 $original_titles = array();
 foreach ($this->questions as $p => $question) {
-	
 	switch(JText::_($question->sf_qtype)){
 		case JText::_('COM_SURVEYFORCE_LIKERTSCALE'):
 			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_LIKERTSCALE').'</strong> - allows users to measure their attitude towards something.';
@@ -80,8 +82,8 @@ foreach ($this->questions as $p => $question) {
 		case JText::_('COM_SURVEYFORCE_PICKMANY'):
 			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_PICKMANY').'</strong> - is a multiple response question.';
 		break;
-		case JText::_('COM_SURVEYFORCE_SHORT_ANSWER'):
-			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_SHORT_ANSWER').'</strong> - requires a short answer (it can be a single word or a phrase).';
+		case JText::_('COM_SURVEYFORCE_SHORTANSWER'):
+			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_SHORTANSWER').'</strong> - requires a short answer (it can be a single word or a phrase).';
 		break;
 		case JText::_('COM_SURVEYFORCE_RANKING_DROPDOWN'):
 			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_RANKING_DROPDOWN').'</strong> - allows users to rank items in a preferred order by selecting from a series of drop-down lists.';
@@ -95,8 +97,8 @@ foreach ($this->questions as $p => $question) {
 		case JText::_('COM_SURVEYFORCE_PAGE_BREAK'):
 			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_PAGE_BREAK').'</strong> - allows to separate questions and create new pages in a survey.';
 		break;
-		case JText::_('COM_SURVEYFORCE_S_RANKING'):
-			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_S_RANKING').'</strong> - allows you to present your site users with a list of possible answers/options, which they may then rank in order of preference.';
+		case JText::_('COM_SURVEYFORCE_RANKING'):
+			$original_title[$p] = '<strong>'.JText::_('COM_SURVEYFORCE_RANKING').'</strong> - allows you to present your site users with a list of possible answers/options, which they may then rank in order of preference.';
 		break;
 		default:
 			$original_title[$p] = 'None';
