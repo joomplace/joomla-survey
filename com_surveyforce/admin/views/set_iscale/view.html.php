@@ -61,7 +61,7 @@ class SurveyforceViewSet_iscale extends JViewLegacy
         $session->set('sf_alt_fields_sf', $app->input->get('sf_alt_fields', '', 'array', array()));
         $session->set('sf_alt_field_ids_sf', $app->input->get('sf_alt_field_ids', '', 'array', array()));
         $session->set('other_option_cb_sf', $app->input->get('other_option_cb', 0));
-        $session->set('other_option_sf', $app->input->get('other_option', ''));
+        $session->set('other_option_sf', $app->input->get('other_option', '', 'STRING'));
         $session->set('other_op_id_sf', $app->input->get('other_op_id', 0));
         $session->set('sf_hid_rank_sf', $app->input->get('sf_hid_rank', '', 'array', array()));
         $session->set('sf_hid_rank_id_sf', $app->input->get('sf_hid_rank_id', '', 'array', array()));
