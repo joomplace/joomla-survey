@@ -11,7 +11,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 <?php
-JToolBarHelper::title( ($row->id ? JText::_('COM_SURVEYFORCE_EDIT_QUESTION') : JText::_('COM_SURVEYFORCE_NEW_QUESTION')).' '.JText::_('COM_SURVEYFORCE_RANKING').'', 'static.png' );
+JToolBarHelper::title( ($row->id ? JText::_('COM_SURVEYFORCE_EDIT_QUESTION') : JText::_('COM_SURVEYFORCE_NEW_QUESTION')).' ('.JText::_('COM_SURVEYFORCE_RANKING').')', 'static.png' );
 if ( strpos(JUri::base(), 'administrator/') )
 	$setDefaultLink = "index.php?option=com_surveyforce&view=set_default&id=".$row->id;
 else
