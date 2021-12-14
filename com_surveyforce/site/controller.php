@@ -24,13 +24,7 @@ class SurveyforceController extends JControllerLegacy
     {
         $view   = $this->input->get('view');
         $task   = $this->input->get('task');
-        $itemid = $this->input->get('Itemid', 0, 'INT');
-
-        //seems not needed
-        if (empty($itemid)) {
-            $itemid = $this->input->post->get('Itemid', 0, 'INT') ? $this->input->post->get('Itemid', 0, 'INT') : $this->input->get->get('Itemid', 0, 'INT');
-        }
-
+        $itemid = $this->input->getInt('Itemid', 0);
         $this->input->set('Itemid', $itemid);
 
         if ($view == 'authoring' && !isset($_SESSION['view'])) {

@@ -13,15 +13,19 @@ class SurveyforceControllerSet_iscale extends JControllerForm
 {
 	public function cancel($key = null)
     {
-		$qid = $_SESSION['qid'];
+        $qid = isset($_SESSION['qid']) ? $_SESSION['qid'] : 0;
 		unset($_SESSION['qid']);
 		$this->setRedirect('index.php?option=com_surveyforce&view=question&layout=edit&id='.$qid);
 	}
 
     public function save($key = null, $urlVar = null)
     {
-        unset($_SESSION['qid']);
-    	$data = JFactory::getApplication()->input->post;
-        $this->setRedirect('index.php?option=com_surveyforce&view=question&layout=edit&id='.$quest_id);
+        $qid = 0;
+        if(isset($_SESSION['qid'])) {
+            $qid = $_SESSION['qid'];
+            unset($_SESSION['qid']);
+        }
+
+        $this->setRedirect('index.php?option=com_surveyforce&view=question&layout=edit&id='.$qid);
 	}
 }
