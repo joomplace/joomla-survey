@@ -113,7 +113,9 @@ else
 		<td align="left" colspan="5">
 			<?php echo JText::_('COM_SURVEYFORCE_MAX_NUMBER_CHECKED_OPTIONS'); ?>
 			( <small><?php echo JText::_('COM_SURVEYFORCE_SET_ZERO_IF_THERE_NO_MAXIMUM'); ?></small> )
-			<input type="text" value="<?php echo ($sf_num_options == null?'0':$sf_num_options)?>" id="jform_sf_num_options" name="jform[sf_num_options]" style="width:120px " class="text_area" aria-invalid="false">
+			<input type="number" value="<?php echo (!empty($sf_num_options) ? $sf_num_options : 0); ?>"
+                   id="jform_sf_num_options" name="jform[sf_num_options]" style="width:120px;" class="text_area" aria-invalid="false"
+                   min="0" oninput="this.value=(this.value<Number(this.min) ? this.min : this.value);" >
 		</td>
 	</tr>
 </table>
