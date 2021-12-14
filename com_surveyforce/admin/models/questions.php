@@ -80,15 +80,15 @@ class SurveyforceModelQuestions extends JModelList {
         return $query;
     }
 
-    function delete($cid) {
-
+    function delete($cid)
+    {
         $db = JFactory::getDbo();
-                
         $query = $db->getQuery(true);
         $query->delete('#__survey_force_quests');
         $query->where('id IN (' . implode(',', $cid) . ')');
         $db->setQuery($query);
-        $db->execute();  //Remove all milistones
+        $result = $db->execute();
+        return $result;
     }
 
     public function publish($cid, $value = 1) {

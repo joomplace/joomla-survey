@@ -10,7 +10,6 @@ defined('_JEXEC') or die('Restricted access');
 
 class SurveyforceModelUsers extends JModelList
 {
-
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields']))
@@ -27,11 +26,13 @@ class SurveyforceModelUsers extends JModelList
 
 	protected function getListQuery()
 	{
-		$db = $this->getDbo();
-		$id = JFactory::getApplication()->input->get('id');
+		$id = JFactory::getApplication()->input->getInt('id', 0);
 
-		if (empty($id) || $id == 0)
-			return false;
+		if (empty($id) || $id == 0) {
+            return false;
+        }
+
+        $db = $this->getDbo();
 		$query = $db->getQuery(true);
 		$query->select('*');
 		$query->from('#__survey_force_users');
@@ -44,17 +45,14 @@ class SurveyforceModelUsers extends JModelList
 		return $query;
 	}
 
-
 	function delete($cid)
 	{
-
 		$db = JFactory::getDbo();
-		$query = $db->getQuery(true);
-
 		$query = $db->getQuery(true);
 		$query->delete('#__survey_force_users');
 		$query->where('id IN (' . implode(',', $cid) . ')');
 		$db->setQuery($query);
-		$db->execute(); //Remove all
+        $result = $db->execute();
+        return $result;
 	}
 }
