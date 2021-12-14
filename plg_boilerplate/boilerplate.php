@@ -113,7 +113,10 @@ class plgSurveyBoilerplate {
         return true;
     }
 
-    public static function onGetAdminOptions(&$data) {
+    public static function onGetAdminOptions(&$data)
+    {
+        $id = JFactory::getApplication()->input->getInt('id', 0);
+        JToolBarHelper::title( ($id ? JText::_('COM_SURVEYFORCE_EDIT_QUESTION') : JText::_('COM_SURVEYFORCE_NEW_QUESTION')).' ('.JText::_('COM_SURVEYFORCE_BOILERPLATE').')', 'static.png' );
 
         return false;
     }
