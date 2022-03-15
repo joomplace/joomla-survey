@@ -28,8 +28,8 @@ class plgSurveyBoilerplate {
         $document->addScript(JUri::root()."plugins/survey/boilerplate/js/boilerplate.js");
     }
 
-    public function onGetQuestionData(&$data) {
-
+    public static function onGetQuestionData(&$data)
+    {
         $database = JFactory::getDbo();
 
         $q_data = $data['q_data'];
@@ -103,13 +103,13 @@ class plgSurveyBoilerplate {
         return $ret_str;
     }
 
-    public function onSaveQuestion(&$data) {
-
+    public static function onSaveQuestion(&$data)
+    {
         return true;
     }
 
-    public function onGetAdminJavaScript(&$data) {
-
+    public function onGetAdminJavaScript(&$data)
+    {
         return true;
     }
 

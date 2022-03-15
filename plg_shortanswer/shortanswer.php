@@ -17,12 +17,13 @@ class plgSurveyShortanswer {
     var $_name = 'shortanswer';
     var $_type = 'survey';
 
-    public function __construct() {
+    public function __construct()
+    {
         return true;
     }
     
-     public static function onGetAdminOptions($data, $lists) {
-
+     public static function onGetAdminOptions($data, $lists)
+     {
          $database = JFactory::getDBO();
          $row = $data['item'];
          $q_om_type = $row->sf_qtype;
@@ -164,23 +165,24 @@ class plgSurveyShortanswer {
          return $options;
      }
 
-    public function onSaveQuestion(&$data) {
+    public static function onSaveQuestion(&$data)
+    {
         return true;
     }
     
-    public function onGetAdminJavaScript() {
-
+    public function onGetAdminJavaScript()
+    {
         return false;
     }
 
-    public function onGetScriptJs() {
-
+    public function onGetScriptJs()
+    {
         $document = JFactory::getDocument();
         $document->addScript(JUri::root()."/plugins/survey/shortanswer/js/shortanswer.js");
     }
 
-    public function onGetQuestionData(&$data) {
-
+    public static function onGetQuestionData(&$data)
+    {
         $database = JFactory::getDbo();
 
         $q_data = $data['q_data'];
@@ -328,13 +330,13 @@ class plgSurveyShortanswer {
     }
    
 
-    public function onTotalScore(&$data) {       
-
+    public function onTotalScore(&$data)
+    {
         return true;
     }
 
-    public function onScoreByCategory(&$data) {
-       
+    public function onScoreByCategory(&$data)
+    {
         return true;
     }
 
@@ -346,12 +348,13 @@ class plgSurveyShortanswer {
         
     }
 
-    public function onGetResult(&$data) {
-
+    public function onGetResult(&$data)
+    {
         return true;
     }
 
-    public function onStatisticContent(&$data) {
+    public function onStatisticContent(&$data)
+    {
         return true;
     }
 
@@ -382,6 +385,5 @@ class plgSurveyShortanswer {
 
 		return $result;
 	}
-    
 
 }

@@ -17,12 +17,13 @@ class plgSurveyRanking {
     var $_name = 'ranking';
     var $_type = 'survey';
 
-    public function __construct() {
+    public function __construct()
+    {
         return true;
     }
 
-	public function onGetDefaultForm($lists){
-
+	public static function onGetDefaultForm($lists)
+    {
 		ob_start();
 		?>
 		<div>
@@ -56,16 +57,13 @@ class plgSurveyRanking {
 		ob_clean();
 
 		return $content;
-
 	}
 
-	public function onSaveDefault(&$data){
-
+	public static function onSaveDefault(&$data)
+    {
 		$database = JFactory::getDBO();
-		if ( !empty($data['main_data']) )
-		{
-			foreach ($data['main_data'] as $main_id)
-			{
+		if ( !empty($data['main_data']) ) {
+			foreach ($data['main_data'] as $main_id) {
 				$ans_field = $data['query_select_'.$main_id];
 				$query = "INSERT INTO `#__survey_force_def_answers` (`survey_id`, `quest_id`, `answer`, `ans_field`) VALUES (".$data['survey_id'].", ".$data['id'].", ".$main_id.", ".$ans_field.")";
 				$database->setQuery($query);
@@ -74,11 +72,10 @@ class plgSurveyRanking {
 		}
 
 		return true;
-
 	}
 
-	public function onSaveQuestion(&$data) {
-
+	public static function onSaveQuestion(&$data)
+    {
         $database = JFactory::getDbo();
         $mainframe = JFactory::getApplication();
         $jinput = $mainframe->input;
@@ -337,21 +334,19 @@ class plgSurveyRanking {
 			return $data;
     }
 
-    public function onGetScriptJs() {
-
+    public function onGetScriptJs()
+    {
         $document = JFactory::getDocument();
         $document->addScript(JUri::root()."/plugins/survey/ranking/js/ranking.js");
     }
 
-    public function onCreateQuestion(&$data) {
-
-        $database = JFactory::getDBO();
-
+    public function onCreateQuestion(&$data)
+    {
         return $data;
     }
 
-    public function onGetQuestionData(&$data) {
-		
+    public static function onGetQuestionData(&$data)
+    {
         $database = JFactory::getDbo();
 
         $q_data = $data['q_data'];
@@ -547,13 +542,13 @@ class plgSurveyRanking {
         return $ret_str;
     }
 
-    public function onTotalScore(&$data) {
-
+    public function onTotalScore(&$data)
+    {
         return true;
     }
 
-    public function onScoreByCategory(&$data) {
-
+    public function onScoreByCategory(&$data)
+    {
         $database = JFactory::getDBO();
         $database->setQuery("SELECT SUM(a_point) FROM #__quiz_t_likertscole WHERE `c_question_id` = '" . $data['score_bycat']->c_id . "' AND c_right = 1");
         $data['score'] = $database->loadResult();
@@ -569,13 +564,13 @@ class plgSurveyRanking {
         
     }
 
-    public function onGetResult(&$data) {
-
+    public function onGetResult(&$data)
+    {
         return true;
     }
 
-    public function onGetPdf(&$data) {
-
+    public function onGetPdf(&$data)
+    {
 		$answer = '';
 		$correct_answer = '';
         for ($j = 0, $k = 'A'; $j < count($data['data']['c_likertscole']); $j++, $k++) {
@@ -610,8 +605,8 @@ class plgSurveyRanking {
         return $data['pdf'];
     }
 
-    public function onSendEmail(&$data) {
-
+    public function onSendEmail(&$data)
+    {
         for ($j = 0, $k = 'A'; $j < count($data['data']['c_likertscole']); $j++, $k++) {
             if ($data['data']['c_likertscole'][$j]['c_likertscole_id'])
                 $data['answer'] .= $k . "&nbsp;";
@@ -624,8 +619,8 @@ class plgSurveyRanking {
 
     //Administration part
 
-        public static function onGetAdminOptions($data, $lists) {
-
+    public static function onGetAdminOptions($data, $lists)
+    {
         $database = JFactory::getDBO();
         $row = $data['item'];
 		$q_om_type = $row->sf_qtype;
@@ -767,15 +762,14 @@ class plgSurveyRanking {
         return $options;
     }
 
-    public function onGetAdminJavaScript() {
-
+    public function onGetAdminJavaScript()
+    {
         $document = JFactory::getDocument();
         $document->addScript(JUri::root()."/plugins/survey/pickmany/admin/js/pickmany.js");
     }
 
     public function onAdminSaveOptions(&$data) {
 
-        $database = JFactory::getDBO();
     }
 
     public function onGetAdminAddLists(&$data) {
@@ -840,13 +834,13 @@ class plgSurveyRanking {
 		return $result;
 	}
 
-    public function onGetAdminQuestionData(&$data) {
-
+    public function onGetAdminQuestionData(&$data)
+    {
         return true;
     }
 
-    public function onGetAdminCsvData(&$data) {
-
+    public function onGetAdminCsvData(&$data)
+    {
 		$answer = '';
         $database = JFactory::getDBO();
         $query = "SELECT `b`.`c_likertscole_id` FROM `#__quiz_r_student_question` AS `a`, `#__quiz_r_student_likertscole` AS `b` WHERE `a`.`c_stu_quiz_id` = '" . $data['result']->c_id . "' AND `a`.`c_question_id` = '" . $data['question']->c_id . "' AND `a`.`c_id` = `b`.`c_sq_id` ";

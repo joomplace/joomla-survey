@@ -16,12 +16,13 @@ class plgSurveyLikertscale {
 	var $_name = 'likertscale';
 	var $_type = 'survey';
 
-	public function __construct() {
+	public function __construct()
+    {
 		return true;
 	}
 
-	public function onGetDefaultForm($lists){
-
+	public static function onGetDefaultForm($lists)
+    {
 		ob_start();
 		?>
 		<div>
@@ -42,8 +43,8 @@ class plgSurveyLikertscale {
 									</td>
 									<?php foreach($lists['scale_data'] as $scale) {
 										$selected = '';
-										if ( $lists['answer_data'][$main->id]['ans_field'] == $scale->id )
-										{
+										if (!empty($lists['answer_data'][$main->id]['ans_field'])
+                                            && $lists['answer_data'][$main->id]['ans_field'] == $scale->id ) {
 											$selected = ' checked="checked" ';
 										}
 										?>
@@ -63,16 +64,13 @@ class plgSurveyLikertscale {
 		ob_clean();
 
 		return $content;
-
 	}
 
-	public function onSaveDefault(&$data){
-
+	public static function onSaveDefault(&$data)
+    {
 		$database = JFactory::getDBO();
-		if ( !empty($data['scale_id']) )
-		{
-			foreach ($data['scale_id'] as $scale_id)
-			{
+		if ( !empty($data['scale_id']) ) {
+			foreach ($data['scale_id'] as $scale_id) {
 				$ans_field = $data['quest_radio_'.$scale_id];
 				$query = "INSERT INTO `#__survey_force_def_answers` (`survey_id`, `quest_id`, `answer`, `ans_field`) VALUES (".$data['survey_id'].", ".$data['id'].", ".$scale_id.", ".$ans_field.")";
 				$database->setQuery($query);
@@ -81,11 +79,10 @@ class plgSurveyLikertscale {
 		}
 
 		return true;
-
 	}
 
-	public function onSaveQuestion(&$data) {
-
+	public static function onSaveQuestion(&$data)
+    {
 		$database = JFactory::getDbo();
 		$mainframe = JFactory::getApplication();
 		$jinput = $mainframe->input;
@@ -222,8 +219,8 @@ class plgSurveyLikertscale {
 			return $data;
 	}
 
-	public function onGetQuestionData(&$data) {
-
+	public static function onGetQuestionData(&$data)
+    {
 		$database = JFactory::getDbo();
 
 		$q_data = $data['q_data'];
@@ -430,8 +427,8 @@ class plgSurveyLikertscale {
 
 	//Administration part
 
-	public static function onGetAdminOptions($data, $lists, $is_front = false) {
-
+	public static function onGetAdminOptions($data, $lists, $is_front = false)
+    {
 		$my = JFactory::getUser();
 		$database = JFactory::getDBO();
 		$row = $data['item'];
@@ -522,15 +519,13 @@ class plgSurveyLikertscale {
 		return $options;
 	}
 
-	public function onAdminSaveOptions(&$data) {
-
+	public function onAdminSaveOptions(&$data)
+    {
 		return true;
 	}
 
-	public function onGetAdminAddLists(&$data) {
-
-
-
+	public function onGetAdminAddLists(&$data)
+    {
 		return true;
 	}
 
@@ -579,15 +574,13 @@ class plgSurveyLikertscale {
 	}
 
 
-	public function onGetAdminQuestionData(&$data) {
-
+	public function onGetAdminQuestionData(&$data)
+    {
 		return true;
 	}
 
-	public function onGetAdminCsvData(&$data) {
-
-
-
+	public function onGetAdminCsvData(&$data)
+    {
 		return true;
 	}
 

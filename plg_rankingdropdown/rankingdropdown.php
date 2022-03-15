@@ -18,12 +18,13 @@ class plgSurveyRankingdropdown {
     var $_name = 'rankingdropdown';
     var $_type = 'survey';
 
-    public function __construct() {
+    public function __construct()
+    {
         return true;
     }
 
-	public function onGetDefaultForm($lists){
-
+	public static function onGetDefaultForm($lists)
+    {
 		ob_start();
 		?>
 		<div>
@@ -57,16 +58,13 @@ class plgSurveyRankingdropdown {
 		ob_clean();
 
 		return $content;
-
 	}
 
-	public function onSaveDefault(&$data){
-
+	public static function onSaveDefault(&$data)
+    {
 		$database = JFactory::getDBO();
-		if ( !empty($data['main_data']) )
-		{
-			foreach ($data['main_data'] as $main_id)
-			{
+		if ( !empty($data['main_data']) ) {
+			foreach ($data['main_data'] as $main_id) {
 				$ans_field = $data['query_select_'.$main_id];
 				$query = "INSERT INTO `#__survey_force_def_answers` (`survey_id`, `quest_id`, `answer`, `ans_field`) VALUES (".$data['survey_id'].", ".$data['id'].", ".$main_id.", ".$ans_field.")";
 				$database->setQuery($query);
@@ -75,11 +73,10 @@ class plgSurveyRankingdropdown {
 		}
 
 		return true;
-
 	}
 
-	public function onGetQuestionData(&$data) {
-
+	public static function onGetQuestionData(&$data)
+    {
         $database = JFactory::getDbo();
 
         $q_data = $data['q_data'];
@@ -275,8 +272,8 @@ class plgSurveyRankingdropdown {
         return $ret_str;
     }
 
-    public function onSaveQuestion(&$data) {
-
+    public static function onSaveQuestion(&$data)
+    {
         $database = JFactory::getDbo();
         $mainframe = JFactory::getApplication();
         $jinput = $mainframe->input;
@@ -373,36 +370,35 @@ class plgSurveyRankingdropdown {
     }
 
    
-    public function onTotalScore(&$data) {
-
+    public function onTotalScore(&$data)
+    {
         return true;
     }
 
-    public function onScoreByCategory(&$data) {
-
+    public function onScoreByCategory(&$data)
+    {
         return true;
     }
 
-    public function onNextPreviewQuestion(&$data) {
-
+    public function onNextPreviewQuestion(&$data)
+    {
         return true;
     }
 
-    public function onReviewQuestion(&$data) {
-
-
+    public function onReviewQuestion(&$data)
+    {
         return true;
     }
 
-    public function onGetResult(&$data) {
-
+    public function onGetResult(&$data)
+    {
         return true;
     }
 
     //Administration part
 
-     public static function onGetAdminOptions($data, $lists) {
-
+     public static function onGetAdminOptions($data, $lists)
+     {
 		$my = JFactory::getUser();
 		$database = JFactory::getDBO();
 		$row = $data['item'];
@@ -491,18 +487,19 @@ class plgSurveyRankingdropdown {
         return $options;
     }
 
-    public function onGetAdminJavaScript() {
-
+    public function onGetAdminJavaScript()
+    {
         $document = JFactory::getDocument();
         $document->addScript(JUri::root()."/plugins/survey/rankingdropdown/admin/js/rankingdropdown.js");
     }
 
-    public function onAdminSaveOptions(&$data) {
+    public function onAdminSaveOptions(&$data)
+    {
         return true;
     }
 
-    public function onGetAdminAddLists(&$data) {
-
+    public function onGetAdminAddLists(&$data)
+    {
         return true;
     }
 
@@ -550,13 +547,13 @@ class plgSurveyRankingdropdown {
 		return $result;
 	}
 
-    public function onGetAdminQuestionData(&$data) {
-
+    public function onGetAdminQuestionData(&$data)
+    {
         return true;
     }
 
-    public function onGetAdminCsvData(&$data) {
-
+    public function onGetAdminCsvData(&$data)
+    {
         return true;
     }
 

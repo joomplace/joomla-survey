@@ -16,12 +16,13 @@ class plgSurveyPickone {
     var $_name = 'pickone';
     var $_type = 'survey';
 
-    public function __construct() {
+    public function __construct()
+    {
         return true;
     }
 
-    public function onGetDefaultForm($lists){
-
+    public static function onGetDefaultForm($lists)
+    {
         ob_start();
         ?>
         <div>
@@ -50,12 +51,10 @@ class plgSurveyPickone {
         ob_clean();
 
         return $content;
-
     }
 
-    public function onSaveDefault(&$data){
-
-        
+    public static function onSaveDefault(&$data)
+    {
         $database = JFactory::getDBO();
         $ans_id = $data['quest_radio'];
 
@@ -64,11 +63,10 @@ class plgSurveyPickone {
         $database->execute();
 
         return true;
-        
     }
 
-    public function onSaveQuestion(&$data) {
-
+    public static function onSaveQuestion(&$data)
+    {
         $database = JFactory::getDbo();
         $mainframe = JFactory::getApplication();
         $jinput = $mainframe->input;
@@ -155,8 +153,8 @@ class plgSurveyPickone {
             return $data;
     }
 
-    public function onGetQuestionData(&$data) {
-
+    public static function onGetQuestionData(&$data)
+    {
         $database = JFactory::getDbo();
 
         $q_data = $data['q_data'];
@@ -342,8 +340,8 @@ class plgSurveyPickone {
 
     //Administration part
 
-    public static function onGetAdminOptions($data, $lists) {
-
+    public static function onGetAdminOptions($data, $lists)
+    {
         $my = JFactory::getUser();
         $database = JFactory::getDBO();
         $row = $data['item'];
@@ -417,15 +415,13 @@ class plgSurveyPickone {
         return $options;
     }
 
-    public function onAdminSaveOptions(&$data) {
-
+    public function onAdminSaveOptions(&$data)
+    {
         return true;
     }
 
-    public function onGetAdminAddLists(&$data) {
-
-
-
+    public function onGetAdminAddLists(&$data)
+    {
         return true;
     }
 
@@ -462,15 +458,13 @@ class plgSurveyPickone {
 		return $result;
 	}
 
-    public function onGetAdminQuestionData(&$data) {
-
+    public function onGetAdminQuestionData(&$data)
+    {
         return true;
     }
 
-    public function onGetAdminCsvData(&$data) {
-
-
-
+    public function onGetAdminCsvData(&$data)
+    {
         return true;
     }
 

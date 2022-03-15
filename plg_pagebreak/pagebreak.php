@@ -22,8 +22,8 @@ class plgSurveyPagebreak {
         return true;
     }
 
-    public function onSaveQuestion($data) {
-
+    public static function onSaveQuestion($data)
+    {
         $sf_survey = 0;
         if(isset($data) && is_array($data) && isset($data['item']) && is_object($data['item']) && isset($data['item']->sf_survey)){
             $sf_survey = (int)$data['item']->sf_survey;
@@ -61,14 +61,14 @@ class plgSurveyPagebreak {
 
     }
 
-    public function onGetScriptJs() {
-
+    public function onGetScriptJs()
+    {
         $document = JFactory::getDocument();
         $document->addScript(JUri::root()."/plugins/survey/pagebreak/js/pagebreak.js");
     }
 
-    public function onGetQuestionData(&$data) {
-
+    public static function onGetQuestionData(&$data)
+    {
         $database = JFactory::getDbo();
 
         $q_data = $data['q_data'];
@@ -202,13 +202,9 @@ class plgSurveyPagebreak {
         return $ret_str;
     }
 
-   
-    public function onNextPreviewQuestion(&$data) {
-
+    public function onNextPreviewQuestion(&$data)
+    {
         return true;
     }
-
-    
-    
 
 }
