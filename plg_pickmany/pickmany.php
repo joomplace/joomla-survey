@@ -16,12 +16,13 @@ class plgSurveyPickmany {
 	var $_name = 'pickmany';
 	var $_type = 'survey';
 
-	public function __construct() {
+	public function __construct()
+    {
 		return true;
 	}
 
-	public function onGetDefaultForm($lists){
-
+	public static function onGetDefaultForm($lists)
+    {
 		ob_start();
 		?>
 		<div>
@@ -50,31 +51,25 @@ class plgSurveyPickmany {
 		ob_clean();
 
 		return $content;
-
 	}
 
-	public function onSaveDefault(&$data){
-
-
+	public static function onSaveDefault(&$data)
+    {
 		$database = JFactory::getDBO();
 		$ans_ids = $data['quest_box'];
-		if ( !empty($ans_ids) )
-		{
-			foreach ($ans_ids as $ans_id)
-			{
+		if ( !empty($ans_ids) ) {
+			foreach ($ans_ids as $ans_id) {
 				$query = "INSERT INTO `#__survey_force_def_answers` (`survey_id`, `quest_id`, `answer`, `ans_field`) VALUES (".$data['survey_id'].", ".$data['id'].", ".$ans_id.", 0)";
 				$database->setQuery($query);
 				$database->execute();
 			}
 		}
 
-
 		return true;
-
 	}
 
-	public function onSaveQuestion(&$data) {
-
+	public static function onSaveQuestion(&$data)
+    {
 		$database = JFactory::getDbo();
 		$mainframe = JFactory::getApplication();
 		$jinput = $mainframe->input;
@@ -161,8 +156,8 @@ class plgSurveyPickmany {
 			return $data;
 	}
 
-	public function onGetQuestionData(&$data) {
-
+	public static function onGetQuestionData(&$data)
+    {
 		$database = JFactory::getDbo();
 
 		$q_data = $data['q_data'];
@@ -349,8 +344,8 @@ class plgSurveyPickmany {
 
 	//Administration part
 
-	public static function onGetAdminOptions($data, $lists) {
-
+	public static function onGetAdminOptions($data, $lists)
+    {
 		$my = JFactory::getUser();
 		$database = JFactory::getDBO();
 		$row = $data['item'];
@@ -425,17 +420,16 @@ class plgSurveyPickmany {
 		return $options;
 	}
 
-	public function onAdminSaveOptions(&$data) {
-
+	public function onAdminSaveOptions(&$data)
+    {
 		return true;
 	}
 
-	public function onGetAdminAddLists(&$data) {
-
-
-
+	public function onGetAdminAddLists(&$data)
+    {
 		return true;
 	}
+
 //TODO: not tested
 	public static function onGetAdminReport($question, $start_data)
 	{
@@ -471,15 +465,13 @@ class plgSurveyPickmany {
 		return $result;
 	}
 
-	public function onGetAdminQuestionData(&$data) {
-
+	public function onGetAdminQuestionData(&$data)
+    {
 		return true;
 	}
 
-	public function onGetAdminCsvData(&$data) {
-
-
-
+	public function onGetAdminCsvData(&$data)
+    {
 		return true;
 	}
 
