@@ -1124,7 +1124,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 						if (isset($q_data[$question])) {
 							$ret_str .= "\t" . '<is_final_question>' . $q_data[$question]->is_final_question . '</is_final_question>' . "\n";
 							$ret_str .= "\t" . '<question_data>' . "\n";
-							$ret_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $start_id, $survey);
+							$ret_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $survey, $start_id);
 							$ret_str .= "\t" . '</question_data>' . "\n";
 							$last_page_quest_id = $question;
 							$n++;
@@ -1216,7 +1216,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 									$first_quest_id = $question;
 								$tmp_str .= "\t" . '<is_final_question>' . $q_data[$question]->is_final_question . '</is_final_question>' . "\n";
 								$tmp_str .= "\t" . '<question_data>' . "\n";
-								$tmp_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $start_id, $survey);
+								$tmp_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $survey, $start_id);
 								$tmp_str .= "\t" . '</question_data>' . "\n";
 								$last_page_quest_id = $question;
 								$tmp++;
@@ -1238,7 +1238,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 									$first_quest_id = $question;
 								$ret_str .= "\t" . '<is_final_question>' . $q_data[$question]->is_final_question . '</is_final_question>' . "\n";
 								$ret_str .= "\t" . '<question_data>' . "\n";
-								$ret_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $start_id, $survey);
+								$ret_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $survey, $start_id);
 								$ret_str .= "\t" . '</question_data>' . "\n";
 								$last_page_quest_id = $question;
 								$tmp++;
@@ -1915,7 +1915,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 										$first_quest_id = $question;
 									$tmp_str .= "\t" . '<is_final_question>' . $q_data[$question]->is_final_question . '</is_final_question>' . "\n";
 									$tmp_str .= "\t" . '<question_data>' . "\n";
-									$tmp_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $start_id, $survey);
+									$tmp_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $survey, $start_id);
 									$tmp_str .= "\t" . '</question_data>' . "\n";
 									$last_page_quest_id = $question;
 									$tmp++;
@@ -1938,7 +1938,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 										$first_quest_id = $question;
 									$tmp_str .= "\t" . '<is_final_question>' . $q_data[$question]->is_final_question . '</is_final_question>' . "\n";
 									$tmp_str .= "\t" . '<question_data>' . "\n";
-									$tmp_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $start_id, $survey);
+									$tmp_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $survey, $start_id);
 									$tmp_str .= "\t" . '</question_data>' . "\n";
 									$last_page_quest_id = $question;
 									$tmp++;
@@ -2423,7 +2423,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 										$first_quest_id = $question;
 									$tmp_str .= "\t" . '<is_final_question>' . $q_data[$question]->is_final_question . '</is_final_question>' . "\n";
 									$tmp_str .= "\t" . '<question_data>' . "\n";
-									$tmp_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $start_id, $survey);
+									$tmp_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $survey, $start_id);
 									$tmp_str .= "\t" . '</question_data>' . "\n";
 									$pq_id = $question;
 									$tmp++;
@@ -2446,7 +2446,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 										$first_quest_id = $question;
 									$tmp_str .= "\t" . '<is_final_question>' . $q_data[$question]->is_final_question . '</is_final_question>' . "\n";
 									$tmp_str .= "\t" . '<question_data>' . "\n";
-									$tmp_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $start_id, $survey);
+									$tmp_str .= SurveyforceHelper::SF_GetQuestData($q_data[$question], $survey, $start_id);
 									$tmp_str .= "\t" . '</question_data>' . "\n";
 									$pq_id = $question;
 									$tmp++;

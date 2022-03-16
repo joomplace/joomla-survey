@@ -490,7 +490,7 @@ class DeImportFieldDescriptors {
 
 function sf_clearCSVQuotes($str){ 
 	$str = trim($str);
-	if ($str{0} == '"' && $str{strlen($str)-1} == '"')
+	if ($str[0] == '"' && $str[strlen($str)-1] == '"')
 		$str = mb_substr($str, 1, strlen($str)-2);
 	return $str;
 }
@@ -574,7 +574,7 @@ class DeCsvLoader {
 	
 	function clearQuotes($str){ 
 		$str = trim($str);
-		if ($str{0} == $this->quote && $str{strlen($str)-1} == $this->quote)
+		if ($str[0] == $this->quote && $str[strlen($str)-1] == $this->quote)
 			$str = mb_substr($str, 1, strlen($str)-2);
 		return $str;
 	}
@@ -729,7 +729,7 @@ class survey_Force_Adm_Config
 		$vars = array_keys( get_class_vars( get_class( $this ) ) );
 		sort( $vars );
 		foreach ($vars as $v) {
-			if ($v{0} != '_') {
+			if ($v[0] != '_') {
 				$public[] = $v;
 			}
 		}

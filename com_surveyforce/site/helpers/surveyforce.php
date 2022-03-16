@@ -818,9 +818,8 @@ class SurveyforceHelper
 		SurveyforceTemplates::showCategory($cat, $rows, $sf_config);
 	}
 
-	public function SF_GetQuestData($q_data, $start_id = 0, $survey)
+	public function SF_GetQuestData($q_data, $survey, $start_id=0)
 	{
-
 		$type = SurveyforceHelper::getQuestionType($q_data->sf_qtype);
 		$data['quest_type'] = $type->sf_plg_name;
 
@@ -7052,7 +7051,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce") . '?task=surveys');
 	}
 
-	function SF_changeSurvey($cid = null, $state = 0, $option)
+	function SF_changeSurvey($option, $cid = null, $state = 0)
 	{
 		$database = JFactory::getDbo();
 		if ((is_array($cid) && count($cid) > 0))
@@ -9750,7 +9749,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=questions"));
 	}
 
-	function SF_changeQuestion($cid = null, $state = 0, $option)
+	function SF_changeQuestion($option, $cid = null, $state = 0)
 	{
 		$database = JFactory::getDbo();
 		$surveyid = strval(mosGetParam($_REQUEST, 'surv_id', 0));
@@ -10106,7 +10105,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_showSetDefault($row, $lists, $option);
 	}
 
-	function SF_saveDefault($quest_id = 0, $option)
+	function SF_saveDefault($option, $quest_id = 0)
 	{
         if(isset($_SESSION['qid'])) {
             unset($_SESSION['qid']);
