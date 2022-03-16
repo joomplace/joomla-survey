@@ -1088,17 +1088,14 @@ function mosReadDirectory( $path, $filter='.', $recurse=false, $fullpath=false  
  * @deprecated	As of version 1.5
  */
 if (!function_exists('mosCreateMail')) {
-function mosCreateMail( $from='', $fromname='', $subject, $body ) {
-
-	$mail =& JFactory::getMailer();
-
-	$mail->From 	= $from ? $from : $mail->From;
-	$mail->FromName = $fromname ? $fromname : $mail->FromName;
-	$mail->Subject 	= $subject;
-	$mail->Body 	= $body;
-
-	return $mail;
-}
+    function mosCreateMail($subject, $body, $from='', $fromname='' ) {
+        $mail = JFactory::getMailer();
+        $mail->From 	= $from ? $from : $mail->From;
+        $mail->FromName = $fromname ? $fromname : $mail->FromName;
+        $mail->Subject 	= $subject;
+        $mail->Body 	= $body;
+        return $mail;
+    }
 }
 
 if (!function_exists('mosMail')) {

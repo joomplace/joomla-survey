@@ -410,10 +410,10 @@ class SurveyforceModelAuthoring extends JModelItem
 					SurveyforceEditHelper::SF_cancelSurvey($option);
 					break;
 				case 'publish_surv':
-					SurveyforceEditHelper::SF_changeSurvey($cid, 1, $option);
+					SurveyforceEditHelper::SF_changeSurvey($option, $cid, 1);
 					break;
 				case 'unpublish_surv':
-					SurveyforceEditHelper::SF_changeSurvey($cid, 0, $option);
+					SurveyforceEditHelper::SF_changeSurvey($option, $cid, 0);
 					break;
 				case 'move_surv_sel':
 					SurveyforceEditHelper::SF_moveSurveySelect($option, $cid);
@@ -436,10 +436,10 @@ class SurveyforceModelAuthoring extends JModelItem
 
 				# ---  QUESTIONS  --- #
 				case 'publish_quest':
-					echo(SurveyforceHelper::SF_GetUserType(0, $cid) != 1 ? SurveyforceTemplates::Survey_blocked() : SurveyforceEditHelper::SF_changeQuestion($cid, 1, $option));
+					echo(SurveyforceHelper::SF_GetUserType(0, $cid) != 1 ? SurveyforceTemplates::Survey_blocked() : SurveyforceEditHelper::SF_changeQuestion($option, $cid, 1));
 					break;
 				case 'unpublish_quest':
-					echo(SurveyforceHelper::SF_GetUserType(0, $cid) != 1 ? SurveyforceTemplates::Survey_blocked() : SurveyforceEditHelper::SF_changeQuestion($cid, 0, $option));
+					echo(SurveyforceHelper::SF_GetUserType(0, $cid) != 1 ? SurveyforceTemplates::Survey_blocked() : SurveyforceEditHelper::SF_changeQuestion($option, $cid, 0));
 					break;
 				case 'questions':
 					SurveyforceEditHelper::SF_ListQuestions($option);
@@ -495,7 +495,7 @@ class SurveyforceModelAuthoring extends JModelItem
 					echo(SurveyforceHelper::SF_GetUserType(0, $id) != 1 ? SurveyforceTemplates::Survey_blocked() : SurveyforceEditHelper::SF_setDefault($id, $option));
 					break;
 				case 'save_default':
-					echo(SurveyforceHelper::SF_GetUserType(0, $id) != 1 ? SurveyforceTemplates::Survey_blocked() : SurveyforceEditHelper::SF_saveDefault($id, $option));
+					echo(SurveyforceHelper::SF_GetUserType(0, $id) != 1 ? SurveyforceTemplates::Survey_blocked() : SurveyforceEditHelper::SF_saveDefault($option, $id));
 					break;
 				case 'cancel_default':
 					SurveyforceEditHelper::SF_cancelDefault($id, $option);
