@@ -23,10 +23,8 @@ class SurveyforceHelper
 
 	public function SF_processGetField($field_text)
 	{
-		$field_text = (get_magic_quotes_gpc()) ? stripslashes($field_text) : $field_text;
 		$field_text = str_replace('"', '&quot;', $field_text);
 		$field_text = str_replace("'", '&#039;', $field_text);
-
 		return $field_text;
 	}
 

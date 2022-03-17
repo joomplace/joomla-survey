@@ -1128,7 +1128,6 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 	protected function SF_processPDFField($field_text, $allowed_tags = '') {
 		$field_text = strip_tags($field_text, $allowed_tags );
 		$field_text = $this->rel_pdfCleaner($field_text);
-		$field_text = (get_magic_quotes_gpc()) ? mosStripslashes( $field_text ) : $field_text;
 		$field_text = str_replace( '&quot;', '"', $field_text );
 		$field_text = str_replace( '&#039;', "'", $field_text );
 		$field_text = str_replace( '&#39;', "'", $field_text );
@@ -1136,7 +1135,6 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 	}
 
 	protected function SF_processField($field_text) {
-		$field_text = (get_magic_quotes_gpc()) ? mosStripslashes( $field_text ) : $field_text;
 		$field_text = JFilterOutput::ampReplace($field_text);
 		$field_text = str_replace( '&quot;', '"', $field_text );
 		$field_text = str_replace( '&#039;', "'", $field_text );
