@@ -26,7 +26,7 @@ class SF_ShortanswerTemplate {
      *      
      * ********************************************************************************************************************* */
 
-    public function QuestionBody() {
+    public static function QuestionBody() {
         $return_str = <<<EOFTMPL
 			<div align="left" style="padding-left:10px;text-align:left;">{QUESTION_TEXT}</div>
 			<div>{ANSWERS}</div>
@@ -38,15 +38,12 @@ EOFTMPL;
         return $return_str;
     }
 
-    public function getQuestion() {
+    public static function getQuestion() {
         $question = SF_ShortanswerTemplate::parserBodyQuestion();
-        $document = JFactory::getDocument();
-
         return $question;
     }
 
-    public function parserBodyQuestion() {
-
+    public static function parserBodyQuestion() {
 
         $body = SF_ShortanswerTemplate::QuestionBody();
         $vars = array();
@@ -69,7 +66,7 @@ EOFTMPL;
      * 
      * ********************************************************************************************************************** */
 
-    public function QuestionQuestion_text() {
+    public static function QuestionQuestion_text() {
 
 		$inp = 0;
 		if (strpos(SF_ShortanswerTemplate::$question->sf_qtext,'{x}') > 0 || strpos(SF_ShortanswerTemplate::$question->sf_qtext,'{y}') > 0) {
@@ -81,7 +78,7 @@ EOFTMPL;
 			return '';
     }
 
-    public function QuestionAnswers() {
+    public static function QuestionAnswers() {
 		
 		$inp = 0;
 		if (strpos(SF_ShortanswerTemplate::$question->sf_qtext,'{x}') > 0 || strpos(SF_ShortanswerTemplate::$question->sf_qtext,'{y}') > 0) {
@@ -120,12 +117,12 @@ EOFTMPL;
 						$return_str = preg_replace('/\{y\}/i', $tmp_str, $return_str, 1);
 					}
 				
-		}
+		    }
 		}
         return $return_str;
     }
 
-    public function QuestionImportance_scale() {
+    public static function QuestionImportance_scale() {
 
         $return_str = '';
         $ans_imp_count = SF_ShortanswerTemplate::$iscale['ans_imp_count'];

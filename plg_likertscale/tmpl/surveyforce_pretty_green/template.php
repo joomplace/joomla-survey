@@ -25,7 +25,7 @@ class SF_LikertscaleTemplate {
 	 *
 	 * ********************************************************************************************************************* */
 
-	public function QuestionBody() {
+	public static function QuestionBody() {
 		$return_str = <<<EOFTMPL
 			<div align="left" style="padding-left:10px;text-align:left;">{QUESTION_TEXT}</div>
 			<div class="likert_scale_div">
@@ -39,14 +39,13 @@ EOFTMPL;
 		return $return_str;
 	}
 
-	public function getQuestion() {
+	public static function getQuestion() {
 		$question = SF_LikertscaleTemplate::parserBodyQuestion();
 		$document = JFactory::getDocument();
 		return $question;
 	}
 
-	public function parserBodyQuestion() {
-
+	public static function parserBodyQuestion() {
 
 		$body = SF_LikertscaleTemplate::QuestionBody();
 		$vars = array();
@@ -68,13 +67,13 @@ EOFTMPL;
 	 *
 	 * ********************************************************************************************************************** */
 
-	public function QuestionQuestion_text() {
+	public static function QuestionQuestion_text() {
 
 		return SF_LikertscaleTemplate::$question->sf_qtext;
 	}
 
 
-	public function QuestionLikerscale() {
+	public static function QuestionLikerscale() {
 
 		$mcount = SF_LikertscaleTemplate::$iscale['main_fields_count'];
 		$scount = SF_LikertscaleTemplate::$iscale['scale_fields_count'];
@@ -135,7 +134,7 @@ EOFTMPL;
 		return $return_str;
 	}
 
-	public function QuestionImportance_scale() {
+	public static function QuestionImportance_scale() {
 
 		$return_str = '';
 		$ans_imp_count = SF_LikertscaleTemplate::$iscale['ans_imp_count'];

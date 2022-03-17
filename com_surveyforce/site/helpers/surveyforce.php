@@ -42,12 +42,10 @@ class SurveyforceHelper
 		$this->document = JFactory::getDocument();
 	}
 
-	public function SF_processGetField($field_text)
+	public static function SF_processGetField($field_text)
 	{
-		$field_text = (get_magic_quotes_gpc()) ? stripslashes($field_text) : $field_text;
 		$field_text = str_replace('"', '&quot;', $field_text);
 		$field_text = str_replace("'", '&#039;', $field_text);
-
 		return $field_text;
 	}
 
@@ -187,7 +185,7 @@ class SurveyforceHelper
 		return 3;
 	}
 
-	public function getTemplate($data)
+	public static function getTemplate($data)
 	{
 		$db = JFactory::getDbo();
 
@@ -202,7 +200,7 @@ class SurveyforceHelper
 		return $db->loadResult();
 	}
 
-	public function getNotifyUserEmails()
+	public static function getNotifyUserEmails()
 	{
 		$access = JAccess::getAssetRules('com_surveyforce')->getData();
 
@@ -275,7 +273,7 @@ class SurveyforceHelper
 		return $settings;
 	}
 
-	public function sfPrepareText($text, $force_compatibility = false)
+	public static function sfPrepareText($text, $force_compatibility = false)
 	{
 		// Black list of mambots:
 		$banned_bots = array();
@@ -298,7 +296,7 @@ class SurveyforceHelper
 		return $new_text;
 	}
 
-	public function create_chain($survey_id)
+	public static function create_chain($survey_id)
 	{
 		$database = JFactory::getDbo();
 
@@ -404,7 +402,7 @@ class SurveyforceHelper
 		return $chain;
 	}
 
-	public function clear_chain($chain, $not_shown)
+	public static function clear_chain($chain, $not_shown)
 	{
 		$new_chain = array();
 		$pages = explode('*#*', $chain);
@@ -420,7 +418,7 @@ class SurveyforceHelper
 		return implode("*#*", $new_chain);
 	}
 
-	public function SF_analizeAjaxRequest()
+	public static function SF_analizeAjaxRequest()
 	{
 		// Get the application.
 		$app = JFactory::getApplication('site');
@@ -818,7 +816,7 @@ class SurveyforceHelper
 		SurveyforceTemplates::showCategory($cat, $rows, $sf_config);
 	}
 
-	public function SF_GetQuestData($q_data, $survey, $start_id=0)
+	public static function SF_GetQuestData($q_data, $survey, $start_id=0)
 	{
 		$type = SurveyforceHelper::getQuestionType($q_data->sf_qtype);
 		$data['quest_type'] = $type->sf_plg_name;
@@ -1224,7 +1222,7 @@ class SurveyforceHelper
         }
 	}
 
-	public function SF_addUser2Group($option)
+	public static function SF_addUser2Group($option)
 	{
 
 		$listid = intval(JFactory::getApplication()->input->get('list_id'));
@@ -1234,7 +1232,7 @@ class SurveyforceHelper
 			mosRedirect(SFRoute("index.php?option=$option&task=usergroups"));
 	}
 
-	public function SF_delUserFromGroup($cid, $option)
+	public static function SF_delUserFromGroup($cid, $option)
 	{
 		$database = JFactory::getDbo();
 		if (count($cid))
@@ -1250,7 +1248,7 @@ class SurveyforceHelper
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=view_users"));
 	}
 
-	public function SF_delUsergroup($cid, $option)
+	public static function SF_delUsergroup($cid, $option)
 	{
 		$database = JFactory::getDbo();
 		if (count($cid))
@@ -1273,12 +1271,12 @@ class SurveyforceHelper
 
 	}
 
-	public function SF_cancelViewUsers($option)
+	public static function SF_cancelViewUsers($option)
 	{
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=view_users"));
 	}
 
-	public function SF_ListCategories($option)
+	public static function SF_ListCategories($option)
 	{
 		$database = JFactory::getDbo();
 		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
@@ -1309,7 +1307,7 @@ class SurveyforceHelper
 		survey_force_front_html::SF_showCatsList($rows, $pageNav, $option);
 	}
 
-	public function SF_editCategory($id, $option)
+	public static function SF_editCategory($id, $option)
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Cat($database);
@@ -1339,7 +1337,7 @@ class SurveyforceHelper
 		survey_force_front_html::SF_editCategory($row, $lists, $option);
 	}
 
-	public function SF_saveCategory($option)
+	public static function SF_saveCategory($option)
 	{
         $post = JFactory::getApplication()->input->post;
         $database = JFactory::getDbo();
@@ -1378,7 +1376,7 @@ class SurveyforceHelper
 		}
 	}
 
-	public function SF_removeCategory(&$cid, $option)
+	public static function SF_removeCategory(&$cid, $option)
 	{
 		$database = JFactory::getDbo();
 		if (count($cid))
@@ -1395,7 +1393,7 @@ class SurveyforceHelper
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=categories"));
 	}
 
-	public function SF_cancelCategory($option)
+	public static function SF_cancelCategory($option)
 	{
         $post = JFactory::getApplication()->input->post;
         $cat = array();
@@ -1415,7 +1413,7 @@ class SurveyforceHelper
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=categories"));
 	}
 
-	public function SF_manageUsers($option)
+	public static function SF_manageUsers($option)
 	{
 		$database = JFactory::getDbo();
 		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
@@ -1465,7 +1463,7 @@ class SurveyforceHelper
 	#######################################
 	###	--- ---		REPORTS 	--- --- ###
 
-	public function SF_ViewReports($option, $is_pdf = 0)
+	public static function SF_ViewReports($option, $is_pdf = 0)
 	{
 		$database = JFactory::getDbo();
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
@@ -1689,7 +1687,7 @@ class SurveyforceHelper
 
 		if ($is_pdf)
 		{
-			SF_PrintReports($rows);
+			self::SF_PrintReports($rows);
 		}
 		else
 		{
@@ -1697,7 +1695,7 @@ class SurveyforceHelper
 		}
 	}
 
-	public function SF_ViewReportsPDF_full($option, $cid)
+	public static function SF_ViewReportsPDF_full($option, $cid)
 	{
 		$database = JFactory::getDbo();
 		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
@@ -2085,7 +2083,7 @@ class SurveyforceHelper
 		self::SF_PrintReportsPDF_full($rows);
 	}
 
-	public function SF_ViewReportsCSV_full($option, $cid)
+	public static function SF_ViewReportsCSV_full($option, $cid)
 	{
 		$database = JFactory::getDbo();
 		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
@@ -2495,7 +2493,7 @@ class SurveyforceHelper
 		self::SF_PrintReportsCSV_sum($rows);
 	}
 
-	public function SF_removeRep(&$cid, $option)
+	public static function SF_removeRep(&$cid, $option)
 	{
 		$database = JFactory::getDbo();
 		if (count($cid))
@@ -2542,7 +2540,7 @@ class SurveyforceHelper
 		mosRedirect(SFRoute("index.php?option=$option&task=reports"));
 	}
 
-	public function SF_removeRepAll($option)
+	public static function SF_removeRepAll($option)
 	{
 		$database = JFactory::getDbo();
 		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
@@ -2670,7 +2668,7 @@ class SurveyforceHelper
 		mosRedirect(SFRoute("index.php?option=$option&task=reports"));
 	}
 
-	public function SF_ViewRepResult($id, $option, $is_pdf = 0)
+	public static function SF_ViewRepResult($id, $option, $is_pdf = 0)
 	{
 		$database = JFactory::getDbo();
 		$query = "SELECT s.*, u.username reg_username, u.name reg_name, u.email reg_email,"
@@ -2922,7 +2920,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	public function SF_ViewRepSurv($id, $option, $is_pdf = 0)
+	public static function SF_ViewRepSurv($id, $option, $is_pdf = 0)
 	{	
 		$database = JFactory::getDbo();
 		$query = "SELECT * FROM `#__survey_force_survs` WHERE id = '" . $id . "'";
@@ -3202,7 +3200,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	public function SF_ViewRepList($id, $option, $is_pdf = 0)
+	public static function SF_ViewRepList($id, $option, $is_pdf = 0)
 	{
 		$database = JFactory::getDbo();
 		$query = "SELECT * FROM #__survey_force_listusers WHERE id = '" . $id . "'";
@@ -3495,7 +3493,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	public function SF_ViewRepUsers($cid, $option, $is_pdf = 0, $is_pc = 0)
+	public static function SF_ViewRepUsers($cid, $option, $is_pdf = 0, $is_pc = 0)
 	{
 		$database = JFactory::getDbo();
 		$surv_id = intval(JFactory::getApplication()->getUserStateFromRequest("surv_id", 'surv_id', 0));
@@ -3800,7 +3798,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	public function SF_PrintReports($rows)
+	public static function SF_PrintReports($rows)
 	{
 		$database = JFactory::getDbo();
 		chdir(JPATH_SITE);
@@ -3866,7 +3864,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		die;
 	}
 
-	public function SF_PrintReportsPDF_full($rows)
+	public static function SF_PrintReportsPDF_full($rows)
 	{
 		$database = JFactory::getDbo();
 		/*
@@ -4107,7 +4105,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		die;
 	}
 
-	public function SF_PrintReportsCSV_sum($rows)
+	public static function SF_PrintReportsCSV_sum($rows)
 	{
 		$database = JFactory::getDbo();
 		$text_to_csv = "";
@@ -4239,12 +4237,11 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		die;
 	}
 
-	public function SF_PrintRepResult($start_data, $survey_data, $questions_data)
+	public static function SF_PrintRepResult($start_data, $survey_data, $questions_data)
 	{
-
-		/*
-	 * Create the pdf document
-	 */
+        /*
+         * Create the pdf document
+         */
 
 		require_once(_SURVEY_FORCE_ADMIN_HOME . '/assets/tcpdf/sf_pdf.php');
 
@@ -4438,7 +4435,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		die;
 	}
 
-	public function SF_PrintRepSurv_List($survey_data, $questions_data, $is_list = 0, $is_pc = 0)
+	public static function SF_PrintRepSurv_List($survey_data, $questions_data, $is_list = 0, $is_pc = 0)
 	{
 		clearOldImages();
 		/*
@@ -4745,7 +4742,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		die;
 	}
 
-	public function get_html_translation_table_my()
+	public static function get_html_translation_table_my()
 	{
 		$trans = get_html_translation_table(HTML_ENTITIES);
 		$trans[chr(130)] = '&sbquo;';    // Single Low-9 Quotation Mark
@@ -4776,14 +4773,14 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		return $trans;
 	}
 
-	public function rel_decodeHTML($string)
+	public static function rel_decodeHTML($string)
 	{
-		$string = strtr($string, array_flip(get_html_translation_table_my()));
+		$string = strtr($string, array_flip(self::get_html_translation_table_my()));
 		$string = preg_replace("/&#([0-9]+);/me", "chr('\\1')", $string);
 		return $string;
 	}
 
-	public function rel_pdfCleaner($text)
+	public static function rel_pdfCleaner($text)
 	{
 		// Ugly but needed to get rid of all the stuff the PDF class cant handle
 		$text = str_replace('<p>', "\n\n", $text);
@@ -4798,14 +4795,14 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$text = str_replace('{mospagebreak}', '', $text);
 
 		$text = strip_tags($text);
-		$text = rel_decodeHTML($text);
+		$text = self::rel_decodeHTML($text);
 
 		return $text;
 	}
 
 
 //for CSV import
-	public function SF_prepareImport(&$loader, &$fieldDescriptors)
+	public static function SF_prepareImport(&$loader, &$fieldDescriptors)
 	{
 		$unknownFieldNames = array();
 		$missingFieldNames = array();
@@ -4835,7 +4832,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		return TRUE;
 	}
 
-	public function SF_prepareImportRow(&$loader, &$fieldDescriptors, $values, $requiredFieldNames, $allFieldNames)
+	public static function SF_prepareImportRow(&$loader, &$fieldDescriptors, $values, $requiredFieldNames, $allFieldNames)
 	{
 		$unknownFieldNames = array();
 		$missingFieldNames = array();
@@ -4864,7 +4861,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		return TRUE;
 	}
 
-	public function SF_showPreview($option)
+	public static function SF_showPreview($option)
 	{
 		require(JPATH_BASE . '/components/com_surveyforce/language/default.php');
 		require_once(JPATH_BASE . '/components/com_surveyforce/helpers/generate.surveyforce.php');
@@ -4919,7 +4916,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	#######################################
 	###	--- ---    IMP SCALES   --- --- ###
 
-	public function SF_viewIScales($option)
+	public static function SF_viewIScales($option)
 	{
 		$database = JFactory::getDbo();
 		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
@@ -4953,7 +4950,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_adm_html::SF_viewIScales($rows, $pageNav, $option);
 	}
 
-	public function SF_editIScale($id, $option)
+	public static function SF_editIScale($id, $option)
 	{
 		$database = JFactory::getDbo();
 		if (JFactory::getApplication()->input->get('task') == 'add_iscale_from_quest')
@@ -5006,7 +5003,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_editIScale($row, $lists, $option);
 	}
 
-	public function SF_saveIScale($option)
+	public static function SF_saveIScale($option)
 	{
 		$post = JFactory::getApplication()->input->post;
 	    $database = JFactory::getDbo();
@@ -5064,7 +5061,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	public function SF_removeIscale(&$cid, $option)
+	public static function SF_removeIscale(&$cid, $option)
 	{
 		$database = JFactory::getDbo();
 		if (count($cid))
@@ -5087,7 +5084,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect("index.php?option=$option&task=iscales");
 	}
 
-	public function SF_cancelIScale($option)
+	public static function SF_cancelIScale($option)
 	{
         $post = JFactory::getApplication()->input->post;
         $database = JFactory::getDbo();
@@ -5109,7 +5106,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	public function SF_ViewIRepSurv($id, $option)
+	public static function SF_ViewIRepSurv($id, $option)
 	{
 		$database = JFactory::getDbo();
 		@set_time_limit(3600);
@@ -5409,7 +5406,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=i_report"));
 	}
 
-	public function SF_showCrossReport($option)
+	public static function SF_showCrossReport($option)
 	{
 		$database = JFactory::getDbo();
 		$survid = intval(mosGetParam($_REQUEST, 'survid', 0));
@@ -5503,7 +5500,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_showCrossReport($lists, $option);
 	}
 
-	public function SF_getCrossReport($option)
+	public static function SF_getCrossReport($option)
 	{
 		$database = JFactory::getDbo();
 		$survid = intval(mosGetParam($_REQUEST, 'survid', 0));
@@ -6518,7 +6515,6 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	public function SF_processField($field_text)
 	{
-		$field_text = (get_magic_quotes_gpc()) ? mosStripslashes($field_text) : $field_text;
 		$field_text = ampReplace($field_text);
 		$field_text = str_replace('&quot;', '"', $field_text);
 		$field_text = str_replace('&#039;', "'", $field_text);
@@ -6529,15 +6525,14 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	public function SF_processPDFField($field_text, $allowed_tags = '')
 	{
 		$field_text = strip_tags($field_text, $allowed_tags);
-		$field_text = rel_pdfCleaner($field_text);
-		$field_text = (get_magic_quotes_gpc()) ? mosStripslashes($field_text) : $field_text;
+		$field_text = self::rel_pdfCleaner($field_text);
 		$field_text = str_replace('&quot;', '"', $field_text);
 		$field_text = str_replace('&#039;', "'", $field_text);
 		$field_text = str_replace('&#39;', "'", $field_text);
 		return trim($field_text);
 	}
 
-	public function SF_viewUsers($option)
+	public static function SF_viewUsers($option)
 	{
 		$database = JFactory::getDbo();
 		$listid = intval(JFactory::getApplication()->getUserStateFromRequest("list_id", 'list_id', 0));
@@ -6586,7 +6581,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	}
 
-	public function SF_ListEmails($option)
+	public static function SF_ListEmails($option)
 	{
 		$database = JFactory::getDbo();
 		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
@@ -6619,7 +6614,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_showEmailsList($rows, $pageNav, $option);
 	}
 
-	public function SF_editEmail($id, $option)
+	public static function SF_editEmail($id, $option)
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Email($database);
@@ -6642,7 +6637,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	}
 
-	public function SF_saveEmail($option)
+	public static function SF_saveEmail($option)
 	{
         $post = JFactory::getApplication()->input->post;
         $database = JFactory::getDbo();
@@ -6679,7 +6674,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	public function SF_removeEmail(&$cid, $option)
+	public static function SF_removeEmail(&$cid, $option)
 	{
 		$database = JFactory::getDbo();
 		if (count($cid))
@@ -6696,7 +6691,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=emails"));
 	}
 
-	public function SF_cancelEmail($option)
+	public static function SF_cancelEmail($option)
 	{
         $post = JFactory::getApplication()->input->post;
         $database = JFactory::getDbo();
@@ -6714,7 +6709,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=emails"));
 	}
 
-	public function SF_inviteUsers($id, $option)
+	public static function SF_inviteUsers($id, $option)
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_ListUsers($database);
@@ -6734,7 +6729,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_inviteUsers($row, $lists, $option);
 	}
 
-	public function SF_remindUsers($id, $option)
+	public static function SF_remindUsers($id, $option)
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_ListUsers($database);
@@ -6753,7 +6748,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_remindUsers($row, $lists, $option);
 	}
 
-	public function SF_startInvitation($option)
+	public static function SF_startInvitation($option)
 	{
 		$database = JFactory::getDbo();
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
@@ -6897,7 +6892,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		die();
 	}
 
-	public function SF_startRemind($option)
+	public static function SF_startRemind($option)
 	{
 		$jinput = \JFactory::getApplication()->input;
 	    $database = JFactory::getDbo();
@@ -7028,7 +7023,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		die();
 	}
 
-	function SF_cancelSurvey($option)
+	public static function SF_cancelSurvey($option)
 	{
         $post = JFactory::getApplication()->input->post;
 	    $database = JFactory::getDbo();
@@ -7051,7 +7046,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce") . '?task=surveys');
 	}
 
-	function SF_changeSurvey($option, $cid = null, $state = 0)
+	public static function SF_changeSurvey($option, $cid = null, $state = 0)
 	{
 		$database = JFactory::getDbo();
 		if ((is_array($cid) && count($cid) > 0))
@@ -7082,7 +7077,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=surveys"));
 	}
 
-	function SF_saveSurvey($option)
+	public static function SF_saveSurvey($option)
 	{
         $post = JFactory::getApplication()->input->post;
 	    $database = JFactory::getDbo();
@@ -7133,7 +7128,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	function SF_removeSurvey(&$cid, $option)
+	public static function SF_removeSurvey(&$cid, $option)
 	{
 		$database = JFactory::getDbo();
 		if ((is_array($cid) && count($cid) > 0))
@@ -7171,7 +7166,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=surveys"));
 	}
 
-	function SF_removeQuestion(&$cid, &$sec, $option, $no_redirect = false)
+	public static function SF_removeQuestion(&$cid, &$sec, $option, $no_redirect = false)
 	{
 		$database = JFactory::getDbo();
 		if (count($cid))
@@ -7215,7 +7210,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=questions"));
 	}
 
-	function SF_moveSurveySelect($option, $cid)
+	public static function SF_moveSurveySelect($option, $cid)
 	{
 		$database = JFactory::getDbo();
 		if (!is_array($cid) || count($cid) < 1)
@@ -7244,7 +7239,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_moveSurvey_Select($option, $cid, $CategoryList, $items);
 	}
 
-	function SF_copySurveySave($cid)
+	public static function SF_copySurveySave($cid)
 	{
 		$database = JFactory::getDbo();
 		$categoryMove = strval(mosGetParam($_REQUEST, 'categorymove', ''));
@@ -7301,7 +7296,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=surveys"));
 	}
 
-	function SF_copyQuestionSave($cid, $run_from_surv_copy = 0, $surveyMove = 0, $sec = array())
+	public static function SF_copyQuestionSave($cid, $run_from_surv_copy = 0, $surveyMove = 0, $sec = array())
 	{
 		$database = JFactory::getDbo();
 		$total = 0;
@@ -7745,7 +7740,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	function SF_show_results($surv_id, $option)
+	public static function SF_show_results($surv_id, $option)
 	{
 		$database = JFactory::getDbo();
 		@set_time_limit(0);
@@ -7807,7 +7802,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	}
 
-	function SF_preview_survey($id, $option)
+	public static function SF_preview_survey($id, $option)
 	{
 		$database = JFactory::getDbo();
 		$unique_id = md5(uniqid(rand(), true));
@@ -7818,7 +7813,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect("index.php?option=com_surveyforce&view=survey&id={$id}&preview=" . $unique_id);
 	}
 
-	function SF_editSurvey($id, $option)
+	public static function SF_editSurvey($id, $option)
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Survey($database);
@@ -7948,7 +7943,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_editSurvey($row, $lists, $option);
 	}
 
-	function sfm_Images($name, &$active, $javascript = NULL, $directory = NULL)
+	public static function sfm_Images($name, &$active, $javascript = NULL, $directory = NULL)
 	{
 
 		if (!$directory)
@@ -7975,9 +7970,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		return $images;
 	}
 
-	function SF_processCSVField($field_text)
+	public static function SF_processCSVField($field_text)
 	{
-
 		$field_text = strip_tags($field_text);
 		$field_text = str_replace('&#039;', "'", $field_text);
 		$field_text = str_replace('&#39;', "'", $field_text);
@@ -7991,7 +7985,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		return $field_text;
 	}
 
-	function SF_processCSVField_noquot($field_text)
+	public static function SF_processCSVField_noquot($field_text)
 	{
 		$field_text = strip_tags($field_text);
 		$field_text = str_replace('&#039;', "'", $field_text);
@@ -8005,7 +7999,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		return $field_text;
 	}
 
-	function updateJSRules($survey_id)
+	public static function updateJSRules($survey_id)
 	{
 		jimport('joomla.filesystem.file');
 		jimport('joomla.filesystem.folder');
@@ -8035,7 +8029,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	function SF_ListQuestions($option)
+	public static function SF_ListQuestions($option)
 	{
 		$database = JFactory::getDbo();
 		$survid = intval(JFactory::getApplication()->getUserStateFromRequest("surv_id", 'surv_id', 0));
@@ -8207,7 +8201,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_showQuestsList($rows, $lists, $pageNav, $option);
 	}
 
-	function SF_editQuestion($id, $option, $qtype = 0)
+	public static function SF_editQuestion($id, $option, $qtype = 0)
 	{
 		$database = JFactory::getDbo();
 		$new_qtype_id = intval(JFactory::getApplication()->getUserStateFromRequest("new_qtype_id", 'new_qtype_id', 0));
@@ -8474,7 +8468,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	}
 
-	function SF_saveQuestion($option)
+	public static function SF_saveQuestion($option)
 	{
         $database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Question($database);
@@ -9267,7 +9261,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	function SF_cancelQuestion($option)
+	public static function SF_cancelQuestion($option)
 	{
         $post = JFactory::getApplication()->input->post;
         $database = JFactory::getDbo();
@@ -9289,7 +9283,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=questions"));
 	}
 
-	function SF_orderQuestion($id, $inc, $option)
+	public static function SF_orderQuestion($id, $inc, $option)
 	{
 		$jinput = JFactory::getApplication()->input;
 	    $database = JFactory::getDbo();
@@ -9338,7 +9332,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=questions"));
 	}
 
-	function SF_editSection($id, $option)
+	public static function SF_editSection($id, $option)
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Sections($database);
@@ -9411,7 +9405,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_editSection($row, $lists, $option);
 	}
 
-	function SF_saveSection($option)
+	public static function SF_saveSection($option)
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Sections($database);
@@ -9461,7 +9455,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	function SF_orderSection($id, $inc, $option)
+	public static function SF_orderSection($id, $inc, $option)
 	{
 		$database = JFactory::getDbo();
 		$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
@@ -9521,7 +9515,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=questions&surv_id=" . (int) $survid));
 	}
 
-	function SF_refreshSection($section_id = 0)
+	public static function SF_refreshSection($section_id = 0)
 	{
 		$database = JFactory::getDbo();
 		$query = "SELECT ordering FROM #__survey_force_quests "
@@ -9545,7 +9539,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	}
 
-	function SF_refreshOrder($sf_survey_id = 0)
+	public static function SF_refreshOrder($sf_survey_id = 0)
 	{
 		$database = JFactory::getDbo();
 		$query = "SELECT id, ordering, sf_section_id FROM #__survey_force_quests "
@@ -9617,7 +9611,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 	}
 
-	function SF_saveOrderQuestion(&$cidz, &$secz)
+	public static function SF_saveOrderQuestion(&$cidz, &$secz)
 	{
 		$database = JFactory::getDbo();
 		$cid = mosGetParam($_REQUEST, 'cid', array());
@@ -9749,7 +9743,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=questions"));
 	}
 
-	function SF_changeQuestion($option, $cid = null, $state = 0)
+	public static function SF_changeQuestion($option, $cid = null, $state = 0)
 	{
 		$database = JFactory::getDbo();
 		$surveyid = strval(mosGetParam($_REQUEST, 'surv_id', 0));
@@ -9780,7 +9774,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=questions&surv_id=$surveyid"));
 	}
 
-	function SF_moveQuestionSelect($option, $cid, $sec)
+	public static function SF_moveQuestionSelect($option, $cid, $sec)
 	{
 		$database = JFactory::getDbo();
 		if (!is_array($cid) || count($cid) < 1)
@@ -9822,7 +9816,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_moveQ_Select($option, $cid, $sec, $SurveyList, $items);
 	}
 
-	function SF_moveQuestionSave($cid, $sec)
+	public static function SF_moveQuestionSave($cid, $sec)
 	{
 		$database = JFactory::getDbo();
 		$surveyMove = strval(mosGetParam($_REQUEST, 'surveymove', ''));
@@ -9863,7 +9857,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=questions"));
 	}
 
-	function sfGetOrderingList($sql, $chop = '55')
+	public static function sfGetOrderingList($sql, $chop = '55')
 	{
 		$database = JFactory::getDbo();
 		$order = array();
@@ -9901,7 +9895,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		return $order;
 	}
 
-	function SF_new_question_type()
+	public static function SF_new_question_type()
 	{
 		$new_qtype_id = intval(JFactory::getApplication()->getUserStateFromRequest("new_qtype_id", 'new_qtype_id', 0));
 
@@ -10050,7 +10044,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	<?php
 	}
 
-	function SF_setDefault($id, $option)
+	public static function SF_setDefault($id, $option)
 	{
 		$database = JFactory::getDbo();
 		$row = new mos_Survey_Force_Question($database);
@@ -10105,7 +10099,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		survey_force_front_html::SF_showSetDefault($row, $lists, $option);
 	}
 
-	function SF_saveDefault($option, $quest_id = 0)
+	public static function SF_saveDefault($option, $quest_id = 0)
 	{
         if(isset($_SESSION['qid'])) {
             unset($_SESSION['qid']);
@@ -10141,7 +10135,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		mosRedirect(SFRoute("index.php?option=com_surveyforce") . '?task=edit_quest&cid[0]=' . $quest_id);
 	}
 
-	function SF_cancelDefault($id, $option)
+	public static function SF_cancelDefault($id, $option)
 	{
 		mosRedirect(SFRoute("index.php?option=com_surveyforce&task=edit_quest&cid[0]=$id"));
 	}

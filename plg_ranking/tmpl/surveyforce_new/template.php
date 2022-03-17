@@ -24,14 +24,14 @@ class SF_RankingTemplate {
          * {IMPORTANCE_SCALE} - progress bar will be placed there  
          *      
          * ********************************************************************************************************************* */
-	public function getQuestion() {
+	public static function getQuestion() {
 		$question = self::parserBodyQuestion();
 		$document = JFactory::getDocument();
 		foreach ( glob(dirname(__FILE__).'/css/*.css') as $CssFile )
 			$document->addStyleSheet(JUri::root() . str_replace('\\', '/', str_replace( JPATH_BASE, '', $CssFile)) );
 		return $question;
 	}
-        public function QuestionBody() {
+        public static function QuestionBody() {
             $return_str = <<<EOFTMPL
 			<div align="left" style="padding-left:10px;text-align:left;">{QUESTION_TEXT}</div>
 			<div>{ANSWERS}</div>
@@ -43,8 +43,7 @@ EOFTMPL;
             return $return_str;
         }
 
-        public function parserBodyQuestion() {
-
+        public static function parserBodyQuestion() {
 
             $body = SF_RankingTemplate::QuestionBody();
             $vars = array();
@@ -72,7 +71,7 @@ EOFTMPL;
             return SF_RankingTemplate::$question->sf_qtext;
         }
 
-	public function QuestionAnswers() {
+	public static function QuestionAnswers() {
 
 		$acount = SF_RankingTemplate::$iscale['alt_fields_count'];
 		$mcount = SF_RankingTemplate::$iscale['main_fields_count'];
@@ -146,7 +145,7 @@ EOFTMPL;
 		return $return_str;
 	}
 
-	public function QuestionImportance_scale() {
+	public static function QuestionImportance_scale() {
 
 		$return_str = '';
 		$ans_imp_count = SF_RankingTemplate::$iscale['ans_imp_count'];

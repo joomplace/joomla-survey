@@ -25,7 +25,7 @@ class SF_BoilerplateTemplate {
      *      
      * ********************************************************************************************************************* */
 
-    public function QuestionBody() {
+    public static function QuestionBody() {
         $return_str = <<<EOFTMPL
 			<div align="left" style="padding-left:10px;text-align:left;">{QUESTION_TEXT}</div>
 			{IMPORTANCE_SCALE}				
@@ -36,7 +36,7 @@ EOFTMPL;
         return $return_str;
     }
 
-    public function getQuestion() {
+    public static function getQuestion() {
         $question = SF_BoilerplateTemplate::parserBodyQuestion();
         $document = JFactory::getDocument();
         $document->addStyleSheet(JUri::root() . '/plugins/survey/boilerplate/tmpl/surveyforce_standart/css/boilerplate_standart.css');
@@ -44,8 +44,7 @@ EOFTMPL;
         return $question;
     }
 
-    public function parserBodyQuestion() {
-
+    public static function parserBodyQuestion() {
 
         $body = SF_BoilerplateTemplate::QuestionBody();
         $vars = array();
@@ -68,12 +67,12 @@ EOFTMPL;
      * 
      * ********************************************************************************************************************** */
 
-    public function QuestionQuestion_text() {
+    public static function QuestionQuestion_text() {
 
         return SF_BoilerplateTemplate::$question->sf_qtext;
     }
 
-    public function QuestionImportance_scale() {
+    public static function QuestionImportance_scale() {
 
         $return_str = '';
         $ans_imp_count = SF_BoilerplateTemplate::$iscale['ans_imp_count'];

@@ -24,7 +24,7 @@ class SF_PickmanyTemplate {
 	 *
 	 * ********************************************************************************************************************* */
 
-	public function QuestionBody() {
+	public static function QuestionBody() {
 		$return_str = <<<EOFTMPL
 			<div align="left" style="padding-left:10px;text-align:left;">{QUESTION_TEXT}</div>
 			<div>{ANSWERS}</div>
@@ -36,15 +36,14 @@ EOFTMPL;
 		return $return_str;
 	}
 
-	public function getQuestion() {
+	public static function getQuestion() {
 		$question = SF_PickmanyTemplate::parserBodyQuestion();
 		$document = JFactory::getDocument();
 
 		return $question;
 	}
 
-	public function parserBodyQuestion() {
-
+	public static function parserBodyQuestion() {
 
 		$body = SF_PickmanyTemplate::QuestionBody();
 		$vars = array();
@@ -67,19 +66,17 @@ EOFTMPL;
 	 *
 	 * ********************************************************************************************************************** */
 
-	public function QuestionQuestion_text() {
+	public static function QuestionQuestion_text() {
 
 		return SF_PickmanyTemplate::$question->sf_qtext;
 	}
 
-	public function QuestionAnswers() {
+	public static function QuestionAnswers() {
 
 		$acount = SF_PickmanyTemplate::$iscale['alt_fields_count'];
 		$mcount = SF_PickmanyTemplate::$iscale['main_fields_count'];
 		$ans_count = SF_PickmanyTemplate::$iscale['ans_count'];
 		$return_str = '';
-
-
 
 		$return_str = '<div align="left" class="pick_many_div">' .
 			'<form name="quest_form' . SF_PickmanyTemplate::$question->id . '">' .
@@ -134,7 +131,7 @@ EOFTMPL;
 		return $return_str;
 	}
 
-	public function QuestionImportance_scale() {
+	public static function QuestionImportance_scale() {
 
 		$return_str = '';
 		$ans_imp_count = SF_PickmanyTemplate::$iscale['ans_imp_count'];

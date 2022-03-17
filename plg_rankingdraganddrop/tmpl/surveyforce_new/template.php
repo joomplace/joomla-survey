@@ -24,7 +24,7 @@ class SF_RankingdraganddropTemplate {
          * {IMPORTANCE_SCALE} - progress bar will be placed there  
          *      
          * ********************************************************************************************************************* */
-	public function getQuestion() {
+	public static function getQuestion() {
 		$question = self::parserBodyQuestion();
 		$document = JFactory::getDocument();
 		foreach ( glob(dirname(__FILE__).'/css/*.css') as $CssFile )
@@ -32,7 +32,7 @@ class SF_RankingdraganddropTemplate {
 		return $question;
 	}
 
-        public function QuestionBody() {
+        public static function QuestionBody() {
             $return_str = <<<EOFTMPL
 			<div align="left" style="padding-left:10px;text-align:left;">{QUESTION_TEXT}</div>
 			<div>{ANSWERS}</div>
@@ -44,8 +44,7 @@ EOFTMPL;
             return $return_str;
         }
 
-        public function parserBodyQuestion() {
-
+        public static function parserBodyQuestion() {
 
             $body = SF_RankingdraganddropTemplate::QuestionBody();
             $vars = array();
@@ -68,12 +67,12 @@ EOFTMPL;
          * 
          * ********************************************************************************************************************** */
 
-        public function QuestionQuestion_text() {
+        public static function QuestionQuestion_text() {
 
             return SF_RankingdraganddropTemplate::$question->sf_qtext;
         }
 
-	public function QuestionAnswers() {
+	public static function QuestionAnswers() {
 
 		$color_cont = SF_RankingdraganddropTemplate::$iscale['config']['color_cont'];
 		$color_drag = SF_RankingdraganddropTemplate::$iscale['config']['color_drag'];
@@ -104,7 +103,7 @@ EOFTMPL;
 		return $return_str;
 	}
 
-	public function QuestionImportance_scale() {
+	public static function QuestionImportance_scale() {
 
 		$return_str = '';
 		$ans_imp_count = SF_RankingdraganddropTemplate::$iscale['ans_imp_count'];
