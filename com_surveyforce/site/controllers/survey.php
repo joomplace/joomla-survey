@@ -1481,6 +1481,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 				$database->setQuery($query);
 				$sf_chain = $database->LoadResult();
 
+                $chain_questions = array();
 				if (preg_match_all('/(?<id>\d+)/', $sf_chain, $preg_match)) {
 					$chain_questions = $preg_match['id'];
 				}

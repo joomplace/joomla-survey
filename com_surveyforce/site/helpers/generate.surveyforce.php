@@ -458,7 +458,7 @@ class sf_ImageGenerator extends SF_Object {
 					$numbers[] = $item->number;
 				}
 				
-				$filename = (strlen(date('d')) < 2? '0'.date('d'): date('d')).'_'.md5(uniqid(mktime())).'.png';
+				$filename = (strlen(date('d')) < 2? '0'.date('d'): date('d')).'_'.md5(uniqid(time())).'.png';
 				if (in_array('Bar',$this->options))
 					$this->getBarChartImage($numbers, $options, $this->image_path.$filename);
 				else
@@ -480,7 +480,7 @@ class sf_ImageGenerator extends SF_Object {
 					$options[] = sf_SafeSplit($item->label, intval(($this->width-50)/8));
 					$numbers[] = $item->number;
 				}
-				$filename = (strlen(date('d')) < 2? '0'.date('d'): date('d')).'_'.md5(uniqid(mktime())).'.png';
+				$filename = (strlen(date('d')) < 2? '0'.date('d'): date('d')).'_'.md5(uniqid(time())).'.png';
 				if (in_array('Bar',$this->options))
 					$this->getBarChartImage($numbers, $options, $this->image_path.$filename);
 				else

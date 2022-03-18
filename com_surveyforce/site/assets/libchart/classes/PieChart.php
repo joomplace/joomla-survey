@@ -78,9 +78,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 
                 function sortPie($v1, $v2)
                 {
-                        return $v1[0] == $v2[0] ? 0 :
-                                $v1[0] > $v2[0] ? -1 :
-                                1;
+                    return $v1[0] == $v2[0] ? 0 :
+                        ($v1[0] > $v2[0] ? -1 : 1);
                 }
                 
                 /**
