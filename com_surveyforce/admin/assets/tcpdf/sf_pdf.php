@@ -7,30 +7,25 @@
  * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
  */
 
-// no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-class sf_pdf {
+class sf_pdf
+{
 	var $_engine	= null;
-
 	var $_name		= 'joomla';
-
 	var $_header	= null;
-
 	var $_margin_header	= 5;
 	var $_margin_footer	= 10;
 	var $_margin_top	= 15;
 	var $_margin_bottom	= 15;
 	var $_margin_left	= 15;
 	var $_margin_right	= 15;
-
 	// Scale ratio for images [number of points in user unit]
 	var $_image_scale	= 2;
-	
 	var $_isRTL			= false;
-	
-	
-	function sf_pdf($options = array()) {
+
+	function __construct($options = array())
+    {
 		global $mosConfig_absolute_path, $mosConfig_sitename, $mosConfig_live_site;
 		
 		if (isset($options['margin-header'])) {
@@ -139,13 +134,13 @@ class sf_pdf {
 		$this->_engine->setFooterFont(array($font, '', 7));
 	}
 	
-	function cleanText($text, $debug = 0) {
-
-		if ( $debug )
-		{
+	function cleanText($text, $debug = 0)
+    {
+		if ($debug) {
 			var_dump($text);
 			exit;
 		}
+
 		$text = html_entity_decode($text, ENT_QUOTES, "utf-8");
 		$text = trim(strip_tags($text));
 
@@ -158,7 +153,8 @@ class sf_pdf {
 		return $text;
 	}
 	
-	function get_html_translation_table_my() {
+	function get_html_translation_table_my()
+    {
 		$trans = get_html_translation_table(HTML_ENTITIES);
 		$trans[chr(130)] = '&sbquo;';    // Single Low-9 Quotation Mark
 		$trans[chr(131)] = '&fnof;';    // Latin Small Letter F With Hook
@@ -188,11 +184,10 @@ class sf_pdf {
 		return $trans;
 	}
 	
-	function decodeHTML( $string ) {
+	function decodeHTML( $string )
+    {
 		$string = str_replace('&nbsp;', ' ', $string);
 		$string = strtr( $string, array_flip($this->get_html_translation_table_my( ) ) );
-
 		return $string;
 	}
 }
-?>
