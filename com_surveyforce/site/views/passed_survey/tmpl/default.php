@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted Access');
 <div class="category-list">
     <div class="content-category">
         <div class="cat-children"><h3><?php echo JText::_('COM_SURVEYFORCE_PASSED_SURVEYS'); ?></h3>
-            <?php if ($this->items->surveys): ?>
+            <?php if (!empty($this->items->surveys)): ?>
                 <?php foreach ( $this->items->surveys as $survey ) : ?>
                     <h3 class="page-header item-title"><a href="<?php echo JRoute::_('index.php?option='.COMPONENT_OPTION.'&id='.$survey->survey_id.'&Itemid='.COMPONENT_ITEM_ID, false, -1); ?>"><?php echo $survey->sf_name; ?></a></h3>
                 <?php endforeach; ?>

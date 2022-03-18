@@ -4481,7 +4481,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			$pdf->SetLeftMargin($pdf_doc->_margin_left);
 			$options = array('total' => (($survey_data->total_starts > $survey_data->total_inv_users) ? $survey_data->total_starts : $survey_data->total_inv_users),
 				'grids' => $survey_data->total_inv_users . ',' . $survey_data->total_starts . ',' . $survey_data->total_completes,
-				'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png');
+				'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png');
 			SF_draw_grid($options);
 			$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
@@ -4503,7 +4503,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 				'grids' => $survey_data->total_starts . ',' . $survey_data->total_gstarts . ','
 					. $survey_data->total_rstarts . ',' . $survey_data->total_istarts . ',' . $survey_data->total_completes . ','
 					. $survey_data->total_gcompletes . ',' . $survey_data->total_rcompletes . ',' . $survey_data->total_icompletes,
-				'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png');
+				'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png');
 			SF_draw_grid($options);
 			$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
@@ -4579,7 +4579,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 							$pdf->SetLeftMargin($pdf_doc->_margin_left);
 							$options = array('total' => $total,
 								'grids' => implode(',', $tmp_data),
-								'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png');
+								'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png');
 							SF_draw_grid($options);
 							$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
@@ -4621,7 +4621,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 						$pdf->SetLeftMargin($pdf_doc->_margin_left);
 						$options = array('total' => $total,
 							'grids' => implode(',', $tmp_data),
-							'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png');
+							'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png');
 						SF_draw_grid($options);
 						$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
@@ -4675,7 +4675,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 						$pdf->SetLeftMargin($pdf_doc->_margin_left);
 						$options = array('total' => $total,
 							'grids' => implode(',', $tmp_data),
-							'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png');
+							'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png');
 						SF_draw_grid($options);
 						$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
@@ -4712,7 +4712,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 				$pdf->SetLeftMargin($pdf_doc->_margin_left);
 				$options = array('total' => $total,
 					'grids' => implode(',', $tmp_data),
-					'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png');
+					'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png');
 				SF_draw_grid($options);
 				$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 

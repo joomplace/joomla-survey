@@ -53,7 +53,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
    var $Data;
    var $DataDescription;
 
-   function pData()
+   function __construct()
     {       
      $this->Data                           = array();
      $this->DataDescription                = array();
