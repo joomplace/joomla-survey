@@ -1,4 +1,15 @@
 <?php
+
+/**
+ * Joomlaquiz Component for Joomla 3
+ * @package Joomlaquiz
+ * @author JoomPlace Team
+ * @copyright Copyright (C) JoomPlace, www.joomplace.com
+ * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+ */
+
+defined('_JEXEC') or die;
+
 //============================================================+
 // File name   : tcpdf_font_data.php
 // Version     : 1.0.001
@@ -37,9 +48,6 @@
  * @author Nicola Asuni
  * @package com.tecnick.tcpdf
  */
-
-// no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
 
 /**
  * @class TCPDF_FONT_DATA
