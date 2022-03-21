@@ -151,7 +151,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 	protected function ajaxSurveysByCat( $cat_id )
 	{
-		$document =& JFactory::getDocument();
+		$document = JFactory::getDocument();
 		$document->setMimeEncoding('application/json');
 
 		$this->setModel( JModelLegacy::getInstance('question', 'SurveyforceModel') );
@@ -167,7 +167,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 	protected function ajaxMQuestionsBySurvey( $survid )
 	{
-		$document =& JFactory::getDocument();
+		$document = JFactory::getDocument();
 		$document->setMimeEncoding('application/json');
 
 		$this->mquest_id = $this->getMQuestionsBySurvey($survid);
@@ -181,7 +181,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 
 	protected function ajaxCQuestionsBySurvey( $survid )
 	{
-		$document =& JFactory::getDocument();
+		$document = JFactory::getDocument();
 		$document->setMimeEncoding('application/json');
 
 		$this->cquest_id = $this->getCQuestionsBySurvey($survid);
@@ -289,6 +289,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 				$questions2 = $database->loadObjectList();
 				$questions = array();
 				foreach($questions2 as $key => $quest){
+                    $questions[$quest->id] = new stdClass();
 					$questions2[$key]->answer_count = 0;
 					if ($quest->sf_qtype != 2 && $quest->sf_qtype != 3)
 						$query = "SELECT id FROM #__survey_force_fields WHERE quest_id = {$quest->id} AND is_main = 1 ORDER BY ordering";
@@ -494,7 +495,7 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 						else {
 							$query = "SELECT ans_txt FROM #__survey_force_user_ans_txt "
 								." WHERE start_id IN (".implode(',', $starts_by_fields[$fields_id]).") "
-								." AND ans_txt IN ('".implode("', '", array_map('mysql_escape_string', $question->fields))."') ";
+								." AND ans_txt IN ('".implode("', '", $question->fields)."') ";
 						}
 					}
 					else {
@@ -620,14 +621,11 @@ class SurveyforceViewAdvreport extends JViewLegacy {
 				$start_key = 'dummy';
 				reset ($result_data);
 
-				for($ij = 0, $nm = count($result_data); $ij < $nm; $ij++ ) {
-					if ($start_key == 'dummy')
-						list($key, $data) = each($result_data);
-					$cur_y = $pdf->GetY();
-
-
-					if ($cur_y > 240)
-						$pdf->AddPage();
+				foreach($result_data as $key => $data) {
+                    $cur_y = $pdf->GetY();
+					if($cur_y > 240) {
+                        $pdf->AddPage();
+                    }
 
 					$pdf->SetX(60);
 					$pdf->SetFontSize(8);

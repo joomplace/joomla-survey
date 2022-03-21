@@ -35,18 +35,13 @@ $listDirn = $this->state->get('list.direction');
     }
 
 	Joomla.submitbutton = function(pressbutton) {
-		var form = document.adminForm;
-
 		if (pressbutton == 'reports.pdf_sum' || pressbutton == 'reports.pdf_sum_perc') {
-			if (form.filter_survey_name.selectedIndex<1) {
+			if (document.adminForm.boxchecked.value < 1) {
 				alert("<?php echo JText::_('COM_SF_SELECT_SURVEY'); ?>");
-				return;
+				return false;
 			}
-			submitform( pressbutton );
-            document.getElementsByName("task")[0].value = "";
-			return;
 		}
-		submitform( pressbutton );
+        Joomla.submitform(pressbutton);
         document.getElementsByName("task")[0].value = "";
 	}
 </script>

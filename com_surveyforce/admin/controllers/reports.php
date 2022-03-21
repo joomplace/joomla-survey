@@ -63,16 +63,16 @@ class SurveyforceControllerReports extends JControllerAdmin {
 
 	public function pdf_sum()
 	{
-		self::SF_ViewRepUsers(0);
+		$this->SF_ViewRepUsers(0);
 	}
 
 	public function pdf_sum_perc()
 	{
-		self::SF_ViewRepUsers(1);
+        $this->SF_ViewRepUsers(1);
 	}
 
-	function SF_ViewRepUsers( $is_pc = 0 ) {
-
+	function SF_ViewRepUsers($is_pc = 0)
+    {
 		$cid = JFactory::getApplication()->input->get('cid', array(), 'array');
 		$database = JFactory::getDbo();
 
@@ -151,6 +151,7 @@ class SurveyforceControllerReports extends JControllerAdmin {
 				$questions_data[$i]->answer_imp = array();
 				$j = 0;
 				while ( $j < count($ans_data) ) {
+                    $questions_data[$i]->answer_imp[$j] = new stdClass();
 					$questions_data[$i]->answer_imp[$j]->num = $j;
 					$questions_data[$i]->answer_imp[$j]->ftext = $ans_data[$j]->isf_name;
 					$questions_data[$i]->answer_imp[$j]->ans_count = $ans_data[$j]->ans_count;
@@ -174,6 +175,7 @@ class SurveyforceControllerReports extends JControllerAdmin {
 					$questions_data[$i]->answer = array();
 					$j = 0;
 					while ( $j < count($ans_data) ) {
+                        $questions_data[$i]->answer[$j] = new stdClass();
 						$questions_data[$i]->answer[$j]->num = $j;
 						$questions_data[$i]->answer[$j]->ftext = $ans_data[$j]->ftext;
 						$questions_data[$i]->answer[$j]->ans_count = ($is_pc? round($ans_data[$j]->ans_count/$questions_data[$i]->total_answers*100,2 ): $ans_data[$j]->ans_count);
@@ -194,6 +196,7 @@ class SurveyforceControllerReports extends JControllerAdmin {
 					$questions_data[$i]->answer = array();
 					$j = 0;
 					while ( $j < count($ans_data) ) {
+                        $questions_data[$i]->answer[$j] = new stdClass();
 						$questions_data[$i]->answer[$j]->num = $j;
 						$questions_data[$i]->answer[$j]->ftext = $ans_data[$j]->ftext;
 						$questions_data[$i]->answer[$j]->ans_count = ($is_pc? round($ans_data[$j]->ans_count/$questions_data[$i]->total_answers*100, 2) :$ans_data[$j]->ans_count);
@@ -229,6 +232,7 @@ class SurveyforceControllerReports extends JControllerAdmin {
 							$jj = 0;
 							$tmp = array();
 							while ( $jj < count($ans_data) ) {
+                                $tmp[$jj] = new stdClass();
 								$tmp[$jj]->num = $jj;
 								$tmp[$jj]->ftext = $ans_data[$jj]->ans_txt;
 								$tmp[$jj]->ans_count = ($is_pc? round($ans_data[$jj]->ans_count/$questions_data[$i]->total_answers*100, 2): $ans_data[$jj]->ans_count);
@@ -260,6 +264,7 @@ class SurveyforceControllerReports extends JControllerAdmin {
 						$questions_data[$i]->answer = array();
 						$j = 0;
 						while ( $j < count($ans_data) ) {
+                            $questions_data[$i]->answer[$j] = new stdClass();
 							$questions_data[$i]->answer[$j]->num = $j;
 							$questions_data[$i]->answer[$j]->ftext = $ans_data[$j]->ans_txt;
 							$questions_data[$i]->answer[$j]->ans_count = ($is_pc? round($ans_data[$j]->ans_count/$questions_data[$i]->total_answers*100, 2):$ans_data[$j]->ans_count);
@@ -293,10 +298,13 @@ class SurveyforceControllerReports extends JControllerAdmin {
 							. "\n GROUP BY b.stext ORDER BY b.ordering";
 						$database->SetQuery( $query );
 						$ans_data = $database->loadObjectList();
+
+                        $questions_data[$i]->answer[$j] = new stdClass();
 						$questions_data[$i]->answer[$j]->full_ans = array();
 						$jj = 0;
 						$questions_data[$i]->answer[$j]->ftext = $f_data[$j]->ftext;
 						while ( $jj < count($ans_data) ) {
+                            $questions_data[$i]->answer[$j]->full_ans[$jj] = new stdClass();
 							$questions_data[$i]->answer[$j]->full_ans[$jj]->ftext = $ans_data[$jj]->stext;
 							$questions_data[$i]->answer[$j]->full_ans[$jj]->ans_count = ($is_pc? round($ans_data[$jj]->ans_count/$questions_data[$i]->total_answers*100, 2):$ans_data[$jj]->ans_count);
 							$jj ++;
@@ -323,10 +331,13 @@ class SurveyforceControllerReports extends JControllerAdmin {
 							. "\n GROUP BY b.ftext ORDER BY b.ordering";//ans_count DESC
 						$database->SetQuery( $query );
 						$ans_data = $database->loadObjectList();
+
+                        $questions_data[$i]->answer[$j] = new stdClass();
 						$questions_data[$i]->answer[$j]->full_ans = array();
 						$jj = 0;
 						$questions_data[$i]->answer[$j]->ftext = $f_data[$j]->ftext;
 						while ( $jj < count($ans_data) ) {
+                            $questions_data[$i]->answer[$j]->full_ans[$jj] = new stdClass();
 							$questions_data[$i]->answer[$j]->full_ans[$jj]->ftext = $ans_data[$jj]->ftext;
 							$questions_data[$i]->answer[$j]->full_ans[$jj]->ans_count = ($is_pc? round($ans_data[$jj]->ans_count/$questions_data[$i]->total_answers*100, 2):$ans_data[$jj]->ans_count);
 							$jj ++;
