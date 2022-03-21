@@ -74,7 +74,7 @@ class SurveyforceControllerInvitations extends JControllerForm
                 $row_user->list_id = $list_id;
                 $row_user->store();
 
-                $user_invite_num = md5(uniqid(rand().mktime(), true));
+                $user_invite_num = md5(uniqid(rand().time(), true));
 
                 $link = JUri::root() . "index.php?option=com_surveyforce&task=start_invited&survey=".$surv_id."&invite=".$user_invite_num;
 

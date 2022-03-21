@@ -14,14 +14,13 @@ defined('_JEXEC') or die;
  */
 class SurveyforceHelper
 {
-
 	public static function getVersion()
 	{
 		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/surveyforce.xml');
 		return (string)$xml->version;
 	}
 
-	public function SF_processGetField($field_text)
+	public static function SF_processGetField($field_text)
 	{
 		$field_text = str_replace('"', '&quot;', $field_text);
 		$field_text = str_replace("'", '&#039;', $field_text);
@@ -64,7 +63,7 @@ class SurveyforceHelper
 		return $type;
 	}
 
-	public function listQuestionTypes()
+	public static function listQuestionTypes()
 	{
 		$db = JFactory::getDbo();
 
@@ -92,13 +91,11 @@ class SurveyforceHelper
                             <a href="index.php?option=com_surveyforce&view=configuration">' . JText::_('COM_SURVEYFORCE_CONFIGURATION') . '</a>
                         </li><hr>';
 
-		foreach ($list_plugins as $plugin)
-		{
+		foreach ($list_plugins as $plugin) {
 			$menu .= ' <li' . ($task == $plugin->sf_plg_name ? ' class="active"' : '') . '>
                             <a href="index.php?option=com_surveyforce&view=configuration&plugin=' . $plugin->sf_plg_name . '">' . JText::_($plugin->sf_qtype) . '</a>
                         </li>';
 		}
-
 
 		$menu .= '</ul>';
 
@@ -296,7 +293,7 @@ class SurveyforceHelper
 	}
 
 	//for CSV import
-	function SF_prepareImport(&$loader, &$fieldDescriptors)
+	public static function SF_prepareImport(&$loader, &$fieldDescriptors)
 	{
 		$unknownFieldNames = array();
 		$missingFieldNames = array();
@@ -326,7 +323,7 @@ class SurveyforceHelper
 		return TRUE;
 	}
 
-	function SF_prepareImportRow(&$loader, &$fieldDescriptors, $values, $requiredFieldNames, $allFieldNames)
+	public static function SF_prepareImportRow(&$loader, &$fieldDescriptors, $values, $requiredFieldNames, $allFieldNames)
 	{
 		$unknownFieldNames = array();
 		$missingFieldNames = array();
@@ -356,7 +353,7 @@ class SurveyforceHelper
 	}
 
 
-	function SF_processCSVField($field_text, $plus_double_quotes = true)
+	public static function SF_processCSVField($field_text, $plus_double_quotes = true)
 	{
 		$field_text = strip_tags($field_text);
 		$field_text = str_replace('&#039;', "'", $field_text);
@@ -377,7 +374,7 @@ class SurveyforceHelper
 	}
 
 
-	function get_html_translation_table_my()
+	public static function get_html_translation_table_my()
 	{
 		$trans = get_html_translation_table(HTML_ENTITIES);
 		$trans[chr(130)] = '&sbquo;'; // Single Low-9 Quotation Mark
@@ -408,9 +405,8 @@ class SurveyforceHelper
 		return $trans;
 	}
 
-	function clearOldImages($day = null)
+	public static function clearOldImages($day = null)
 	{
-
 		$image_path = JPATH_ROOT . "/media/com_surveyforce/gen_images/";
 
 		if ($day == null)
@@ -435,7 +431,7 @@ class SurveyforceHelper
 		closedir($current_dir);
 	}
 
-	function SF_draw_grid($options = array())
+	public static function SF_draw_grid($options = array())
 	{
 		// Add values to the graph
 		$graphValues = explode(',', $options['grids']);
@@ -489,9 +485,8 @@ class SurveyforceHelper
 		imagedestroy($image);
 	}
 
-	function SF_PrintRepSurv_List($survey_data, $questions_data, $is_pc = 0)
+	public static function SF_PrintRepSurv_List($survey_data, $questions_data, $is_pc = 0)
 	{
-
 		self::clearOldImages();
 		/*
 		 * Create the pdf document
@@ -535,7 +530,7 @@ class SurveyforceHelper
 			'grids' => $survey_data->total_starts . ',' . $survey_data->total_gstarts . ','
 				. $survey_data->total_rstarts . ',' . $survey_data->total_istarts . ',' . $survey_data->total_completes . ','
 				. $survey_data->total_gcompletes . ',' . $survey_data->total_rcompletes . ',' . $survey_data->total_icompletes,
-			'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png');
+			'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png');
 		self::SF_draw_grid($options);
 		$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
@@ -610,7 +605,7 @@ class SurveyforceHelper
 							$pdf->SetLeftMargin($pdf_doc->_margin_left);
 							$options = array('total' => $total,
 								'grids' => implode(',', $tmp_data),
-								'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png');
+								'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png');
 							self::SF_draw_grid($options);
 							$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
@@ -652,7 +647,7 @@ class SurveyforceHelper
 						$pdf->SetLeftMargin($pdf_doc->_margin_left);
 						$options = array('total' => $total,
 							'grids' => implode(',', $tmp_data),
-							'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png');
+							'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png');
 						self::SF_draw_grid($options);
 						$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
@@ -706,7 +701,7 @@ class SurveyforceHelper
 						$pdf->SetLeftMargin($pdf_doc->_margin_left);
 						$options = array('total' => $total,
 							'grids' => implode(',', $tmp_data),
-							'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png');
+							'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png');
 						self::SF_draw_grid($options);
 						$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
@@ -744,7 +739,7 @@ class SurveyforceHelper
 				$pdf->SetLeftMargin($pdf_doc->_margin_left);
 				$options = array('total' => $total,
 					'grids' => implode(',', $tmp_data),
-					'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(mktime())) . '.png');
+					'fileName' => JPATH_ROOT . "/media/com_surveyforce/gen_images/" . (strlen(date('d')) < 2 ? '0' . date('d') : date('d')) . '_' . md5(uniqid(time())) . '.png');
 				self::SF_draw_grid($options);
 				$pdf->Image($options['fileName'], $pdf->GetX(), $pdf->GetY(), 0, 0, '', '', '', false, 50);
 
