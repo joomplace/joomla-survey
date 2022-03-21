@@ -634,7 +634,12 @@ class SurveyforceHelper
             }
             elseif($survey->sf_date_started != '0000-00-00 00:00:00' && strtotime($survey->sf_date_started) <= $now) {
 				$survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_started');
-			} else {
+			}
+            elseif($survey->published
+                && $survey->sf_date_started != '0000-00-00 00:00:00' && strtotime($survey->sf_date_started) > $now) {
+                $survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_yet');
+            }
+            else {
                 $survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_expired');
             }
 
