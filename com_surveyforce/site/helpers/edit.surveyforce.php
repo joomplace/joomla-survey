@@ -158,7 +158,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 			@header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 			@header('Cache-Control: no-cache, must-revalidate');
 			@header('Pragma: no-cache');
-			@header('Content-Type: text/xml charset=' . _ISO);
+			@header('Content-Type: text/xml; charset=utf-8');
 			@ob_end_clean();
 			@ob_end_clean();
 

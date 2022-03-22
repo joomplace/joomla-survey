@@ -8,7 +8,6 @@
  * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
  */
 defined('_JEXEC') or die('Restricted access');
-define('_ISO', 'charset=utf-8');
 
 jimport('joomla.application.component.controllerform');
 
@@ -1330,7 +1329,6 @@ class SurveyforceControllerSurvey extends JControllerForm {
 				break;
 			default: break;
 		}
-		$iso = explode('=', _ISO);
 		echo "\n" . date('Y-m-d H:i:s');
 		$debug_str = ob_get_contents();
 
@@ -1342,7 +1340,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 			header('Cache-Control: no-cache, must-revalidate');
 			header('Pragma: no-cache');
 			header('Content-Type: text/xml');
-			echo '<?xml version="1.0" encoding="' . $iso[1] . '" standalone="yes"?>';
+			echo '<?xml version="1.0" encoding="utf-8" standalone="yes"?>';
 			echo '<response>' . "\n";
 			echo $ret_str;
 			echo "\t" . '<debug><![CDATA[' . $debug_str . '&nbsp;]]></debug>' . "\n";
@@ -1353,7 +1351,7 @@ class SurveyforceControllerSurvey extends JControllerForm {
 			header('Cache-Control: no-cache, must-revalidate');
 			header('Pragma: no-cache');
 			header('Content-Type: text/xml');
-			echo '<?xml version="1.0" encoding="' . $iso[1] . '" standalone="yes"?>';
+			echo '<?xml version="1.0" encoding="utf-8" standalone="yes"?>';
 			echo '<response>' . "\n";
 			echo "\t" . '<task>failed</task>' . "\n";
 			echo "\t" . '<quest_count>0</quest_count>' . "\n";

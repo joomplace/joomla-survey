@@ -215,7 +215,7 @@ class SurveyforceControllerQuestion extends JControllerForm {
                     @header ('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
                     @header ('Cache-Control: no-cache, must-revalidate');
                     @header ('Pragma: no-cache');
-                    @header ('Content-Type: text/xml charset='. _ISO);          
+                    @header ('Content-Type: text/xml; charset=utf-8');
                     
                     echo '<?xml version="1.0" standalone="yes"?>';
                     echo '<response>' . "\n";
