@@ -26,10 +26,9 @@ class SurveyforceTableQuestion extends JTable {
 
 		//$this->id = (int)$jform['id'];
 		//$this->sf_qtype = $jform['sf_qtype'];
-		$this->sf_qstyle = $jform['sf_qstyle'];
+		$this->sf_qstyle = isset($jform['sf_qstyle']) ? $jform['sf_qstyle'] : 0;
 		//$this->sf_survey = @$jform['sf_survey'];
 		$this->sf_num_options = @$jform['sf_num_options'];
-
 
 		$app = JFactory::getApplication();
         $issave2copy = $app->input->get('task') == 'save2copy';

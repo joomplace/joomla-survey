@@ -510,6 +510,13 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			var q_id = jQuery('#sf_quest_list3').get(0).options[jQuery('#sf_quest_list3').get(0).selectedIndex].value;
 			var sf_field_data_a = 0;
 
+            var f_scale_data = null;
+                if(jQuery('#f_scale_data').length > 0) {
+                f_scale_data = jQuery('#f_scale_data').get(0).options[jQuery('#f_scale_data').get(0).selectedIndex];
+                sf_field_data_a = f_scale_data.value;
+                var sf_field_data_a_text = f_scale_data.text;
+            }
+
 			var tbl_elem = jQuery('#show_quest').get(0);
 			var row = tbl_elem.insertRow(tbl_elem.rows.length);
 
@@ -537,7 +544,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			cell1.appendChild(input_hidden2);
 			cell1.appendChild(input_hidden3);
 
-			cell2.innerHTML = ' <?php echo JText::_('COM_SURVEYFORCE_ANSWER_IS'); ?> "'+jQuery('#sf_field_data_m').get(0).options[jQuery('#sf_field_data_m').get(0).selectedIndex].innerHTML+'"';
+            if(!!f_scale_data) {
+                cell2.innerHTML = ' <?php echo JText::_('COM_SURVEYFORCE_ANSWER_IS'); ?> "'+jQuery('#sf_field_data_m').get(0).options[jQuery('#sf_field_data_m').get(0).selectedIndex].innerHTML+'"' + ' - "' + sf_field_data_a_text + '"';
+            } else {
+                cell2.innerHTML = ' <?php echo JText::_('COM_SURVEYFORCE_ANSWER_IS'); ?> "'+jQuery('#sf_field_data_m').get(0).options[jQuery('#sf_field_data_m').get(0).selectedIndex].innerHTML+'"';
+            }
 
 			cell4.innerHTML = '<a href="javascript: void(0);" onclick="javascript:Delete_row(this); return false;" title="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"><img src="<?php echo JURI::root()?>administrator/components/com_surveyforce/assets/images/publish_x.png"  border="0" alt="<?php echo JText::_('COM_SURVEYFORCE_DELETE'); ?>"></a>';
 			row.appendChild(cell1);
