@@ -1489,7 +1489,11 @@ class SurveyforceHelper
 		JFactory::getSession()->set('list_filt_ulist', $filt_ulist);
 
 		$javascript = 'onchange="submitbutton(\'reports\');"';
-		$filter_quest = array();
+
+        //Stupid quick fix to avoid the warning "Array to string conversion in".
+        //ToDo
+        $filter_quest = 0;
+
 		$filter_ans = array(0);
 		$i = 0;
 		$j = 0;
@@ -1503,6 +1507,7 @@ class SurveyforceHelper
 			{
 				if (isset($_REQUEST['filter_quest']))
 				{
+                    $filter_quest = array();
 					$k = 0;
 					foreach ($_REQUEST['filter_quest'] as $filt_row)
 					{
@@ -1733,7 +1738,11 @@ class SurveyforceHelper
 
 
 		$javascript = 'onchange="submitbutton(\'reports\');"';
-		$filter_quest = array();
+
+        //Stupid quick fix to avoid the warning "Array to string conversion in".
+        //ToDo
+        $filter_quest = 0;
+
 		$filter_ans = array();
 		$i = 0;
 		$j = 0;
@@ -1747,6 +1756,7 @@ class SurveyforceHelper
 			{
 				if (isset($_REQUEST['filter_quest']))
 				{
+                    $filter_quest = array();
 					$k = 0;
 					foreach ($_REQUEST['filter_quest'] as $filt_row)
 					{
@@ -2119,7 +2129,11 @@ class SurveyforceHelper
 		$filter_ans = intval(mosGetParam($_REQUEST, 'filter_ans', JFactory::getSession()->get('list_filter_ans', 0)));
 		JFactory::getSession()->set('list_filter_ans', $filter_ans);
 		$javascript = 'onchange="submitbutton(\'reports\');"';
-		$filter_quest = array();
+
+        //Stupid quick fix to avoid the warning "Array to string conversion in".
+        //ToDo
+        $filter_quest = 0;
+
 		$filter_ans = array();
 		$i = 0;
 		$j = 0;
@@ -2131,6 +2145,7 @@ class SurveyforceHelper
 			{
 				if (isset($_REQUEST['filter_quest']))
 				{
+                    $filter_quest = array();
 					$k = 0;
 					foreach ($_REQUEST['filter_quest'] as $filt_row)
 					{
