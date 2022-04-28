@@ -37,10 +37,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 * @param        integer         width of the image
                 * @param        integer         height of the image
                 */
-                
-                function PieChart($width = 600, $height = 250)
+
+                public function __construct($width = 600, $height = 250)
                 {
-                        parent::Chart($width, $height);
+                        parent::__construct($width, $height);
 
                         $this->setMargin(5);
                         $this->setLabelMarginLeft(30);

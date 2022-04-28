@@ -4,7 +4,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
         /** Libchart - PHP chart library
         *       
-        * Copyright (C) 2005-2006 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * Copyright (C) 2005-2006 Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
         *       
         * This library is free software; you can redistribute it and/or
         * modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
         /**
         * Graphic primitives, extends GD with chart related primitives
         *
-        * @author   Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * @author   Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
         */
 
         class Primitive
@@ -36,8 +36,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 * @access       public
                 * @param        resource        GD image resource
                 */
-                
-                function Primitive($img)
+
+                public function __construct($img)
                 {
                         $this->img = $img;
                 }

@@ -13,9 +13,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 class MultiPieChart extends PieChart {
 
-	function MultiPieChart($width = 600, $height = 250, $sections)
+    public function __construct($sections, $width = 600, $height = 250)
 	{
-    	parent::PieChart($width, $height);
+    	parent::__construct($width, $height);
 		
 		$this->sections = $sections;
 		
