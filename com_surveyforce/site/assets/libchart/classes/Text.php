@@ -4,7 +4,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
         /** Libchart - PHP chart library
         *       
-        * Copyright (C) 2005-2006 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * Copyright (C) 2005-2006 Jean-Marc TrÃ©meaux (jm.tremeaux at gmail.com)
         *       
         * This library is free software; you can redistribute it and/or
         * modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
         /**
         * Text drawing helper
         *
-        * @author   Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * @author   Jean-Marc TrÃ©meaux (jm.tremeaux at gmail.com)
         */
 
         class Text
@@ -42,8 +42,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 *
                 * @access       public
                 */
-                
-                function Text()
+
+                public function __construct()
                 {
 						global $mosConfig_absolute_path;
                         // Free low-res fonts based on Bitstream Vera <http://dejavu.sourceforge.net/wiki/>

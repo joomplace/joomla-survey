@@ -45,8 +45,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 * @param        integer         width of the image
                 * @param        integer         height of the image
                 */
-                
-                function chart($width, $height)
+
+                public function __construct($width, $height)
                 {
                         $this->width = $width;
                         $this->height = $height;

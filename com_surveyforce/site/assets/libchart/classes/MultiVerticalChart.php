@@ -12,10 +12,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 
 class MultiVerticalChart extends VerticalChart {
-	
-	function MultiVerticalChart($width = 600, $height = 250, $sections)
+
+    public function __construct($sections, $width = 600, $height = 250)
 	{
-    	parent::VerticalChart($width, $height);
+    	parent::__construct($width, $height);
 		
 		$this->sections = $sections;
 		$this->setLabelMarginLeft(intval($height/5));

@@ -6,7 +6,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
         /** Libchart - PHP chart library
         *       
-        * Copyright (C) 2005-2006 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * Copyright (C) 2005-2006 Jean-Marc TrÃ©meaux (jm.tremeaux at gmail.com)
         *       
         * This library is free software; you can redistribute it and/or
         * modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
         /**
         * Color
         *
-        * @author   Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * @author   Jean-Marc TrÃ©meaux (jm.tremeaux at gmail.com)
         */
 
         class Color
@@ -41,8 +41,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 * @param        integer         blue [0,255]
                 * @param        integer         alpha [0,255]
                 */
-                
-                function Color($red, $green, $blue, $alpha = 0)
+
+                public function __construct($red, $green, $blue, $alpha = 0)
                 {
                         $this->red = (int)$red;
                         $this->green = (int)$green;

@@ -38,10 +38,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 * @param        integer         width of the image
                 * @param        integer         height of the image
                 */
-                
-                function BarChart($width, $height)
+
+                public function __construct($width, $height)
                 {
-                        parent::Chart($width, $height);
+                        parent::__construct($width, $height);
 
                         $this->setMargin(5);
                         $this->setLowerBound(0);

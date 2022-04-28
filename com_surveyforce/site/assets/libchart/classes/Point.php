@@ -6,7 +6,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
         /** Libchart - PHP chart library
         *       
-        * Copyright (C) 2005-2006 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * Copyright (C) 2005-2006 Jean-Marc TrÃ©meaux (jm.tremeaux at gmail.com)
         *       
         * This library is free software; you can redistribute it and/or
         * modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
         /**
         * Sampling point
         *
-        * @author   Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+        * @author   Jean-Marc TrÃ©meaux (jm.tremeaux at gmail.com)
         */
 
         class Point
@@ -39,8 +39,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 * @param        integer         x coordinate (label)
                 * @param        integer         y coordinate (value)
                 */
-                
-                function Point($x, $y)
+
+                public function __construct($x, $y)
                 {
                         $this->x = $x;
                         $this->y = $y;
