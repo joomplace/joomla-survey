@@ -1,3 +1,6 @@
+<?php
+defined( '_JEXEC' ) or die( 'Restricted access' );
+?>
 <!DOCTYPE html>
 <?php
 /**
@@ -5,8 +8,6 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 */
 
-// no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
 $post = \JFactory::getApplication()->input->post;
 ?>
 <html>

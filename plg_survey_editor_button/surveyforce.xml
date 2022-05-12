@@ -12,5 +12,4 @@
 	<files>
 		<filename plugin="surveyforce">surveyforce.php</filename>
 	</files>
-	<params/>
 </extension>
