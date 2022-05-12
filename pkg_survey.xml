@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <extension type="package" version="3.x" method="upgrade">
-  <name>Joomla Survey Force Deluxe Package</name>
+  <name>Survey Force Deluxe Package</name>
   <author>Joomplace Team</author>
   <creationDate>June 2018</creationDate>
   <packagename>survey</packagename>
@@ -9,6 +9,7 @@
   <copyright>(C) JoomPlace, www.joomplace.com</copyright>
   <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
   <version>3.2.6</version>
+  <description>Survey Force Deluxe Package.</description>
   <files folder="packages">
     <file type="component" id="com_surveyforce">com_surveyforce.zip</file>
     <file type="plugin" id="boilerplate" group="survey">plg_boilerplate.zip</file>
@@ -29,6 +30,6 @@
     <file type="plugin" id="updater" group="installer">plg_installer_joomplaceupdater.zip</file>
   </files>
   <updateservers>
-    <server type="collection" priority="1" name="Joomplace Update Site">http://www.joomplace.com/updates/collections.xml</server>
+    <server type="collection" priority="1" name="Joomplace Update Site">https://www.joomplace.com/updates/collections.xml</server>
   </updateservers>
 </extension>

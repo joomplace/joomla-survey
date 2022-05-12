@@ -1,4 +1,12 @@
 <?php
+/**
+ * Survey Force component for Joomla
+ * @package Survey Force
+ * @author JoomPlace Team
+ * @Copyright Copyright (C) JoomPlace, www.joomplace.com
+ * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+ */
+
 /*
  * This is a PHP library that handles calling reCAPTCHA.
  *    - Documentation and latest version

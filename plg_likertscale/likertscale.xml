@@ -8,8 +8,6 @@
 	<authorEmail>support@joomplace.com</authorEmail>
 	<authorUrl>www.joomplace.com</authorUrl>
 	<version>3.2.6</version>
-	<isapplication>false</isapplication>
-	<isbrowsable>false</isbrowsable>
 	<description>Added LikertScale question type</description>
 	<files>
 		<filename plugin="likertscale">likertscale.php</filename>
