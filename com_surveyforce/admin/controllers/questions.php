@@ -9,7 +9,7 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-jimport('joomla.application.component.controlleradmin');
+use Joomla\Utilities\ArrayHelper;
 
 class SurveyforceControllerQuestions extends JControllerAdmin
 {
@@ -47,9 +47,7 @@ class SurveyforceControllerQuestions extends JControllerAdmin
             // Get the model.
             $model = $this->getModel();
 
-            // Make sure the item ids are integers
-            jimport('joomla.utilities.arrayhelper');
-            JArrayHelper::toInteger($cid);
+            $cid = ArrayHelper::toInteger($cid);
 
             // Remove the items.
             if ($model->delete($cid)) {
@@ -73,9 +71,7 @@ class SurveyforceControllerQuestions extends JControllerAdmin
             // Get the model.
             $model = $this->getModel();
 
-            // Make sure the item ids are integers
-            jimport('joomla.utilities.arrayhelper');
-            JArrayHelper::toInteger($cid);
+            $cid = ArrayHelper::toInteger($cid);
 
             if ($model->compulsory($cid)) {
                 $this->setMessage(JText::plural($this->text_prefix . '_COMPULSORED', count($cid)));
@@ -101,7 +97,6 @@ class SurveyforceControllerQuestions extends JControllerAdmin
         $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&task=question.edit&id=' . $item_id, false));
     }
 
-
 	public function saveOrderAjax()
 	{
 		// Get the input
@@ -109,9 +104,8 @@ class SurveyforceControllerQuestions extends JControllerAdmin
 		$pks = $input->post->get('cid', array(), 'array');
 		$order = $input->post->get('order', array(), 'array');
 
-		// Sanitize the input
-		JArrayHelper::toInteger($pks);
-		JArrayHelper::toInteger($order);
+        $pks = ArrayHelper::toInteger($pks);
+        $order = ArrayHelper::toInteger($order);
 
 		// Get the model
 		$model = $this->getModel();

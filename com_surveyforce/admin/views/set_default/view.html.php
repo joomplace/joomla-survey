@@ -50,7 +50,9 @@ class SurveyforceViewSet_default extends JViewLegacy
 
     protected function addToolbar($id)
     {
-    	$_SESSION['qid'] = $id;
+        $session = JFactory::getSession();
+        $session->set('qid', $id);
+
         JToolBarHelper::save('set_default.save', 'JTOOLBAR_SAVE');
         JToolBarHelper::cancel('set_default.cancel', 'JTOOLBAR_CANCEL');
     }

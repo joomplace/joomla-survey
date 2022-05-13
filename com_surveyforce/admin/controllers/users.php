@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\Utilities\ArrayHelper;
+
 class SurveyforceControllerUsers extends JControllerForm
 {
 	public function getModel($name = 'Users', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true))
@@ -38,9 +40,7 @@ class SurveyforceControllerUsers extends JControllerForm
             // Get the model.
             $model = $this->getModel();
 
-            // Make sure the item ids are integers
-            jimport('joomla.utilities.arrayhelper');
-            JArrayHelper::toInteger($cid);
+            $cid = ArrayHelper::toInteger($cid);
 
             // Remove the items.
             if ($model->delete($cid)) {

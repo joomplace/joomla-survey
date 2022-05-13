@@ -9,7 +9,7 @@
  */
 defined('_JEXEC') or die('Restricted access');
 
-jimport('joomla.application.component.controlleradmin');
+use Joomla\Utilities\ArrayHelper;
 
 class SurveyforceControllerReports extends JControllerAdmin {
 
@@ -40,9 +40,7 @@ class SurveyforceControllerReports extends JControllerAdmin {
             // Get the model.
             $model = $this->getModel();
 
-            // Make sure the item ids are integers
-            jimport('joomla.utilities.arrayhelper');
-            JArrayHelper::toInteger($cid);
+            $cid = ArrayHelper::toInteger($cid);
 
             // Remove the items.
             if ($model->delete($cid)) {

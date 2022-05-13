@@ -27,16 +27,21 @@ class SurveyforceController extends JControllerLegacy
         $itemid = $this->input->getInt('Itemid', 0);
         $this->input->set('Itemid', $itemid);
 
-        if ($view == 'authoring' && !isset($_SESSION['view'])) {
-            $_SESSION['view'] = 'authoring';
-        } elseif ($view != 'authoring' && (isset($_SESSION['view']) && $_SESSION['view'] != 'authoring')) {
-            unset($_SESSION['view']);
+        $session = JFactory::getSession();
+        $session_view = $session->get('view');
+
+        if ($view == 'authoring' && empty($session_view)) {
+            $session->set('view', 'authoring');
+        } elseif ($view != 'authoring' && !empty($session_view) && $session_view != 'authoring') {
+            $session->clear('view');
         }
 
-        if (isset($_SESSION['view']) && $_SESSION['view'] == 'authoring' && $view != 'survey' && $view != 'passed_survey' && $view != 'category') {
+        if (!empty($session_view) && $session_view == 'authoring' && $view != 'survey' && $view != 'passed_survey' && $view != 'category') {
             $this->input->set('view', 'authoring');
         } else {
-            if ($view != 'category' && $view != 'insert_survey' && $view != 'passed_survey') $this->input->set('view', 'survey');
+            if ($view != 'category' && $view != 'insert_survey' && $view != 'passed_survey') {
+                $this->input->set('view', 'survey');
+            }
         }
 
         if ($task == 'start_invited') {

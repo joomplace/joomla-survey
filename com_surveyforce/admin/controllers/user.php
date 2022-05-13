@@ -49,8 +49,13 @@ class SurveyforceControllerUser extends JControllerForm
     public function cancel($key = null)
     {
         $jform = JFactory::getApplication()->input->get('jform', array(),'array');
-		unset($_SESSION['list_id']);
-        $listid = $jform['list_id'];
+        $listid = !empty($jform['list_id']) ? $jform['list_id'] : 0;
+
+        $session = JFactory::getSession();
+        if(!empty($session->get('list_id'))) {
+            $session->clear('list_id');
+        }
+
         $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=users&id='.$listid, false));
     }
 
@@ -60,9 +65,13 @@ class SurveyforceControllerUser extends JControllerForm
 		
 		$input = JFactory::getApplication()->input;
 		$jform = $input->get('jform', array(),'array');
-        unset($_SESSION['list_id']);
-        $listid = $jform['list_id'];
-		$task = $input->getCmd('task');
+        $listid = !empty($jform['list_id']) ? $jform['list_id'] : 0;
+        $task = $input->getCmd('task');
+
+        $session = JFactory::getSession();
+        if(!empty($session->get('list_id'))) {
+            $session->clear('list_id');
+        }
 		
 		if($task != 'save2new') {
 			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=users&id='.$listid, false));

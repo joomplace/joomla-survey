@@ -257,9 +257,10 @@ class JoomlaquizModelResults extends JModelList {
             JoomlaquizHelper::JQ_GetJoomFish($quiz_params[0]->c_keywords, 'quiz_t_quiz', 'c_keywords', $quiz_params[0]->c_id);
             JoomlaquizHelper::JQ_GetJoomFish($quiz_params[0]->c_metatitle, 'quiz_t_quiz', 'c_metatitle', $quiz_params[0]->c_id);
 
-            $_SESSION['quiz_lid'] = 0;
-            $_SESSION['quiz_rel_id'] = 0;
-            $_SESSION['quiz_package_id'] = 0;
+            $session = JFactory::getSession();
+            $session->set('quiz_lid', 0);
+            $session->set('quiz_rel_id', 0);
+            $session->set('quiz_package_id', 0);
 
             $query = "SELECT count(*) FROM #__quiz_t_question WHERE c_quiz_id = '" . $quiz_id . "' AND c_type = 4 AND published = 1";
             $database->SetQuery($query);

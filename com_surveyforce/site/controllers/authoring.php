@@ -8,6 +8,8 @@
  */
 defined('_JEXEC') or die;
 
+use Joomla\Utilities\ArrayHelper;
+
 class SurveyforceControllerAuthoring extends JControllerLegacy
 {
 	public function getModel($name = 'Authoring', $prefix = 'SurveyforceModel', $config = array('ignore_request' => true))
@@ -28,8 +30,8 @@ class SurveyforceControllerAuthoring extends JControllerLegacy
 		$pks = $this->input->post->get('cid', array(), 'array');
 		$order = $this->input->post->get('order', array(), 'array');
 
-		JArrayHelper::toInteger($pks);
-		JArrayHelper::toInteger($order);
+        $pks = ArrayHelper::toInteger($pks);
+        $order = ArrayHelper::toInteger($order);
 
 		$return = FALSE;
 		$db = JFactory::getDbo();
