@@ -13,15 +13,18 @@ class SurveyforceControllerSet_default extends JControllerForm
 {
 	public function cancel($key = null)
     {
-		$qid = $_SESSION['qid'];
-		unset($_SESSION['qid']);
+        $session = JFactory::getSession();
+        $qid = $session->get('qid', 0);
+        $session->clear('qid');
 		$this->setRedirect('index.php?option=com_surveyforce&view=question&layout=edit&id='.$qid);
 	}
 
     public function save($key = null, $urlVar = null)
     {
-        if(isset($_SESSION['qid'])) {
-            unset($_SESSION['qid']);
+        $session = JFactory::getSession();
+        $qid = $session->get('qid');
+        if(!empty($qid)) {
+            $session->clear('qid');
         }
 
         $jinput = JFactory::getApplication()->input;

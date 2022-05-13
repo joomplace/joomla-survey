@@ -35,7 +35,9 @@ class SurveyforceViewUsers extends JViewLegacy
         $this->pagination = $pagination;
         $this->state = $state;       
         $this->listid = JFactory::getApplication()->input->get('id');
-        $_SESSION['listid'] = $this->listid;
+
+        $session = JFactory::getSession();
+        $session->set('listid', $this->listid);
 
         parent::display($tpl);
     }

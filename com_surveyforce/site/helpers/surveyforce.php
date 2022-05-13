@@ -10121,8 +10121,10 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 	public static function SF_saveDefault($option, $quest_id = 0)
 	{
-        if(isset($_SESSION['qid'])) {
-            unset($_SESSION['qid']);
+        $session = JFactory::getSession();
+        $qid = $session->get('qid');
+        if(!empty($qid)) {
+            $session->clear('qid');
         }
 
         $jinput = JFactory::getApplication()->input;

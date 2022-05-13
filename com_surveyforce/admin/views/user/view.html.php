@@ -37,7 +37,9 @@ class SurveyforceViewUser extends JViewLegacy
         $this->item = $item;
         $this->form = $form;
         $this->state = $state;
-        $this->listid = $_SESSION['listid'];
+
+        $session = JFactory::getSession();
+        $this->listid = $session->get('listid');
 
         $this->addToolBar();   
         

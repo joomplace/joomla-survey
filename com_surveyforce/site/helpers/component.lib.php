@@ -14,6 +14,8 @@ defined('JPATH_BASE') or die();
 
 if ( !defined('DS') ) define('DS', DIRECTORY_SEPARATOR);
 
+use Joomla\Utilities\ArrayHelper;
+
 if (!class_exists('mosAdminMenus')) {
 class mosAdminMenus
 {
@@ -253,34 +255,33 @@ class mosAdminMenus
  	 *
  	 * @deprecated	As of version 1.5
  	*/
-	function MenuSelect( $name='menuselect', $javascript=NULL )
-	{
-		$db =& JFactory::getDBO();
+    function MenuSelect( $name='menuselect', $javascript=NULL )
+    {
+        $db = JFactory::getDBO();
+        $query = 'SELECT params'
+            . ' FROM #__modules'
+            . ' WHERE module = "mod_mainmenu"'
+        ;
+        $db->setQuery( $query );
+        $menus = $db->loadObjectList();
 
-		$query = 'SELECT params'
-		. ' FROM #__modules'
-		. ' WHERE module = "mod_mainmenu"'
-		;
-		$db->setQuery( $query );
-		$menus = $db->loadObjectList();
-		$total = count( $menus );
-		$menuselect = array();
-		for( $i = 0; $i < $total; $i++ )
-		{
-			$registry = new JRegistry();
-			$registry->loadINI($menus[$i]->params);
-			$params = $registry->toObject( );
+        $total = count($menus);
+        $menuselect = array();
 
-			$menuselect[$i]->value 	= $params->menutype;
-			$menuselect[$i]->text 	= $params->menutype;
-		}
-		// sort array of objects
-		JArrayHelper::sortObjects( $menuselect, 'text', 1 );
+        for( $i = 0; $i < $total; $i++ ) {
+            $params = new JRegistry($menus[$i]->params);
+            $menuselect[$i] = new stdClass();
+            $menuselect[$i]->value 	= $params->menutype;
+            $menuselect[$i]->text 	= $params->menutype;
+        }
 
-		$menus = JHTML::_('select.genericlist',   $menuselect, $name, 'class="inputbox" size="10" '. $javascript, 'value', 'text' );
+        // sort array of objects
+        $menuselect = ArrayHelper::sortObjects($menuselect, 'text', 1);
 
-		return $menus;
-	}
+        $menus = JHTML::_('select.genericlist',   $menuselect, $name, 'class="inputbox" size="10" '. $javascript, 'value', 'text' );
+
+        return $menus;
+    }
 
 	/**
  	 * Legacy function, deprecated
@@ -1102,13 +1103,8 @@ if (!function_exists('mosMail')) {
 function mosMail($from, $fromname, $recipient, $subject, $body, $mode=0, $cc=NULL, $bcc=NULL, $attachment=NULL, $replyto=NULL, $replytoname=NULL ) {
 
 	$mailer = JFactory::getMailer();
-
-	$sender = array(
-		$from,
-		$fromname );
-
+	$sender = array($from, $fromname );
 	$mailer->setSender($sender);
-
 	$mailer->addRecipient($recipient);
 	$mailer->setSubject($subject);
 	$mailer->isHTML($mode);
@@ -1167,7 +1163,7 @@ function mosMakePath($base, $path='', $mode = NULL) {
  */
 if (!function_exists('mosArrayToInts')) {
 function mosArrayToInts( &$array, $default=null ) {
-	return JArrayHelper::toInteger( $array, $default );
+    return ArrayHelper::toInteger($array, $default);
 }
 }
 /**
@@ -1307,7 +1303,7 @@ function mosGetParam( &$arr, $name, $def=null, $mask=0 )
 	static $noHtmlFilter	= null;
 	static $safeHtmlFilter	= null;
 
-	$var = JArrayHelper::getValue( $arr, $name, $def, '' );
+    $var = ArrayHelper::getValue((array)$arr, $name, $def, '' );
 
 	// If the no trim flag is not set, trim the variable
 	if (!($mask & 1) && is_string($var)) {
@@ -1385,7 +1381,7 @@ function mosLoadComponent( $name )
 if (!function_exists('initEditor')) {
 function initEditor()
 {
-	$editor =& JFactory::getEditor();
+    $editor = JEditor::getInstance(JFactory::getConfig()->editor);
 	echo $editor->initialise();
 }
 }
@@ -1398,7 +1394,7 @@ if (!function_exists('getEditorContents')) {
 function getEditorContents($editorArea, $hiddenField)
 {
 	jimport( 'joomla.html.editor' );
-	$editor =& JFactory::getEditor();
+    $editor = JEditor::getInstance(JFactory::getConfig()->editor);
 	echo $editor->save( $hiddenField );
 }
 }
@@ -1411,7 +1407,7 @@ if (!function_exists('editorArea')) {
 function editorArea($name, $content, $hiddenField, $width, $height, $col, $row)
 {
 	jimport( 'joomla.html.editor' );
-	$editor =& JFactory::getEditor();
+    $editor = JEditor::getInstance(JFactory::getConfig()->editor);
 	echo $editor->display($hiddenField, $content, $width, $height, $col, $row);
 }
 }
@@ -1423,8 +1419,8 @@ function editorArea($name, $content, $hiddenField, $width, $height, $col, $row)
 if (!function_exists('mosMenuCheck')) {
 function mosMenuCheck( $Itemid, $menu_option, $task, $gid )
 {
-	$user =& JFactory::getUser();
-	$menus =& JSite::getMenu();
+	$user = JFactory::getUser();
+	$menus = JSite::getMenu();
 	$menus->authorize($Itemid, $user->get('aid'));
 }
 }
@@ -1434,9 +1430,9 @@ function mosMenuCheck( $Itemid, $menu_option, $task, $gid )
  * @deprecated	As of version 1.5
  */
 if (!function_exists('mosObjectToArray')) {
-function mosObjectToArray( $p_obj, $recurse = true, $regex = null )
+function mosObjectToArray($p_obj, $recurse = true, $regex = null)
 {
-	$result = JArrayHelper::fromObject( $p_obj, $recurse, $regex );
+	$result = ArrayHelper::fromObject($p_obj, $recurse, $regex);
 	return $result;
 }
 }
@@ -1467,7 +1463,6 @@ function mosCurrentDate( $format="" )
 	if ($format=="") {
 		$format = JText::_('COM_SF_DATE_FORMAT_LC1');
 	}
-echo "Debug: <pre>"; print_r($format); echo "</pre>"; die;
 	return JHTML::_('date', 'now', $format);
 }
 }
@@ -1594,7 +1589,7 @@ function doGzip()
 if (!function_exists('SortArrayObjects')) {
 function SortArrayObjects( &$a, $k, $sort_direction=1 )
 {
-	JArrayHelper::sortObjects($a, $k, $sort_direction);
+	ArrayHelper::sortObjects($a, $k, $sort_direction);
 }
 }
 
@@ -1627,13 +1622,12 @@ function josSpoofCheck( $header=false, $alternate=null )
 	}
 
 	// Check to make sure that the request was posted as well.
-	$requestMethod = JArrayHelper::getValue( $_SERVER, 'REQUEST_METHOD' );
+	$requestMethod = ArrayHelper::getValue( $_SERVER, 'REQUEST_METHOD' );
 	if ($requestMethod != 'POST') {
 		$check = false;
 	}
 
-	if (!$check)
-	{
+	if (!$check) {
 		header( 'HTTP/1.0 403 Forbidden' );
 		jexit( JText::_('COM_SF_E_SESSION_TIMEOUT') );
 	}
@@ -2592,9 +2586,8 @@ class mosSession extends JTableSession
 	function persist()
 	{
 		global $mainframe;
-
-		$usercookie = mosGetParam( $_COOKIE, 'usercookie', null );
-		if ($usercookie) {
+        $usercookie = JFactory::getApplication()->input->cookie->get('usercookie', null);
+        if (!empty($usercookie)) {
 			// Remember me cookie exists. Login with usercookie info.
 			$mainframe->login( $usercookie['username'], $usercookie['password'] );
 		}
@@ -2624,13 +2617,18 @@ class mosSession extends JTableSession
 	 */
 	function setFromRequest( $key, $varName, $default=null )
 	{
-		if (isset( $_REQUEST[$varName] )) {
-			return $_SESSION[$key] = $_REQUEST[$varName];
-		} else if (isset( $_SESSION[$key] )) {
-			return $_SESSION[$key];
+        $input = JFactory::getApplication()->input;
+        $session = JFactory::getSession();
+
+        if(!empty($input->get($varName))) {
+            $session->set($key, $input->get($varName));
+		} else if (!empty($session->get($key))) {
+			return $session->get($key);
 		} else {
-			return $_SESSION[$key] = $default;
+            $session->set($key, $default);
 		}
+
+        return $session->get($key);
 	}
 }
 }

@@ -39,7 +39,7 @@ class SurveyforceControllerQuestion extends JControllerForm {
     }
 
     static public function SF_editorArea($name, $content, $hiddenField, $width, $height, $col, $row) {
-        $editor = JFactory::getEditor();
+        $editor = JEditor::getInstance(JFactory::getConfig()->editor);
         echo $editor->display($hiddenField, $content, $width, $height, $col, $row, array('pagebreak', 'readmore'));
     }
 
