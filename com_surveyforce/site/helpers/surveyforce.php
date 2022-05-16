@@ -420,20 +420,15 @@ class SurveyforceHelper
 
 	public static function SF_analizeAjaxRequest()
 	{
-		// Get the application.
-		$app = JFactory::getApplication('site');
-
-		$sf_task = mosGetParam($_REQUEST, 'action', '');
-
-		require_once(dirname(__FILE__) . '/survey.php');
-
-		$limit = mosGetParam($_REQUEST, 'limit', 0);
-		$page = mosGetParam($_REQUEST, 'count', 0);
-		$survey_id = mosGetParam($_REQUEST, 'survey', 0);
-		$pagination = mosGetParam($_REQUEST, 'pagination', 0);
-
+        $app = JFactory::getApplication();
+		$input = $app->input;
+        $sf_task = $input->get('action', '');
+        $limit = $input->getInt('limit', 0);
+        $page = $input->getInt('count', 0);
+        $survey_id = $input->getInt('survey', 0);
+        $pagination = $input->getInt('pagination', 0);
+        require_once(dirname(__FILE__) . '/survey.php');
 		SF_process_ajax($sf_task, $limit, $page, $survey_id, $pagination);
-		
 		$app->close();
 	}
 
@@ -975,17 +970,11 @@ class SurveyforceHelper
 	{
 		$database = JFactory::getDbo();
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
-		if (isset($_REQUEST['limit']) && $_REQUEST['limit'] == 0)
-		{
-			$limit = 999999999;
-		}
-		else
-		{
-			$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
-		}
+
+        $limit = JFactory::getApplication()->input->getInt('limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit')));
 		JFactory::getSession()->set('list_limit', $limit);
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
-		$listname = mosGetParam($_REQUEST, 'listname', '');
+        $limitstart = JFactory::getApplication()->input->getInt('limitstart', 0);
+        $listname = JFactory::getApplication()->input->get('listname', '');
 
 		// get the total number of records
 		$query = "SELECT COUNT(*) FROM #__users ORDER BY username ";
@@ -1284,13 +1273,13 @@ class SurveyforceHelper
 	public static function SF_ListCategories($option)
 	{
 		$database = JFactory::getDbo();
-		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
-		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
-		if ($limit == 0) $limit = 999999;
-		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
-		if ($limit == 0) $limit = 999999;
-		JFactory::getSession()->set('list_limit', $limit);
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
+        $limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
+        $limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
+        if ($limit == 0) $limit = 999999;
+        $limit = JFactory::getApplication()->input->getInt('limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit')));
+        if ($limit == 0) $limit = 999999;
+        JFactory::getSession()->set('list_limit', $limit);
+        $limitstart = JFactory::getApplication()->input->getInt('limitstart', 0);
 
 		// get the total number of records
 		$query = "SELECT COUNT(*)"
@@ -1424,10 +1413,10 @@ class SurveyforceHelper
 		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
 		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
 		if ($limit == 0) $limit = 999999;
-		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
+        $limit = JFactory::getApplication()->input->getInt('limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit')));
 		if ($limit == 0) $limit = 999999;
 		JFactory::getSession()->set('list_limit', $limit);
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
+        $limitstart = JFactory::getApplication()->input->getInt('limitstart', 0);
 		// get the total number of records
 		$query = "SELECT COUNT(*)"
 			. "\n FROM #__survey_force_listusers "
@@ -1473,19 +1462,18 @@ class SurveyforceHelper
 		$database = JFactory::getDbo();
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
 
-		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
+        $limit = JFactory::getApplication()->input->getInt('limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit')));
 		if ($limit == 0) $limit = 999999;
 		JFactory::getSession()->set('list_limit', $limit);
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', JFactory::getSession()->get('list_limitstart', 0)));
+        $limitstart = JFactory::getApplication()->input->getInt('limitstart', JFactory::getSession()->get('list_limitstart', 0));
 		JFactory::getSession()->set('list_limitstart', $limitstart);
-		$surv_id = intval(mosGetParam($_REQUEST, 'surv_id', JFactory::getSession()->get('list_surv_id', 0)));
-		JFactory::getSession()->set('list_surv_id', $surv_id);
-
-		$filt_status = intval(mosGetParam($_REQUEST, 'filt_status', JFactory::getSession()->get('list_filt_status', 2)));
-		JFactory::getSession()->set('list_filt_status', $filt_status);
-		$filt_utype = intval(mosGetParam($_REQUEST, 'filt_utype', JFactory::getSession()->get('list_filt_utype', 0)));
+        $surv_id = JFactory::getApplication()->input->getInt('surv_id', JFactory::getSession()->get('list_surv_id', 0));
+        JFactory::getSession()->set('list_surv_id', $surv_id);
+        $filt_status = JFactory::getApplication()->input->getInt('filt_status', JFactory::getSession()->get('list_filt_status', 2));
+        JFactory::getSession()->set('list_filt_status', $filt_status);
+        $filt_utype = JFactory::getApplication()->input->getInt('filt_utype', JFactory::getSession()->get('list_filt_utype', 0));
 		JFactory::getSession()->set('list_filt_utype', $filt_utype);
-		$filt_ulist = intval(mosGetParam($_REQUEST, 'filt_ulist', JFactory::getSession()->get('list_filt_ulist', 0)));
+        $filt_ulist = JFactory::getApplication()->input->getInt('filt_ulist', JFactory::getSession()->get('list_filt_ulist', 0));
 		JFactory::getSession()->set('list_filt_ulist', $filt_ulist);
 
 		$javascript = 'onchange="submitbutton(\'reports\');"';
@@ -1505,11 +1493,13 @@ class SurveyforceHelper
 			$database->setQuery($query);
 			if (!$database->loadResult())
 			{
-				if (isset($_REQUEST['filter_quest']))
+                $request_filter_quest = JFactory::getApplication()->input->get('filter_quest', array(), 'ARRAY');
+                $request_filter_ans = JFactory::getApplication()->input->get('filter_ans', array(), 'ARRAY');
+				if (!empty($request_filter_quest))
 				{
                     $filter_quest = array();
 					$k = 0;
-					foreach ($_REQUEST['filter_quest'] as $filt_row)
+					foreach ($request_filter_quest as $filt_row)
 					{
 						if ($filt_row)
 						{
@@ -1537,18 +1527,17 @@ class SurveyforceHelper
 							$filter_quest[$i] = $filt_row;
 							$lists['filter_quest'][$i] = $qlist;
 							$sel_ans = array(0);
-							if (isset($_REQUEST['filter_ans'][$filt_row]) && $_REQUEST['filter_ans'][$filt_row])
-							{
-								$sel_ans = $_REQUEST['filter_ans'][$filt_row];
+							if (!empty($request_filter_ans[$filt_row])) {
+								$sel_ans = $request_filter_ans[$filt_row];
 							}
 							$sel_ans2 = null;
-							if (is_array($sel_ans) && count($sel_ans))
-								foreach ($sel_ans as $sel_an)
-								{
-									$tmp = new stdClass;
-									$tmp->value = $sel_an;
-									$sel_ans2[] = $tmp;
-								}
+							if (is_array($sel_ans) && count($sel_ans)) {
+                                foreach ($sel_ans as $sel_an) {
+                                    $tmp = new stdClass;
+                                    $tmp->value = $sel_an;
+                                    $sel_ans2[] = $tmp;
+                                }
+                            }
 
 							$query = "SELECT distinct a.answer AS value, b.ftext AS text"
 								. "\n FROM #__survey_force_user_answers as a, #__survey_force_fields as b, #__survey_force_quests as c WHERE c.published = 1 AND a.quest_id = '" . $filt_row . "' and a.survey_id = '" . $surv_id . "' and a.quest_id = c.id and c.sf_qtype IN (2,3) and a.answer <> 0 and a.answer = b.id";
@@ -1717,23 +1706,22 @@ class SurveyforceHelper
 		$filter_quest = intval(JFactory::getApplication()->getUserStateFromRequest("filter_quest", 'filter_quest', 0));
 		$filter_ans = intval(JFactory::getApplication()->getUserStateFromRequest("filter_ans", 'filter_ans', 0));
 		if ($limit == 0) $limit = 999999;
-		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
+        $limit = JFactory::getApplication()->input->getInt('limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit')));
 		if ($limit == 0) $limit = 999999;
 		JFactory::getSession()->set('list_limit', $limit);
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', JFactory::getSession()->get('list_limitstart', 0)));
+		$limitstart = JFactory::getApplication()->input->getInt('limitstart', JFactory::getSession()->get('list_limitstart', 0));
 		JFactory::getSession()->set('list_limitstart', $limitstart);
-		$surv_id = intval(mosGetParam($_REQUEST, 'surv_id', JFactory::getSession()->get('list_surv_id', 0)));
+        $surv_id = JFactory::getApplication()->input->getInt('surv_id', JFactory::getSession()->get('list_surv_id', 0));
 		JFactory::getSession()->set('list_surv_id', $surv_id);
-
-		$filt_status = intval(mosGetParam($_REQUEST, 'filt_status', JFactory::getSession()->get('list_filt_status', 2)));
+        $filt_status = JFactory::getApplication()->input->getInt('filt_status', JFactory::getSession()->get('list_filt_status', 2));
 		JFactory::getSession()->set('list_filt_status', $filt_status);
-		$filt_utype = intval(mosGetParam($_REQUEST, 'filt_utype', JFactory::getSession()->get('list_filt_utype', 0)));
+        $filt_utype = JFactory::getApplication()->input->getInt('filt_utype', JFactory::getSession()->get('list_filt_utype', 0));
 		JFactory::getSession()->set('list_filt_utype', $filt_utype);
-		$filt_ulist = intval(mosGetParam($_REQUEST, 'filt_ulist', JFactory::getSession()->get('list_filt_ulist', 0)));
+        $filt_ulist = JFactory::getApplication()->input->getInt('filt_ulist', JFactory::getSession()->get('list_filt_ulist', 0));
 		JFactory::getSession()->set('list_filt_ulist', $filt_ulist);
-		$filter_quest = intval(mosGetParam($_REQUEST, 'filter_quest', JFactory::getSession()->get('list_filter_quest', 0)));
+        $filter_quest = JFactory::getApplication()->input->getInt('filter_quest', JFactory::getSession()->get('list_filter_quest', 0));
 		JFactory::getSession()->set('list_filter_quest', $filter_quest);
-		$filter_ans = intval(mosGetParam($_REQUEST, 'filter_ans', JFactory::getSession()->get('list_filter_ans', 0)));
+        $filter_ans = JFactory::getApplication()->input->getInt('filter_ans', JFactory::getSession()->get('list_filter_ans', 0));
 		JFactory::getSession()->set('list_filter_ans', $filter_ans);
 
 
@@ -1754,11 +1742,13 @@ class SurveyforceHelper
 			$database->setQuery($query);
 			if (!$database->loadResult())
 			{
-				if (isset($_REQUEST['filter_quest']))
+                $request_filter_quest = JFactory::getApplication()->input->get('filter_quest', array(), 'ARRAY');
+                $request_filter_ans = JFactory::getApplication()->input->get('filter_ans', array(), 'ARRAY');
+				if (!empty($request_filter_quest))
 				{
                     $filter_quest = array();
 					$k = 0;
-					foreach ($_REQUEST['filter_quest'] as $filt_row)
+					foreach ($request_filter_quest as $filt_row)
 					{
 						if ($filt_row)
 						{
@@ -1773,9 +1763,8 @@ class SurveyforceHelper
 							$filter_quest[$i] = $filt_row;
 							$lists['filter_quest'][$i] = $qlist;
 							$sel_ans = 0;
-							if (isset($_REQUEST['filter_ans'][$k]) && $_REQUEST['filter_ans'][$k])
-							{
-								$sel_ans = $_REQUEST['filter_ans'][$k];
+							if (!empty($request_filter_ans[$k])) {
+								$sel_ans = $request_filter_ans[$k];
 							}
 							$query = "SELECT distinct a.answer AS value, b.ftext AS text"
 								. "\n FROM #__survey_force_user_answers as a, #__survey_force_fields as b, #__survey_force_quests as c WHERE c.published = 1 AND a.quest_id = '" . $filt_row . "' and a.survey_id = '" . $surv_id . "' and a.quest_id = c.id and c.sf_qtype IN (2,3) and a.answer <> 0 and a.answer = b.id";
@@ -1863,8 +1852,6 @@ class SurveyforceHelper
 		$ri = 0;
 		while ($ri < count($rows))
 		{
-
-
 			$query = "SELECT s.*, u.username reg_username, u.name reg_name, u.email reg_email,"
 				. "\n sf_u.name as inv_name, sf_u.lastname as inv_lastname, sf_u.email as inv_email"
 				. "\n FROM #__survey_force_user_starts as s"
@@ -2110,25 +2097,25 @@ class SurveyforceHelper
 		$filter_quest = intval(JFactory::getApplication()->getUserStateFromRequest("filter_quest", 'filter_quest', 0));
 		$filter_ans = intval(JFactory::getApplication()->getUserStateFromRequest("filter_ans", 'filter_ans', 0));
 		if ($limit == 0) $limit = 999999;
-		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
+        $limit = JFactory::getApplication()->input->getInt('limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit')));
 		if ($limit == 0) $limit = 999999;
 		JFactory::getSession()->set('list_limit', $limit);
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', JFactory::getSession()->get('list_limitstart', 0)));
+        $limitstart = JFactory::getApplication()->input->getInt('limitstart', JFactory::getSession()->get('list_limitstart', 0));
 		JFactory::getSession()->set('list_limitstart', $limitstart);
-		$surv_id = intval(mosGetParam($_REQUEST, 'surv_id', JFactory::getSession()->get('list_surv_id', 0)));
+        $surv_id = JFactory::getApplication()->input->getInt('surv_id', JFactory::getSession()->get('list_surv_id', 0));
 		JFactory::getSession()->set('list_surv_id', $surv_id);
-
-		$filt_status = intval(mosGetParam($_REQUEST, 'filt_status', JFactory::getSession()->get('list_filt_status', 2)));
+        $filt_status = JFactory::getApplication()->input->getInt('filt_status', JFactory::getSession()->get('list_filt_status', 2));
 		JFactory::getSession()->set('list_filt_status', $filt_status);
-		$filt_utype = intval(mosGetParam($_REQUEST, 'filt_utype', JFactory::getSession()->get('list_filt_utype', 0)));
+        $filt_utype = JFactory::getApplication()->input->getInt('filt_utype', JFactory::getSession()->get('list_filt_utype', 0));
 		JFactory::getSession()->set('list_filt_utype', $filt_utype);
-		$filt_ulist = intval(mosGetParam($_REQUEST, 'filt_ulist', JFactory::getSession()->get('list_filt_ulist', 0)));
+        $filt_ulist = JFactory::getApplication()->input->getInt('filt_ulist', JFactory::getSession()->get('list_filt_ulist', 0));
 		JFactory::getSession()->set('list_filt_ulist', $filt_ulist);
-		$filter_quest = intval(mosGetParam($_REQUEST, 'filter_quest', JFactory::getSession()->get('list_filter_quest', 0)));
+        $filter_quest = JFactory::getApplication()->input->getInt('filter_quest', JFactory::getSession()->get('list_filter_quest', 0));
 		JFactory::getSession()->set('list_filter_quest', $filter_quest);
-		$filter_ans = intval(mosGetParam($_REQUEST, 'filter_ans', JFactory::getSession()->get('list_filter_ans', 0)));
+        $filter_ans = JFactory::getApplication()->input->getInt('filter_ans', JFactory::getSession()->get('list_filter_ans', 0));
 		JFactory::getSession()->set('list_filter_ans', $filter_ans);
-		$javascript = 'onchange="submitbutton(\'reports\');"';
+
+        $javascript = 'onchange="submitbutton(\'reports\');"';
 
         //Stupid quick fix to avoid the warning "Array to string conversion in".
         //ToDo
@@ -2143,19 +2130,21 @@ class SurveyforceHelper
 			$database->setQuery($query);
 			if (!$database->loadResult())
 			{
-				if (isset($_REQUEST['filter_quest']))
+                $request_filter_quest = JFactory::getApplication()->input->get('filter_quest', array(), 'ARRAY');
+                $request_filter_ans = JFactory::getApplication()->input->get('filter_ans', array(), 'ARRAY');
+				if (!empty($request_filter_quest))
 				{
                     $filter_quest = array();
 					$k = 0;
-					foreach ($_REQUEST['filter_quest'] as $filt_row)
+					foreach ($request_filter_quest as $filt_row)
 					{
 						if ($filt_row)
 						{
 							$filter_quest[$i] = $filt_row;
 							$sel_ans = 0;
-							if (isset($_REQUEST['filter_ans'][$k]) && $_REQUEST['filter_ans'][$k])
+							if (!empty($request_filter_ans[$k]))
 							{
-								$sel_ans = $_REQUEST['filter_ans'][$k];
+								$sel_ans = $request_filter_ans[$k];
 							}
 							$filter_ans[$i] = $sel_ans;
 							$i++;
@@ -2570,19 +2559,18 @@ class SurveyforceHelper
 		$filt_utype = intval(JFactory::getApplication()->getUserStateFromRequest("filt_utype", 'filt_utype', 0));
 		$filt_ulist = intval(JFactory::getApplication()->getUserStateFromRequest("filt_ulist", 'filt_ulist', 0));
 		if ($limit == 0) $limit = 999999;
-		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
+        $limit = JFactory::getApplication()->input->getInt('limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit')));
 		if ($limit == 0) $limit = 999999;
 		JFactory::getSession()->set('list_limit', $limit);
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', JFactory::getSession()->get('list_limitstart', 0)));
+        $limitstart = JFactory::getApplication()->input->getInt('limitstart', JFactory::getSession()->get('list_limitstart', 0));
 		JFactory::getSession()->set('list_limitstart', $limitstart);
-		$surv_id = intval(mosGetParam($_REQUEST, 'surv_id', JFactory::getSession()->get('list_surv_id', 0)));
+        $surv_id = JFactory::getApplication()->input->getInt('surv_id', JFactory::getSession()->get('list_surv_id', 0));
 		JFactory::getSession()->set('list_surv_id', $surv_id);
-
-		$filt_status = intval(mosGetParam($_REQUEST, 'filt_status', JFactory::getSession()->get('list_filt_status', 2)));
-		JFactory::getSession()->set('list_filt_status', $filt_status);
-		$filt_utype = intval(mosGetParam($_REQUEST, 'filt_utype', JFactory::getSession()->get('list_filt_utype', 0)));
-		JFactory::getSession()->set('list_filt_utype', $filt_utype);
-		$filt_ulist = intval(mosGetParam($_REQUEST, 'filt_ulist', JFactory::getSession()->get('list_filt_ulist', 0)));
+        $filt_status = JFactory::getApplication()->input->getInt('filt_status', JFactory::getSession()->get('list_filt_status', 2));
+        JFactory::getSession()->set('list_filt_status', $filt_status);
+        $filt_utype = JFactory::getApplication()->input->getInt('filt_utype', JFactory::getSession()->get('list_filt_utype', 0));
+        JFactory::getSession()->set('list_filt_utype', $filt_utype);
+        $filt_ulist = JFactory::getApplication()->input->getInt('filt_ulist', JFactory::getSession()->get('list_filt_ulist', 0));
 		JFactory::getSession()->set('list_filt_ulist', $filt_ulist);
 
 		$filter_ans = array();
@@ -2590,17 +2578,19 @@ class SurveyforceHelper
 		$j = 0;
 		if ($surv_id)
 		{
-			if (isset($_REQUEST['filter_quest']))
+            $request_filter_quest = JFactory::getApplication()->input->get('filter_quest', array(), 'ARRAY');
+            $request_filter_ans = JFactory::getApplication()->input->get('filter_ans', array(), 'ARRAY');
+			if (!empty($request_filter_quest))
 			{
 				$k = 0;
-				foreach ($_REQUEST['filter_quest'] as $filt_row)
+				foreach ($request_filter_quest as $filt_row)
 				{
 					if ($filt_row)
 					{
 						$sel_ans = 0;
-						if (isset($_REQUEST['filter_ans'][$k]) && $_REQUEST['filter_ans'][$k])
+						if (!empty($request_filter_ans[$k]))
 						{
-							$sel_ans = $_REQUEST['filter_ans'][$k];
+							$sel_ans = $request_filter_ans[$k];
 						}
 						$filter_ans[$i] = $sel_ans;
 						$i++;
@@ -4885,12 +4875,12 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	{
 		require(JPATH_BASE . '/components/com_surveyforce/language/default.php');
 		require_once(JPATH_BASE . '/components/com_surveyforce/helpers/generate.surveyforce.php');
-		$type = mosGetParam($_REQUEST, 'type', '');
+        $type = JFactory::getApplication()->input->get('type', '');
 
 		$gg = new sf_ImageGenerator(array($type));
 
-		$gg->width = intval(mosGetParam($_REQUEST, 'width', 600));
-		$gg->height = intval(mosGetParam($_REQUEST, 'height', 250));
+        $gg->width = JFactory::getApplication()->input->getInt('width', 600);
+        $gg->height = JFactory::getApplication()->input->getInt('height', 250);
 		$rows = array();
 		$sections = array();
 		$usr_answers = array();
@@ -4973,42 +4963,38 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	public static function SF_editIScale($id, $option)
 	{
 		$database = JFactory::getDbo();
-		if (JFactory::getApplication()->input->get('task') == 'add_iscale_from_quest')
+        $session = JFactory::getSession();
+        $input = JFactory::getApplication()->input;
+		if ($input->get('task') == 'add_iscale_from_quest')
 		{
-			JFactory::getSession()->set('is_return_sf', 1);
-			JFactory::getSession()->set('sf_qtext_sf', $_REQUEST['sf_qtext']);
-			JFactory::getSession()->set('sf_survey_sf', mosGetParam($_REQUEST, 'sf_survey', ''));
-			JFactory::getSession()->set('sf_impscale_sf', mosGetParam($_REQUEST, 'sf_impscale', ''));
-			JFactory::getSession()->set('ordering_sf', mosGetParam($_REQUEST, 'ordering', ''));
-			JFactory::getSession()->set('sf_compulsory_sf', mosGetParam($_REQUEST, 'sf_compulsory', ''));
-			JFactory::getSession()->set('insert_pb_sf', mosGetParam($_REQUEST, 'insert_pb', ''));
-			JFactory::getSession()->set('published', mosGetParam($_REQUEST, 'published', ''));
-			JFactory::getSession()->set('is_likert_predefined_sf', mosGetParam($_REQUEST, 'is_likert_predefined', ''));
-
-			JFactory::getSession()->set('sf_hid_scale_sf', mosGetParam($_REQUEST, 'sf_hid_scale', array()));
-			JFactory::getSession()->set('sf_hid_scale_id_sf', mosGetParam($_REQUEST, 'sf_hid_scale_id', array()));
-
-			JFactory::getSession()->set('sf_hid_rule_sf', mosGetParam($_REQUEST, 'sf_hid_rule', array()));
-			JFactory::getSession()->set('sf_hid_rule_quest_sf', mosGetParam($_REQUEST, 'sf_hid_rule_quest', array()));
-			JFactory::getSession()->set('sf_hid_rule_alt_sf', mosGetParam($_REQUEST, 'sf_hid_rule_alt', array()));
-			JFactory::getSession()->set('priority_sf', mosGetParam($_REQUEST, 'priority', array()));
-
-			JFactory::getSession()->set('sf_hid_fields_sf', mosGetParam($_REQUEST, 'sf_hid_fields', array()));
-			JFactory::getSession()->set('sf_hid_field_ids_sf', mosGetParam($_REQUEST, 'sf_hid_field_ids', array()));
-
-			JFactory::getSession()->set('sf_fields_sf', mosGetParam($_REQUEST, 'sf_fields', array()));
-			JFactory::getSession()->set('sf_field_ids_sf', mosGetParam($_REQUEST, 'sf_field_ids', array()));
-			JFactory::getSession()->set('sf_alt_fields_sf', mosGetParam($_REQUEST, 'sf_alt_fields', array()));
-			JFactory::getSession()->set('sf_alt_field_ids_sf', mosGetParam($_REQUEST, 'sf_alt_field_ids', array()));
-
-			JFactory::getSession()->set('other_option_cb_sf', mosGetParam($_REQUEST, 'other_option_cb', 0));
-			JFactory::getSession()->set('other_option_sf', (isset($_REQUEST['other_option']) ? $_REQUEST['other_option'] : ''));
-			JFactory::getSession()->set('other_op_id_sf', mosGetParam($_REQUEST, 'other_op_id', 0));
-
-			JFactory::getSession()->set('sf_hid_rank_sf', mosGetParam($_REQUEST, 'sf_hid_rank', array()));
-			JFactory::getSession()->set('sf_hid_rank_id_sf', mosGetParam($_REQUEST, 'sf_hid_rank_id', array()));
-
+            $session->set('is_return_sf', 1);
+            $session->set('sf_qtext_sf', $input->get('sf_qtext', ''));
+            $session->set('sf_survey_sf', $input->get('sf_survey', ''));
+            $session->set('sf_impscale_sf', $input->get('sf_impscale', ''));
+            $session->set('ordering_sf', $input->get('ordering', ''));
+            $session->set('sf_compulsory_sf', $input->get('sf_compulsory', ''));
+            $session->set('insert_pb_sf', $input->get('insert_pb', ''));
+            $session->set('published', $input->get('published', ''));
+            $session->set('is_likert_predefined_sf', $input->get('is_likert_predefined', ''));
+            $session->set('sf_hid_scale_sf', $input->get('sf_hid_scale', ''));
+            $session->set('sf_hid_scale_id_sf', $input->get('sf_hid_scale_id', array(), 'ARRAY'));
+            $session->set('sf_hid_rule_sf', $input->get('sf_hid_rule', array(), 'ARRAY'));
+            $session->set('sf_hid_rule_quest_sf', $input->get('sf_hid_rule_quest', array(), 'ARRAY'));
+            $session->set('sf_hid_rule_alt_sf', $input->get('sf_hid_rule_alt', array(), 'ARRAY'));
+            $session->set('priority_sf', $input->get('priority', array(), 'ARRAY'));
+            $session->set('sf_hid_fields_sf', $input->get('sf_hid_fields', array(), 'ARRAY'));
+            $session->set('sf_hid_field_ids_sf', $input->get('sf_hid_field_ids', array(), 'ARRAY'));
+            $session->set('sf_fields_sf', $input->get('sf_fields', array(), 'ARRAY'));
+            $session->set('sf_field_ids_sf', $input->get('sf_field_ids', array(), 'ARRAY'));
+            $session->set('sf_alt_fields_sf', $input->get('sf_alt_fields', array(), 'ARRAY'));
+            $session->set('sf_alt_field_ids_sf', $input->get('sf_alt_field_ids', array(), 'ARRAY'));
+            $session->set('other_option_cb_sf', $input->getInt('other_option_cb', 0));
+            $session->set('other_option_sf', $input->get('other_option', ''));
+            $session->set('other_op_id_sf', $input->getInt('other_op_id', 0));
+            $session->set('sf_hid_rank_sf', $input->get('sf_hid_rank', array(), 'ARRAY'));
+            $session->set('sf_hid_rank_id_sf', $input->get('sf_hid_rank_id', array(), 'ARRAY'));
 		}
+
 		$row = new mos_Survey_Force_IScale($database);
 		// load the row from the db table
 		$row->load($id);
@@ -5133,11 +5119,13 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 
 		$max_quest_length = 150;
 
-		$show_iscale = intval(mosGetParam($_REQUEST, 'inc_imp', 0));
-		$add_info = intval(mosGetParam($_REQUEST, 'add_info', 0));
-		$query = "SELECT * FROM #__survey_force_survs WHERE id = '" . $id . "'";
+        $show_iscale = JFactory::getApplication()->input->getInt('inc_imp', 0);
+        $add_info = JFactory::getApplication()->input->getInt('add_info', 0);
+
+        $query = "SELECT * FROM #__survey_force_survs WHERE id = '" . $id . "'";
 		$database->setQuery($query);
 		$survey_data = $database->LoadObject();
+
 		if (isset($survey_data->id) && $survey_data->id)
 		{
 			$query = "SELECT sf_ust.*, sf_s.sf_name as survey_name, u.username reg_username, u.name reg_name, u.email reg_email,"
@@ -5429,9 +5417,9 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	public static function SF_showCrossReport($option)
 	{
 		$database = JFactory::getDbo();
-		$survid = intval(mosGetParam($_REQUEST, 'survid', 0));
+        $survid = JFactory::getApplication()->input->getInt('survid', 0);
 
-		$lists = array();
+        $lists = array();
 
 		$query = "SELECT id AS value, sf_name AS text FROM #__survey_force_survs "
 			. (" WHERE sf_author = '" . JFactory::getUser()->id . "' ");
@@ -5523,74 +5511,65 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	public static function SF_getCrossReport($option)
 	{
 		$database = JFactory::getDbo();
-		$survid = intval(mosGetParam($_REQUEST, 'survid', 0));
-		$mquest_id = mosGetParam($_REQUEST, 'mquest_id', '');
-		$cquest_id = mosGetParam($_REQUEST, 'cquest_id', array());
-		$start_date = mosGetParam($_REQUEST, 'start_date', '');
-		$end_date = mosGetParam($_REQUEST, 'end_date', '');
+		$input = JFactory::getApplication()->input;
 
-		$is_complete = intval(mosGetParam($_REQUEST, 'is_complete', 0));
-		$is_notcomplete = intval(mosGetParam($_REQUEST, 'is_notcomplete', 0));
-		$type = strval(mosGetParam($_REQUEST, 'rep_type', 'csv'));
+        $survid = $input->getInt('survid', 0);
+        $mquest_id = $input->get('mquest_id', '');
+        $cquest_id = $input->get('cquest_id', array(), 'ARRAY');
+        $start_date = $input->get('start_date', '');
+        $end_date = $input->get('end_date', '');
+        $is_complete = $input->getInt('is_complete', 0);
+        $is_notcomplete = $input->getInt('is_notcomplete', 0);
+        $type = $input->get('rep_type', 'csv');
+
 		if ($survid && $mquest_id != '' && is_array($cquest_id) && (count($cquest_id) > 0) && ($is_complete || $is_notcomplete))
 		{
 			$date_where = '';
-			if ($start_date != '' && $end_date != '')
-			{
+			if ($start_date != '' && $end_date != '') {
 				$date_where = " AND sf_time BETWEEN '$start_date' AND '$end_date' ";
 			}
-			elseif ($start_date != '' && $end_date == '')
-			{
+			elseif ($start_date != '' && $end_date == '') {
 				$date_where = " AND sf_time > '$start_date' ";
 			}
-			elseif ($start_date == '' && $end_date != '')
-			{
+			elseif ($start_date == '' && $end_date != '') {
 				$date_where = " AND sf_time < '$end_date' ";
 			}
+
 			$query = "SELECT id FROM #__survey_force_user_starts "
 				. "WHERE survey_id = $survid "
 				. ($is_complete ? ($is_notcomplete ? '' : " AND is_complete = 1 ") : ($is_notcomplete ? " AND is_complete = 0 " : ''))
 				. $date_where;
 			$database->setQuery($query);
 			$start_ids = $database->loadColumn();
+
 			$m_id = intval($mquest_id);
 			$f_id = 0;
-			if (strpos($mquest_id, '_') > 0)
-			{
+			if (strpos($mquest_id, '_') > 0) {
 				$f_id = intval(mb_substr($mquest_id, strpos($mquest_id, '_') + 1));
 			}
+
 			$query = "SELECT sf_qtype FROM #__survey_force_quests  WHERE published = 1 AND id = $m_id";
 			$database->setQuery($query);
 			$qtype = $database->loadResult();
 
-			if ($qtype == 1)
-			{
-
-				if ($f_id > 0)
-				{
+			if ($qtype == 1) {
+				if ($f_id > 0) {
 					$query = "SELECT stext FROM #__survey_force_scales  WHERE id = $f_id ORDER BY ordering";
 					$database->setQuery($query);
 					$f_text = $database->loadResult();
 				}
 				$query = "SELECT id FROM #__survey_force_scales WHERE quest_id = $m_id ORDER BY ordering";
-
 			}
-			elseif ($qtype == 2 || $qtype == 3)
-			{
-
-				if ($f_id > 0)
-				{
+			elseif ($qtype == 2 || $qtype == 3) {
+				if ($f_id > 0) {
 					$query = "SELECT ftext FROM #__survey_force_fields  WHERE id = $f_id";
 					$database->setQuery($query);
 					$f_text = $database->loadResult();
 				}
 				$query = "SELECT id FROM #__survey_force_fields WHERE quest_id = $m_id  ORDER BY ordering";
 			}
-			elseif ($qtype == 5 || $qtype == 6 || $qtype == 9)
-			{
-
-				if ($f_id > 0)
-				{
+			elseif ($qtype == 5 || $qtype == 6 || $qtype == 9) {
+				if ($f_id > 0) {
 					$query = "SELECT ftext FROM #__survey_force_fields  WHERE id = $f_id";
 					$database->setQuery($query);
 					$f_text = $database->loadResult();
@@ -5599,6 +5578,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			}
 			$database->setQuery($query);
 			$fields_ids = @array_merge($database->loadColumn(), array(0 => 0));
+
 			$starts_by_fields = array();
 			foreach ($fields_ids as $fields_id)
 			{
@@ -6559,12 +6539,12 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
 		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
 		if ($limit == 0) $limit = 999999;
-		$listid = intval(mosGetParam($_REQUEST, 'list_id', JFactory::getSession()->get('list_list_id', 0)));
+        $listid = JFactory::getApplication()->input->getInt('list_id', JFactory::getSession()->get('list_list_id', 0));
 		JFactory::getSession()->set('list_list_id', $listid);
-		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
+		$limit = JFactory::getApplication()->input->getInt('limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit')));
 		if ($limit == 0) $limit = 999999;
 		JFactory::getSession()->set('list_limit', $limit);
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
+		$limitstart = JFactory::getApplication()->input->getInt('limitstart', 0);
 
 		// get the total number of records
 		$query = "SELECT COUNT(*)"
@@ -6606,11 +6586,10 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$database = JFactory::getDbo();
 		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
 		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
-		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
+		$limit = JFactory::getApplication()->input->getInt('limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit')));
 		$limit = (!$limit ? 999999 : $limit);
-
 		JFactory::getSession()->set('list_limit', $limit);
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
+        $limitstart = JFactory::getApplication()->input->getInt('limitstart', 0);
 
 		// get the total number of records
 		$query = "SELECT COUNT(*)"
@@ -7121,7 +7100,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		}
 
 		if ($row->sf_special) {
-			$userlists = mosGetParam($_REQUEST, 'userlists', array());
+            $userlists = JFactory::getApplication()->input->get('userlists', array(), 'ARRAY');
 			if (count($userlists) > 0) {
 				$row->sf_special = implode(',', $userlists);
 			}
@@ -7262,9 +7241,9 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	public static function SF_copySurveySave($cid)
 	{
 		$database = JFactory::getDbo();
-		$categoryMove = strval(mosGetParam($_REQUEST, 'categorymove', ''));
+        $categoryMove = JFactory::getApplication()->input->get('categorymove', '');
 
-		$cids = implode(',', $cid);
+        $cids = implode(',', $cid);
 		$total = count($cid);
 
 		$query = "SELECT * FROM #__survey_force_survs WHERE id IN ( $cids )";
@@ -7323,9 +7302,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$rules_data = array();
 		$rules_count = 0;
 		$copy_rules = 0;//only in 'copy quest' mode (not for 'copy survey' mode)
-		if (!$run_from_surv_copy)
-		{
-			$surveyMove = intval(mosGetParam($_REQUEST, 'surveymove', 0));
+		if (!$run_from_surv_copy) {
+            $surveyMove = JFactory::getApplication()->input->getInt('surveymove', 0);
 		}
 
 		if (count($sec))
@@ -8056,14 +8034,14 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$limit = intval(JFactory::getApplication()->getUserStateFromRequest("viewlistlimit", 'limit', 20));
 		$limitstart = intval(JFactory::getApplication()->getUserStateFromRequest("viewlimitstart", 'limitstart', 0));
 		if ($limit == 0) $limit = 999999;
-
-		$limit = intval(mosGetParam($_REQUEST, 'limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit'))));
+		$limit = JFactory::getApplication()->input->getInt('limit', JFactory::getSession()->get('list_limit', JFactory::getApplication()->getCfg('list_limit')));
 		if ($limit == 0) $limit = 999999;
 		JFactory::getSession()->set('list_limit', $limit);
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', JFactory::getSession()->get('list_limitstart', 0)));
+        $limitstart = JFactory::getApplication()->input->getInt('limitstart', JFactory::getSession()->getInt('list_limitstart', 0));
 		JFactory::getSession()->set('list_limitstart', $limitstart);
-		$survid = intval(mosGetParam($_REQUEST, 'surv_id', JFactory::getSession()->get('list_surv_id', 0)));
+        $survid = JFactory::getApplication()->input->getInt('surv_id', JFactory::getSession()->getInt('list_surv_id', 0));
 		JFactory::getSession()->set('list_surv_id', $survid);
+
 		$lists = array();
 		$lists['sf_auto_pb_on'] = '';
 		if ($survid)
@@ -8229,7 +8207,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		if ($qtype == 8)
 		{
 			$sf_survey = intval(JFactory::getApplication()->getUserStateFromRequest("surv_id", 'surv_id', 0));
-			$sf_survey = intval(mosGetParam($_REQUEST, 'surv_id', JFactory::getSession()->get('list_surv_id', 0)));
+			$sf_survey = JFactory::getApplication()->input->getInt('surv_id', JFactory::getSession()->get('list_surv_id', 0));
+
 			$query = "SELECT MAX(ordering) FROM #__survey_force_quests WHERE sf_survey = {$sf_survey}";
 			$database->setQuery($query);
 			$max_ord = $database->loadResult();
@@ -8262,8 +8241,9 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			$row->ordering = 0;
 			$row->sf_survey = intval(JFactory::getApplication()->getUserStateFromRequest("surv_id", 'surv_id', 0));
 			$row->sf_qtype = intval($new_qtype_id);
-			if (empty($row->sf_survey))
-				$row->sf_survey = intval(mosGetParam($_REQUEST, 'surv_id', JFactory::getSession()->get('list_surv_id', 0)));
+			if (empty($row->sf_survey)) {
+                $row->sf_survey = JFactory::getApplication()->input->getInt('surv_id', JFactory::getSession()->get('list_surv_id', 0));
+            }
 		}
 
 		$lists = array();
@@ -8560,9 +8540,9 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 		$database->setQuery($query);
 		$database->execute();
 
-		$sf_hid_rule2_id = mosGetParam($_REQUEST, 'sf_hid_rule2_id', array());
-		$sf_hid_rule2_alt_id = mosGetParam($_REQUEST, 'sf_hid_rule2_alt_id', array());
-		$sf_hid_rule2_quest_ids = mosGetParam($_REQUEST, 'sf_hid_rule2_quest_id', array());
+        $sf_hid_rule2_id = JFactory::getApplication()->input->get('sf_hid_rule2_id', array(), 'ARRAY');
+        $sf_hid_rule2_alt_id = JFactory::getApplication()->input->get('sf_hid_rule2_alt_id', array(), 'ARRAY');
+        $sf_hid_rule2_quest_ids = JFactory::getApplication()->input->get('sf_hid_rule2_quest_id', array(), 'ARRAY');
 
 		if (is_array($sf_hid_rule2_quest_ids) && count($sf_hid_rule2_quest_ids))
 		{
@@ -8575,7 +8555,8 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			}
 		}
 
-		$priority = mosGetParam($_REQUEST, 'priority', array());
+        $priority = JFactory::getApplication()->input->get('priority', array(), 'ARRAY');
+
 		if (is_array($sf_hid_rule) && count($sf_hid_rule))
 		{
 			foreach ($sf_hid_rule as $f_rule)
@@ -9369,7 +9350,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 			// do stuff for new records
 			$row->ordering = 0;
 			$row->sf_survey_id = intval(JFactory::getApplication()->getUserStateFromRequest("surv_id", 'surv_id', 0));
-			$row->sf_survey_id = intval(mosGetParam($_REQUEST, 'surv_id', JFactory::getSession()->get('list_surv_id', 0)));
+			$row->sf_survey_id = JFactory::getApplication()->input->getInt('surv_id', JFactory::getSession()->get('list_surv_id', 0));
 		}
 
 		$lists = array();
@@ -9478,9 +9459,9 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	public static function SF_orderSection($id, $inc, $option)
 	{
 		$database = JFactory::getDbo();
-		$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
-		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
-		$survid = intval(mosGetParam($_REQUEST, 'surv_id', 0));
+        $limit = JFactory::getApplication()->input->getInt('limit', 0);
+        $limitstart = JFactory::getApplication()->input->getInt('limitstart', 0);
+        $survid = JFactory::getApplication()->input->getInt('surv_id', 0);
 		$msg = '';
 		$row = new mos_Survey_Force_Sections($database);
 		$row->load($id);
@@ -9634,21 +9615,20 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	public static function SF_saveOrderQuestion(&$cidz, &$secz)
 	{
 		$database = JFactory::getDbo();
-		$cid = mosGetParam($_REQUEST, 'cid', array());
-		if (!is_array($cid))
-		{
+
+		$cid = JFactory::getApplication()->input->get('cid', array(), 'ARRAY');
+		if (!is_array($cid)) {
 			$cid = array();
 		}
 
-		$sec = mosGetParam($_REQUEST, 'sec', array());
-		if (!is_array($sec))
-		{
+        $sec = JFactory::getApplication()->input->get('sec', array(), 'ARRAY');
+		if (!is_array($sec)) {
 			$sec = array();
 		}
-		$survid = intval(mosGetParam($_REQUEST, 'surv_id', 0));
 
-		$order = mosGetParam($_REQUEST, 'order', array(0));
-		$orderS = mosGetParam($_REQUEST, 'orderS', array(0));
+        $survid = JFactory::getApplication()->input->getInt('surv_id', 0);
+        $order = JFactory::getApplication()->input->get('order', array(0), 'ARRAY');
+        $orderS = JFactory::getApplication()->input->get('orderS', array(0), 'ARRAY');
 
 		$query = "SELECT id, ordering FROM #__survey_force_qsections WHERE id NOT IN ('" . @implode("','", $sec) . "') AND sf_survey_id = '{$survid}'";
 		$database->setQuery($query);
@@ -9766,7 +9746,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	public static function SF_changeQuestion($option, $cid = null, $state = 0)
 	{
 		$database = JFactory::getDbo();
-		$surveyid = strval(mosGetParam($_REQUEST, 'surv_id', 0));
+		$surveyid = JFactory::getApplication()->input->getInt('surv_id', 0);
 		if ((is_array($cid) && count($cid) > 0))
 		{
 			if (!is_array($cid) || count($cid) < 1)
@@ -9839,7 +9819,7 @@ LEFT JOIN #__survey_force_user_ans_txt AS b ON ( a.next_quest_id = b.id AND c.sf
 	public static function SF_moveQuestionSave($cid, $sec)
 	{
 		$database = JFactory::getDbo();
-		$surveyMove = strval(mosGetParam($_REQUEST, 'surveymove', ''));
+        $surveyMove = JFactory::getApplication()->input->get('surveymove', '');
 
 		$cids = implode(',', $cid);
 		$total = count($cid);

@@ -260,9 +260,9 @@ function ShowToolbar($toolbar) {
 
 class survey_force_front_html {
 	
-	public static function SF_uploadImage( $option ) {
-		
-		$css = mosGetParam($_REQUEST,'t','');
+	public static function SF_uploadImage( $option )
+    {
+        $css = JFactory::getApplication()->input->get('t', '');
 		?>
 		<link rel="stylesheet" href="../../templates/<?php echo $css; ?>/css/template_css.css" type="text/css" />
 		<form method="post" action="index.php" enctype="multipart/form-data" name="filename" class="form-horizontal">

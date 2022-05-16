@@ -150,7 +150,7 @@ class SurveyforceTableQuestion extends JTable {
 
 			}
 
-			$insert_pb = intval($_REQUEST['jform']['insert_pb']);
+			$insert_pb = intval($jform['insert_pb']);
 			$q_id = intval(JFactory::getApplication()->input->get('id', 0));
 
 			if ($q_id == 0 && $insert_pb) {

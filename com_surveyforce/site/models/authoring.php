@@ -121,7 +121,7 @@ class SurveyforceModelAuthoring extends JModelItem
 	{
 		$user = JFactory::getUser();
 		$db = JFactory::getDBO();
-		$cid = mosGetParam($_REQUEST, 'cid', array(0));
+        $cid = JFactory::getApplication()->input->get('cid', array(0), 'array');
 		$base_url = JURI::root();
 
 		$survey = '';
@@ -293,23 +293,20 @@ class SurveyforceModelAuthoring extends JModelItem
 
 	public function SF_analizeTask()
 	{
-		$id = intval(mosGetParam($_REQUEST, 'id', 0));
-		$option = JFactory::getApplication()->input->get('option');
+        $input = JFactory::getApplication()->input;
+        $id = $input->getInt('id', 0);
+		$option = $input->get('option');
 
-		$cid = mosGetParam($_REQUEST, 'cid', array(0));
-
-		if (!is_array($cid))
-		{
+        $cid = $input->get('cid', array(0), 'array');
+		if (!is_array($cid)) {
 			$cid = array(0);
 		}
 
-		$sec = mosGetParam($_REQUEST, 'sec', array());
-		if (!is_array($sec))
-		{
+        $sec = $input->get('sec', array(0), 'array');
+		if (!is_array($sec)) {
 			$sec = array(0);
 		}
-		elseif (count($sec) > 0)
-		{
+		elseif (count($sec) > 0) {
 			$query = "SELECT id FROM #__survey_force_quests WHERE sf_section_id IN (" . implode(',', $sec) . ") ";
 			$this->database->setQuery($query);
 			$cid = array_merge($cid, $this->database->loadColumn());
@@ -334,7 +331,7 @@ class SurveyforceModelAuthoring extends JModelItem
 				$document = JFactory::getDocument();
 				$document->addStyleSheet(JURI::root() . 'templates/system/css/system.css');
 				$document->addStyleSheet(JURI::root() . 'templates/system/css/general.css');
-				$_REQUEST['tmpl'] = 'component';
+                $input->set('tmpl', 'component');
 			}
 		}
 
@@ -554,8 +551,8 @@ class SurveyforceModelAuthoring extends JModelItem
 					SurveyforceEditHelper::SF_copyQuestionSave($cid, 0, 0, $sec);
 					break;
 				case 'add_iscale_from_quest':
-					JFactory::getSession()->set('quest_redir', intval(mosGetParam($_REQUEST, 'quest_id', 0)));
-					JFactory::getSession()->set('task_redir', strval(mosGetParam($_REQUEST, 'red_task', '')));
+					JFactory::getSession()->set('quest_redir', JFactory::getApplication()->input->getInt('quest_id', 0));
+					JFactory::getSession()->set('task_redir', JFactory::getApplication()->input->get('red_task', ''));
 					SurveyforceEditHelper::SF_editIScale('0', $option);
 					break;
 
