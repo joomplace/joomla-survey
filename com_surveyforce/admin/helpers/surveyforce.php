@@ -16,8 +16,8 @@ class SurveyforceHelper
 {
 	public static function getVersion()
 	{
-		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/surveyforce.xml');
-		return (string)$xml->version;
+		$xml = simplexml_load_file(JPATH_COMPONENT_ADMINISTRATOR .'/surveyforce.xml');
+        return (string)$xml->version;
 	}
 
 	public static function SF_processGetField($field_text)

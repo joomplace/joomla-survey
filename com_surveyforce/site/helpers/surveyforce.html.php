@@ -845,7 +845,7 @@ function sf_MakeRequest(url) {
 	survey_blocked == 1;
 	http_request.onreadystatechange = function() { sf_AnalizeRequest(http_request); };
 	
-	<?php if (isset($_REQUEST['sf_debug_gets'])) {?>
+	<?php if (!empty(JFactory::getApplication()->input->get('sf_debug_gets'))) { ?>
 	
 	http_request.open('GET', mosConfig_live_site+url_prefix+'&'+url, true);
 	http_request.send(null);
@@ -1769,7 +1769,7 @@ function SF_getElement(data, name, i) {
 	try {
 		return data.getElementsByTagName(name)[i].firstChild.data;
 	} catch(e) {
-	<?php if (isset($_REQUEST['sf_debug'])) {?>
+	<?php if (!empty(JFactory::getApplication()->input->get('sf_debug'))) { ?>
 		alert(name+' '+i);
 	<?php }?>
 	}

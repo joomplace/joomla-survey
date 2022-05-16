@@ -56,7 +56,7 @@ if (isset($survey->error) && $survey->error) {
 
     ?>
         var mosConfig_live_site = '<?php echo JUri::base(); ?>';
-        var debug_mode = <?php echo (isset($_REQUEST['sf_debug'])) ? 1 : 0; ?>;
+        var debug_mode = <?php echo (!empty(JFactory::getApplication()->input->get('sf_debug'))) ? 1 : 0; ?>;
 
         var url_prefix = 'index.php?no_html=1&tmpl=component&option=com_surveyforce&task=survey.SF_ajaxAction<?php echo ($preview ? '&preview=1' : '') ?>';
 
@@ -522,7 +522,7 @@ if (isset($survey->error) && $survey->error) {
                 sf_AnalizeRequest(http_request);
             };
 
-    <?php if (isset($_REQUEST['sf_debug_gets'])) { ?>
+    <?php if (!empty(JFactory::getApplication()->input->get('sf_debug_gets'))) { ?>
 
                 http_request.open('GET', mosConfig_live_site + url_prefix + '&' + url, true);
                 http_request.send(null);

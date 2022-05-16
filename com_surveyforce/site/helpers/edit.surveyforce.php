@@ -27,7 +27,7 @@ class SurveyforceEditHelper extends SurveyforceHelper
 
 	public function SF_getOptions()
 	{
-		$quest_id = (int) mosGetParam($_REQUEST, 'quest_id', '0');
+        $quest_id = JFactory::getApplication()->input->getInt('quest_id', 0);
 
 		if ($quest_id)
 		{
