@@ -2,13 +2,13 @@
 <extension type="package" version="3.x" method="upgrade">
   <name>Survey Force Deluxe Package</name>
   <author>Joomplace Team</author>
-  <creationDate>June 2018</creationDate>
+  <creationDate>May 2022</creationDate>
   <packagename>survey</packagename>
   <authorEmail>support@joomplace.com</authorEmail>
   <authorUrl>www.joomplace.com</authorUrl>
   <copyright>(C) JoomPlace, www.joomplace.com</copyright>
   <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-  <version>3.2.6</version>
+  <version>3.2.7</version>
   <description>Survey Force Deluxe Package.</description>
   <files folder="packages">
     <file type="component" id="com_surveyforce">com_surveyforce.zip</file>
