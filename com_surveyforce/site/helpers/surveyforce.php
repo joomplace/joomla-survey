@@ -439,8 +439,8 @@ class SurveyforceHelper
 		$template = $app->input->getInt('survey_template', 0);
 
 		$database->setQuery('SELECT * FROM #__survey_force_survs WHERE id=' . $survey_id);
-
 		$survey = $database->loadObject();
+
 		$preview = $app->input->get('preview', 0);
 
 		$sf_config = JComponentHelper::getParams('com_surveyforce');
@@ -452,12 +452,16 @@ class SurveyforceHelper
 		$survey->sf_descr = @SurveyforceHelper::sfPrepareText($survey->sf_descr);
 		$survey->surv_short_descr = @SurveyforceHelper::sfPrepareText($survey->surv_short_descr);
 
-		if ($template > 0)
-			$survey->sf_template = $template;
+		if ($template > 0) {
+            $survey->sf_template = $template;
+        }
 
-		$query = "SELECT `sf_name` FROM `#__survey_force_templates` WHERE `id` = '{$survey->sf_template}' ";
-		$database->setQuery($query);
-		$survey->template = $database->loadResult();
+        $survey->template = '';
+        if(!empty($survey->sf_template)) {
+            $query = "SELECT `sf_name` FROM `#__survey_force_templates` WHERE `id` = '{$survey->sf_template}' ";
+            $database->setQuery($query);
+            $survey->template = $database->loadResult();
+        }
 
 		if (JFactory::getUser()->id)
 		{
@@ -465,7 +469,7 @@ class SurveyforceHelper
 			$database->setQuery($query);
 			$survey->is_complete = (int) $database->loadResult();
 		}
-		elseif ($survey->sf_pub_control > 0)
+		elseif (isset($survey->sf_pub_control) && $survey->sf_pub_control > 0)
 		{
 			$ip = $_SERVER["REMOTE_ADDR"];
             $cookie = \JFactory::getApplication()->input->cookie->get(md5('survey' . $survey->id), '');
@@ -486,9 +490,13 @@ class SurveyforceHelper
 			$survey->is_complete = (int) $database->loadResult();
 		}
 
-		$query = " SELECT * FROM `#__survey_force_quest_show` WHERE `survey_id` = '" . $survey->id . "' ";
-		$database->setQuery($query);
-		$rules = $database->loadObjectList();
+        if(isset($survey->id)) {
+            $query = " SELECT * FROM `#__survey_force_quest_show` WHERE `survey_id` = '" . $survey->id . "' ";
+            $database->setQuery($query);
+            $rules = $database->loadObjectList();
+        } else {
+            $rules = new stdClass();
+        }
 
 		if ($preview)
 		{
@@ -523,7 +531,7 @@ class SurveyforceHelper
 
 		$now = strtotime(JFactory::getDate());
 
-		if ($survey->published
+		if (isset($survey->published) && $survey->published
             && ((strtotime($survey->sf_date_expired) >= $now || $survey->sf_date_expired == '0000-00-00 00:00:00')
                     && (strtotime($survey->sf_date_started) <= $now || $survey->sf_date_started == '0000-00-00 00:00:00'))
         ) {
@@ -624,13 +632,13 @@ class SurveyforceHelper
 		else
 		{
 			$survey->error = 'blocked';
-			if(!$survey->published) {
+			if(isset($survey->published) && !$survey->published) {
                 $survey->message = SurveyforceTemplates::Survey_blocked($sf_config, '_not_published');
             }
-            elseif($survey->sf_date_started != '0000-00-00 00:00:00' && strtotime($survey->sf_date_started) <= $now) {
+            elseif(isset($survey->sf_date_started) && $survey->sf_date_started != '0000-00-00 00:00:00' && strtotime($survey->sf_date_started) <= $now) {
 				$survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_started');
 			}
-            elseif($survey->published
+            elseif(isset($survey->published) && $survey->published
                 && $survey->sf_date_started != '0000-00-00 00:00:00' && strtotime($survey->sf_date_started) > $now) {
                 $survey->message = SurveyforceTemplates::Survey_blocked($sf_config,'_yet');
             }
