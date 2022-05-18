@@ -2,12 +2,12 @@
 <extension version="3.0" type="plugin" group="survey" method="upgrade">
 	<name>SurveyForce Likertscale</name>
 	<author>JoomPlace Team</author>
-	<creationDate>June 2018</creationDate>
+	<creationDate>May 2022</creationDate>
 	<copyright>(C) JoomPlace, www.joomplace.com</copyright>
 	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
 	<authorEmail>support@joomplace.com</authorEmail>
 	<authorUrl>www.joomplace.com</authorUrl>
-	<version>3.2.6</version>
+	<version>3.2.7</version>
 	<description>Added LikertScale question type</description>
 	<files>
 		<filename plugin="likertscale">likertscale.php</filename>
