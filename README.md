@@ -15,7 +15,7 @@ Almost every site needs to survey people online. See some examples below:
 
 There can be unlimited ways of using surveys/ polls empowered with Survey Force extension! Invite your users and get started!
 
-<b>FEATURES DETAILS</b>
+<h2><b>FEATURES DETAILS</b></h2>
 
 <b>VARIETY OF QUESTIONS AND RULES</b>
 
@@ -32,7 +32,7 @@ You can select from 8 questions types: LikertScale, Pick One, Pick Many, Short A
 
 For every survey you can apply its own attractive background image using the special option or leave it blank to keep user concentrated and focused on the poll. Two additional options are available to enhance your Joomla! survey:
 - progress bar for tracking and controlling the survey process;
-- “Prev “navigation button.
+- “Prev“ navigation button.
 
 Deeper customization of your surveys view is easy as the survey component comes with 2 predefined templates. You are free to modify CSS of each of them. You can also create your own unique template based on the existing one and upload it to your component right away.
 
@@ -55,7 +55,7 @@ When the survey is complete, a user experiences the final page. Take advantage t
 
 Note that the survey component comes with a content plugin in the installation package. So, you will be able to insert your surveys right into content articles. You will definitely enjoy results!
 
-# <b>HELP</b>
+<h2><b>HELP</b></h2>
 
 <b>How do I create new joomla survey?</b>
 
