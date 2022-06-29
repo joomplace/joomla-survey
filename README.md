@@ -8,7 +8,7 @@ Survey Force Deluxe is Joomla! 3.x compatible.
 With this extension you can survey anything and get rewarding PDF or CSV reports!
 
 Almost every site needs to survey people online. See some examples below:
--If you run elections for the government or school council you can use Survey Force Deluxe to carry out the Joomla! poll online;
+- If you run elections for the government or school council you can use Survey Force Deluxe to carry out the Joomla! poll online;
 - Do you sell products or services online? It is crucial to clear understanding of what your customers want from you and how you can motivate them to make a repeat purchase. With the Joomla! survey component you will easily collect real-time feedback and make informed business decisions;
 - Marketing Specialists, no more mail-out survey campaigns. Survey Force Deluxe makes online surveys creation a snap;
 - Are you involved in support service? Improve it and solve your clients’ problems quickly creating a troubleshooter!
