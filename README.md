@@ -55,7 +55,7 @@ When the survey is complete, a user experiences the final page. Take advantage t
 
 Note that the survey component comes with a content plugin in the installation package. So, you will be able to insert your surveys right into content articles. You will definitely enjoy results!
 
-# <b>HELP</p>
+# <b>HELP</b>
 
 <b>How do I create new joomla survey?</b>
 
